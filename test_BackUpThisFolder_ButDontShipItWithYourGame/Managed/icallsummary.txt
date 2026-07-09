@@ -771,7 +771,6 @@ UnityEngine.Experimental.Rendering.BuiltinRuntimeReflectionSystem::BuiltinUpdate
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::CanDecompressFormat
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::HasAlphaChannel
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::IsAlphaOnlyFormat
-UnityEngine.Experimental.Rendering.GraphicsFormatUtility::IsCompressedFormat
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::IsCompressedFormat_Native_TextureFormat
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::IsCrunchFormat
 UnityEngine.Experimental.Rendering.GraphicsFormatUtility::IsDepthFormat
@@ -1361,9 +1360,6 @@ UnityEngine.Networking.CertificateHandler::ReleaseFromScripting_Injected
 UnityEngine.Networking.DownloadHandler::InternalGetByteArray_Injected
 UnityEngine.Networking.DownloadHandler::GetContentType_Injected
 UnityEngine.Networking.DownloadHandler::ReleaseFromScripting_Injected
-UnityEngine.Networking.DownloadHandlerAudioClip::Create_Injected
-UnityEngine.Networking.DownloadHandlerAudioClip::get_audioClip_Injected
-UnityEngine.Networking.DownloadHandlerAudioClip::set_streamAudio_Injected
 UnityEngine.Networking.DownloadHandlerBuffer::Create
 UnityEngine.Networking.DownloadHandlerFile::Create_Injected
 UnityEngine.Networking.DownloadHandlerScript::Create
@@ -1376,10 +1372,8 @@ UnityEngine.Networking.UnityWebRequest::GetResponseHeaderKeys_Injected
 UnityEngine.Networking.UnityWebRequest::Abort_Injected
 UnityEngine.Networking.UnityWebRequest::GetHTTPStatusString_Injected
 UnityEngine.Networking.UnityWebRequest::GetResponseHeader_Injected
-UnityEngine.Networking.UnityWebRequest::GetUrl_Injected
 UnityEngine.Networking.UnityWebRequest::GetWebErrorString_Injected
 UnityEngine.Networking.UnityWebRequest::Release_Injected
-UnityEngine.Networking.UnityWebRequest::SetRedirectLimitFromScripting_Injected
 UnityEngine.Networking.UnityWebRequest::get_result_Injected
 UnityEngine.Networking.UnityWebRequest::GetError_Injected
 UnityEngine.Networking.UnityWebRequest::InternalSetRequestHeader_Injected
@@ -1388,7 +1382,6 @@ UnityEngine.Networking.UnityWebRequest::SetDownloadHandler_Injected
 UnityEngine.Networking.UnityWebRequest::SetMethod_Injected
 UnityEngine.Networking.UnityWebRequest::SetUploadHandler_Injected
 UnityEngine.Networking.UnityWebRequest::SetUrl_Injected
-UnityEngine.Networking.UploadHandler::InternalSetContentType_Injected
 UnityEngine.Networking.UploadHandler::ReleaseFromScripting_Injected
 UnityEngine.Networking.UploadHandlerRaw::Create
 UnityEngine.Object::DoesObjectWithInstanceIDExist_Injected
@@ -1580,7 +1573,6 @@ UnityEngine.Rendering.AsyncGPUReadback::Request_Internal_ComputeBuffer_1_Injecte
 UnityEngine.Rendering.AsyncGPUReadback::Request_Internal_GraphicsBuffer_1_Injected
 UnityEngine.Rendering.AsyncGPUReadback::Request_Internal_GraphicsBuffer_2_Injected
 UnityEngine.Rendering.AsyncGPUReadback::Request_Internal_Texture_1_Injected
-UnityEngine.Rendering.AsyncGPUReadback::Request_Internal_Texture_2_Injected
 UnityEngine.Rendering.AsyncGPUReadbackRequest::HasError
 UnityEngine.Rendering.AsyncGPUReadbackRequest::IsDone
 UnityEngine.Rendering.AsyncGPUReadbackRequest::GetLayerCount
@@ -2003,13 +1995,11 @@ UnityEngine.ScriptableObject::CreateScriptableObjectInstanceFromType_Injected
 UnityEngine.ScriptableObject::CreateScriptableObject
 UnityEngine.ScriptingRuntime::GetAllUserAssemblies
 UnityEngine.Shader::get_isSupported_Injected
-UnityEngine.Shader::GetGlobalMatrixArrayCountImpl
 UnityEngine.Shader::PropertyToID_Injected
 UnityEngine.Shader::TagToID_Injected
 UnityEngine.Shader::get_passCount_Injected
 UnityEngine.Shader::DisableKeyword_Injected
 UnityEngine.Shader::EnableKeyword_Injected
-UnityEngine.Shader::GetGlobalMatrixArrayImpl_Injected
 UnityEngine.Shader::GetGlobalVectorImpl_Injected
 UnityEngine.Shader::SetGlobalConstantBufferImpl_Injected
 UnityEngine.Shader::SetGlobalFloatImpl
@@ -2235,7 +2225,6 @@ UnityEngine.Texture::GetDimension_Injected
 UnityEngine.Texture::get_wrapMode_Injected
 UnityEngine.Texture2D::Internal_CreateImpl_Injected
 UnityEngine.Texture2D::LoadRawTextureDataImplArray_Injected
-UnityEngine.Texture2D::LoadRawTextureDataImpl_Injected
 UnityEngine.Texture2D::ReinitializeImpl_Injected
 UnityEngine.Texture2D::ReinitializeWithTextureFormatImpl_Injected
 UnityEngine.Texture2D::get_isReadable_Injected

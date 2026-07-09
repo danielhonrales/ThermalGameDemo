@@ -1583,7 +1583,7 @@ inline void List_1_AddWithResize_m378B392086AAB6F400944FA9839516326B3F7BB8 (List
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128618
+// Method Definition Index: 128072
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m1B9B11696B3BF4B26995862BAB0B5F5907D59673 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1600,7 +1600,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m1B9B11696B3BF4B26995862B
 		return;
 	}
 }
-// Method Definition Index: 128619
+// Method Definition Index: 128073
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mA0D3A43FB73FC73CB9A6E9EF610E3333F6E5DA6F (U3CU3Ec_t098BA162EAEE0B585B9785FD5EADC4D8886FCA80* __this, const RuntimeMethod* method) 
 {
 	{
@@ -1608,7 +1608,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mA0D3A43FB73FC73CB9A6E9EF6
 		return;
 	}
 }
-// Method Definition Index: 128620
+// Method Definition Index: 128074
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55* U3CU3Ec_U3C_ctorU3Eb__145_0_mF107195DE2E045F9B54D498C36C5DA4C7B82E999 (U3CU3Ec_t098BA162EAEE0B585B9785FD5EADC4D8886FCA80* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1618,17 +1618,17 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ParameterDictionary_tE02F52676A07B19B6FD78E0C
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RealtimeClientOps.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RealtimeClientOps.cs:35>
 		ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55* L_0 = (ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55*)il2cpp_codegen_object_new(ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55_il2cpp_TypeInfo_var);
 		ParameterDictionary__ctor_mC19D461A32B4866C9C046E34D2688E65A24BC88F(L_0, NULL);
 		return L_0;
 	}
 }
-// Method Definition Index: 128621
+// Method Definition Index: 128075
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec_U3C_ctorU3Eb__145_1_mAC71C4E06072C8595BEC6FF4C8CB2DD7DE09BAFA (U3CU3Ec_t098BA162EAEE0B585B9785FD5EADC4D8886FCA80* __this, ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55* ___0_x, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RealtimeClientOps.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RealtimeClientOps.cs:36>
 		ParameterDictionary_tE02F52676A07B19B6FD78E0C28C59D78C65A8B55* L_0 = ___0_x;
 		NullCheck(L_0);
 		ParameterDictionary_Clear_mD25F967C9946329AE1AFF0BE9A3AACF2CA4FE12C(L_0, NULL);
@@ -1643,114 +1643,114 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec_U3C_ctorU3Eb__145_1_mAC71C4E0607
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128622
+// Method Definition Index: 128076
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_get_Code_m3BEC5110A22312C006923FB53E98EC08487F847A (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
 		String_t* L_0 = __this->___U3CCodeU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128623
+// Method Definition Index: 128077
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_set_Code_mC1CAD059AB8D269BDD6071624A4BFB486E6D91B5 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
 		String_t* L_0 = ___0_value;
 		__this->___U3CCodeU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CCodeU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128624
+// Method Definition Index: 128078
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_get_Cluster_m73ACC2E6468E9901C87026804493397305564AA4 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
 		String_t* L_0 = __this->___U3CClusterU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128625
+// Method Definition Index: 128079
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_set_Cluster_mA35E5BC2661E00D86FF0FAF2918E454120BACC2A (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
 		String_t* L_0 = ___0_value;
 		__this->___U3CClusterU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CClusterU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128626
+// Method Definition Index: 128080
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_get_HostAndPort_m526F32BBF6289B2B9BD1AAA5DBF0684E844EA5A6 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
 		String_t* L_0 = __this->___U3CHostAndPortU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128627
+// Method Definition Index: 128081
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_set_HostAndPort_m0332E39A1A7217076E79AA5CD689F71CBA9F3794 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
 		String_t* L_0 = ___0_value;
 		__this->___U3CHostAndPortU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CHostAndPortU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128628
+// Method Definition Index: 128082
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
 		int32_t L_0 = __this->___U3CPingU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128629
+// Method Definition Index: 128083
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
 		int32_t L_0 = ___0_value;
 		__this->___U3CPingU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128630
+// Method Definition Index: 128084
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Region_get_WasPinged_m526C356A2E3CCE04AC6315A5DF05F0BD8EF3F3F0 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:46>
 		int32_t L_0;
 		L_0 = Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47_inline(__this, NULL);
 		return (bool)((((int32_t)((((int32_t)L_0) == ((int32_t)((int32_t)2147483647LL)))? 1 : 0)) == ((int32_t)0))? 1 : 0);
 	}
 }
-// Method Definition Index: 128631
+// Method Definition Index: 128085
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region__ctor_m3516E27D9DFF09E540F1554B50C39E0DE8F4B48C (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_code, String_t* ___1_address, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:49>
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:51>
 		String_t* L_0 = ___0_code;
 		Region_SetCodeAndCluster_mEC0639C115CC4FC044426364E465C93C1AF159C7(__this, L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:52>
 		String_t* L_1 = ___1_address;
 		Region_set_HostAndPort_m0332E39A1A7217076E79AA5CD689F71CBA9F3794_inline(__this, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:53>
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(__this, ((int32_t)2147483647LL), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:54>
 		return;
 	}
 }
-// Method Definition Index: 128632
+// Method Definition Index: 128086
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_SetCodeAndCluster_mEC0639C115CC4FC044426364E465C93C1AF159C7 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_codeAsString, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1769,7 +1769,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_SetCodeAndCluster_mEC0639C115CC4F
 	String_t* G_B8_0 = NULL;
 	Region_t86EE56292163DD338305D2026ED732113764E60D* G_B8_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:59>
 		String_t* L_0 = ___0_codeAsString;
 		if (L_0)
 		{
@@ -1777,29 +1777,29 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Region_SetCodeAndCluster_mEC0639C115CC4F
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:61>
 		Region_set_Code_mC1CAD059AB8D269BDD6071624A4BFB486E6D91B5_inline(__this, _stringLiteralDA39A3EE5E6B4B0D3255BFEF95601890AFD80709, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:62>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:62>
 		Region_set_Cluster_mA35E5BC2661E00D86FF0FAF2918E454120BACC2A_inline(__this, _stringLiteralDA39A3EE5E6B4B0D3255BFEF95601890AFD80709, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:63>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:63>
 		return;
 	}
 
 IL_001a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:66>
 		String_t* L_1 = ___0_codeAsString;
 		NullCheck(L_1);
 		String_t* L_2;
 		L_2 = String_ToLower_m6191ABA3DC514ED47C10BDA23FD0DDCEAE7ACFBD(L_1, NULL);
 		___0_codeAsString = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:67>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:67>
 		String_t* L_3 = ___0_codeAsString;
 		NullCheck(L_3);
 		int32_t L_4;
 		L_4 = String_IndexOf_mE21E78F35EF4A7768E385A72814C88D22B689966(L_3, ((int32_t)47), NULL);
 		V_0 = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:68>
 		int32_t L_5 = V_0;
 		if ((((int32_t)L_5) <= ((int32_t)0)))
 		{
@@ -1830,7 +1830,7 @@ IL_003b:
 	{
 		NullCheck(G_B5_1);
 		Region_set_Code_mC1CAD059AB8D269BDD6071624A4BFB486E6D91B5_inline(G_B5_1, G_B5_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:69>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:69>
 		int32_t L_10 = V_0;
 		if ((((int32_t)L_10) <= ((int32_t)0)))
 		{
@@ -1865,21 +1865,21 @@ IL_005f:
 	{
 		NullCheck(G_B8_1);
 		Region_set_Cluster_mA35E5BC2661E00D86FF0FAF2918E454120BACC2A_inline(G_B8_1, G_B8_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:70>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:70>
 		return;
 	}
 }
-// Method Definition Index: 128633
+// Method Definition Index: 128087
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_ToString_mDDCF57C2561B6B9E8212EA1B087DA1817A6749E9 (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:75>
 		String_t* L_0;
 		L_0 = Region_ToString_mEFD9F1CE217210BAC2C80B5DC2538BB06FD3724A(__this, (bool)0, NULL);
 		return L_0;
 	}
 }
-// Method Definition Index: 128634
+// Method Definition Index: 128088
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_ToString_mEFD9F1CE217210BAC2C80B5DC2538BB06FD3724A (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, bool ___0_compact, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1893,11 +1893,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_ToString_mEFD9F1CE217210BAC2
 	String_t* V_0 = NULL;
 	int32_t V_1 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:81>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:81>
 		String_t* L_0;
 		L_0 = Region_get_Code_m3BEC5110A22312C006923FB53E98EC08487F847A_inline(__this, NULL);
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:82>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:82>
 		String_t* L_1;
 		L_1 = Region_get_Cluster_m73ACC2E6468E9901C87026804493397305564AA4_inline(__this, NULL);
 		bool L_2;
@@ -1908,7 +1908,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_ToString_mEFD9F1CE217210BAC2
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:84>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:84>
 		String_t* L_3 = V_0;
 		String_t* L_4;
 		L_4 = Region_get_Cluster_m73ACC2E6468E9901C87026804493397305564AA4_inline(__this, NULL);
@@ -1919,7 +1919,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Region_ToString_mEFD9F1CE217210BAC2
 
 IL_0026:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:87>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:87>
 		bool L_6 = ___0_compact;
 		if (!L_6)
 		{
@@ -1927,7 +1927,7 @@ IL_0026:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:89>
 		String_t* L_7 = V_0;
 		int32_t L_8;
 		L_8 = Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47_inline(__this, NULL);
@@ -1941,7 +1941,7 @@ IL_0026:
 
 IL_0043:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:93>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:93>
 		String_t* L_11 = V_0;
 		int32_t L_12;
 		L_12 = Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47_inline(__this, NULL);
@@ -1963,47 +1963,47 @@ IL_0043:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128635
+// Method Definition Index: 128089
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0 = __this->___U3CEnabledRegionsU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128636
+// Method Definition Index: 128090
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_set_EnabledRegions_mBA1534E340AC85506A725691A84CAF85649F9F78 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0 = ___0_value;
 		__this->___U3CEnabledRegionsU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CEnabledRegionsU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128637
+// Method Definition Index: 128091
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_set_AvailableRegionCodes_m0B0525CDA1D3A9E04582FB17C9F8A848876901B7 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:79>
 		String_t* L_0 = ___0_value;
 		__this->___U3CAvailableRegionCodesU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CAvailableRegionCodesU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128638
+// Method Definition Index: 128092
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_get_AvailableRegionCodes_mE05EEEB82BB4AB2261FC819DE31DBC00AAA2E7CE (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:80>
 		String_t* L_0 = __this->___U3CAvailableRegionCodesU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128639
+// Method Definition Index: 128093
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Region_t86EE56292163DD338305D2026ED732113764E60D* RegionHandler_get_BestRegion_m94EEE7FA573F66842AD2C79FBADE609DB5D36CF2 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2030,7 +2030,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Region_t86EE56292163DD338305D2026ED732113764E
 	Comparison_1_tEEF89D9DB07618CDC642CF49C4B02EFFC5C0C951* G_B5_0 = NULL;
 	List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* G_B5_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:92>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:92>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0;
 		L_0 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		if (L_0)
@@ -2039,13 +2039,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Region_t86EE56292163DD338305D2026ED732113764E
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:94>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:94>
 		return (Region_t86EE56292163DD338305D2026ED732113764E60D*)NULL;
 	}
 
 IL_000a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:97>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:97>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_1 = __this->___bestRegionCache;
 		if (!L_1)
 		{
@@ -2053,14 +2053,14 @@ IL_000a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:99>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:99>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_2 = __this->___bestRegionCache;
 		return L_2;
 	}
 
 IL_0019:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:102>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_3;
 		L_3 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		il2cpp_codegen_runtime_class_init_inline(U3CU3Ec_tB04264BFF5C3CB799107B3A4EA7227810D7AEDA0_il2cpp_TypeInfo_var);
@@ -2091,7 +2091,7 @@ IL_003e:
 	{
 		NullCheck(G_B6_1);
 		List_1_Sort_m55B174B93990DF2D7E44AF2257F17C1B18A0EA8F(G_B6_1, G_B6_0, List_1_Sort_m55B174B93990DF2D7E44AF2257F17C1B18A0EA8F_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:106>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:106>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_9;
 		L_9 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		NullCheck(L_9);
@@ -2102,14 +2102,14 @@ IL_003e:
 		L_11 = Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47_inline(L_10, NULL);
 		float L_12 = __this->___pingSimilarityFactor;
 		V_0 = il2cpp_codegen_cast_double_to_int<int32_t>(((float)il2cpp_codegen_multiply(((float)L_11), L_12)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:107>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_13;
 		L_13 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		NullCheck(L_13);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_14;
 		L_14 = List_1_get_Item_mDAEF72D11ACB5A2D0297540CEC3DECD5C44D8949(L_13, 0, List_1_get_Item_mDAEF72D11ACB5A2D0297540CEC3DECD5C44D8949_RuntimeMethod_var);
 		V_1 = L_14;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_15;
 		L_15 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		NullCheck(L_15);
@@ -2135,11 +2135,11 @@ FINALLY_00ab:
 
 IL_0079_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
 				Region_t86EE56292163DD338305D2026ED732113764E60D* L_17;
 				L_17 = Enumerator_get_Current_m9C329A11A6F98C95E64530F9FCC27A21005F3410_inline((&V_2), Enumerator_get_Current_m9C329A11A6F98C95E64530F9FCC27A21005F3410_RuntimeMethod_var);
 				V_3 = L_17;
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:110>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:110>
 				Region_t86EE56292163DD338305D2026ED732113764E60D* L_18 = V_3;
 				NullCheck(L_18);
 				int32_t L_19;
@@ -2168,14 +2168,14 @@ IL_0079_1:
 				}
 			}
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:112>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:112>
 				Region_t86EE56292163DD338305D2026ED732113764E60D* L_26 = V_3;
 				V_1 = L_26;
 			}
 
 IL_00a0_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:108>
 				bool L_27;
 				L_27 = Enumerator_MoveNext_mA41FA99E253D08A489AE9A2D033FC493E4EEDAF7((&V_2), Enumerator_MoveNext_mA41FA99E253D08A489AE9A2D033FC493E4EEDAF7_RuntimeMethod_var);
 				if (L_27)
@@ -2195,16 +2195,16 @@ IL_00a0_1:
 
 IL_00b9:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:116>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_28 = V_1;
 		__this->___bestRegionCache = L_28;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___bestRegionCache), (void*)L_28);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:117>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_29 = __this->___bestRegionCache;
 		return L_29;
 	}
 }
-// Method Definition Index: 128640
+// Method Definition Index: 128094
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_get_SummaryToCache_m3DB5CDC801A97A847D0D62115576362F21E13DDE (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2217,7 +2217,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_get_SummaryToCache_m3
 	}
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:132>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:132>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0;
 		L_0 = RegionHandler_get_BestRegion_m94EEE7FA573F66842AD2C79FBADE609DB5D36CF2(__this, NULL);
 		if (!L_0)
@@ -2239,7 +2239,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_get_SummaryToCache_m3
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:134>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:134>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_4 = (StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)(StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)SZArrayNew(StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var, (uint32_t)5);
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_5 = L_4;
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_6;
@@ -2278,13 +2278,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_get_SummaryToCache_m3
 
 IL_0063:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:137>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:137>
 		String_t* L_17;
 		L_17 = RegionHandler_get_AvailableRegionCodes_mE05EEEB82BB4AB2261FC819DE31DBC00AAA2E7CE_inline(__this, NULL);
 		return L_17;
 	}
 }
-// Method Definition Index: 128641
+// Method Definition Index: 128095
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_GetResults_m54420332C29A92D590169D0AD475428530C62F44 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2308,18 +2308,18 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionHandler_GetResults_m54420332C
 	String_t* G_B8_0 = NULL;
 	String_t* G_B7_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:144>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:144>
 		StringBuilder_t* L_0 = (StringBuilder_t*)il2cpp_codegen_object_new(StringBuilder_t_il2cpp_TypeInfo_var);
 		StringBuilder__ctor_m1D99713357DE05DAFA296633639DB55F8C30587D(L_0, NULL);
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:146>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:146>
 		StringBuilder_t* L_1 = V_0;
 		String_t* L_2;
 		L_2 = RegionHandler_get_SummaryToCache_m3DB5CDC801A97A847D0D62115576362F21E13DDE(__this, NULL);
 		NullCheck(L_1);
 		StringBuilder_t* L_3;
 		L_3 = StringBuilder_AppendFormat_mFA88863E4018C2912D1A783E0EA6DAE4F594124F(L_1, _stringLiteral1DDD788DF3A4BE42499A905C37C3157D483A86FE, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_4 = __this->___pingerList;
 		NullCheck(L_4);
 		Enumerator_t2CFAFD2E184F6FFC959CC932F3EB4DCF72637BEB L_5;
@@ -2344,11 +2344,11 @@ FINALLY_0046:
 
 IL_0026_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
 				RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_6;
 				L_6 = Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_inline((&V_2), Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_RuntimeMethod_var);
 				V_3 = L_6;
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:149>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:149>
 				StringBuilder_t* L_7 = V_0;
 				RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_8 = V_3;
 				NullCheck(L_8);
@@ -2361,7 +2361,7 @@ IL_0026_1:
 
 IL_003b_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:147>
 				bool L_11;
 				L_11 = Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779((&V_2), Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779_RuntimeMethod_var);
 				if (L_11)
@@ -2381,7 +2381,7 @@ IL_003b_1:
 
 IL_0054:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:152>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:152>
 		String_t* L_12 = __this->___previousSummaryProvided;
 		String_t* L_13 = L_12;
 		if (L_13)
@@ -2398,13 +2398,13 @@ IL_0054:
 IL_0063:
 	{
 		V_1 = G_B8_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:153>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:153>
 		StringBuilder_t* L_14 = V_0;
 		String_t* L_15 = V_1;
 		NullCheck(L_14);
 		StringBuilder_t* L_16;
 		L_16 = StringBuilder_AppendFormat_mFA88863E4018C2912D1A783E0EA6DAE4F594124F(L_14, _stringLiteral3FBE4F3AA3E49A414AF5407C10B40EE841A2CC35, L_15, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:155>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:155>
 		StringBuilder_t* L_17 = V_0;
 		NullCheck(L_17);
 		String_t* L_18;
@@ -2412,7 +2412,7 @@ IL_0063:
 		return L_18;
 	}
 }
-// Method Definition Index: 128642
+// Method Definition Index: 128096
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_SetRegions_mF9D2C7B37B5B3F384888A63D607F6A7C75ADA1AF (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, OperationResponse_tCB9896B1FAA9530F6943C89236D44D07906CEE7E* ___0_opGetRegions, RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* ___1_client, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2435,7 +2435,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_SetRegions_mF9D2C7B37B5B3F
 	String_t* V_3 = NULL;
 	Region_t86EE56292163DD338305D2026ED732113764E60D* V_4 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:161>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:161>
 		OperationResponse_tCB9896B1FAA9530F6943C89236D44D07906CEE7E* L_0 = ___0_opGetRegions;
 		NullCheck(L_0);
 		uint8_t L_1 = L_0->___OperationCode;
@@ -2445,13 +2445,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_SetRegions_mF9D2C7B37B5B3F
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:163>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:163>
 		return;
 	}
 
 IL_000e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:166>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:166>
 		OperationResponse_tCB9896B1FAA9530F6943C89236D44D07906CEE7E* L_2 = ___0_opGetRegions;
 		NullCheck(L_2);
 		int16_t L_3 = L_2->___ReturnCode;
@@ -2461,25 +2461,25 @@ IL_000e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:168>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:168>
 		return;
 	}
 
 IL_0017:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:171>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:171>
 		OperationResponse_tCB9896B1FAA9530F6943C89236D44D07906CEE7E* L_4 = ___0_opGetRegions;
 		NullCheck(L_4);
 		RuntimeObject* L_5;
 		L_5 = OperationResponse_get_Item_mB9A9E49655456AD5E69DCD60350DC30BDA804799(L_4, (uint8_t)((int32_t)210), NULL);
 		V_0 = ((StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)IsInst((RuntimeObject*)L_5, StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:172>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:172>
 		OperationResponse_tCB9896B1FAA9530F6943C89236D44D07906CEE7E* L_6 = ___0_opGetRegions;
 		NullCheck(L_6);
 		RuntimeObject* L_7;
 		L_7 = OperationResponse_get_Item_mB9A9E49655456AD5E69DCD60350DC30BDA804799(L_6, (uint8_t)((int32_t)230), NULL);
 		V_1 = ((StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)IsInst((RuntimeObject*)L_7, StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:173>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:173>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_8 = V_0;
 		if (!L_8)
 		{
@@ -2506,7 +2506,7 @@ IL_0017:
 
 IL_0047:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:175>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:175>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_12 = ___1_client;
 		if (!L_12)
 		{
@@ -2514,7 +2514,7 @@ IL_0047:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:177>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:177>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_13 = ___1_client;
 		NullCheck(L_13);
 		uint8_t L_14 = L_13->___LogLevel;
@@ -2527,36 +2527,36 @@ IL_0047:
 
 IL_0060:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:179>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:179>
 		return;
 	}
 
 IL_0061:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:182>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:182>
 		__this->___bestRegionCache = (Region_t86EE56292163DD338305D2026ED732113764E60D*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___bestRegionCache), (void*)(Region_t86EE56292163DD338305D2026ED732113764E60D*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:183>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:183>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_17 = V_0;
 		NullCheck(L_17);
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_18 = (List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401*)il2cpp_codegen_object_new(List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401_il2cpp_TypeInfo_var);
 		List_1__ctor_mC2EC6AB3710B4BAEF1077F19746DAD119868BADA(L_18, ((int32_t)(((RuntimeArray*)L_17)->max_length)), List_1__ctor_mC2EC6AB3710B4BAEF1077F19746DAD119868BADA_RuntimeMethod_var);
 		RegionHandler_set_EnabledRegions_mBA1534E340AC85506A725691A84CAF85649F9F78_inline(__this, L_18, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
 		V_2 = 0;
 		goto IL_00c1;
 	}
 
 IL_007a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:187>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:187>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_19 = V_1;
 		int32_t L_20 = V_2;
 		NullCheck(L_19);
 		int32_t L_21 = L_20;
 		String_t* L_22 = (L_19)->GetAt(static_cast<il2cpp_array_size_t>(L_21));
 		V_3 = L_22;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:188>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:188>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_23 = ___1_client;
 		if (!L_23)
 		{
@@ -2573,7 +2573,7 @@ IL_007a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:190>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:190>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_26 = ___1_client;
 		NullCheck(L_26);
 		Func_3_t5313381FFBAA4681CA6291FEDCF74FBA33726706* L_27 = L_26->___AddressRewriter;
@@ -2586,7 +2586,7 @@ IL_007a:
 
 IL_0097:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:193>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:193>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_30 = V_0;
 		int32_t L_31 = V_2;
 		NullCheck(L_30);
@@ -2596,7 +2596,7 @@ IL_0097:
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_35 = (Region_t86EE56292163DD338305D2026ED732113764E60D*)il2cpp_codegen_object_new(Region_t86EE56292163DD338305D2026ED732113764E60D_il2cpp_TypeInfo_var);
 		Region__ctor_m3516E27D9DFF09E540F1554B50C39E0DE8F4B48C(L_35, L_33, L_34, NULL);
 		V_4 = L_35;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:194>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:194>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_36 = V_4;
 		NullCheck(L_36);
 		String_t* L_37;
@@ -2609,7 +2609,7 @@ IL_0097:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:199>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:199>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_39;
 		L_39 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_40 = V_4;
@@ -2619,14 +2619,14 @@ IL_0097:
 
 IL_00bd:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
 		int32_t L_41 = V_2;
 		V_2 = ((int32_t)il2cpp_codegen_add(L_41, 1));
 	}
 
 IL_00c1:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:185>
 		int32_t L_42 = V_2;
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_43 = V_0;
 		NullCheck(L_43);
@@ -2636,57 +2636,57 @@ IL_00c1:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:202>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:202>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_44 = V_0;
 		Array_Sort_TisString_t_m09BC2FD51737C2ECE0AEEFB23997A98948BD7A89(L_44, Array_Sort_TisString_t_m09BC2FD51737C2ECE0AEEFB23997A98948BD7A89_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:203>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:203>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_45 = V_0;
 		String_t* L_46;
 		L_46 = String_Join_m557B6B554B87C1742FA0B128500073B421ED0BFD(_stringLiteralC18C9BB6DF0D5C60CE5A5D2D3D6111BEB6F8CCEB, L_45, NULL);
 		RegionHandler_set_AvailableRegionCodes_m0B0525CDA1D3A9E04582FB17C9F8A848876901B7_inline(__this, L_46, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:204>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:204>
 		return;
 	}
 }
-// Method Definition Index: 128643
+// Method Definition Index: 128097
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_get_IsPinging_mC3C88729EF6A623B726778C44ED0802E0ED0E37C (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
 		bool L_0 = __this->___U3CIsPingingU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128644
+// Method Definition Index: 128098
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_set_IsPinging_m7420CCD08D4CDEC869B8B6E48F63DE87C13E4A8F (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
 		bool L_0 = ___0_value;
 		__this->___U3CIsPingingU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128645
+// Method Definition Index: 128099
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_get_Aborted_m157A075C238FA4F0155BF6688641D75A25670AE7 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
 		bool L_0 = __this->___U3CAbortedU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128646
+// Method Definition Index: 128100
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_set_Aborted_m33EC4CBCF66DAFAFDCDB5A724870B7A93EC917F9 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
 		bool L_0 = ___0_value;
 		__this->___U3CAbortedU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128647
+// Method Definition Index: 128101
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_Init_m626E64943CBE527685B182D764474B11CA3A18F3 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2696,16 +2696,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_Init_m626E64943CBE527685B1
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:242>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:242>
 		((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___PingImplementation = (Type_t*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___PingImplementation), (void*)(Type_t*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:243>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:243>
 		((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___UdpPortToPing = (uint16_t)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:244>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:244>
 		return;
 	}
 }
-// Method Definition Index: 128648
+// Method Definition Index: 128102
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler__ctor_m026FB7479CC73073F79F1570721B9239E24A5526 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, uint16_t ___0_masterServerUdpPort, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2717,38 +2717,38 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler__ctor_m026FB7479CC73073F79
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:206>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:206>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_0 = (List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A*)il2cpp_codegen_object_new(List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A_il2cpp_TypeInfo_var);
 		List_1__ctor_m46F7E04B34AD9152BDDF17ED841FADF1A3C04F0A(L_0, List_1__ctor_m46F7E04B34AD9152BDDF17ED841FADF1A3C04F0A_RuntimeMethod_var);
 		__this->___pingerList = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___pingerList), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:212>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:212>
 		__this->___rePingFactor = (1.20000005f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:215>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:215>
 		__this->___pingSimilarityFactor = (1.20000005f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:223>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:223>
 		__this->___BestRegionSummaryPingLimit = ((int32_t)90);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:249>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:249>
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:251>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:251>
 		uint16_t L_1 = ___0_masterServerUdpPort;
 		((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___UdpPortToPing = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:252>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:252>
 		return;
 	}
 }
-// Method Definition Index: 128649
+// Method Definition Index: 128103
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingAvailableRegions_m915609417CFCDD1DA93426CA5358B75067655CA0 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* ___0_onCompleteCallback, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:261>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:261>
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_0 = ___0_onCompleteCallback;
 		bool L_1;
 		L_1 = RegionHandler_PingMinimumOfRegions_m66483D6B580FF9FF10F1672826981CA6ACACA07E(__this, L_0, (String_t*)NULL, NULL);
 		return L_1;
 	}
 }
-// Method Definition Index: 128650
+// Method Definition Index: 128104
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingMinimumOfRegions_m66483D6B580FF9FF10F1672826981CA6ACACA07E (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* ___0_onCompleteCallback, String_t* ___1_previousSummary, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2781,7 +2781,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingMinimumOfRegions_m6648
 		U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* L_0 = (U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064*)il2cpp_codegen_object_new(U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064_il2cpp_TypeInfo_var);
 		U3CU3Ec__DisplayClass36_0__ctor_m655769DEC6971449ACDC94A7619B1F241C9A988D(L_0, NULL);
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:270>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:270>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_1;
 		L_1 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		if (!L_1)
@@ -2803,13 +2803,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingMinimumOfRegions_m6648
 
 IL_001b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:274>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:274>
 		return (bool)0;
 	}
 
 IL_001d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:277>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:277>
 		bool L_4;
 		L_4 = RegionHandler_get_IsPinging_mC3C88729EF6A623B726778C44ED0802E0ED0E37C_inline(__this, NULL);
 		if (!L_4)
@@ -2818,21 +2818,21 @@ IL_001d:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:281>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:281>
 		return (bool)0;
 	}
 
 IL_0027:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:284>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:284>
 		RegionHandler_set_Aborted_m33EC4CBCF66DAFAFDCDB5A724870B7A93EC917F9_inline(__this, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:285>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:285>
 		RegionHandler_set_IsPinging_m7420CCD08D4CDEC869B8B6E48F63DE87C13E4A8F_inline(__this, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:286>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:286>
 		String_t* L_5 = ___1_previousSummary;
 		__this->___previousSummaryProvided = L_5;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___previousSummaryProvided), (void*)L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:289>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:289>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_6 = __this->___emptyMonoBehavior;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_7;
@@ -2843,7 +2843,7 @@ IL_0027:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:291>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:291>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_8 = __this->___emptyMonoBehavior;
 		NullCheck(L_8);
 		MonoBehaviourEmpty_SelfDestroy_m31A5728705343D83C640784DB579DDEE4576FFE4(L_8, NULL);
@@ -2851,24 +2851,24 @@ IL_0027:
 
 IL_0055:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:293>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:293>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_9;
 		L_9 = MonoBehaviourEmpty_BuildInstance_mA4FFD04375D69C3375E0CD3299E3613386C0F642(_stringLiteralE10E3AED79722E8D68117009A9A2F16D97536350, NULL);
 		__this->___emptyMonoBehavior = L_9;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___emptyMonoBehavior), (void*)L_9);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:294>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:294>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_10 = __this->___emptyMonoBehavior;
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_11 = ___0_onCompleteCallback;
 		NullCheck(L_10);
 		L_10->___onCompleteCall = L_11;
 		Il2CppCodeGenWriteBarrier((void**)(&L_10->___onCompleteCall), (void*)L_11);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:295>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:295>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_12 = __this->___emptyMonoBehavior;
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_13 = (Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7*)il2cpp_codegen_object_new(Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7_il2cpp_TypeInfo_var);
 		Action_1__ctor_m9714D9224D011A50CD1E87D875D5F08D40B5C721(L_13, L_12, (intptr_t)((void*)MonoBehaviourEmpty_CompleteOnMainThread_mA23D850F64AD32CE6459ECF7BEE9D3565FD74574_RuntimeMethod_var), NULL);
 		__this->___onCompleteCall = L_13;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___onCompleteCall), (void*)L_13);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:300>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:300>
 		String_t* L_14 = ___1_previousSummary;
 		bool L_15;
 		L_15 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_14, NULL);
@@ -2878,7 +2878,7 @@ IL_0055:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:302>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:302>
 		bool L_16;
 		L_16 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_16;
@@ -2886,13 +2886,13 @@ IL_0055:
 
 IL_0097:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:305>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:305>
 		String_t* L_17 = ___1_previousSummary;
 		NullCheck(L_17);
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_18;
 		L_18 = String_Split_m9530B73D02054692283BF35C3A27C8F2230946F4(L_17, ((int32_t)59), 0, NULL);
 		V_1 = L_18;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:306>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:306>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_19 = V_1;
 		NullCheck(L_19);
 		if ((((int32_t)((int32_t)(((RuntimeArray*)L_19)->max_length))) >= ((int32_t)3)))
@@ -2901,7 +2901,7 @@ IL_0097:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:308>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:308>
 		bool L_20;
 		L_20 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_20;
@@ -2909,21 +2909,21 @@ IL_0097:
 
 IL_00ae:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:312>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:312>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_21 = V_1;
 		NullCheck(L_21);
 		int32_t L_22 = 1;
 		String_t* L_23 = (L_21)->GetAt(static_cast<il2cpp_array_size_t>(L_22));
 		bool L_24;
 		L_24 = Int32_TryParse_mC928DE2FEC1C35ED5298BDDCA9868076E94B8A21(L_23, (&V_2), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:313>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:313>
 		if (L_24)
 		{
 			goto IL_00c1;
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:315>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:315>
 		bool L_25;
 		L_25 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_25;
@@ -2931,7 +2931,7 @@ IL_00ae:
 
 IL_00c1:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:318>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:318>
 		U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* L_26 = V_0;
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_27 = V_1;
 		NullCheck(L_27);
@@ -2940,13 +2940,13 @@ IL_00c1:
 		NullCheck(L_26);
 		L_26->___prevBestRegionCode = L_29;
 		Il2CppCodeGenWriteBarrier((void**)(&L_26->___prevBestRegionCode), (void*)L_29);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:319>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:319>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_30 = V_1;
 		NullCheck(L_30);
 		int32_t L_31 = 2;
 		String_t* L_32 = (L_30)->GetAt(static_cast<il2cpp_array_size_t>(L_31));
 		V_3 = L_32;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:322>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:322>
 		U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* L_33 = V_0;
 		NullCheck(L_33);
 		String_t* L_34 = L_33->___prevBestRegionCode;
@@ -2958,7 +2958,7 @@ IL_00c1:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:324>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:324>
 		bool L_36;
 		L_36 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_36;
@@ -2966,7 +2966,7 @@ IL_00c1:
 
 IL_00e2:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:326>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:326>
 		String_t* L_37 = V_3;
 		bool L_38;
 		L_38 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_37, NULL);
@@ -2976,7 +2976,7 @@ IL_00e2:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:328>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:328>
 		bool L_39;
 		L_39 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_39;
@@ -2984,7 +2984,7 @@ IL_00e2:
 
 IL_00f1:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:330>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:330>
 		String_t* L_40;
 		L_40 = RegionHandler_get_AvailableRegionCodes_mE05EEEB82BB4AB2261FC819DE31DBC00AAA2E7CE_inline(__this, NULL);
 		String_t* L_41 = V_3;
@@ -3013,7 +3013,7 @@ IL_00f1:
 
 IL_0112:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:332>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:332>
 		bool L_47;
 		L_47 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_47;
@@ -3021,7 +3021,7 @@ IL_0112:
 
 IL_0119:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:334>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:334>
 		int32_t L_48 = V_2;
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		int32_t L_49 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed;
@@ -3031,7 +3031,7 @@ IL_0119:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:336>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:336>
 		bool L_50;
 		L_50 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return L_50;
@@ -3039,10 +3039,10 @@ IL_0119:
 
 IL_0128:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:340>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:340>
 		int32_t L_51 = V_2;
 		__this->___previousPing = L_51;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:343>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:343>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_52;
 		L_52 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* L_53 = V_0;
@@ -3051,13 +3051,13 @@ IL_0128:
 		NullCheck(L_52);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_55;
 		L_55 = List_1_Find_m3CB9779FD33F1FF334BE6D1D9F88A535B506A881(L_52, L_54, List_1_Find_m3CB9779FD33F1FF334BE6D1D9F88A535B506A881_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:344>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:344>
 		Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* L_56 = (Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70*)il2cpp_codegen_object_new(Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70_il2cpp_TypeInfo_var);
 		Action_1__ctor_m4E7109CE90E082CA3AFB213D45D4AA0593A79CF4(L_56, __this, (intptr_t)((void*)RegionHandler_OnPreferredRegionPinged_m5D6916BC1CDCEABE166E04F483A3001CC3158831_RuntimeMethod_var), NULL);
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_57 = (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2*)il2cpp_codegen_object_new(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		RegionPinger__ctor_m14E3D47453FE52DAFBBF98EDEDFBF722DC4FECDA(L_57, L_55, L_56, NULL);
 		V_4 = L_57;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:346>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:346>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_58 = __this->___pingerList;
 		V_5 = L_58;
 		V_6 = (bool)0;
@@ -3090,16 +3090,16 @@ IL_0192:
 		{
 			List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_61 = V_5;
 			Monitor_Enter_m3CDB589DA1300B513D55FDCFB52B63E879794149(L_61, (&V_6), NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:348>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:348>
 			List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_62 = __this->___pingerList;
 			NullCheck(L_62);
 			List_1_Clear_mB051D3C3E6DB418EF4B1A37DB294CFE31A190237_inline(L_62, List_1_Clear_mB051D3C3E6DB418EF4B1A37DB294CFE31A190237_RuntimeMethod_var);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:349>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:349>
 			List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_63 = __this->___pingerList;
 			RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_64 = V_4;
 			NullCheck(L_63);
 			List_1_Add_m42A7BA43FF0D60E9BFECF986AD47D78EDB34807E_inline(L_63, L_64, List_1_Add_m42A7BA43FF0D60E9BFECF986AD47D78EDB34807E_RuntimeMethod_var);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:350>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:350>
 			goto IL_0193;
 		}
 		catch(Il2CppExceptionWrapper& e)
@@ -3110,16 +3110,16 @@ IL_0192:
 
 IL_0193:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:352>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:352>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_65 = V_4;
 		NullCheck(L_65);
 		bool L_66;
 		L_66 = RegionPinger_Start_mFDE66E36D48325C75B598C7D2041BEE2213E80DD(L_65, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:353>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:353>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 128651
+// Method Definition Index: 128105
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_Abort_m6CD66CF67D0FB776F8C55AF7A4A61BC45DA6C658 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3137,7 +3137,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_Abort_m6CD66CF67D0FB776F8C
 	Enumerator_t2CFAFD2E184F6FFC959CC932F3EB4DCF72637BEB V_2;
 	memset((&V_2), 0, sizeof(V_2));
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:359>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:359>
 		bool L_0;
 		L_0 = RegionHandler_get_Aborted_m157A075C238FA4F0155BF6688641D75A25670AE7_inline(__this, NULL);
 		if (!L_0)
@@ -3146,15 +3146,15 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_Abort_m6CD66CF67D0FB776F8C
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:361>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:361>
 		return;
 	}
 
 IL_0009:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:364>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:364>
 		RegionHandler_set_Aborted_m33EC4CBCF66DAFAFDCDB5A724870B7A93EC917F9_inline(__this, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:365>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:365>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_1 = __this->___pingerList;
 		V_0 = L_1;
 		V_1 = (bool)0;
@@ -3188,7 +3188,7 @@ IL_005d:
 			{
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_4 = V_0;
 				Monitor_Enter_m3CDB589DA1300B513D55FDCFB52B63E879794149(L_4, (&V_1), NULL);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_5 = __this->___pingerList;
 				NullCheck(L_5);
 				Enumerator_t2CFAFD2E184F6FFC959CC932F3EB4DCF72637BEB L_6;
@@ -3213,17 +3213,17 @@ FINALLY_0046_1:
 
 IL_002f_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
 						RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_7;
 						L_7 = Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_inline((&V_2), Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_RuntimeMethod_var);
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:369>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:369>
 						NullCheck(L_7);
 						RegionPinger_Abort_m9DDD3B653F91E4CCD9193F5497FE40AB2C3C2F33(L_7, NULL);
 					}
 
 IL_003b_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:367>
 						bool L_8;
 						L_8 = Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779((&V_2), Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779_RuntimeMethod_var);
 						if (L_8)
@@ -3249,7 +3249,7 @@ IL_003b_2:
 
 IL_005e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:374>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:374>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_9 = __this->___emptyMonoBehavior;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_10;
@@ -3260,7 +3260,7 @@ IL_005e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:376>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:376>
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_11 = __this->___emptyMonoBehavior;
 		NullCheck(L_11);
 		MonoBehaviourEmpty_SelfDestroy_m31A5728705343D83C640784DB579DDEE4576FFE4(L_11, NULL);
@@ -3268,15 +3268,15 @@ IL_005e:
 
 IL_0077:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:379>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:379>
 		return;
 	}
 }
-// Method Definition Index: 128652
+// Method Definition Index: 128106
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_OnPreferredRegionPinged_m5D6916BC1CDCEABE166E04F483A3001CC3158831 (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, Region_t86EE56292163DD338305D2026ED732113764E60D* ___0_preferredRegion, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:383>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:383>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = ___0_preferredRegion;
 		NullCheck(L_0);
 		int32_t L_1;
@@ -3302,7 +3302,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_OnPreferredRegionPinged_m5
 
 IL_0025:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:385>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:385>
 		bool L_7;
 		L_7 = RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB(__this, NULL);
 		return;
@@ -3310,17 +3310,17 @@ IL_0025:
 
 IL_002d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:389>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:389>
 		RegionHandler_set_IsPinging_m7420CCD08D4CDEC869B8B6E48F63DE87C13E4A8F_inline(__this, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:390>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:390>
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_8 = __this->___onCompleteCall;
 		NullCheck(L_8);
 		Action_1_Invoke_mEBA466C47F562C38E80F715FFEBC14A4038E7DA9_inline(L_8, __this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:392>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:392>
 		return;
 	}
 }
-// Method Definition Index: 128653
+// Method Definition Index: 128107
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingEnabledRegions_m6ACE470F3FC9710C67533AA14ED3D644CE034AEB (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3344,7 +3344,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingEnabledRegions_m6ACE47
 	memset((&V_2), 0, sizeof(V_2));
 	RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* V_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:399>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:399>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0;
 		L_0 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 		if (!L_0)
@@ -3366,13 +3366,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionHandler_PingEnabledRegions_m6ACE47
 
 IL_0015:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:403>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:403>
 		return (bool)0;
 	}
 
 IL_0017:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:406>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:406>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_3 = __this->___pingerList;
 		V_0 = L_3;
 		V_1 = (bool)0;
@@ -3406,11 +3406,11 @@ IL_0090:
 			{
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_6 = V_0;
 				Monitor_Enter_m3CDB589DA1300B513D55FDCFB52B63E879794149(L_6, (&V_1), NULL);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:408>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:408>
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_7 = __this->___pingerList;
 				NullCheck(L_7);
 				List_1_Clear_mB051D3C3E6DB418EF4B1A37DB294CFE31A190237_inline(L_7, List_1_Clear_mB051D3C3E6DB418EF4B1A37DB294CFE31A190237_RuntimeMethod_var);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
 				List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_8;
 				L_8 = RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline(__this, NULL);
 				NullCheck(L_8);
@@ -3436,28 +3436,28 @@ FINALLY_0079_1:
 
 IL_0041_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
 						Region_t86EE56292163DD338305D2026ED732113764E60D* L_10;
 						L_10 = Enumerator_get_Current_m9C329A11A6F98C95E64530F9FCC27A21005F3410_inline((&V_2), Enumerator_get_Current_m9C329A11A6F98C95E64530F9FCC27A21005F3410_RuntimeMethod_var);
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:411>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:411>
 						Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* L_11 = (Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70*)il2cpp_codegen_object_new(Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70_il2cpp_TypeInfo_var);
 						Action_1__ctor_m4E7109CE90E082CA3AFB213D45D4AA0593A79CF4(L_11, __this, (intptr_t)((void*)RegionHandler_OnRegionDone_mA5258F301EDFE3AF7C6BC3E9DDFAD4B692ECE36A_RuntimeMethod_var), NULL);
 						RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_12 = (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2*)il2cpp_codegen_object_new(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 						RegionPinger__ctor_m14E3D47453FE52DAFBBF98EDEDFBF722DC4FECDA(L_12, L_10, L_11, NULL);
 						V_3 = L_12;
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:412>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:412>
 						RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_13 = V_3;
 						NullCheck(L_13);
 						bool L_14;
 						L_14 = RegionPinger_Start_mFDE66E36D48325C75B598C7D2041BEE2213E80DD(L_13, NULL);
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:413>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:413>
 						if (!L_14)
 						{
 							goto IL_006e_2;
 						}
 					}
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:415>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:415>
 						List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_15 = __this->___pingerList;
 						RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_16 = V_3;
 						NullCheck(L_15);
@@ -3466,7 +3466,7 @@ IL_0041_2:
 
 IL_006e_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:409>
 						bool L_17;
 						L_17 = Enumerator_MoveNext_mA41FA99E253D08A489AE9A2D033FC493E4EEDAF7((&V_2), Enumerator_MoveNext_mA41FA99E253D08A489AE9A2D033FC493E4EEDAF7_RuntimeMethod_var);
 						if (L_17)
@@ -3492,11 +3492,11 @@ IL_006e_2:
 
 IL_0091:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:421>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:421>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 128654
+// Method Definition Index: 128108
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_OnRegionDone_mA5258F301EDFE3AF7C6BC3E9DDFAD4B692ECE36A (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, Region_t86EE56292163DD338305D2026ED732113764E60D* ___0_region, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3513,7 +3513,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionHandler_OnRegionDone_mA5258F301EDF
 	Enumerator_t2CFAFD2E184F6FFC959CC932F3EB4DCF72637BEB V_2;
 	memset((&V_2), 0, sizeof(V_2));
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:426>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:426>
 		List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_0 = __this->___pingerList;
 		V_0 = L_0;
 		V_1 = (bool)0;
@@ -3547,7 +3547,7 @@ IL_006b:
 			{
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_3 = V_0;
 				Monitor_Enter_m3CDB589DA1300B513D55FDCFB52B63E879794149(L_3, (&V_1), NULL);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:428>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:428>
 				bool L_4;
 				L_4 = RegionHandler_get_IsPinging_mC3C88729EF6A623B726778C44ED0802E0ED0E37C_inline(__this, NULL);
 				if (L_4)
@@ -3556,16 +3556,16 @@ IL_006b:
 				}
 			}
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:430>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:430>
 				goto IL_0080;
 			}
 
 IL_001b_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:433>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:433>
 				__this->___bestRegionCache = (Region_t86EE56292163DD338305D2026ED732113764E60D*)NULL;
 				Il2CppCodeGenWriteBarrier((void**)(&__this->___bestRegionCache), (void*)(Region_t86EE56292163DD338305D2026ED732113764E60D*)NULL);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
 				List_1_tDB53F3DA7F87B5C09AF04AE888BA8AC5E2CAE82A* L_5 = __this->___pingerList;
 				NullCheck(L_5);
 				Enumerator_t2CFAFD2E184F6FFC959CC932F3EB4DCF72637BEB L_6;
@@ -3590,10 +3590,10 @@ FINALLY_004b_1:
 
 IL_0030_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
 						RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_7;
 						L_7 = Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_inline((&V_2), Enumerator_get_Current_mD63E1F5E00C7E85B89A80F10F0128B1DD2746E50_RuntimeMethod_var);
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:436>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:436>
 						NullCheck(L_7);
 						bool L_8;
 						L_8 = RegionPinger_get_Done_m404DBD07E33CBF092466F647564900A450CB43A1_inline(L_7, NULL);
@@ -3603,13 +3603,13 @@ IL_0030_2:
 						}
 					}
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:438>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:438>
 						goto IL_0080;
 					}
 
 IL_0040_2:
 					{
-						//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
+						//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:434>
 						bool L_9;
 						L_9 = Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779((&V_2), Enumerator_MoveNext_mA26E2F9FA22D1B2A0739B704BB1F8E4C96E36779_RuntimeMethod_var);
 						if (L_9)
@@ -3629,9 +3629,9 @@ IL_0040_2:
 
 IL_0059_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:442>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:442>
 				RegionHandler_set_IsPinging_m7420CCD08D4CDEC869B8B6E48F63DE87C13E4A8F_inline(__this, (bool)0, NULL);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:443>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:443>
 				goto IL_006c;
 			}
 		}
@@ -3643,7 +3643,7 @@ IL_0059_1:
 
 IL_006c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:445>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:445>
 		bool L_10;
 		L_10 = RegionHandler_get_Aborted_m157A075C238FA4F0155BF6688641D75A25670AE7_inline(__this, NULL);
 		if (L_10)
@@ -3652,7 +3652,7 @@ IL_006c:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:447>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:447>
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_11 = __this->___onCompleteCall;
 		NullCheck(L_11);
 		Action_1_Invoke_mEBA466C47F562C38E80F715FFEBC14A4038E7DA9_inline(L_11, __this, NULL);
@@ -3660,7 +3660,7 @@ IL_006c:
 
 IL_0080:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:449>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:449>
 		return;
 	}
 }
@@ -3672,7 +3672,7 @@ IL_0080:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128655
+// Method Definition Index: 128109
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m1A7AD91F54396953D5A6F713140EDE94440CF874 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3689,7 +3689,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m1A7AD91F54396953D5A6F713
 		return;
 	}
 }
-// Method Definition Index: 128656
+// Method Definition Index: 128110
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mE0BCB59A048192C891E4986C398AA3735A4B4F21 (U3CU3Ec_tB04264BFF5C3CB799107B3A4EA7227810D7AEDA0* __this, const RuntimeMethod* method) 
 {
 	{
@@ -3697,12 +3697,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mE0BCB59A048192C891E4986C3
 		return;
 	}
 }
-// Method Definition Index: 128657
+// Method Definition Index: 128111
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t U3CU3Ec_U3Cget_BestRegionU3Eb__11_0_m1A9338080A660F95570317550B879667E8767622 (U3CU3Ec_tB04264BFF5C3CB799107B3A4EA7227810D7AEDA0* __this, Region_t86EE56292163DD338305D2026ED732113764E60D* ___0_a, Region_t86EE56292163DD338305D2026ED732113764E60D* ___1_b, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:102>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = ___0_a;
 		NullCheck(L_0);
 		int32_t L_1;
@@ -3725,7 +3725,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t U3CU3Ec_U3Cget_BestRegionU3Eb__11_0_m
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128658
+// Method Definition Index: 128112
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass36_0__ctor_m655769DEC6971449ACDC94A7619B1F241C9A988D (U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* __this, const RuntimeMethod* method) 
 {
 	{
@@ -3733,11 +3733,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass36_0__ctor_m655769D
 		return;
 	}
 }
-// Method Definition Index: 128659
+// Method Definition Index: 128113
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3Ec__DisplayClass36_0_U3CPingMinimumOfRegionsU3Eb__0_m3065CAA33944817D3E0DF21413D551DAD5EE5E36 (U3CU3Ec__DisplayClass36_0_t7F3BBEB479AB27D517227ED1C162BCEF5AF31064* __this, Region_t86EE56292163DD338305D2026ED732113764E60D* ___0_r, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:343>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:343>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = ___0_r;
 		NullCheck(L_0);
 		String_t* L_1;
@@ -3757,45 +3757,45 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3Ec__DisplayClass36_0_U3CPingMinimum
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128660
+// Method Definition Index: 128114
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_get_Done_m404DBD07E33CBF092466F647564900A450CB43A1 (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
 		bool L_0 = __this->___U3CDoneU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128661
+// Method Definition Index: 128115
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788 (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
 		bool L_0 = ___0_value;
 		__this->___U3CDoneU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128662
+// Method Definition Index: 128116
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_get_Aborted_m8E2265E98C92394B25F78AE45096A43EC0B5576F (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
 		bool L_0 = __this->___U3CAbortedU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128663
+// Method Definition Index: 128117
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_set_Aborted_m17BF2BBE25D0C86F11C40775D799E98CBB78926E (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
 		bool L_0 = ___0_value;
 		__this->___U3CAbortedU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128664
+// Method Definition Index: 128118
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_InitStatic_mF5B15B6EF8DF620392E7C7F07622D97B55E81EF4 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3805,20 +3805,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_InitStatic_mF5B15B6EF8DF620
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:480>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:480>
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts = 5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:481>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:481>
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___MaxMillisecondsPerPing = ((int32_t)800);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:482>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:482>
 		int32_t L_0 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts;
 		int32_t L_1 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___MaxMillisecondsPerPing;
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed = ((int32_t)il2cpp_codegen_multiply(L_0, L_1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:483>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:483>
 		return;
 	}
 }
-// Method Definition Index: 128665
+// Method Definition Index: 128119
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger__ctor_m14E3D47453FE52DAFBBF98EDEDFBF722DC4FECDA (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, Region_t86EE56292163DD338305D2026ED732113764E60D* ___0_region, Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* ___1_onDoneCallback, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3828,29 +3828,29 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger__ctor_m14E3D47453FE52DAFBBF
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:487>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:487>
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:489>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:489>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = ___0_region;
 		__this->___region = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___region), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:490>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:490>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_1 = __this->___region;
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		int32_t L_2 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed;
 		NullCheck(L_1);
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(L_1, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:491>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:491>
 		RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788_inline(__this, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:492>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:492>
 		Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* L_3 = ___1_onDoneCallback;
 		__this->___onDoneCall = L_3;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___onDoneCall), (void*)L_3);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:493>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:493>
 		return;
 	}
 }
-// Method Definition Index: 128666
+// Method Definition Index: 128120
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* RegionPinger_GetPingImplementation_mA5D1C0FD7EF3BB640F7F61C024EF9596D151AE3D (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3864,9 +3864,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PhotonPing_t63E555039AC3ED874D37A12A802E9E603
 	}
 	PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* V_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:499>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:499>
 		V_0 = (PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359*)NULL;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:514>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:514>
 		Type_t* L_0 = ((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___PingImplementation;
 		il2cpp_codegen_runtime_class_init_inline(il2cpp_defaults.systemtype_class);
 		bool L_1;
@@ -3892,7 +3892,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PhotonPing_t63E555039AC3ED874D37A12A802E9E603
 
 IL_0025:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:516>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:516>
 		PingMono_tD5C5FA29F1E2A02902650D1A9F75172EE6107E3D* L_6 = (PingMono_tD5C5FA29F1E2A02902650D1A9F75172EE6107E3D*)il2cpp_codegen_object_new(PingMono_tD5C5FA29F1E2A02902650D1A9F75172EE6107E3D_il2cpp_TypeInfo_var);
 		PingMono__ctor_m076F5D354BB75F841CE822B46EB6FED4E67D36BC(L_6, NULL);
 		V_0 = L_6;
@@ -3900,7 +3900,7 @@ IL_0025:
 
 IL_002b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:520>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:520>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_7 = V_0;
 		if (L_7)
 		{
@@ -3908,7 +3908,7 @@ IL_002b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:522>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:522>
 		Type_t* L_8 = ((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___PingImplementation;
 		il2cpp_codegen_runtime_class_init_inline(il2cpp_defaults.systemtype_class);
 		bool L_9;
@@ -3919,7 +3919,7 @@ IL_002b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:524>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:524>
 		Type_t* L_10 = ((RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_StaticFields*)il2cpp_codegen_static_fields_for(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E_il2cpp_TypeInfo_var))->___PingImplementation;
 		RuntimeObject* L_11;
 		L_11 = Activator_CreateInstance_mFF030428C64FDDFACC74DFAC97388A1C628BFBCF(L_10, NULL);
@@ -3928,12 +3928,12 @@ IL_002b:
 
 IL_004b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:528>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:528>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_12 = V_0;
 		return L_12;
 	}
 }
-// Method Definition Index: 128667
+// Method Definition Index: 128121
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_Start_mFDE66E36D48325C75B598C7D2041BEE2213E80DD (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -3951,23 +3951,23 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_Start_mFDE66E36D48325C75B59
 	bool V_0 = false;
 	il2cpp::utils::ExceptionSupportStack<RuntimeObject*, 1> __active_exceptions;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:542>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:542>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_0;
 		L_0 = RegionPinger_GetPingImplementation_mA5D1C0FD7EF3BB640F7F61C024EF9596D151AE3D(__this, NULL);
 		__this->___ping = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___ping), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:544>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:544>
 		RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788_inline(__this, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:545>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:545>
 		__this->___CurrentAttempt = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:546>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:546>
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		int32_t L_1 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts;
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_2 = (List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73*)il2cpp_codegen_object_new(List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73_il2cpp_TypeInfo_var);
 		List_1__ctor_m30DD6F0F8DFBA9856BF7220A3CDB1C89ECEC0D98(L_2, L_1, List_1__ctor_m30DD6F0F8DFBA9856BF7220A3CDB1C89ECEC0D98_RuntimeMethod_var);
 		__this->___rttResults = L_2;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___rttResults), (void*)L_2);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:548>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:548>
 		bool L_3;
 		L_3 = RegionPinger_get_Aborted_m8E2265E98C92394B25F78AE45096A43EC0B5576F_inline(__this, NULL);
 		if (!L_3)
@@ -3976,24 +3976,24 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_Start_mFDE66E36D48325C75B59
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:550>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:550>
 		return (bool)0;
 	}
 
 IL_0034:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:556>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:556>
 		V_0 = (bool)0;
 	}
 	try
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:559>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:559>
 		WaitCallback_tFB2C7FD58D024BBC2B0333DC7A4CB63B8DEBD5D3* L_4 = (WaitCallback_tFB2C7FD58D024BBC2B0333DC7A4CB63B8DEBD5D3*)il2cpp_codegen_object_new(WaitCallback_tFB2C7FD58D024BBC2B0333DC7A4CB63B8DEBD5D3_il2cpp_TypeInfo_var);
 		WaitCallback__ctor_m9730564F9A28ECB72462D05AA92CA9E43DE9B41C(L_4, __this, (intptr_t)((void*)RegionPinger_U3CStartU3Eb__20_0_m02FDCA94F746A1F77876CA779BC1B3A33A814241_RuntimeMethod_var), NULL);
 		bool L_5;
 		L_5 = ThreadPool_QueueUserWorkItem_m24B9C1887DBABE1F408E31475AF15B9B9A08854D(L_4, NULL);
 		V_0 = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:560>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:560>
 		goto IL_004f;
 	}
 	catch(Il2CppExceptionWrapper& e)
@@ -4009,17 +4009,17 @@ IL_0034:
 CATCH_004a:
 	{
 		RuntimeObject* L_6 = ((RuntimeObject*)IL2CPP_GET_ACTIVE_EXCEPTION(RuntimeObject*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:561>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:563>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:561>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:563>
 		V_0 = (bool)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:564>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:564>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_004f;
 	}
 
 IL_004f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:566>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:566>
 		bool L_7 = V_0;
 		if (L_7)
 		{
@@ -4027,26 +4027,26 @@ IL_004f:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:568>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:568>
 		il2cpp_codegen_runtime_class_init_inline(Log_tFB8BBB39E02FA2624540C0CDBD0255BA64FA980C_il2cpp_TypeInfo_var);
 		Log_Error_m8D123A5078240FF8E172B818AB3B90519E4CBD34(_stringLiteral87D49943014DEF64A5CF78C480383E6546480EA4, 1, (String_t*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:569>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:569>
 		return (bool)0;
 	}
 
 IL_0060:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:573>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:573>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 128668
+// Method Definition Index: 128122
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_Abort_m9DDD3B653F91E4CCD9193F5497FE40AB2C3C2F33 (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:579>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:579>
 		RegionPinger_set_Aborted_m17BF2BBE25D0C86F11C40775D799E98CBB78926E_inline(__this, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:580>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:580>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_0 = __this->___ping;
 		if (!L_0)
 		{
@@ -4054,7 +4054,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_Abort_m9DDD3B653F91E4CCD919
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:582>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:582>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_1 = __this->___ping;
 		NullCheck(L_1);
 		VirtualActionInvoker0::Invoke(7, L_1);
@@ -4062,11 +4062,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_Abort_m9DDD3B653F91E4CCD919
 
 IL_001a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:584>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:584>
 		return;
 	}
 }
-// Method Definition Index: 128669
+// Method Definition Index: 128123
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_RegionPingThreaded_m239F9AF38B447BE54D244A60DF6E0D4E1C7D09AD (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4091,17 +4091,17 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_RegionPingThreaded_m239F9AF
 	il2cpp::utils::ExceptionSupportStack<RuntimeObject*, 1> __active_exceptions;
 	int32_t G_B16_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:589>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:589>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = __this->___region;
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		int32_t L_1 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed;
 		NullCheck(L_0);
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(L_0, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:591>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:591>
 		V_0 = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:592>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:592>
 		V_1 = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:593>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:593>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_2 = (Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043*)il2cpp_codegen_object_new(Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043_il2cpp_TypeInfo_var);
 		Stopwatch__ctor_mAFE6B2F45CF1C3469EF6D5307972BC098B473D0A(L_2, NULL);
 		V_2 = L_2;
@@ -4109,19 +4109,19 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_RegionPingThreaded_m239F9AF
 	try
 	{
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:599>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:599>
 			Region_t86EE56292163DD338305D2026ED732113764E60D* L_3 = __this->___region;
 			NullCheck(L_3);
 			String_t* L_4;
 			L_4 = Region_get_HostAndPort_m526F32BBF6289B2B9BD1AAA5DBF0684E844EA5A6_inline(L_3, NULL);
 			V_3 = L_4;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:600>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:600>
 			String_t* L_5 = V_3;
 			NullCheck(L_5);
 			int32_t L_6;
 			L_6 = String_LastIndexOf_m6BB3E7E1B48702D4C715FA423F8A822C053B290E(L_5, ((int32_t)58), NULL);
 			V_4 = L_6;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:601>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:601>
 			int32_t L_7 = V_4;
 			if ((((int32_t)L_7) <= ((int32_t)1)))
 			{
@@ -4129,7 +4129,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_RegionPingThreaded_m239F9AF
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:603>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:603>
 			String_t* L_8 = V_3;
 			int32_t L_9 = V_4;
 			NullCheck(L_8);
@@ -4140,27 +4140,27 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RegionPinger_RegionPingThreaded_m239F9AF
 
 IL_003f_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:606>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:606>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_11 = V_2;
 			NullCheck(L_11);
 			Stopwatch_Start_m35906A38C7D336CF9DD35854C7E170D762A55915(L_11, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:607>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:607>
 			String_t* L_12 = V_3;
 			il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 			String_t* L_13;
 			L_13 = RegionPinger_ResolveHost_m441F750EC6952F40C71876E5F8BC54238A3E4FB1(L_12, NULL);
 			__this->___regionAddress = L_13;
 			Il2CppCodeGenWriteBarrier((void**)(&__this->___regionAddress), (void*)L_13);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:608>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:608>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_14 = V_2;
 			NullCheck(L_14);
 			Stopwatch_Stop_m8F2A2EFD9D7D5B4180A5E5379E5443864618D7DC(L_14, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:609>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:609>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_15 = V_2;
 			NullCheck(L_15);
 			int64_t L_16;
 			L_16 = Stopwatch_get_ElapsedMilliseconds_m8D8E60ADEB47D008C06D8E57D28D41EAE07AECBF(L_15, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:613>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:613>
 			goto IL_006e;
 		}
 	}
@@ -4177,24 +4177,24 @@ IL_003f_1:
 CATCH_0064:
 	{
 		Exception_t* L_17 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:614>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:617>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:614>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:617>
 		RegionPinger_set_Aborted_m17BF2BBE25D0C86F11C40775D799E98CBB78926E_inline(__this, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:618>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:618>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_006e;
 	}
 
 IL_006e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
 		__this->___CurrentAttempt = 0;
 		goto IL_014c;
 	}
 
 IL_007a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:622>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:622>
 		bool L_18;
 		L_18 = RegionPinger_get_Aborted_m8E2265E98C92394B25F78AE45096A43EC0B5576F_inline(__this, NULL);
 		if (L_18)
@@ -4203,24 +4203,24 @@ IL_007a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:627>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:627>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_19 = V_2;
 		NullCheck(L_19);
 		Stopwatch_Reset_mF22DE61FDE7FF5825C750D2F6482B591BDC715FA(L_19, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:628>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:628>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_20 = V_2;
 		NullCheck(L_20);
 		Stopwatch_Start_m35906A38C7D336CF9DD35854C7E170D762A55915(L_20, NULL);
 	}
 	try
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:632>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:632>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_21 = __this->___ping;
 		String_t* L_22 = __this->___regionAddress;
 		NullCheck(L_21);
 		bool L_23;
 		L_23 = VirtualFuncInvoker1< bool, String_t* >::Invoke(5, L_21, L_22);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:633>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:633>
 		goto IL_00bf;
 	}
 	catch(Il2CppExceptionWrapper& e)
@@ -4236,15 +4236,15 @@ IL_007a:
 CATCH_00a5:
 	{
 		Exception_t* L_24 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:634>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:637>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:634>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:637>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_015c;
 	}
 
 IL_00ab:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:643>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:643>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_25 = V_2;
 		NullCheck(L_25);
 		int64_t L_26;
@@ -4257,13 +4257,13 @@ IL_00ab:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:649>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:649>
 		Thread_Sleep_m71DE163765BF465EC4A0163F2ED4D43143094549(1, NULL);
 	}
 
 IL_00bf:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:641>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:641>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_28 = __this->___ping;
 		NullCheck(L_28);
 		bool L_29;
@@ -4276,11 +4276,11 @@ IL_00bf:
 
 IL_00cc:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:653>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:653>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_30 = V_2;
 		NullCheck(L_30);
 		Stopwatch_Stop_m8F2A2EFD9D7D5B4180A5E5379E5443864618D7DC(L_30, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:654>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:654>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_31 = __this->___ping;
 		NullCheck(L_31);
 		bool L_32 = L_31->___Successful;
@@ -4308,41 +4308,41 @@ IL_00e6:
 IL_00ed:
 	{
 		V_5 = G_B16_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:655>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:655>
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_36 = __this->___rttResults;
 		int32_t L_37 = V_5;
 		NullCheck(L_36);
 		List_1_Add_m0248A96C5334E9A93E6994B7780478BCD994EA3D_inline(L_36, L_37, List_1_Add_m0248A96C5334E9A93E6994B7780478BCD994EA3D_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:657>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:657>
 		int32_t L_38 = V_0;
 		int32_t L_39 = V_5;
 		V_0 = ((int32_t)il2cpp_codegen_add(L_38, L_39));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:658>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:658>
 		int32_t L_40 = V_1;
 		V_1 = ((int32_t)il2cpp_codegen_add(L_40, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:659>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:659>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_41 = __this->___region;
 		int32_t L_42 = V_0;
 		int32_t L_43 = V_1;
 		NullCheck(L_41);
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(L_41, ((int32_t)(L_42/L_43)), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:661>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:661>
 		V_6 = 4;
 		goto IL_0125;
 	}
 
 IL_0118:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:664>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:664>
 		int32_t L_44 = V_6;
 		V_6 = ((int32_t)il2cpp_codegen_subtract(L_44, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:665>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:665>
 		Thread_Sleep_m71DE163765BF465EC4A0163F2ED4D43143094549(((int32_t)100), NULL);
 	}
 
 IL_0125:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:662>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:662>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_45 = __this->___ping;
 		NullCheck(L_45);
 		bool L_46;
@@ -4362,16 +4362,16 @@ IL_0125:
 
 IL_0137:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:667>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:667>
 		Thread_Sleep_m71DE163765BF465EC4A0163F2ED4D43143094549(((int32_t)10), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
 		int32_t L_48 = __this->___CurrentAttempt;
 		__this->___CurrentAttempt = ((int32_t)il2cpp_codegen_add(L_48, 1));
 	}
 
 IL_014c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:620>
 		int32_t L_49 = __this->___CurrentAttempt;
 		il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
 		int32_t L_50 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts;
@@ -4383,13 +4383,13 @@ IL_014c:
 
 IL_015c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:672>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:672>
 		RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788_inline(__this, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:673>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:673>
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_51 = __this->___ping;
 		NullCheck(L_51);
 		VirtualActionInvoker0::Invoke(7, L_51);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:675>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:675>
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_52 = __this->___rttResults;
 		NullCheck(L_52);
 		int32_t L_53;
@@ -4407,22 +4407,22 @@ IL_015c:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:677>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:677>
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_55 = __this->___rttResults;
 		int32_t L_56;
 		L_56 = Enumerable_Min_m3D3C3E5CE25D27D94448CA832FB5AB9F702D5443(L_55, NULL);
 		V_7 = L_56;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:678>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:678>
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_57 = __this->___rttResults;
 		int32_t L_58;
 		L_58 = Enumerable_Max_mF33848068459BE74BF534D16F6B678BB677EE704(L_57, NULL);
 		V_8 = L_58;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:679>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:679>
 		int32_t L_59 = V_0;
 		int32_t L_60 = V_8;
 		int32_t L_61 = V_7;
 		V_9 = ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_59, L_60)), L_61));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:680>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:680>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_62 = __this->___region;
 		int32_t L_63 = V_9;
 		int32_t L_64 = V_1;
@@ -4432,16 +4432,16 @@ IL_015c:
 
 IL_01b2:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:683>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:683>
 		Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* L_65 = __this->___onDoneCall;
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_66 = __this->___region;
 		NullCheck(L_65);
 		Action_1_Invoke_m12BD0FB99CB0CE2E42AAA21A11F4485B8067F5D2_inline(L_65, L_66, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:684>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:684>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 128670
+// Method Definition Index: 128124
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* RegionPinger_RegionPingCoroutine_mF2A5081B799A44FDFC030391F3BC7621CB7ADE82 (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4460,7 +4460,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* RegionPinger_RegionPingCorouti
 		return L_1;
 	}
 }
-// Method Definition Index: 128671
+// Method Definition Index: 128125
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_GetResults_m4FE811FA97E064B33486AF2FFF684A8CBC9B5B5D (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4473,7 +4473,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_GetResults_m4FE811FA97
 	}
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:800>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:800>
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_0 = __this->___region;
 		NullCheck(L_0);
 		String_t* L_1;
@@ -4494,7 +4494,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_GetResults_m4FE811FA97
 		return L_7;
 	}
 }
-// Method Definition Index: 128672
+// Method Definition Index: 128126
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_ResolveHost_m441F750EC6952F40C71876E5F8BC54238A3E4FB1 (String_t* ___0_hostName, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4512,7 +4512,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_ResolveHost_m441F750EC
 	IPAddress_t2F4486449B0D73FF2D3B36A9FE5E9C3F63116484* V_4 = NULL;
 	il2cpp::utils::ExceptionSupportStack<RuntimeObject*, 1> __active_exceptions;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:815>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:815>
 		String_t* L_0 = ___0_hostName;
 		NullCheck(L_0);
 		bool L_1;
@@ -4523,7 +4523,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_ResolveHost_m441F750EC
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:817>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:817>
 		String_t* L_2 = ___0_hostName;
 		NullCheck(L_2);
 		String_t* L_3;
@@ -4533,7 +4533,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RegionPinger_ResolveHost_m441F750EC
 
 IL_0016:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:819>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:819>
 		String_t* L_4 = ___0_hostName;
 		NullCheck(L_4);
 		bool L_5;
@@ -4544,7 +4544,7 @@ IL_0016:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:821>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:821>
 		String_t* L_6 = ___0_hostName;
 		NullCheck(L_6);
 		String_t* L_7;
@@ -4554,19 +4554,19 @@ IL_0016:
 
 IL_002c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:824>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:824>
 		String_t* L_8 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(il2cpp_defaults.string_class))->___Empty;
 		V_0 = L_8;
 	}
 	try
 	{
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:832>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:832>
 			String_t* L_9 = ___0_hostName;
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_10;
 			L_10 = Dns_GetHostAddresses_mB44EA8DE1F3C53F533578949FED6BB98B0F1F212(L_9, NULL);
 			V_1 = L_10;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:833>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:833>
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_11 = V_1;
 			NullCheck(L_11);
 			if ((!(((uint32_t)((int32_t)(((RuntimeArray*)L_11)->max_length))) == ((uint32_t)1))))
@@ -4575,7 +4575,7 @@ IL_002c:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:835>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:835>
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_12 = V_1;
 			NullCheck(L_12);
 			int32_t L_13 = 0;
@@ -4589,21 +4589,21 @@ IL_002c:
 
 IL_004a_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
 			V_3 = 0;
 			goto IL_0087_1;
 		}
 
 IL_004e_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:842>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:842>
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_16 = V_1;
 			int32_t L_17 = V_3;
 			NullCheck(L_16);
 			int32_t L_18 = L_17;
 			IPAddress_t2F4486449B0D73FF2D3B36A9FE5E9C3F63116484* L_19 = (L_16)->GetAt(static_cast<il2cpp_array_size_t>(L_18));
 			V_4 = L_19;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:843>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:843>
 			IPAddress_t2F4486449B0D73FF2D3B36A9FE5E9C3F63116484* L_20 = V_4;
 			if (!L_20)
 			{
@@ -4611,7 +4611,7 @@ IL_004e_1:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:845>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:845>
 			IPAddress_t2F4486449B0D73FF2D3B36A9FE5E9C3F63116484* L_21 = V_4;
 			NullCheck(L_21);
 			String_t* L_22;
@@ -4625,7 +4625,7 @@ IL_004e_1:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:847>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:847>
 			IPAddress_t2F4486449B0D73FF2D3B36A9FE5E9C3F63116484* L_24 = V_4;
 			NullCheck(L_24);
 			String_t* L_25;
@@ -4636,7 +4636,7 @@ IL_004e_1:
 
 IL_0074_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:849>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:849>
 			String_t* L_26 = V_0;
 			bool L_27;
 			L_27 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_26, NULL);
@@ -4646,7 +4646,7 @@ IL_0074_1:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:851>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:851>
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_28 = V_1;
 			NullCheck((RuntimeObject*)L_28);
 			String_t* L_29;
@@ -4656,14 +4656,14 @@ IL_0074_1:
 
 IL_0083_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
 			int32_t L_30 = V_3;
 			V_3 = ((int32_t)il2cpp_codegen_add(L_30, 1));
 		}
 
 IL_0087_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:840>
 			int32_t L_31 = V_3;
 			IPAddressU5BU5D_t3AEDF3B94746C9023A4549F878AA47F702C9CD0D* L_32 = V_1;
 			NullCheck(L_32);
@@ -4673,7 +4673,7 @@ IL_0087_1:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:856>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:856>
 			goto IL_0092;
 		}
 	}
@@ -4690,27 +4690,27 @@ IL_0087_1:
 CATCH_008f:
 	{
 		Exception_t* L_33 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:857>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:860>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:857>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:860>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_0092;
 	}
 
 IL_0092:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:862>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:862>
 		String_t* L_34 = V_0;
 		return L_34;
 	}
 
 IL_0094:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:863>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:863>
 		String_t* L_35 = V_2;
 		return L_35;
 	}
 }
-// Method Definition Index: 128673
+// Method Definition Index: 128127
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger__cctor_m9A9F310409B1EDC20442CF07431F29AA7EA811A7 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4720,22 +4720,22 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger__cctor_m9A9F310409B1EDC2044
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:456>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:456>
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts = 5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:458>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:458>
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___MaxMillisecondsPerPing = ((int32_t)800);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:460>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:460>
 		int32_t L_0 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___Attempts;
 		int32_t L_1 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___MaxMillisecondsPerPing;
 		((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed = ((int32_t)il2cpp_codegen_multiply(L_0, L_1));
 		return;
 	}
 }
-// Method Definition Index: 128674
+// Method Definition Index: 128128
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_U3CStartU3Eb__20_0_m02FDCA94F746A1F77876CA779BC1B3A33A814241 (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, RuntimeObject* ___0_o, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:559>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:559>
 		bool L_0;
 		L_0 = RegionPinger_RegionPingThreaded_m239F9AF38B447BE54D244A60DF6E0D4E1C7D09AD(__this, NULL);
 		return;
@@ -4749,7 +4749,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RegionPinger_U3CStartU3Eb__20_0_m02FDCA9
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128675
+// Method Definition Index: 128129
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRegionPingCoroutineU3Ed__23__ctor_mADF9DD5FA3F20F105CC52C2CC79FC13F8B60BE67 (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
 {
 	{
@@ -4759,14 +4759,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRegionPingCoroutineU3Ed__23__ctor_mAD
 		return;
 	}
 }
-// Method Definition Index: 128676
+// Method Definition Index: 128130
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRegionPingCoroutineU3Ed__23_System_IDisposable_Dispose_m6729E18F609A17F96DD958CB4F5822BA321D27A4 (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, const RuntimeMethod* method) 
 {
 	{
 		return;
 	}
 }
-// Method Definition Index: 128677
+// Method Definition Index: 128131
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CRegionPingCoroutineU3Ed__23_MoveNext_m1305D5D1CB772847E66262CA7DBFF863554DEDC5 (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4832,7 +4832,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CRegionPingCoroutineU3Ed__23_MoveNext_
 IL_002e:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:695>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:695>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_3 = V_1;
 		NullCheck(L_3);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_4 = L_3->___region;
@@ -4840,11 +4840,11 @@ IL_002e:
 		int32_t L_5 = ((RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_StaticFields*)il2cpp_codegen_static_fields_for(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var))->___PingWhenFailed;
 		NullCheck(L_4);
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(L_4, L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:697>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:697>
 		__this->___U3CrttSumU3E5__2 = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:698>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:698>
 		__this->___U3CreplyCountU3E5__3 = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:699>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:699>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_6 = (Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043*)il2cpp_codegen_object_new(Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043_il2cpp_TypeInfo_var);
 		Stopwatch__ctor_mAFE6B2F45CF1C3469EF6D5307972BC098B473D0A(L_6, NULL);
 		__this->___U3CswU3E5__4 = L_6;
@@ -4853,7 +4853,7 @@ IL_002e:
 	try
 	{
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:705>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:705>
 			RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_7 = V_1;
 			NullCheck(L_7);
 			Region_t86EE56292163DD338305D2026ED732113764E60D* L_8 = L_7->___region;
@@ -4861,13 +4861,13 @@ IL_002e:
 			String_t* L_9;
 			L_9 = Region_get_HostAndPort_m526F32BBF6289B2B9BD1AAA5DBF0684E844EA5A6_inline(L_8, NULL);
 			V_2 = L_9;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:706>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:706>
 			String_t* L_10 = V_2;
 			NullCheck(L_10);
 			int32_t L_11;
 			L_11 = String_LastIndexOf_m6BB3E7E1B48702D4C715FA423F8A822C053B290E(L_10, ((int32_t)58), NULL);
 			V_3 = L_11;
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:707>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:707>
 			int32_t L_12 = V_3;
 			if ((((int32_t)L_12) <= ((int32_t)1)))
 			{
@@ -4875,7 +4875,7 @@ IL_002e:
 			}
 		}
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:709>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:709>
 			String_t* L_13 = V_2;
 			int32_t L_14 = V_3;
 			NullCheck(L_13);
@@ -4886,11 +4886,11 @@ IL_002e:
 
 IL_0080_1:
 		{
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:712>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:712>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_16 = __this->___U3CswU3E5__4;
 			NullCheck(L_16);
 			Stopwatch_Start_m35906A38C7D336CF9DD35854C7E170D762A55915(L_16, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:713>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:713>
 			RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_17 = V_1;
 			String_t* L_18 = V_2;
 			il2cpp_codegen_runtime_class_init_inline(RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2_il2cpp_TypeInfo_var);
@@ -4899,16 +4899,16 @@ IL_0080_1:
 			NullCheck(L_17);
 			L_17->___regionAddress = L_19;
 			Il2CppCodeGenWriteBarrier((void**)(&L_17->___regionAddress), (void*)L_19);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:714>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:714>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_20 = __this->___U3CswU3E5__4;
 			NullCheck(L_20);
 			Stopwatch_Stop_m8F2A2EFD9D7D5B4180A5E5379E5443864618D7DC(L_20, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:715>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:715>
 			Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_21 = __this->___U3CswU3E5__4;
 			NullCheck(L_21);
 			int64_t L_22;
 			L_22 = Stopwatch_get_ElapsedMilliseconds_m8D8E60ADEB47D008C06D8E57D28D41EAE07AECBF(L_21, NULL);
-			//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:719>
+			//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:719>
 			goto IL_00be;
 		}
 	}
@@ -4925,19 +4925,19 @@ IL_0080_1:
 CATCH_00b4:
 	{
 		Exception_t* L_23 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:720>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:723>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:720>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:723>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_24 = V_1;
 		NullCheck(L_24);
 		RegionPinger_set_Aborted_m17BF2BBE25D0C86F11C40775D799E98CBB78926E_inline(L_24, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:724>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:724>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_00be;
 	}
 
 IL_00be:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_25 = V_1;
 		NullCheck(L_25);
 		L_25->___CurrentAttempt = 0;
@@ -4946,7 +4946,7 @@ IL_00be:
 
 IL_00ca:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:728>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:728>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_26 = V_1;
 		NullCheck(L_26);
 		bool L_27;
@@ -4957,7 +4957,7 @@ IL_00ca:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:730>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:730>
 		__this->___U3CU3E2__current = NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
 		__this->___U3CU3E1__state = 1;
@@ -4971,18 +4971,18 @@ IL_00e2:
 
 IL_00e9:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:733>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:733>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_28 = __this->___U3CswU3E5__4;
 		NullCheck(L_28);
 		Stopwatch_Reset_mF22DE61FDE7FF5825C750D2F6482B591BDC715FA(L_28, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:734>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:734>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_29 = __this->___U3CswU3E5__4;
 		NullCheck(L_29);
 		Stopwatch_Start_m35906A38C7D336CF9DD35854C7E170D762A55915(L_29, NULL);
 	}
 	try
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:738>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:738>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_30 = V_1;
 		NullCheck(L_30);
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_31 = L_30->___ping;
@@ -4992,7 +4992,7 @@ IL_00e9:
 		NullCheck(L_31);
 		bool L_34;
 		L_34 = VirtualFuncInvoker1< bool, String_t* >::Invoke(5, L_31, L_33);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:739>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:739>
 		goto IL_014c;
 	}
 	catch(Il2CppExceptionWrapper& e)
@@ -5008,15 +5008,15 @@ IL_00e9:
 CATCH_0113:
 	{
 		Exception_t* L_35 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:740>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:743>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:740>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:743>
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
 		goto IL_025b;
 	}
 
 IL_0119:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:749>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:749>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_36 = __this->___U3CswU3E5__4;
 		NullCheck(L_36);
 		int64_t L_37;
@@ -5029,7 +5029,7 @@ IL_0119:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:755>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:755>
 		WaitForSecondsRealtime_tA8CE0AAB4B0C872B843E7973637037D17682BA01* L_39 = (WaitForSecondsRealtime_tA8CE0AAB4B0C872B843E7973637037D17682BA01*)il2cpp_codegen_object_new(WaitForSecondsRealtime_tA8CE0AAB4B0C872B843E7973637037D17682BA01_il2cpp_TypeInfo_var);
 		WaitForSecondsRealtime__ctor_mBFC1E4F0E042D5EC6E7EEB211A2FE5193A8F6D6F(L_39, (0.00999999978f), NULL);
 		__this->___U3CU3E2__current = L_39;
@@ -5045,7 +5045,7 @@ IL_0145:
 
 IL_014c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:747>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:747>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_40 = V_1;
 		NullCheck(L_40);
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_41 = L_40->___ping;
@@ -5060,11 +5060,11 @@ IL_014c:
 
 IL_0159:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:759>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:759>
 		Stopwatch_tA188A210449E22C07053A7D3014DD182C7369043* L_43 = __this->___U3CswU3E5__4;
 		NullCheck(L_43);
 		Stopwatch_Stop_m8F2A2EFD9D7D5B4180A5E5379E5443864618D7DC(L_43, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:760>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:760>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_44 = V_1;
 		NullCheck(L_44);
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_45 = L_44->___ping;
@@ -5094,23 +5094,23 @@ IL_0178:
 IL_0184:
 	{
 		V_4 = G_B21_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:761>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:761>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_50 = V_1;
 		NullCheck(L_50);
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_51 = L_50->___rttResults;
 		int32_t L_52 = V_4;
 		NullCheck(L_51);
 		List_1_Add_m0248A96C5334E9A93E6994B7780478BCD994EA3D_inline(L_51, L_52, List_1_Add_m0248A96C5334E9A93E6994B7780478BCD994EA3D_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:764>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:764>
 		int32_t L_53 = __this->___U3CrttSumU3E5__2;
 		int32_t L_54 = V_4;
 		__this->___U3CrttSumU3E5__2 = ((int32_t)il2cpp_codegen_add(L_53, L_54));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:765>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:765>
 		int32_t L_55 = __this->___U3CreplyCountU3E5__3;
 		V_5 = L_55;
 		int32_t L_56 = V_5;
 		__this->___U3CreplyCountU3E5__3 = ((int32_t)il2cpp_codegen_add(L_56, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:766>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:766>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_57 = V_1;
 		NullCheck(L_57);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_58 = L_57->___region;
@@ -5118,19 +5118,19 @@ IL_0184:
 		int32_t L_60 = __this->___U3CreplyCountU3E5__3;
 		NullCheck(L_58);
 		Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline(L_58, ((int32_t)(L_59/L_60)), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:768>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:768>
 		__this->___U3CiU3E5__5 = 4;
 		goto IL_0207;
 	}
 
 IL_01d5:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:771>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:771>
 		int32_t L_61 = __this->___U3CiU3E5__5;
 		V_5 = L_61;
 		int32_t L_62 = V_5;
 		__this->___U3CiU3E5__5 = ((int32_t)il2cpp_codegen_subtract(L_62, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:772>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:772>
 		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_63 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
 		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_63, (0.100000001f), NULL);
 		__this->___U3CU3E2__current = L_63;
@@ -5146,7 +5146,7 @@ IL_0200:
 
 IL_0207:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:769>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:769>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_64 = V_1;
 		NullCheck(L_64);
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_65 = L_64->___ping;
@@ -5168,7 +5168,7 @@ IL_0207:
 
 IL_021d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:775>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:775>
 		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_68 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
 		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_68, (0.100000001f), NULL);
 		__this->___U3CU3E2__current = L_68;
@@ -5180,7 +5180,7 @@ IL_021d:
 IL_0236:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_69 = V_1;
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_70 = V_1;
 		NullCheck(L_70);
@@ -5191,7 +5191,7 @@ IL_0236:
 
 IL_024b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:726>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_72 = V_1;
 		NullCheck(L_72);
 		int32_t L_73 = L_72->___CurrentAttempt;
@@ -5205,17 +5205,17 @@ IL_024b:
 
 IL_025b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:780>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:780>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_75 = V_1;
 		NullCheck(L_75);
 		RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788_inline(L_75, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:781>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:781>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_76 = V_1;
 		NullCheck(L_76);
 		PhotonPing_t63E555039AC3ED874D37A12A802E9E603FAF2359* L_77 = L_76->___ping;
 		NullCheck(L_77);
 		VirtualActionInvoker0::Invoke(7, L_77);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:783>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:783>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_78 = V_1;
 		NullCheck(L_78);
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_79 = L_78->___rttResults;
@@ -5235,26 +5235,26 @@ IL_025b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:785>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:785>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_82 = V_1;
 		NullCheck(L_82);
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_83 = L_82->___rttResults;
 		int32_t L_84;
 		L_84 = Enumerable_Min_m3D3C3E5CE25D27D94448CA832FB5AB9F702D5443(L_83, NULL);
 		V_6 = L_84;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:786>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:786>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_85 = V_1;
 		NullCheck(L_85);
 		List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* L_86 = L_85->___rttResults;
 		int32_t L_87;
 		L_87 = Enumerable_Max_mF33848068459BE74BF534D16F6B678BB677EE704(L_86, NULL);
 		V_7 = L_87;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:787>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:787>
 		int32_t L_88 = __this->___U3CrttSumU3E5__2;
 		int32_t L_89 = V_7;
 		int32_t L_90 = V_6;
 		V_8 = ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_88, L_89)), L_90));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:788>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:788>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_91 = V_1;
 		NullCheck(L_91);
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_92 = L_91->___region;
@@ -5266,7 +5266,7 @@ IL_025b:
 
 IL_02c0:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:791>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:791>
 		RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* L_95 = V_1;
 		NullCheck(L_95);
 		Action_1_tD4473131D1B6C4834491E0A14D727DC711536F70* L_96 = L_95->___onDoneCall;
@@ -5275,7 +5275,7 @@ IL_02c0:
 		Region_t86EE56292163DD338305D2026ED732113764E60D* L_98 = L_97->___region;
 		NullCheck(L_96);
 		Action_1_Invoke_m12BD0FB99CB0CE2E42AAA21A11F4485B8067F5D2_inline(L_96, L_98, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:792>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:792>
 		__this->___U3CU3E2__current = NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
 		__this->___U3CU3E1__state = 5;
@@ -5285,11 +5285,11 @@ IL_02c0:
 IL_02e1:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:793>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:793>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 128678
+// Method Definition Index: 128132
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRegionPingCoroutineU3Ed__23_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m45F0D262FD9BD296C1593BEB41D6102BA5FE5438 (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5297,7 +5297,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRegionPingCoroutineU3Ed__23
 		return L_0;
 	}
 }
-// Method Definition Index: 128679
+// Method Definition Index: 128133
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRegionPingCoroutineU3Ed__23_System_Collections_IEnumerator_Reset_mF7B205723CD65504EEB3E77AA2FFD83765D43DBF (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5306,7 +5306,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRegionPingCoroutineU3Ed__23_System_Co
 		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CRegionPingCoroutineU3Ed__23_System_Collections_IEnumerator_Reset_mF7B205723CD65504EEB3E77AA2FFD83765D43DBF_RuntimeMethod_var)));
 	}
 }
-// Method Definition Index: 128680
+// Method Definition Index: 128134
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRegionPingCoroutineU3Ed__23_System_Collections_IEnumerator_get_Current_m8D7E74BF57DCB47B0BFA8087C91274374A394D24 (U3CRegionPingCoroutineU3Ed__23_tA15D0A95F7F000E457B63358CF705BF48A93D359* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5322,7 +5322,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRegionPingCoroutineU3Ed__23
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128681
+// Method Definition Index: 128135
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* MonoBehaviourEmpty_BuildInstance_mA4FFD04375D69C3375E0CD3299E3613386C0F642 (String_t* ___0_id, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5337,7 +5337,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A
 	String_t* G_B2_0 = NULL;
 	String_t* G_B1_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:874>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:874>
 		String_t* L_0 = ___0_id;
 		String_t* L_1 = L_0;
 		if (L_1)
@@ -5355,18 +5355,18 @@ IL_000a:
 	{
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_2 = (GameObject_t76FEDD663AB33C991A9C9A23129337651094216F*)il2cpp_codegen_object_new(GameObject_t76FEDD663AB33C991A9C9A23129337651094216F_il2cpp_TypeInfo_var);
 		GameObject__ctor_m37D512B05D292F954792225E6C6EEE95293A9B88(L_2, G_B2_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:875>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:875>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_3 = L_2;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_DontDestroyOnLoad_m4B70C3AEF886C176543D1295507B6455C9DCAEA7(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:877>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:877>
 		NullCheck(L_3);
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_4;
 		L_4 = GameObject_AddComponent_TisMonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877_m56B5DA044774EFB4600D00872F29F4CAEC53EAD4(L_3, GameObject_AddComponent_TisMonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877_m56B5DA044774EFB4600D00872F29F4CAEC53EAD4_RuntimeMethod_var);
 		return L_4;
 	}
 }
-// Method Definition Index: 128682
+// Method Definition Index: 128136
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_SelfDestroy_m31A5728705343D83C640784DB579DDEE4576FFE4 (MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5376,20 +5376,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_SelfDestroy_m31A57287
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:882>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:882>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_0;
 		L_0 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(__this, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:883>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:883>
 		return;
 	}
 }
-// Method Definition Index: 128683
+// Method Definition Index: 128137
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_Update_m4B524D411FF22D01E5A2FBC5124FD25C0B66D140 (MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:887>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:887>
 		RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* L_0 = __this->___obj;
 		if (!L_0)
 		{
@@ -5397,40 +5397,40 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_Update_m4B524D411FF22
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:889>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:889>
 		Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7* L_1 = __this->___onCompleteCall;
 		RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* L_2 = __this->___obj;
 		NullCheck(L_1);
 		Action_1_Invoke_mEBA466C47F562C38E80F715FFEBC14A4038E7DA9_inline(L_1, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:890>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:890>
 		__this->___obj = (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___obj), (void*)(RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:891>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:891>
 		__this->___onCompleteCall = (Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___onCompleteCall), (void*)(Action_1_t6180346FBAC843F65B5AC6BB7BE9E7F638070BA7*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:892>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:892>
 		MonoBehaviourEmpty_SelfDestroy_m31A5728705343D83C640784DB579DDEE4576FFE4(__this, NULL);
 	}
 
 IL_002d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:894>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:894>
 		return;
 	}
 }
-// Method Definition Index: 128684
+// Method Definition Index: 128138
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_CompleteOnMainThread_mA23D850F64AD32CE6459ECF7BEE9D3565FD74574 (MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* __this, RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* ___0_obj, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:898>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:898>
 		RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* L_0 = ___0_obj;
 		__this->___obj = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___obj), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:899>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:899>
 		return;
 	}
 }
-// Method Definition Index: 128685
+// Method Definition Index: 128139
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_StartCoroutineAndDestroy_m9673F659663240944D360B8007D58CC999E9AD28 (MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* __this, RuntimeObject* ___0_coroutine, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5453,18 +5453,18 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty_StartCoroutineAndDest
 		NullCheck(L_3);
 		L_3->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_3->___U3CU3E4__this), (void*)__this);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:903>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:903>
 		U3CU3Ec__DisplayClass6_0_tB8DFC393F2383BE987636D3C31CBF3AB11F2091C* L_4 = V_0;
 		NullCheck(L_4);
 		RuntimeObject* L_5;
 		L_5 = U3CU3Ec__DisplayClass6_0_U3CStartCoroutineAndDestroyU3Eg__RoutineU7C0_mEB60268EACEDCFA37DC538257DE808C3D82C4F52(L_4, NULL);
 		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_6;
 		L_6 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(__this, L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:910>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:910>
 		return;
 	}
 }
-// Method Definition Index: 128686
+// Method Definition Index: 128140
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty__ctor_mC2F8B07604AD24233316A21A2480E7CFD5B430BC (MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5480,7 +5480,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviourEmpty__ctor_mC2F8B07604AD24
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128687
+// Method Definition Index: 128141
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0__ctor_m5CF44503EE82CC7F494750F992967F3DF73DC56E (U3CU3Ec__DisplayClass6_0_tB8DFC393F2383BE987636D3C31CBF3AB11F2091C* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5488,7 +5488,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0__ctor_m5CF44503
 		return;
 	}
 }
-// Method Definition Index: 128688
+// Method Definition Index: 128142
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3Ec__DisplayClass6_0_U3CStartCoroutineAndDestroyU3Eg__RoutineU7C0_mEB60268EACEDCFA37DC538257DE808C3D82C4F52 (U3CU3Ec__DisplayClass6_0_tB8DFC393F2383BE987636D3C31CBF3AB11F2091C* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5515,7 +5515,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3Ec__DisplayClass6_0_U3CSt
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128689
+// Method Definition Index: 128143
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed__ctor_mFCA97D87D8EA3064C059C372DF9DA13B143A6C67 (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
 {
 	{
@@ -5525,14 +5525,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3CStartCoroutineAndDestroyU3Eg__Rout
 		return;
 	}
 }
-// Method Definition Index: 128690
+// Method Definition Index: 128144
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_System_IDisposable_Dispose_m8D157D521B6D450E392AF628FD79550F021856E6 (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, const RuntimeMethod* method) 
 {
 	{
 		return;
 	}
 }
-// Method Definition Index: 128691
+// Method Definition Index: 128145
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_MoveNext_mFB490C76140AEEBD9F90E7685012ECEB3EEBE8CB (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -5562,7 +5562,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3CStartCoroutineAndDestroyU3Eg__Rout
 IL_0017:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:907>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:907>
 		U3CU3Ec__DisplayClass6_0_tB8DFC393F2383BE987636D3C31CBF3AB11F2091C* L_4 = V_1;
 		NullCheck(L_4);
 		RuntimeObject* L_5 = L_4->___coroutine;
@@ -5575,17 +5575,17 @@ IL_0017:
 IL_0033:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:908>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:908>
 		U3CU3Ec__DisplayClass6_0_tB8DFC393F2383BE987636D3C31CBF3AB11F2091C* L_6 = V_1;
 		NullCheck(L_6);
 		MonoBehaviourEmpty_tB30379EC6B61A74B5BA85003A66D2479370FA877* L_7 = L_6->___U3CU3E4__this;
 		NullCheck(L_7);
 		MonoBehaviourEmpty_SelfDestroy_m31A5728705343D83C640784DB579DDEE4576FFE4(L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:909>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:909>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 128692
+// Method Definition Index: 128146
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mEA78DE442357B6C7F1B3E5A353321C3D56F61083 (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5593,7 +5593,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3CStartCoroutineAndDestroy
 		return L_0;
 	}
 }
-// Method Definition Index: 128693
+// Method Definition Index: 128147
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_System_Collections_IEnumerator_Reset_mBB051F5EFD66C099094C80D9B0DF45E5A8ADA3CA (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5602,7 +5602,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3CStartCoroutineAndDestroyU3Eg__Rout
 		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_System_Collections_IEnumerator_Reset_mBB051F5EFD66C099094C80D9B0DF45E5A8ADA3CA_RuntimeMethod_var)));
 	}
 }
-// Method Definition Index: 128694
+// Method Definition Index: 128148
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_System_Collections_IEnumerator_get_Current_m4434E2CC2F1FF0A18BF0568AD8DB58066E68531E (U3CU3CStartCoroutineAndDestroyU3Eg__RoutineU7C0U3Ed_t95AA0CF0AD215A98FE55A9A8E201C69E4B6C3ECB* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5618,77 +5618,77 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CU3CStartCoroutineAndDestroy
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128695
+// Method Definition Index: 128149
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_0 = __this->___U3CRealtimeClientU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128696
+// Method Definition Index: 128150
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_RealtimeClient_mDE8E16B134BE755FA69392C84A2001B74DA78FB3 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_0 = ___0_value;
 		__this->___U3CRealtimeClientU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CRealtimeClientU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128697
+// Method Definition Index: 128151
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Room_get_Name_m7155D060700AC7BF24F58C2159B261EBD3494A48 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:51>
 		String_t* L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___name;
 		return L_0;
 	}
 }
-// Method Definition Index: 128698
+// Method Definition Index: 128152
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_Name_mCE4820E2FFA855E7111BC0721148EB457444085F (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:56>
 		String_t* L_0 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___name = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___name), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:57>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:57>
 		return;
 	}
 }
-// Method Definition Index: 128699
+// Method Definition Index: 128153
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_IsOffline_mE919449C9A9C102D17C47F01A68A5C61C885DD9D (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:67>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:67>
 		bool L_0 = __this->___isOffline;
 		return L_0;
 	}
 }
-// Method Definition Index: 128700
+// Method Definition Index: 128154
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOffline_m8ED2DF75CC49A38917B40DEC1B3BCCC4CF6BEEA7 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:72>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:72>
 		bool L_0 = ___0_value;
 		__this->___isOffline = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:73>
 		return;
 	}
 }
-// Method Definition Index: 128701
+// Method Definition Index: 128155
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_IsOpen_mCCDAF55160EEF61BF2C60FC9BD1B0A18F6598C7A (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:93>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:93>
 		bool L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isOpen;
 		return L_0;
 	}
 }
-// Method Definition Index: 128702
+// Method Definition Index: 128156
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOpen_m292CB3E6C1A268825C5599860DA9EADC16914868 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5698,7 +5698,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOpen_m292CB3E6C1A268825C55998
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:98>
 		bool L_0 = ___0_value;
 		bool L_1 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isOpen;
 		if ((((int32_t)L_0) == ((int32_t)L_1)))
@@ -5707,7 +5707,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOpen_m292CB3E6C1A268825C55998
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:100>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:100>
 		bool L_2 = __this->___isOffline;
 		if (L_2)
 		{
@@ -5715,7 +5715,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOpen_m292CB3E6C1A268825C55998
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:102>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_3;
 		L_3 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_4 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
@@ -5733,23 +5733,23 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsOpen_m292CB3E6C1A268825C55998
 
 IL_0034:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:106>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:106>
 		bool L_10 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isOpen = L_10;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:107>
 		return;
 	}
 }
-// Method Definition Index: 128703
+// Method Definition Index: 128157
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_IsVisible_m1414C293088911D1101E95C758CEA557048A1573 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:124>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:124>
 		bool L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isVisible;
 		return L_0;
 	}
 }
-// Method Definition Index: 128704
+// Method Definition Index: 128158
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsVisible_mDA6A45BE440E11D21E3C50F34F2EB1C246BD1564 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5759,7 +5759,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsVisible_mDA6A45BE440E11D21E3C
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:129>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:129>
 		bool L_0 = ___0_value;
 		bool L_1 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isVisible;
 		if ((((int32_t)L_0) == ((int32_t)L_1)))
@@ -5768,7 +5768,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsVisible_mDA6A45BE440E11D21E3C
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:131>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:131>
 		bool L_2 = __this->___isOffline;
 		if (L_2)
 		{
@@ -5776,7 +5776,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsVisible_mDA6A45BE440E11D21E3C
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:133>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:133>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_3;
 		L_3 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_4 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
@@ -5794,23 +5794,23 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_IsVisible_mDA6A45BE440E11D21E3C
 
 IL_0034:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:137>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:137>
 		bool L_10 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isVisible = L_10;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:138>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:138>
 		return;
 	}
 }
-// Method Definition Index: 128705
+// Method Definition Index: 128159
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_MaxPlayers_mAA64772B0399376E6C1DED3777E9E8FCBBC9E255 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:153>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:153>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___maxPlayers;
 		return L_0;
 	}
 }
-// Method Definition Index: 128706
+// Method Definition Index: 128160
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_MaxPlayers_m3D7710CB6750604AEECDD0B48F68DEF6942E2B96 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5822,7 +5822,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_MaxPlayers_m3D7710CB6750604AEEC
 	uint8_t V_0 = 0x0;
 	int32_t G_B5_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:158>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:158>
 		int32_t L_0 = ___0_value;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -5838,10 +5838,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_MaxPlayers_m3D7710CB6750604AEEC
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:162>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:162>
 		int32_t L_3 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___maxPlayers = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:163>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:163>
 		int32_t L_4 = ___0_value;
 		if ((((int32_t)L_4) <= ((int32_t)((int32_t)255))))
 		{
@@ -5862,7 +5862,7 @@ IL_001f:
 IL_0021:
 	{
 		V_0 = (uint8_t)G_B5_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:164>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:164>
 		bool L_6 = __this->___isOffline;
 		if (L_6)
 		{
@@ -5870,7 +5870,7 @@ IL_0021:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:166>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:166>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_7;
 		L_7 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_8 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
@@ -5894,11 +5894,11 @@ IL_0021:
 
 IL_0063:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:169>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:169>
 		return;
 	}
 }
-// Method Definition Index: 128707
+// Method Definition Index: 128161
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_PlayerCount_mD324981454C6522030E7C10FF8EDFA09A97BDC02 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5908,7 +5908,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_PlayerCount_mD324981454C6522
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:177>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:177>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0;
 		L_0 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		if (L_0)
@@ -5917,13 +5917,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_PlayerCount_mD324981454C6522
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:179>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:179>
 		return 0;
 	}
 
 IL_000a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:182>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:182>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_1;
 		L_1 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		NullCheck(L_1);
@@ -5932,50 +5932,50 @@ IL_000a:
 		return ((int32_t)(uint8_t)L_2);
 	}
 }
-// Method Definition Index: 128708
+// Method Definition Index: 128162
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:194>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:194>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0 = __this->___players;
 		return L_0;
 	}
 }
-// Method Definition Index: 128709
+// Method Definition Index: 128163
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_Players_mB76C55000557ACDB4EA05D75D27437221DFBD700 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:199>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:199>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0 = ___0_value;
 		__this->___players = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___players), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:200>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:200>
 		return;
 	}
 }
-// Method Definition Index: 128710
+// Method Definition Index: 128164
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* Room_get_ExpectedUsers_m087FAE69FAD29F318A4578CC983F017E0330559D (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:212>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:212>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___expectedUsers;
 		return L_0;
 	}
 }
-// Method Definition Index: 128711
+// Method Definition Index: 128165
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_PlayerTtl_m1FDA8ABF55EB8E6DA98A75F5B3739D002610DE7E (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:219>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:219>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___playerTtl;
 		return L_0;
 	}
 }
-// Method Definition Index: 128712
+// Method Definition Index: 128166
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PlayerTtl_m8C5B570EF92F31BF899062F6BD6B322A8D4BBA10 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:223>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:223>
 		int32_t L_0 = ___0_value;
 		int32_t L_1 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___playerTtl;
 		if ((((int32_t)L_0) == ((int32_t)L_1)))
@@ -5984,7 +5984,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PlayerTtl_m8C5B570EF92F31BF8990
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:225>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:225>
 		bool L_2 = __this->___isOffline;
 		if (L_2)
 		{
@@ -5992,7 +5992,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PlayerTtl_m8C5B570EF92F31BF8990
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:227>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:227>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_3;
 		L_3 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		int32_t L_4 = ___0_value;
@@ -6005,27 +6005,27 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PlayerTtl_m8C5B570EF92F31BF8990
 
 IL_0028:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:231>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:231>
 		int32_t L_8 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___playerTtl = L_8;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:232>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:232>
 		return;
 	}
 }
-// Method Definition Index: 128713
+// Method Definition Index: 128167
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_EmptyRoomTtl_m4B62F2448A5E9D4107CC6854B8CBF039D6517FD0 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:239>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:239>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___emptyRoomTtl;
 		return L_0;
 	}
 }
-// Method Definition Index: 128714
+// Method Definition Index: 128168
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_EmptyRoomTtl_m015188B955435B260A0941CEAE2A9FBCE027ADF6 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:243>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:243>
 		int32_t L_0 = ___0_value;
 		int32_t L_1 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___emptyRoomTtl;
 		if ((((int32_t)L_0) == ((int32_t)L_1)))
@@ -6034,7 +6034,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_EmptyRoomTtl_m015188B955435B260
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:245>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:245>
 		bool L_2 = __this->___isOffline;
 		if (L_2)
 		{
@@ -6042,7 +6042,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_EmptyRoomTtl_m015188B955435B260
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:247>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:247>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_3;
 		L_3 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		int32_t L_4 = ___0_value;
@@ -6055,179 +6055,179 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_EmptyRoomTtl_m015188B955435B260
 
 IL_0028:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:251>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:251>
 		int32_t L_8 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___emptyRoomTtl = L_8;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:252>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:252>
 		return;
 	}
 }
-// Method Definition Index: 128715
+// Method Definition Index: 128169
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Room_get_MasterClientId_m2166829B73D023E32067DA43A341A6B946531EF9 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:260>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:260>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___masterClientId;
 		return L_0;
 	}
 }
-// Method Definition Index: 128716
+// Method Definition Index: 128170
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_MasterClientId_m9D0521DF0AED1173E94E500CAD3586989C254968 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:261>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:261>
 		int32_t L_0 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___masterClientId = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:261>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:261>
 		return;
 	}
 }
-// Method Definition Index: 128717
+// Method Definition Index: 128171
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* Room_get_PropertiesListedInLobby_m0919306B60E162D9C9EB8CBF342AF7F0BB741AEB (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:273>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:273>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___propertiesListedInLobby;
 		return L_0;
 	}
 }
-// Method Definition Index: 128718
+// Method Definition Index: 128172
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PropertiesListedInLobby_m06CDB910187C5CE58BE7DDE872D44DFA7463CB2B (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:278>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:278>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = ___0_value;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___propertiesListedInLobby = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___propertiesListedInLobby), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:279>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:279>
 		return;
 	}
 }
-// Method Definition Index: 128719
+// Method Definition Index: 128173
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_AutoCleanUp_m91F609C02C44A916DE63A2560539D86262A555E2 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:296>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:296>
 		bool L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___autoCleanUp;
 		return L_0;
 	}
 }
-// Method Definition Index: 128720
+// Method Definition Index: 128174
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_BroadcastPropertiesChangeToAll_m7F2C42AB46C828C555CD1AE5F877A2E7E9A0DFA1 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
 		bool L_0 = __this->___U3CBroadcastPropertiesChangeToAllU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128721
+// Method Definition Index: 128175
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_BroadcastPropertiesChangeToAll_m275B9A229F06FCB9B7D8CF201429940D30576CC9 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
 		bool L_0 = ___0_value;
 		__this->___U3CBroadcastPropertiesChangeToAllU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128722
+// Method Definition Index: 128176
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_SuppressRoomEvents_m11BCAE2EC23764CBE7F2A44476549350162246E9 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
 		bool L_0 = __this->___U3CSuppressRoomEventsU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128723
+// Method Definition Index: 128177
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_SuppressRoomEvents_m13C8507B0B2F67F34D1434D3964F720A20C93E04 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressRoomEventsU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128724
+// Method Definition Index: 128178
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_SuppressPlayerInfo_m48B10F2F046D37CB31434FFD24951E11647774AE (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
 		bool L_0 = __this->___U3CSuppressPlayerInfoU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128725
+// Method Definition Index: 128179
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_SuppressPlayerInfo_m069AD75749ED37972022D78C05F1525EFE7360AD (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressPlayerInfoU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128726
+// Method Definition Index: 128180
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_PublishUserId_mFE30E720577DA968E40BA30CC68804012F842AAC (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
 		bool L_0 = __this->___U3CPublishUserIdU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128727
+// Method Definition Index: 128181
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_PublishUserId_m124FB05A7EA5635DACF7D7B3CA8AB6F726284EE8 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
 		bool L_0 = ___0_value;
 		__this->___U3CPublishUserIdU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128728
+// Method Definition Index: 128182
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_get_DeleteNullProperties_mDBD4DA3A3CCFB1AA140B757C0D77C887E4D514DF (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
 		bool L_0 = __this->___U3CDeleteNullPropertiesU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128729
+// Method Definition Index: 128183
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_DeleteNullProperties_m9910901A4E6A0C931CD24BCF738BCC0DAD14EB7E (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
 		bool L_0 = ___0_value;
 		__this->___U3CDeleteNullPropertiesU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128730
+// Method Definition Index: 128184
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* Room_get_Lobby_mF9E0FD6FBBC79E9B9254A1519C5C523CE13CE29B (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
 		TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* L_0 = __this->___U3CLobbyU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128731
+// Method Definition Index: 128185
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_set_Lobby_m0216E0D592B2C73132BDEC536D3B01E5909C72B4 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
 		TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* L_0 = ___0_value;
 		__this->___U3CLobbyU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CLobbyU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128732
+// Method Definition Index: 128186
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room__ctor_m02FD20CA47305E4852B648FD9B0F2D9373AF9813 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, String_t* ___0_roomName, RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* ___1_options, bool ___2_isOffline, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6245,12 +6245,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room__ctor_m02FD20CA47305E4852B648FD9B0F
 	String_t* G_B3_1 = NULL;
 	Room_t501C562FC334E4633145D38289B5351DC417ADDB* G_B3_2 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:187>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:187>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0 = (Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B*)il2cpp_codegen_object_new(Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B_il2cpp_TypeInfo_var);
 		Dictionary_2__ctor_m0A7EEA15181FE3F443A30AD1A7A48FBB058CDAE3(L_0, Dictionary_2__ctor_m0A7EEA15181FE3F443A30AD1A7A48FBB058CDAE3_RuntimeMethod_var);
 		__this->___players = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___players), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:323>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:323>
 		String_t* L_1 = ___0_roomName;
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_2 = ___1_options;
 		if (L_2)
@@ -6282,7 +6282,7 @@ IL_0013:
 IL_0019:
 	{
 		RoomInfo__ctor_m2C653BB8DD0AC27C97C6C69CFCC76D6CFF554E3B(G_B3_2, G_B3_1, G_B3_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:326>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:326>
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_5 = ___1_options;
 		if (!L_5)
 		{
@@ -6290,24 +6290,24 @@ IL_0019:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:328>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:328>
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_6 = ___1_options;
 		NullCheck(L_6);
 		bool L_7;
 		L_7 = RoomOptions_get_IsVisible_mAA6197847506F15A79D8A97326D02EE825E1CFEB_inline(L_6, NULL);
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isVisible = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:329>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:329>
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_8 = ___1_options;
 		NullCheck(L_8);
 		bool L_9;
 		L_9 = RoomOptions_get_IsOpen_mB5DD62458BD4168B6EC1D65CECCD8031775A9B69_inline(L_8, NULL);
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___isOpen = L_9;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:330>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:330>
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_10 = ___1_options;
 		NullCheck(L_10);
 		int32_t L_11 = L_10->___MaxPlayers;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___maxPlayers = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:331>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:331>
 		RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* L_12 = ___1_options;
 		NullCheck(L_12);
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_13 = L_12->___CustomRoomPropertiesForLobby;
@@ -6317,51 +6317,51 @@ IL_0019:
 
 IL_0051:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:336>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:336>
 		bool L_14 = ___2_isOffline;
 		__this->___isOffline = L_14;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:337>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:337>
 		return;
 	}
 }
-// Method Definition Index: 128733
+// Method Definition Index: 128187
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_InternalCacheRoomFlags_mEC4BE25DD1C860A39296EF4FAE95A2BFF43ACD2A (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_roomFlags, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:345>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:345>
 		int32_t L_0 = ___0_roomFlags;
 		Room_set_BroadcastPropertiesChangeToAll_m275B9A229F06FCB9B7D8CF201429940D30576CC9_inline(__this, (bool)((!(((uint32_t)((int32_t)(L_0&((int32_t)32)))) <= ((uint32_t)0)))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:346>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:346>
 		int32_t L_1 = ___0_roomFlags;
 		Room_set_SuppressRoomEvents_m13C8507B0B2F67F34D1434D3964F720A20C93E04_inline(__this, (bool)((!(((uint32_t)((int32_t)(L_1&4))) <= ((uint32_t)0)))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:347>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:347>
 		int32_t L_2 = ___0_roomFlags;
 		Room_set_SuppressPlayerInfo_m069AD75749ED37972022D78C05F1525EFE7360AD_inline(__this, (bool)((!(((uint32_t)((int32_t)(L_2&((int32_t)64)))) <= ((uint32_t)0)))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:348>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:348>
 		int32_t L_3 = ___0_roomFlags;
 		Room_set_PublishUserId_m124FB05A7EA5635DACF7D7B3CA8AB6F726284EE8_inline(__this, (bool)((!(((uint32_t)((int32_t)(L_3&8))) <= ((uint32_t)0)))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:349>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:349>
 		int32_t L_4 = ___0_roomFlags;
 		Room_set_DeleteNullProperties_m9910901A4E6A0C931CD24BCF738BCC0DAD14EB7E_inline(__this, (bool)((!(((uint32_t)((int32_t)(L_4&((int32_t)16)))) <= ((uint32_t)0)))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:353>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:353>
 		int32_t L_5 = ___0_roomFlags;
 		((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___autoCleanUp = (bool)((!(((uint32_t)((int32_t)(L_5&2))) <= ((uint32_t)0)))? 1 : 0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:354>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:354>
 		return;
 	}
 }
-// Method Definition Index: 128734
+// Method Definition Index: 128188
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_InternalCacheProperties_mFE198115D717559BB9B91EBC31C33F7760E1E6DA (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___0_propertiesToCache, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:360>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:360>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___masterClientId;
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:362>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:362>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_1 = ___0_propertiesToCache;
 		RoomInfo_InternalCachePropertiesRoomInfo_m1BD2B8B7B0E75BB7BAEEBC62479E6C8932FC62F9(__this, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:364>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:364>
 		int32_t L_2 = V_0;
 		if (!L_2)
 		{
@@ -6377,7 +6377,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_InternalCacheProperties_mFE198115D7
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:366>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:366>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_5;
 		L_5 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_5);
@@ -6391,11 +6391,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_InternalCacheProperties_mFE198115D7
 
 IL_0037:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:368>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:368>
 		return;
 	}
 }
-// Method Definition Index: 128735
+// Method Definition Index: 128189
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetCustomProperties_m4EE95B71F7659312E50849AF915A030CB8F33647 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___0_propertiesToSet, PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___1_expectedValues, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6408,7 +6408,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetCustomProperties_m4EE95B71F76593
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:417>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:417>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_0 = ___0_propertiesToSet;
 		il2cpp_codegen_runtime_class_init_inline(Extensions_tD4B4CCBE139B7AAE8592A5C446B6AFA78BF7981D_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -6419,20 +6419,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetCustomProperties_m4EE95B71F76593
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:419>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:419>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_2;
 		L_2 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_2);
 		uint8_t L_3 = L_2->___LogLevel;
 		il2cpp_codegen_runtime_class_init_inline(Log_tFB8BBB39E02FA2624540C0CDBD0255BA64FA980C_il2cpp_TypeInfo_var);
 		Log_Error_m8D123A5078240FF8E172B818AB3B90519E4CBD34(_stringLiteral147BD9E3C1A1EA7669CCBE892AF17817DC5DFFAD, L_3, (String_t*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:420>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:420>
 		return (bool)0;
 	}
 
 IL_0021:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:423>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:423>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_4 = ___1_expectedValues;
 		if (!L_4)
 		{
@@ -6450,20 +6450,20 @@ IL_0021:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:425>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:425>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_7;
 		L_7 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_7);
 		uint8_t L_8 = L_7->___LogLevel;
 		il2cpp_codegen_runtime_class_init_inline(Log_tFB8BBB39E02FA2624540C0CDBD0255BA64FA980C_il2cpp_TypeInfo_var);
 		Log_Error_m8D123A5078240FF8E172B818AB3B90519E4CBD34(_stringLiteral1F8E3FD26967815995B4C48AAEC2F220436EB3D6, L_8, (String_t*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:426>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:426>
 		return (bool)0;
 	}
 
 IL_0045:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:429>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:429>
 		bool L_9 = __this->___isOffline;
 		if (!L_9)
 		{
@@ -6471,17 +6471,17 @@ IL_0045:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:432>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:432>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_10;
 		L_10 = RoomInfo_get_CustomProperties_mDF48F8FC2F20C6862C2BAD75355FD3A6810D0669_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_11 = ___0_propertiesToSet;
 		il2cpp_codegen_runtime_class_init_inline(Extensions_tD4B4CCBE139B7AAE8592A5C446B6AFA78BF7981D_il2cpp_TypeInfo_var);
 		Extensions_MergeValidCustomProperties_m04BAAEDB33C00CBC2F72DC4D4607EDC65A3C14DF(L_10, L_11, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:433>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:433>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_12;
 		L_12 = RoomInfo_get_CustomProperties_mDF48F8FC2F20C6862C2BAD75355FD3A6810D0669_inline(__this, NULL);
 		Extensions_StripKeysWithNullValues_m2C6C900FCD3A92D70F5AC5CC9FEBE78D83C9D6C0(L_12, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:436>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:436>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_13;
 		L_13 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_13);
@@ -6494,7 +6494,7 @@ IL_0045:
 
 IL_0077:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:441>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:441>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_16;
 		L_16 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_17 = ___0_propertiesToSet;
@@ -6507,11 +6507,11 @@ IL_0077:
 
 IL_0085:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:444>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:444>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 128736
+// Method Definition Index: 128190
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetPropertiesListedInLobby_m5FA077F1BADE0B5E8B6A3992AF62231B89DBB615 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* ___0_lobbyProps, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6525,7 +6525,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetPropertiesListedInLobby_m5FA077F
 	}
 	PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* V_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:457>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:457>
 		bool L_0 = __this->___isOffline;
 		if (!L_0)
 		{
@@ -6533,13 +6533,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetPropertiesListedInLobby_m5FA077F
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:459>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:459>
 		return (bool)0;
 	}
 
 IL_000a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:462>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:462>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_1 = ___0_lobbyProps;
 		il2cpp_codegen_runtime_class_init_inline(Extensions_tD4B4CCBE139B7AAE8592A5C446B6AFA78BF7981D_il2cpp_TypeInfo_var);
 		bool L_2;
@@ -6550,29 +6550,29 @@ IL_000a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:464>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:464>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_3;
 		L_3 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_3);
 		uint8_t L_4 = L_3->___LogLevel;
 		il2cpp_codegen_runtime_class_init_inline(Log_tFB8BBB39E02FA2624540C0CDBD0255BA64FA980C_il2cpp_TypeInfo_var);
 		Log_Error_m8D123A5078240FF8E172B818AB3B90519E4CBD34(_stringLiteralCAB38E3A716CA6733BB9158ED3B57B35AC15FFC1, L_4, (String_t*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:465>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:465>
 		return (bool)0;
 	}
 
 IL_002b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:468>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:468>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_5 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mA7F128B4261C313D5A78D67DB2990F7E372CF2DF(L_5, NULL);
 		V_0 = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:469>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:469>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_6 = V_0;
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_7 = ___0_lobbyProps;
 		NullCheck(L_6);
 		PhotonHashtable_set_Item_mE6FCD38092D4F64B3D75C916FCE3A53154E0657B(L_6, (uint8_t)((int32_t)250), (RuntimeObject*)L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:470>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:470>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_8;
 		L_8 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_9 = V_0;
@@ -6582,7 +6582,7 @@ IL_002b:
 		return L_10;
 	}
 }
-// Method Definition Index: 128737
+// Method Definition Index: 128191
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_RemovePlayer_mCD3D3CFAFD1DD8C4D65A25B4FDCBA8977A96A2B5 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* ___0_player, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6592,7 +6592,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_RemovePlayer_mCD3D3CFAFD1DD8C4D65A2
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:481>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:481>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0;
 		L_0 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_1 = ___0_player;
@@ -6602,28 +6602,28 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_RemovePlayer_mCD3D3CFAFD1DD8C4D65A2
 		NullCheck(L_0);
 		bool L_3;
 		L_3 = Dictionary_2_Remove_m2440ED6B4C5C3E173C0D44F67D6FB27EF353333A(L_0, L_2, Dictionary_2_Remove_m2440ED6B4C5C3E173C0D44F67D6FB27EF353333A_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:482>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:482>
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_4 = ___0_player;
 		NullCheck(L_4);
 		Player_set_RoomReference_mEBF185653C701CE280CBC8E03219B2B452543673_inline(L_4, (Room_t501C562FC334E4633145D38289B5351DC417ADDB*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:483>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:483>
 		return;
 	}
 }
-// Method Definition Index: 128738
+// Method Definition Index: 128192
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Room_RemovePlayer_m0305566755D8E12E852BDA4F487DCDD13C3B12B2 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_id, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:490>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:490>
 		int32_t L_0 = ___0_id;
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_1;
 		L_1 = VirtualFuncInvoker2< Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535*, int32_t, bool >::Invoke(9, __this, L_0, (bool)0);
 		VirtualActionInvoker1< Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* >::Invoke(5, __this, L_1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:491>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:491>
 		return;
 	}
 }
-// Method Definition Index: 128739
+// Method Definition Index: 128193
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetMasterClient_mC3B273184ED302BF776055F1FA5C9C3468376CE7 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* ___0_masterClientPlayer, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6635,7 +6635,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetMasterClient_mC3B273184ED302BF77
 	PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* V_0 = NULL;
 	PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* V_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:513>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:513>
 		bool L_0 = __this->___isOffline;
 		if (!L_0)
 		{
@@ -6643,13 +6643,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetMasterClient_mC3B273184ED302BF77
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:515>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:515>
 		return (bool)0;
 	}
 
 IL_000a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:517>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:517>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_1 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mA7F128B4261C313D5A78D67DB2990F7E372CF2DF(L_1, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_2 = L_1;
@@ -6662,7 +6662,7 @@ IL_000a:
 		NullCheck(L_2);
 		PhotonHashtable_Add_mED6FDB349B6EADB00B0FB0A8F157BB0E58919D98(L_2, (uint8_t)((int32_t)248), L_6, NULL);
 		V_0 = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:518>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:518>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_7 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mA7F128B4261C313D5A78D67DB2990F7E372CF2DF(L_7, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_8 = L_7;
@@ -6673,7 +6673,7 @@ IL_000a:
 		NullCheck(L_8);
 		PhotonHashtable_Add_mED6FDB349B6EADB00B0FB0A8F157BB0E58919D98(L_8, (uint8_t)((int32_t)248), L_11, NULL);
 		V_1 = L_8;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:519>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:519>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_12;
 		L_12 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_13 = V_0;
@@ -6684,7 +6684,7 @@ IL_000a:
 		return L_15;
 	}
 }
-// Method Definition Index: 128740
+// Method Definition Index: 128194
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_AddPlayer_m42C187FDF4D84ED1078D862F180F6B64A284FFD9 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* ___0_player, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6694,7 +6694,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_AddPlayer_m42C187FDF4D84ED1078D862F
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:529>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:529>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0;
 		L_0 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_1 = ___0_player;
@@ -6710,21 +6710,21 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_AddPlayer_m42C187FDF4D84ED1078D862F
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:531>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:531>
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_4 = ___0_player;
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_5;
 		L_5 = VirtualFuncInvoker1< Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535*, Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* >::Invoke(8, __this, L_4);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:532>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:532>
 		return (bool)1;
 	}
 
 IL_001d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:535>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:535>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 128741
+// Method Definition Index: 128195
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* Room_StorePlayer_mD9551118BCFFE7D4B898C20D70451529422845E7 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* ___0_player, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6734,7 +6734,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:544>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:544>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0;
 		L_0 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_1 = ___0_player;
@@ -6744,16 +6744,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_3 = ___0_player;
 		NullCheck(L_0);
 		Dictionary_2_set_Item_m8C7060EA7C65E727C9AD71FEAA9357EA13EBD771(L_0, L_2, L_3, Dictionary_2_set_Item_m8C7060EA7C65E727C9AD71FEAA9357EA13EBD771_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:545>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:545>
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_4 = ___0_player;
 		NullCheck(L_4);
 		Player_set_RoomReference_mEBF185653C701CE280CBC8E03219B2B452543673_inline(L_4, __this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:553>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:553>
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_5 = ___0_player;
 		return L_5;
 	}
 }
-// Method Definition Index: 128742
+// Method Definition Index: 128196
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* Room_GetPlayer_m42D7067423D8434A7129014BFB74582977F41998 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, int32_t ___0_id, bool ___1_findMaster, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6766,7 +6766,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA
 	Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* V_1 = NULL;
 	int32_t G_B4_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:565>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:565>
 		bool L_0 = ___1_findMaster;
 		if (!L_0)
 		{
@@ -6798,21 +6798,21 @@ IL_0009:
 IL_000f:
 	{
 		V_0 = G_B4_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:567>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:567>
 		V_1 = (Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535*)NULL;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:568>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:568>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_4;
 		L_4 = Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline(__this, NULL);
 		int32_t L_5 = V_0;
 		NullCheck(L_4);
 		bool L_6;
 		L_6 = Dictionary_2_TryGetValue_mCE322BBE1F5BE1314488A099A568A9A451A9F351(L_4, L_5, (&V_1), Dictionary_2_TryGetValue_mCE322BBE1F5BE1314488A099A568A9A451A9F351_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:570>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:570>
 		Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* L_7 = V_1;
 		return L_7;
 	}
 }
-// Method Definition Index: 128743
+// Method Definition Index: 128197
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_ClearExpectedUsers_mB1DD55FAFDCF2CD167CBE8143660AB336C770629 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6822,7 +6822,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_ClearExpectedUsers_mB1DD55FAFDCF2CD
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:587>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:587>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_0;
 		L_0 = Room_get_ExpectedUsers_m087FAE69FAD29F318A4578CC983F017E0330559D_inline(__this, NULL);
 		if (!L_0)
@@ -6842,13 +6842,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_ClearExpectedUsers_mB1DD55FAFDCF2CD
 
 IL_0011:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:589>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:589>
 		return (bool)0;
 	}
 
 IL_0013:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:591>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:591>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_2 = (StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)(StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248*)SZArrayNew(StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var, (uint32_t)0);
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_3;
 		L_3 = Room_get_ExpectedUsers_m087FAE69FAD29F318A4578CC983F017E0330559D_inline(__this, NULL);
@@ -6857,7 +6857,7 @@ IL_0013:
 		return L_4;
 	}
 }
-// Method Definition Index: 128744
+// Method Definition Index: 128198
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m7F78CC8B74801F82E51C080221EC9D0D73F7C5EC (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* ___0_newExpectedUsers, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6868,7 +6868,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m7F78CC8B74801F82E
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:609>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:609>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_0 = ___0_newExpectedUsers;
 		if (!L_0)
 		{
@@ -6886,20 +6886,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m7F78CC8B74801F82E
 
 IL_0007:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:611>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:611>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_2;
 		L_2 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		NullCheck(L_2);
 		uint8_t L_3 = L_2->___LogLevel;
 		il2cpp_codegen_runtime_class_init_inline(Log_tFB8BBB39E02FA2624540C0CDBD0255BA64FA980C_il2cpp_TypeInfo_var);
 		Log_Error_m8D123A5078240FF8E172B818AB3B90519E4CBD34(_stringLiteralD7C3F8EDC8B5E38533F28EF2DF513EE72E7F732E, L_3, (String_t*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:612>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:612>
 		return (bool)0;
 	}
 
 IL_001f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:614>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:614>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_4 = ___0_newExpectedUsers;
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_5;
 		L_5 = Room_get_ExpectedUsers_m087FAE69FAD29F318A4578CC983F017E0330559D_inline(__this, NULL);
@@ -6908,7 +6908,7 @@ IL_001f:
 		return L_6;
 	}
 }
-// Method Definition Index: 128745
+// Method Definition Index: 128199
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m5FEAC41F8A041FE9573578DF04BACC42A50AF4E6 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* ___0_newExpectedUsers, StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* ___1_currentKnownExpectedUsers, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6920,7 +6920,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m5FEAC41F8A041FE95
 	PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* V_0 = NULL;
 	PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* V_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:619>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:619>
 		bool L_0 = __this->___isOffline;
 		if (!L_0)
 		{
@@ -6928,31 +6928,31 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Room_SetExpectedUsers_m5FEAC41F8A041FE95
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:621>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:621>
 		return (bool)0;
 	}
 
 IL_000a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:623>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:623>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_1 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mE8FAA07C211F5F92716E9C6815A2D2BFFC4F3D68(L_1, 1, NULL);
 		V_0 = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:624>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:624>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_2 = V_0;
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_3 = ___0_newExpectedUsers;
 		NullCheck(L_2);
 		PhotonHashtable_Add_mED6FDB349B6EADB00B0FB0A8F157BB0E58919D98(L_2, (uint8_t)((int32_t)247), (RuntimeObject*)L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:626>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:626>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_4 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mE8FAA07C211F5F92716E9C6815A2D2BFFC4F3D68(L_4, 1, NULL);
 		V_1 = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:627>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:627>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_5 = V_1;
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_6 = ___1_currentKnownExpectedUsers;
 		NullCheck(L_5);
 		PhotonHashtable_Add_mED6FDB349B6EADB00B0FB0A8F157BB0E58919D98(L_5, (uint8_t)((int32_t)247), (RuntimeObject*)L_6, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:629>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:629>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_7;
 		L_7 = Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline(__this, NULL);
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_8 = V_0;
@@ -6963,7 +6963,7 @@ IL_000a:
 		return L_10;
 	}
 }
-// Method Definition Index: 128746
+// Method Definition Index: 128200
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Room_ToString_m11C988A1A9A8BEF00BFB808A43AD0028EB5DD722 (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7018,7 +7018,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Room_ToString_m11C988A1A9A8BEF00BFB
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* G_B9_3 = NULL;
 	String_t* G_B9_4 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:636>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:636>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = (ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)SZArrayNew(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var, (uint32_t)6);
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_1 = L_0;
 		String_t* L_2 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___name;
@@ -7165,7 +7165,7 @@ IL_007a:
 		return L_19;
 	}
 }
-// Method Definition Index: 128747
+// Method Definition Index: 128201
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Room_ToStringFull_m57A31D45C950E01CC6D71C84FBEAA7704D5CFE3C (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7221,7 +7221,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Room_ToStringFull_m57A31D45C950E01C
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* G_B9_3 = NULL;
 	String_t* G_B9_4 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:643>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:643>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = (ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)SZArrayNew(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var, (uint32_t)7);
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_1 = L_0;
 		String_t* L_2 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___name;
@@ -7385,71 +7385,71 @@ IL_007a:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128748
+// Method Definition Index: 128202
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* RoomInfo_get_CustomProperties_mDF48F8FC2F20C6862C2BAD75355FD3A6810D0669 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:80>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_0 = __this->___customProperties;
 		return L_0;
 	}
 }
-// Method Definition Index: 128749
+// Method Definition Index: 128203
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RoomInfo_get_Name_m9984B48D274FBBBB00B915DAC5F7C90C87E86B59 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:89>
 		String_t* L_0 = __this->___name;
 		return L_0;
 	}
 }
-// Method Definition Index: 128750
+// Method Definition Index: 128204
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t RoomInfo_get_PlayerCount_mC20D18A694CF967A5E61D9E16E9B48F6955F5D16 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
 		int32_t L_0 = __this->___U3CPlayerCountU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128751
+// Method Definition Index: 128205
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo_set_PlayerCount_m5746DC2AE7166D87345BF44226831BCEE7DECC0F (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
 		int32_t L_0 = ___0_value;
 		__this->___U3CPlayerCountU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128752
+// Method Definition Index: 128206
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t RoomInfo_get_MaxPlayers_m35D2BCC84D0C9AA91C0D8BCB7D2955E23CCC6643 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:110>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:110>
 		int32_t L_0 = __this->___maxPlayers;
 		return L_0;
 	}
 }
-// Method Definition Index: 128753
+// Method Definition Index: 128207
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomInfo_get_IsOpen_mD087C3749DCD2858A1540448DDCA5C3201AE50B6 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:130>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:130>
 		bool L_0 = __this->___isOpen;
 		return L_0;
 	}
 }
-// Method Definition Index: 128754
+// Method Definition Index: 128208
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomInfo_get_IsVisible_mB9DA65FAADD70E98C8487986DE4EAC0293764C95 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:147>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:147>
 		bool L_0 = __this->___isVisible;
 		return L_0;
 	}
 }
-// Method Definition Index: 128755
+// Method Definition Index: 128209
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo__ctor_m2C653BB8DD0AC27C97C6C69CFCC76D6CFF554E3B (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, String_t* ___0_roomName, PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___1_roomProperties, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7459,31 +7459,31 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo__ctor_m2C653BB8DD0AC27C97C6C69C
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:41>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_0 = (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58*)il2cpp_codegen_object_new(PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58_il2cpp_TypeInfo_var);
 		PhotonHashtable__ctor_mA7F128B4261C313D5A78D67DB2990F7E372CF2DF(L_0, NULL);
 		__this->___customProperties = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___customProperties), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:56>
 		__this->___isOpen = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:59>
 		__this->___isVisible = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:62>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:62>
 		__this->___autoCleanUp = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:156>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:156>
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:158>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:158>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_1 = ___1_roomProperties;
 		RoomInfo_InternalCachePropertiesRoomInfo_m1BD2B8B7B0E75BB7BAEEBC62479E6C8932FC62F9(__this, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:160>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:160>
 		String_t* L_2 = ___0_roomName;
 		__this->___name = L_2;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___name), (void*)L_2);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:161>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:161>
 		return;
 	}
 }
-// Method Definition Index: 128756
+// Method Definition Index: 128210
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomInfo_Equals_mCE4D57CC69346CECE7AD89878150F7935C8804EB (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, RuntimeObject* ___0_other, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7494,10 +7494,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomInfo_Equals_mCE4D57CC69346CECE7AD898
 	}
 	RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* V_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:168>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:168>
 		RuntimeObject* L_0 = ___0_other;
 		V_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)IsInstClass((RuntimeObject*)L_0, RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02_il2cpp_TypeInfo_var));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:169>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:169>
 		RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* L_1 = V_0;
 		if (!L_1)
 		{
@@ -7521,11 +7521,11 @@ IL_001c:
 		return (bool)0;
 	}
 }
-// Method Definition Index: 128757
+// Method Definition Index: 128211
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t RoomInfo_GetHashCode_mE63A9BDBBD14F6CD90CC563F054A82717E45F13C (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:178>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:178>
 		String_t* L_0 = __this->___name;
 		NullCheck(L_0);
 		int32_t L_1;
@@ -7533,7 +7533,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t RoomInfo_GetHashCode_mE63A9BDBBD14F6C
 		return L_1;
 	}
 }
-// Method Definition Index: 128758
+// Method Definition Index: 128212
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RoomInfo_ToString_m9AA5A5353E7A0C5BF1815056C6B57A55744597A2 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7589,7 +7589,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RoomInfo_ToString_m9AA5A5353E7A0C5B
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* G_B9_3 = NULL;
 	String_t* G_B9_4 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:186>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:186>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = (ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)SZArrayNew(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var, (uint32_t)6);
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_1 = L_0;
 		String_t* L_2 = __this->___name;
@@ -7730,7 +7730,7 @@ IL_0074:
 		return L_17;
 	}
 }
-// Method Definition Index: 128759
+// Method Definition Index: 128213
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RoomInfo_ToStringFull_mB2FA94E7B4CD37B5E845455F149F6DFCF87A9738 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7772,7 +7772,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RoomInfo_ToStringFull_mB2FA94E7B4CD
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* G_B6_3 = NULL;
 	String_t* G_B6_4 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:193>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:193>
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_0 = (ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918*)SZArrayNew(ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var, (uint32_t)6);
 		ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_1 = L_0;
 		String_t* L_2 = __this->___name;
@@ -7883,7 +7883,7 @@ IL_0041:
 		return L_18;
 	}
 }
-// Method Definition Index: 128760
+// Method Definition Index: 128214
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo_InternalCachePropertiesRoomInfo_m1BD2B8B7B0E75BB7BAEEBC62479E6C8932FC62F9 (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___0_propertiesToCache, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7897,7 +7897,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo_InternalCachePropertiesRoomInfo
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:200>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:200>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_0 = ___0_propertiesToCache;
 		if (!L_0)
 		{
@@ -7928,13 +7928,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomInfo_InternalCachePropertiesRoomInfo
 
 IL_0019:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:202>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:202>
 		return;
 	}
 
 IL_001a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:208>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:208>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_6 = ___0_propertiesToCache;
 		NullCheck(L_6);
 		bool L_7;
@@ -7945,13 +7945,13 @@ IL_001a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:210>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:210>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_8 = ___0_propertiesToCache;
 		NullCheck(L_8);
 		RuntimeObject* L_9;
 		L_9 = PhotonHashtable_get_Item_m4606E9E01ACB801D195439BC63D81D9C32391111(L_8, (uint8_t)((int32_t)251), NULL);
 		__this->___RemovedFromList = ((*(bool*)UnBox(L_9, il2cpp_defaults.boolean_class)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:211>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:211>
 		bool L_10 = __this->___RemovedFromList;
 		if (!L_10)
 		{
@@ -7959,13 +7959,13 @@ IL_001a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:213>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:213>
 		return;
 	}
 
 IL_0046:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:218>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:218>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_11 = ___0_propertiesToCache;
 		NullCheck(L_11);
 		bool L_12;
@@ -7976,7 +7976,7 @@ IL_0046:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:220>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:220>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_13 = ___0_propertiesToCache;
 		NullCheck(L_13);
 		RuntimeObject* L_14;
@@ -7990,7 +7990,7 @@ IL_0046:
 
 IL_006b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:222>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:222>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_16 = ___0_propertiesToCache;
 		NullCheck(L_16);
 		bool L_17;
@@ -8001,7 +8001,7 @@ IL_006b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:224>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:224>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_18 = ___0_propertiesToCache;
 		NullCheck(L_18);
 		RuntimeObject* L_19;
@@ -8014,7 +8014,7 @@ IL_006b:
 
 IL_008e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:228>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:228>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_21 = ___0_propertiesToCache;
 		NullCheck(L_21);
 		bool L_22;
@@ -8025,7 +8025,7 @@ IL_008e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:230>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:230>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_23 = ___0_propertiesToCache;
 		NullCheck(L_23);
 		RuntimeObject* L_24;
@@ -8035,7 +8035,7 @@ IL_008e:
 
 IL_00b1:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:233>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:233>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_25 = ___0_propertiesToCache;
 		NullCheck(L_25);
 		bool L_26;
@@ -8046,7 +8046,7 @@ IL_00b1:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:235>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:235>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_27 = ___0_propertiesToCache;
 		NullCheck(L_27);
 		RuntimeObject* L_28;
@@ -8056,7 +8056,7 @@ IL_00b1:
 
 IL_00d4:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:238>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:238>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_29 = ___0_propertiesToCache;
 		NullCheck(L_29);
 		bool L_30;
@@ -8067,7 +8067,7 @@ IL_00d4:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:240>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:240>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_31 = ___0_propertiesToCache;
 		NullCheck(L_31);
 		RuntimeObject* L_32;
@@ -8080,7 +8080,7 @@ IL_00d4:
 
 IL_00f7:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:243>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:243>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_34 = ___0_propertiesToCache;
 		NullCheck(L_34);
 		bool L_35;
@@ -8091,7 +8091,7 @@ IL_00f7:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:245>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:245>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_36 = ___0_propertiesToCache;
 		NullCheck(L_36);
 		RuntimeObject* L_37;
@@ -8101,7 +8101,7 @@ IL_00f7:
 
 IL_011a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:248>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:248>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_38 = ___0_propertiesToCache;
 		NullCheck(L_38);
 		bool L_39;
@@ -8112,7 +8112,7 @@ IL_011a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:250>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:250>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_40 = ___0_propertiesToCache;
 		NullCheck(L_40);
 		RuntimeObject* L_41;
@@ -8122,7 +8122,7 @@ IL_011a:
 
 IL_013d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:253>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:253>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_42 = ___0_propertiesToCache;
 		NullCheck(L_42);
 		bool L_43;
@@ -8133,7 +8133,7 @@ IL_013d:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:255>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:255>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_44 = ___0_propertiesToCache;
 		NullCheck(L_44);
 		RuntimeObject* L_45;
@@ -8144,7 +8144,7 @@ IL_013d:
 
 IL_0160:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:258>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:258>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_46 = ___0_propertiesToCache;
 		NullCheck(L_46);
 		bool L_47;
@@ -8155,7 +8155,7 @@ IL_0160:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:260>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:260>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_48 = ___0_propertiesToCache;
 		NullCheck(L_48);
 		RuntimeObject* L_49;
@@ -8166,7 +8166,7 @@ IL_0160:
 
 IL_0183:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:263>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:263>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_50 = ___0_propertiesToCache;
 		NullCheck(L_50);
 		bool L_51;
@@ -8177,7 +8177,7 @@ IL_0183:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:265>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:265>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_52 = ___0_propertiesToCache;
 		NullCheck(L_52);
 		RuntimeObject* L_53;
@@ -8187,7 +8187,7 @@ IL_0183:
 
 IL_01a6:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:268>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:268>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_54 = ___0_propertiesToCache;
 		NullCheck(L_54);
 		bool L_55;
@@ -8198,7 +8198,7 @@ IL_01a6:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:270>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:270>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_56 = ___0_propertiesToCache;
 		NullCheck(L_56);
 		RuntimeObject* L_57;
@@ -8208,15 +8208,15 @@ IL_01a6:
 
 IL_01c9:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:274>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:274>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_58 = __this->___customProperties;
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_59 = ___0_propertiesToCache;
 		il2cpp_codegen_runtime_class_init_inline(Extensions_tD4B4CCBE139B7AAE8592A5C446B6AFA78BF7981D_il2cpp_TypeInfo_var);
 		Extensions_MergeValidCustomProperties_m04BAAEDB33C00CBC2F72DC4D4607EDC65A3C14DF(L_58, L_59, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:275>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:275>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_60 = __this->___customProperties;
 		Extensions_StripKeysWithNullValues_m2C6C900FCD3A92D70F5AC5CC9FEBE78D83C9D6C0(L_60, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:276>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:276>
 		return;
 	}
 }
@@ -8228,173 +8228,173 @@ IL_01c9:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 128761
+// Method Definition Index: 128215
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_IsVisible_mAA6197847506F15A79D8A97326D02EE825E1CFEB (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
 		bool L_0 = __this->___isVisible;
 		return L_0;
 	}
 }
-// Method Definition Index: 128762
+// Method Definition Index: 128216
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_IsVisible_m1F1AB195EBFDF16F1085B85BA614FDE43327C1E9 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
 		bool L_0 = ___0_value;
 		__this->___isVisible = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
 		return;
 	}
 }
-// Method Definition Index: 128763
+// Method Definition Index: 128217
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_IsOpen_mB5DD62458BD4168B6EC1D65CECCD8031775A9B69 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
 		bool L_0 = __this->___isOpen;
 		return L_0;
 	}
 }
-// Method Definition Index: 128764
+// Method Definition Index: 128218
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_IsOpen_mA62BEEAEAE651BF8BCB95758F9AB76111E1F952D (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
 		bool L_0 = ___0_value;
 		__this->___isOpen = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
 		return;
 	}
 }
-// Method Definition Index: 128765
+// Method Definition Index: 128219
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_CleanupCacheOnLeave_m3EFCBA366705898E8B81E1F4B3E1D6B0F13992D3 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
 		bool L_0 = __this->___cleanupCacheOnLeave;
 		return L_0;
 	}
 }
-// Method Definition Index: 128766
+// Method Definition Index: 128220
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_CleanupCacheOnLeave_m85AAE32D361BC914E16579EEA1E2AA7431DBBC7E (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
 		bool L_0 = ___0_value;
 		__this->___cleanupCacheOnLeave = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:59>
 		return;
 	}
 }
-// Method Definition Index: 128767
+// Method Definition Index: 128221
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_SuppressRoomEvents_m5EBB51A259683BE71906FD4E686D34E57C673AFE (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:98>
 		bool L_0 = __this->___U3CSuppressRoomEventsU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128768
+// Method Definition Index: 128222
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_SuppressRoomEvents_m05DA551346ED123DE49C2FD78BC593677FF082C4 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:98>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressRoomEventsU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128769
+// Method Definition Index: 128223
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_SuppressPlayerInfo_m20BA6094A264422B4DF88838389DC28CDC8508C6 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:107>
 		bool L_0 = __this->___U3CSuppressPlayerInfoU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128770
+// Method Definition Index: 128224
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_SuppressPlayerInfo_m798E2DB5822C7DCB232E8B4EA6C1BB4CE5C262D4 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:107>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressPlayerInfoU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128771
+// Method Definition Index: 128225
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_PublishUserId_mE0F4B03FBC810D3FB911EC9F6B00F18017908426 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:117>
 		bool L_0 = __this->___U3CPublishUserIdU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128772
+// Method Definition Index: 128226
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_PublishUserId_mB1459C4A7D31A6E1FA24066AD508179B72CECD15 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:117>
 		bool L_0 = ___0_value;
 		__this->___U3CPublishUserIdU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128773
+// Method Definition Index: 128227
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_DeleteNullProperties_mBFB61DDE49578459EC8F0CA314CEB54A07A91879 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:127>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:127>
 		bool L_0 = __this->___U3CDeleteNullPropertiesU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128774
+// Method Definition Index: 128228
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_DeleteNullProperties_m8004E0182CC4776E69539D5E48086005D3C404F0 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:127>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:127>
 		bool L_0 = ___0_value;
 		__this->___U3CDeleteNullPropertiesU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128775
+// Method Definition Index: 128229
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool RoomOptions_get_BroadcastPropsChangeToAll_m0033845302480038007344A5BF04DA8B1B66AA74 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
 		bool L_0 = __this->___broadcastPropsChangeToAll;
 		return L_0;
 	}
 }
-// Method Definition Index: 128776
+// Method Definition Index: 128230
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions_set_BroadcastPropsChangeToAll_m7B48CFEE927CC4417B35AF4785BF58580361F248 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
 		bool L_0 = ___0_value;
 		__this->___broadcastPropsChangeToAll = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:140>
 		return;
 	}
 }
-// Method Definition Index: 128777
+// Method Definition Index: 128231
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions__ctor_mFE84A0E8E51DD60B1F8FD43513291756A9132839 (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:28>
 		__this->___isVisible = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:37>
 		__this->___isOpen = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:60>
 		__this->___cleanupCacheOnLeave = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:141>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:141>
 		__this->___broadcastPropsChangeToAll = (bool)1;
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
 		return;
@@ -8435,52 +8435,52 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomOptions__ctor_mFE84A0E8E51DD60B1F8FD
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-// Method Definition Index: 128628
+// Method Definition Index: 128082
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t Region_get_Ping_m0B6C427AEBA8B44A203D0187C6F49754D8EA4F47_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
 		int32_t L_0 = __this->___U3CPingU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128627
+// Method Definition Index: 128081
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Region_set_HostAndPort_m0332E39A1A7217076E79AA5CD689F71CBA9F3794_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
 		String_t* L_0 = ___0_value;
 		__this->___U3CHostAndPortU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CHostAndPortU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128629
+// Method Definition Index: 128083
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Region_set_Ping_m2911F058D213FD62DAB8F663376C3296AAD5A1AE_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:43>
 		int32_t L_0 = ___0_value;
 		__this->___U3CPingU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128623
+// Method Definition Index: 128077
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Region_set_Code_mC1CAD059AB8D269BDD6071624A4BFB486E6D91B5_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
 		String_t* L_0 = ___0_value;
 		__this->___U3CCodeU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CCodeU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128625
+// Method Definition Index: 128079
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Region_set_Cluster_mA35E5BC2661E00D86FF0FAF2918E454120BACC2A_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
 		String_t* L_0 = ___0_value;
 		__this->___U3CClusterU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CClusterU3Ek__BackingField), (void*)L_0);
@@ -8495,320 +8495,320 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t String_get_Length_m42625D
 		return L_0;
 	}
 }
-// Method Definition Index: 128622
+// Method Definition Index: 128076
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR String_t* Region_get_Code_m3BEC5110A22312C006923FB53E98EC08487F847A_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:30>
 		String_t* L_0 = __this->___U3CCodeU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128624
+// Method Definition Index: 128078
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR String_t* Region_get_Cluster_m73ACC2E6468E9901C87026804493397305564AA4_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:33>
 		String_t* L_0 = __this->___U3CClusterU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128626
+// Method Definition Index: 128080
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR String_t* Region_get_HostAndPort_m526F32BBF6289B2B9BD1AAA5DBF0684E844EA5A6_inline (Region_t86EE56292163DD338305D2026ED732113764E60D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Region.cs:36>
 		String_t* L_0 = __this->___U3CHostAndPortU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128635
+// Method Definition Index: 128089
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* RegionHandler_get_EnabledRegions_m9F3EED91C65E78F116036B6B809E9484A229D4C2_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0 = __this->___U3CEnabledRegionsU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128638
+// Method Definition Index: 128092
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR String_t* RegionHandler_get_AvailableRegionCodes_mE05EEEB82BB4AB2261FC819DE31DBC00AAA2E7CE_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:80>
 		String_t* L_0 = __this->___U3CAvailableRegionCodesU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128636
+// Method Definition Index: 128090
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionHandler_set_EnabledRegions_mBA1534E340AC85506A725691A84CAF85649F9F78_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:73>
 		List_1_t1DF1B62786E77E7C494D9F0E3D1F03D664523401* L_0 = ___0_value;
 		__this->___U3CEnabledRegionsU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CEnabledRegionsU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128637
+// Method Definition Index: 128091
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionHandler_set_AvailableRegionCodes_m0B0525CDA1D3A9E04582FB17C9F8A848876901B7_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:79>
 		String_t* L_0 = ___0_value;
 		__this->___U3CAvailableRegionCodesU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CAvailableRegionCodesU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128643
+// Method Definition Index: 128097
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RegionHandler_get_IsPinging_mC3C88729EF6A623B726778C44ED0802E0ED0E37C_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
 		bool L_0 = __this->___U3CIsPingingU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128646
+// Method Definition Index: 128100
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionHandler_set_Aborted_m33EC4CBCF66DAFAFDCDB5A724870B7A93EC917F9_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
 		bool L_0 = ___0_value;
 		__this->___U3CAbortedU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128644
+// Method Definition Index: 128098
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionHandler_set_IsPinging_m7420CCD08D4CDEC869B8B6E48F63DE87C13E4A8F_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:230>
 		bool L_0 = ___0_value;
 		__this->___U3CIsPingingU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128645
+// Method Definition Index: 128099
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RegionHandler_get_Aborted_m157A075C238FA4F0155BF6688641D75A25670AE7_inline (RegionHandler_t43F2F9E50302A9E50118ECA4BD08F97D72198C0E* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:234>
 		bool L_0 = __this->___U3CAbortedU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128660
+// Method Definition Index: 128114
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RegionPinger_get_Done_m404DBD07E33CBF092466F647564900A450CB43A1_inline (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
 		bool L_0 = __this->___U3CDoneU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128661
+// Method Definition Index: 128115
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionPinger_set_Done_m3ADE59659F5CF2BF927F65CA3D4DEB8753960788_inline (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:465>
 		bool L_0 = ___0_value;
 		__this->___U3CDoneU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128662
+// Method Definition Index: 128116
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RegionPinger_get_Aborted_m8E2265E98C92394B25F78AE45096A43EC0B5576F_inline (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
 		bool L_0 = __this->___U3CAbortedU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128663
+// Method Definition Index: 128117
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RegionPinger_set_Aborted_m17BF2BBE25D0C86F11C40775D799E98CBB78926E_inline (RegionPinger_t015C970DC2F47088D128E0D725B2A4DCFA5D06C2* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs:467>
 		bool L_0 = ___0_value;
 		__this->___U3CAbortedU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128695
+// Method Definition Index: 128149
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* Room_get_RealtimeClient_m57AF6E34043BF84B4FAF10502C3939F8E077435D_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:43>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_0 = __this->___U3CRealtimeClientU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128708
+// Method Definition Index: 128162
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* Room_get_Players_m6717FDEBC3420224040601D5A803F22EAAA630FB_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:194>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:194>
 		Dictionary_2_t2B54AAC3943E6EF3494EED77972B86D85E21040B* L_0 = __this->___players;
 		return L_0;
 	}
 }
-// Method Definition Index: 128761
+// Method Definition Index: 128215
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RoomOptions_get_IsVisible_mAA6197847506F15A79D8A97326D02EE825E1CFEB_inline (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:27>
 		bool L_0 = __this->___isVisible;
 		return L_0;
 	}
 }
-// Method Definition Index: 128763
+// Method Definition Index: 128217
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool RoomOptions_get_IsOpen_mB5DD62458BD4168B6EC1D65CECCD8031775A9B69_inline (RoomOptions_t94143ECDB6E307CCA41E8CD29F473B367C3226AF* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomOptions.cs:36>
 		bool L_0 = __this->___isOpen;
 		return L_0;
 	}
 }
-// Method Definition Index: 128721
+// Method Definition Index: 128175
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Room_set_BroadcastPropertiesChangeToAll_m275B9A229F06FCB9B7D8CF201429940D30576CC9_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:301>
 		bool L_0 = ___0_value;
 		__this->___U3CBroadcastPropertiesChangeToAllU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128723
+// Method Definition Index: 128177
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Room_set_SuppressRoomEvents_m13C8507B0B2F67F34D1434D3964F720A20C93E04_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:303>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressRoomEventsU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128725
+// Method Definition Index: 128179
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Room_set_SuppressPlayerInfo_m069AD75749ED37972022D78C05F1525EFE7360AD_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:305>
 		bool L_0 = ___0_value;
 		__this->___U3CSuppressPlayerInfoU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128727
+// Method Definition Index: 128181
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Room_set_PublishUserId_m124FB05A7EA5635DACF7D7B3CA8AB6F726284EE8_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:307>
 		bool L_0 = ___0_value;
 		__this->___U3CPublishUserIdU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128729
+// Method Definition Index: 128183
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Room_set_DeleteNullProperties_m9910901A4E6A0C931CD24BCF738BCC0DAD14EB7E_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, bool ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:309>
 		bool L_0 = ___0_value;
 		__this->___U3CDeleteNullPropertiesU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 128748
+// Method Definition Index: 128202
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* RoomInfo_get_CustomProperties_mDF48F8FC2F20C6862C2BAD75355FD3A6810D0669_inline (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:80>
 		PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* L_0 = __this->___customProperties;
 		return L_0;
 	}
 }
-// Method Definition Index: 128444
+// Method Definition Index: 127898
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t Player_get_ActorNumber_mB09859082790EB38778BBF1F854DF0D387001F85_inline (Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Player.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Player.cs:50>
 		int32_t L_0 = __this->___actorNumber;
 		return L_0;
 	}
 }
-// Method Definition Index: 128443
+// Method Definition Index: 127897
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Player_set_RoomReference_mEBF185653C701CE280CBC8E03219B2B452543673_inline (Player_t41076B6A130B2D3B6401B4F085A3C8D73EEDA535* __this, Room_t501C562FC334E4633145D38289B5351DC417ADDB* ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Player.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Player.cs:40>
 		Room_t501C562FC334E4633145D38289B5351DC417ADDB* L_0 = ___0_value;
 		__this->___U3CRoomReferenceU3Ek__BackingField = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CRoomReferenceU3Ek__BackingField), (void*)L_0);
 		return;
 	}
 }
-// Method Definition Index: 128715
+// Method Definition Index: 128169
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t Room_get_MasterClientId_m2166829B73D023E32067DA43A341A6B946531EF9_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:260>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:260>
 		int32_t L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___masterClientId;
 		return L_0;
 	}
 }
-// Method Definition Index: 128710
+// Method Definition Index: 128164
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* Room_get_ExpectedUsers_m087FAE69FAD29F318A4578CC983F017E0330559D_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:212>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:212>
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_0 = ((RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02*)__this)->___expectedUsers;
 		return L_0;
 	}
 }
-// Method Definition Index: 128730
+// Method Definition Index: 128184
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* Room_get_Lobby_mF9E0FD6FBBC79E9B9254A1519C5C523CE13CE29B_inline (Room_t501C562FC334E4633145D38289B5351DC417ADDB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/Room.cs:311>
 		TypedLobby_t728582757F6BAB704240EF73CD34BF17EF32517E* L_0 = __this->___U3CLobbyU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128749
+// Method Definition Index: 128203
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR String_t* RoomInfo_get_Name_m9984B48D274FBBBB00B915DAC5F7C90C87E86B59_inline (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:89>
 		String_t* L_0 = __this->___name;
 		return L_0;
 	}
 }
-// Method Definition Index: 128750
+// Method Definition Index: 128204
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t RoomInfo_get_PlayerCount_mC20D18A694CF967A5E61D9E16E9B48F6955F5D16_inline (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
 		int32_t L_0 = __this->___U3CPlayerCountU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 128751
+// Method Definition Index: 128205
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void RoomInfo_set_PlayerCount_m5746DC2AE7166D87345BF44226831BCEE7DECC0F_inline (RoomInfo_t4AACBDEC51A7626BBED82168FBF77C35C579DD02* __this, int32_t ___0_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs:96>
 		int32_t L_0 = ___0_value;
 		__this->___U3CPlayerCountU3Ek__BackingField = L_0;
 		return;
 	}
 }
-// Method Definition Index: 11935
+// Method Definition Index: 11927
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Current_m6330F15D18EE4F547C05DF9BF83C5EB710376027_gshared_inline (Enumerator_t9473BAB568A27E2339D48C1F91319E0F6D244D7A* __this, const RuntimeMethod* method) 
 {
 	{
@@ -8822,7 +8822,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Func_3_Invoke_m78A
 	typedef RuntimeObject* (*FunctionPointerType) (RuntimeObject*, RuntimeObject*, int32_t, const RuntimeMethod*);
 	return ((FunctionPointerType)__this->___invoke_impl)((Il2CppObject*)__this->___method_code, ___0_arg1, ___1_arg2, reinterpret_cast<RuntimeMethod*>(__this->___method));
 }
-// Method Definition Index: 11882
+// Method Definition Index: 11874
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void List_1_Add_mEBCF994CC3814631017F46A387B1A192ED6C85C7_gshared_inline (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* __this, RuntimeObject* ___0_item, const RuntimeMethod* method) 
 {
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* V_0 = NULL;
@@ -8860,7 +8860,7 @@ IL_0034:
 		return;
 	}
 }
-// Method Definition Index: 11871
+// Method Definition Index: 11863
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t List_1_get_Count_m4407E4C389F22B8CEC282C15D56516658746C383_gshared_inline (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* __this, const RuntimeMethod* method) 
 {
 	{
@@ -8868,7 +8868,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t List_1_get_Count_m4407E4C
 		return L_0;
 	}
 }
-// Method Definition Index: 11890
+// Method Definition Index: 11882
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void List_1_Clear_m16C1F2C61FED5955F10EB36BC1CB2DF34B128994_gshared_inline (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* __this, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -8904,7 +8904,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Action_1_Invoke_mF2422B2DD29
 	typedef void (*FunctionPointerType) (RuntimeObject*, RuntimeObject*, const RuntimeMethod*);
 	((FunctionPointerType)__this->___invoke_impl)((Il2CppObject*)__this->___method_code, ___0_obj, reinterpret_cast<RuntimeMethod*>(__this->___method));
 }
-// Method Definition Index: 11882
+// Method Definition Index: 11874
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void List_1_Add_m0248A96C5334E9A93E6994B7780478BCD994EA3D_gshared_inline (List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* __this, int32_t ___0_item, const RuntimeMethod* method) 
 {
 	Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* V_0 = NULL;
@@ -8942,7 +8942,7 @@ IL_0034:
 		return;
 	}
 }
-// Method Definition Index: 11871
+// Method Definition Index: 11863
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t List_1_get_Count_mF590592E32D421DE2C6E2F0D5C2F62FB14CCEFDF_gshared_inline (List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* __this, const RuntimeMethod* method) 
 {
 	{

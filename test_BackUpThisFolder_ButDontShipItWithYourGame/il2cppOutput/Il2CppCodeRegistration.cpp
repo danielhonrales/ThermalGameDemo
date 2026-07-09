@@ -33,7 +33,6 @@ IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_WitAi_Lib_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_WitAi_TTS_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_Wit_Dictation_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_XR_Audio_CodeGenModule;
-IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_XR_BuildingBlocks_AIBlocks_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_XR_BuildingBlocks_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_XR_EnvironmentDepth_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_Meta_XR_ImmersiveDebugger_CodeGenModule;
@@ -137,7 +136,7 @@ IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_meta_xr_ai_mcpbridge_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_meta_xr_mrutilitykit_CodeGenModule;
 IL2CPP_EXTERN_C_CONST Il2CppCodeGenModule g_mscorlib_CodeGenModule;
 IL2CPP_EXTERN_C const Il2CppCodeGenModule* g_CodeGenModules[];
-const Il2CppCodeGenModule* g_CodeGenModules[121] = 
+const Il2CppCodeGenModule* g_CodeGenModules[120] = 
 {
 	(&g_AssemblyU2DCSharp_CodeGenModule),
 	(&g_AssistantCoreSDKRuntime_CodeGenModule),
@@ -157,7 +156,6 @@ const Il2CppCodeGenModule* g_CodeGenModules[121] =
 	(&g_Meta_WitAi_TTS_CodeGenModule),
 	(&g_Meta_Wit_Dictation_CodeGenModule),
 	(&g_Meta_XR_Audio_CodeGenModule),
-	(&g_Meta_XR_BuildingBlocks_AIBlocks_CodeGenModule),
 	(&g_Meta_XR_BuildingBlocks_CodeGenModule),
 	(&g_Meta_XR_EnvironmentDepth_CodeGenModule),
 	(&g_Meta_XR_ImmersiveDebugger_CodeGenModule),
@@ -266,20 +264,20 @@ const Il2CppCodeRegistration g_CodeRegistration =
 {
 	75,
 	g_ReversePInvokeWrapperPointers,
-	189355,
+	187814,
 	g_Il2CppGenericMethodPointers,
 	g_Il2CppGenericAdjustorThunks,
-	37993,
+	37840,
 	g_Il2CppInvokerPointers,
-	6038,
+	6001,
 	g_UnresolvedVirtualMethodPointers,
 	g_UnresolvedInstanceMethodPointers,
 	g_UnresolvedStaticMethodPointers,
-	1843,
+	1836,
 	g_Il2CppInteropData,
 	0,
 	NULL,
-	121,
+	120,
 	g_CodeGenModules,
 };
 IL2CPP_EXTERN_C_CONST Il2CppMetadataRegistration g_MetadataRegistration;

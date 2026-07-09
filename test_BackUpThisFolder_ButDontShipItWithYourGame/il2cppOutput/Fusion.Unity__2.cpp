@@ -4411,7 +4411,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ThrowHelper_ThrowArgumentOutOfRangeExcep
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94532
+// Method Definition Index: 94504
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m4C6AD676B128FC0769B9F96B4563B10F93668377 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4428,7 +4428,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m4C6AD676B128FC0769B9F96B
 		return;
 	}
 }
-// Method Definition Index: 94533
+// Method Definition Index: 94505
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mE924202268145EE7BCAC136597584E51B28803CF (U3CU3Ec_t8C664A19CFBBA62BF5841AF96D16ED1551483503* __this, const RuntimeMethod* method) 
 {
 	{
@@ -4436,11 +4436,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_mE924202268145EE7BCAC13659
 		return;
 	}
 }
-// Method Definition Index: 94534
+// Method Definition Index: 94506
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3Ec_U3CSearchAllNetworkObjectsU3Eb__9_0_mD01DDB6A0D90C8DED436AA01FEF4A366B1A75CA0 (U3CU3Ec_t8C664A19CFBBA62BF5841AF96D16ED1551483503* __this, NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* ___0_obj, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectPage.cs:45>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectPage.cs:45>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_0 = ___0_obj;
 		NullCheck(L_0);
 		bool L_1;
@@ -4448,11 +4448,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CU3Ec_U3CSearchAllNetworkObjectsU3Eb__
 		return L_1;
 	}
 }
-// Method Definition Index: 94535
+// Method Definition Index: 94507
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CSearchAllNetworkObjectsU3Eb__9_1_m599ECF2CC16293C0A6EC523D9EAEC26C5492C5ED (U3CU3Ec_t8C664A19CFBBA62BF5841AF96D16ED1551483503* __this, NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* ___0_nt, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectPage.cs:49>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_0 = ___0_nt;
 		NullCheck(L_0);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_1;
@@ -4471,7 +4471,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CSearchAllNetworkObjectsU
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94536
+// Method Definition Index: 94508
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setup_m2AB6D887456A351B1556D075DB20A82FE5B07826 (FusionStatisticsForecastObjectStats_t68F3431DFD62BBE0A22172CF3F6301AB61AA0B33* __this, FusionStatisticsForecastObjectPage_t821E0C93F9FB4B8B24A7632F88662F67F440AB42* ___0_objectPage, String_t* ___1_title, NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 ___2_id, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4557,12 +4557,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		NullCheck(L_3);
 		L_3->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_3->___U3CU3E4__this), (void*)__this);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:48>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_4 = __this->____title;
 		String_t* L_5 = ___1_title;
 		NullCheck(L_4);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_4, L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:49>
 		U3CU3Ec__DisplayClass24_0_t0A6F9C7CE590606C5C8E62103C744F47705E0779* L_6 = V_0;
 		NullCheck(L_6);
 		FusionStatisticsForecastObjectPage_t821E0C93F9FB4B8B24A7632F88662F67F440AB42* L_7 = L_6->___objectPage;
@@ -4571,17 +4571,17 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		L_8 = FusionStatisticsPage_get_Runner_m2496DB46A71971AE34D3E8C7105A8FF7D934D9A3_inline(L_7, NULL);
 		__this->____runner = L_8;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____runner), (void*)L_8);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:50>
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_9 = ___2_id;
 		__this->___ID = L_9;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:51>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_10 = __this->____closeButton;
 		NullCheck(L_10);
 		ButtonClickedEvent_t8EA72E90B3BD1392FB3B3EF167D5121C23569E4C* L_11;
 		L_11 = Button_get_onClick_m701712A7F7F000CC80D517C4510697E15722C35C_inline(L_10, NULL);
 		NullCheck(L_11);
 		UnityEventBase_RemoveAllListeners_m6E68297189537543B0C72FE38804646CA204D076(L_11, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_12 = __this->____closeButton;
 		NullCheck(L_12);
 		ButtonClickedEvent_t8EA72E90B3BD1392FB3B3EF167D5121C23569E4C* L_13;
@@ -4591,19 +4591,19 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		UnityAction__ctor_mC53E20D6B66E0D5688CD81B88DBB34F5A58B7131(L_15, L_14, (intptr_t)((void*)U3CU3Ec__DisplayClass24_0_U3CSetupU3Eb__0_mD88A4DEA7C4453978EB5E5A182A7DB7551FDCF44_RuntimeMethod_var), NULL);
 		NullCheck(L_13);
 		UnityEvent_AddListener_m8AA4287C16628486B41DA41CA5E7A856A706D302(L_13, L_15, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:54>
 		NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_16 = __this->____runner;
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_17 = __this->___ID;
 		NullCheck(L_16);
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_18;
 		L_18 = NetworkRunner_TryGetNetworkedBehaviourFromNetworkedObjectRef_TisNetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454_mDBAB94150B895DBDCCBFCC8B459C43A2FC4E2FD6(L_16, L_17, NetworkRunner_TryGetNetworkedBehaviourFromNetworkedObjectRef_TisNetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454_mDBAB94150B895DBDCCBFCC8B459C43A2FC4E2FD6_RuntimeMethod_var);
 		V_1 = L_18;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:55>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:55>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_19 = V_1;
 		NullCheck(L_19);
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_20 = L_19->___PhysicsSettings;
 		V_2 = L_20;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:58>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:58>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_21 = __this->____collisionEnterHeuristic;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_22;
 		L_22 = Color_get_cyan_m182A29E7475C0A98ACC03E1CF5252BAB83F0BA31_inline(NULL);
@@ -4611,7 +4611,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		int32_t L_23;
 		L_23 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_21, L_22, _stringLiteralCF76B8D5799BBC05959EA6EC1F6059384975D307, NULL);
 		__this->____impactSpeedLine = L_23;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:59>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_24 = __this->____collisionEnterHeuristic;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_25;
 		L_25 = Color_get_magenta_mE31C432891E0B3D23C8FB03CB3A38A60E7F52A9A_inline(NULL);
@@ -4619,7 +4619,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		int32_t L_26;
 		L_26 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_24, L_25, _stringLiteralBC11A40ADD6843C2578508119EAA0A08839A9A53, NULL);
 		__this->____totalSpeedLine = L_26;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:60>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_27 = __this->____collisionEnterHeuristic;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_28 = V_2;
 		float L_29 = L_28.___MinImpactfulCollisionAlignment;
@@ -4629,7 +4629,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_Setu
 		int32_t L_31;
 		L_31 = MultilineGraph_AddThreshold_m72DFB1B56B6A3C850C90E01B8DE05D5F4D885FB2(L_27, L_29, L_30, _stringLiteral604731B1AD052F86DD330B1622BC52D0BA0FB3FA, NULL);
 		__this->____minImpactThreshold = L_31;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:62>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:62>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_32 = V_1;
 		NullCheck(L_32);
 		NetworkTransformTrace_t40F6EB29940146CA7C2D46CFF617E351E6478E70* L_33 = L_32->___CurrentTrace;
@@ -4682,7 +4682,7 @@ IL_00ec:
 		NullCheck(G_B5_1);
 		G_B5_1->____collisionEnterReader = L_37;
 		Il2CppCodeGenWriteBarrier((void**)&(((&G_B5_1->____collisionEnterReader))->____bufferedData), (void*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:65>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_38 = __this->____velocityCorrection;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_39;
 		L_39 = Color_get_cyan_m182A29E7475C0A98ACC03E1CF5252BAB83F0BA31_inline(NULL);
@@ -4690,7 +4690,7 @@ IL_00ec:
 		int32_t L_40;
 		L_40 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_38, L_39, _stringLiteral89FC1B79B45D7806CB0FE159BAB31F6BC5D22204, NULL);
 		__this->____currentVelocityLine = L_40;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:66>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_41 = __this->____velocityCorrection;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_42;
 		L_42 = Color_get_magenta_mE31C432891E0B3D23C8FB03CB3A38A60E7F52A9A_inline(NULL);
@@ -4698,7 +4698,7 @@ IL_00ec:
 		int32_t L_43;
 		L_43 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_41, L_42, _stringLiteral0B77EB9C9DF45412D35DFFD2CE9522F3CB3953CB, NULL);
 		__this->____desiredVelocityLine = L_43;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:67>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:67>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_44 = __this->____velocityCorrection;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_45;
 		L_45 = Color_get_yellow_m66637FA14383E8D74F24AE256B577CE1D55D469F_inline(NULL);
@@ -4706,7 +4706,7 @@ IL_00ec:
 		int32_t L_46;
 		L_46 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_44, L_45, _stringLiteral633718078DC84FCA2F7C358205C7A8B4D4A582D2, NULL);
 		__this->____lerpedVelocityLine = L_46;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:68>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_47 = __this->____velocityCorrection;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_48;
 		L_48 = Color_get_green_mEB001F2CD8C68C6BBAEF9101990B779D3AA2A6EF_inline(NULL);
@@ -4714,7 +4714,7 @@ IL_00ec:
 		int32_t L_49;
 		L_49 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_47, L_48, _stringLiteral4AE7D1BFE7A8A15A986AEE473E659AC8D776D02A, NULL);
 		__this->____lerpAlphaLine = L_49;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:70>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:70>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_50 = V_1;
 		NullCheck(L_50);
 		NetworkTransformTrace_t40F6EB29940146CA7C2D46CFF617E351E6478E70* L_51 = L_50->___CurrentTrace;
@@ -4767,7 +4767,7 @@ IL_017a:
 		NullCheck(G_B10_1);
 		G_B10_1->____forecastReader = L_55;
 		Il2CppCodeGenWriteBarrier((void**)&(((&G_B10_1->____forecastReader))->____bufferedData), (void*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:73>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_56 = __this->____stallHeuristic;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_57;
 		L_57 = Color_get_cyan_m182A29E7475C0A98ACC03E1CF5252BAB83F0BA31_inline(NULL);
@@ -4775,7 +4775,7 @@ IL_017a:
 		int32_t L_58;
 		L_58 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_56, L_57, _stringLiteralB591293E0D9DB949A647B3B341358486A5B25C2E, NULL);
 		__this->____errorSimilarityLine = L_58;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:74>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:74>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_59 = __this->____stallHeuristic;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_60;
 		L_60 = Color_get_magenta_mE31C432891E0B3D23C8FB03CB3A38A60E7F52A9A_inline(NULL);
@@ -4783,7 +4783,7 @@ IL_017a:
 		int32_t L_61;
 		L_61 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_59, L_60, _stringLiteral8A6B81E0EBD91D6430BCA3EAA647DBF2DF073BB4, NULL);
 		__this->____correctionProgressLine = L_61;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:75>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_62 = __this->____stallHeuristic;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_63;
 		L_63 = Color_get_yellow_m66637FA14383E8D74F24AE256B577CE1D55D469F_inline(NULL);
@@ -4791,7 +4791,7 @@ IL_017a:
 		int32_t L_64;
 		L_64 = MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0(L_62, L_63, _stringLiteralF955CB519C78945A8A89D53E63AB796CC8EFD32D, NULL);
 		__this->____accruedScoreLine = L_64;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:76>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:76>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_65 = __this->____stallHeuristic;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_66 = V_2;
 		float L_67 = L_66.___HighErrorSimilarityThreshold;
@@ -4801,7 +4801,7 @@ IL_017a:
 		int32_t L_69;
 		L_69 = MultilineGraph_AddThreshold_m72DFB1B56B6A3C850C90E01B8DE05D5F4D885FB2(L_65, L_67, L_68, _stringLiteral1927E59688A7109BF9CFFBEE8174BCF70BF4CA4F, NULL);
 		__this->____errorSimilarityThreshold = L_69;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:77>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:77>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_70 = __this->____stallHeuristic;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_71 = V_2;
 		float L_72 = L_71.___LowCorrectionProgressThreshold;
@@ -4811,7 +4811,7 @@ IL_017a:
 		int32_t L_74;
 		L_74 = MultilineGraph_AddThreshold_m72DFB1B56B6A3C850C90E01B8DE05D5F4D885FB2(L_70, L_72, L_73, _stringLiteralE9CC477695DFCB4BB2E24FCF73AE026D7DD1188F, NULL);
 		__this->____correctionProgressThreshold = L_74;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:78>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:78>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_75 = __this->____stallHeuristic;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_76 = V_2;
 		float L_77 = L_76.___MaxErrorTotalTime;
@@ -4821,7 +4821,7 @@ IL_017a:
 		int32_t L_79;
 		L_79 = MultilineGraph_AddThreshold_m72DFB1B56B6A3C850C90E01B8DE05D5F4D885FB2(L_75, L_77, L_78, _stringLiteral60D21553221835E77FF63D1990A2D1830ACC616A, NULL);
 		__this->____accruedScoreThreshold = L_79;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:80>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_80 = V_1;
 		NullCheck(L_80);
 		NetworkTransformTrace_t40F6EB29940146CA7C2D46CFF617E351E6478E70* L_81 = L_80->___CurrentTrace;
@@ -4874,7 +4874,7 @@ IL_0250:
 		NullCheck(G_B15_1);
 		G_B15_1->____stallHeuristicReader = L_85;
 		Il2CppCodeGenWriteBarrier((void**)&(((&G_B15_1->____stallHeuristicReader))->____bufferedData), (void*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:81>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:81>
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_86 = V_1;
 		NullCheck(L_86);
 		NetworkTransformTrace_t40F6EB29940146CA7C2D46CFF617E351E6478E70* L_87 = L_86->___CurrentTrace;
@@ -4927,11 +4927,11 @@ IL_0272:
 		NullCheck(G_B20_1);
 		G_B20_1->____stallReader = L_91;
 		Il2CppCodeGenWriteBarrier((void**)&(((&G_B20_1->____stallReader))->____bufferedData), (void*)NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:82>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:82>
 		return;
 	}
 }
-// Method Definition Index: 94537
+// Method Definition Index: 94509
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_SetData_m2780D494E77B1FBE9F463D6C8BAF1AC1F5928074 (FusionStatisticsForecastObjectStats_t68F3431DFD62BBE0A22172CF3F6301AB61AA0B33* __this, FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* ___0_statisticsManager, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -4958,17 +4958,17 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_SetD
 	CollisionEnterData_t8924268F76C565F5F706002381FEA47CA688496D V_5;
 	memset((&V_5), 0, sizeof(V_5));
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:88>
 		NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_0 = __this->____runner;
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_1 = __this->___ID;
 		NullCheck(L_0);
 		NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* L_2;
 		L_2 = NetworkRunner_TryGetNetworkedBehaviourFromNetworkedObjectRef_TisNetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454_mDBAB94150B895DBDCCBFCC8B459C43A2FC4E2FD6(L_0, L_1, NetworkRunner_TryGetNetworkedBehaviourFromNetworkedObjectRef_TisNetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454_mDBAB94150B895DBDCCBFCC8B459C43A2FC4E2FD6_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:89>
 		NullCheck(L_2);
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_3 = L_2->___PhysicsSettings;
 		V_0 = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:92>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:92>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_4 = __this->____stallHeuristic;
 		int32_t L_5 = __this->____errorSimilarityThreshold;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_6 = V_0;
@@ -4976,7 +4976,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_SetD
 		NullCheck(L_4);
 		bool L_8;
 		L_8 = MultilineGraph_SetThresholdValue_m8E223B99B08A5FEF040D44FFF9DE0A3BA2D33457(L_4, L_5, L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:93>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:93>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_9 = __this->____stallHeuristic;
 		int32_t L_10 = __this->____correctionProgressThreshold;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_11 = V_0;
@@ -4984,7 +4984,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_SetD
 		NullCheck(L_9);
 		bool L_13;
 		L_13 = MultilineGraph_SetThresholdValue_m8E223B99B08A5FEF040D44FFF9DE0A3BA2D33457(L_9, L_10, L_12, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:94>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:94>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_14 = __this->____stallHeuristic;
 		int32_t L_15 = __this->____accruedScoreThreshold;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_16 = V_0;
@@ -4992,13 +4992,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_SetD
 		NullCheck(L_14);
 		bool L_18;
 		L_18 = MultilineGraph_SetThresholdValue_m8E223B99B08A5FEF040D44FFF9DE0A3BA2D33457(L_14, L_15, L_17, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:97>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:97>
 		V_1 = (bool)0;
 	}
 
 IL_0061:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:98>
 		BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3* L_19 = (BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3*)(&__this->____stallHeuristicReader);
 		bool L_20;
 		L_20 = BufferedDataReader_1_Read_m4D31A996F5FAA4407B6288A9D0E4F12FB345A641(L_19, (&V_2), BufferedDataReader_1_Read_m4D31A996F5FAA4407B6288A9D0E4F12FB345A641_RuntimeMethod_var);
@@ -5008,9 +5008,9 @@ IL_0061:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:99>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:99>
 		V_1 = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:100>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:100>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_21 = __this->____stallHeuristic;
 		int32_t L_22 = __this->____errorSimilarityLine;
 		StallHeuristicData_tD8D4B630634F94BECA1B033A8C76723C29F4554C L_23 = V_2;
@@ -5018,7 +5018,7 @@ IL_0061:
 		NullCheck(L_21);
 		bool L_25;
 		L_25 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_21, L_22, L_24, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:101>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:101>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_26 = __this->____stallHeuristic;
 		int32_t L_27 = __this->____correctionProgressLine;
 		StallHeuristicData_tD8D4B630634F94BECA1B033A8C76723C29F4554C L_28 = V_2;
@@ -5026,13 +5026,13 @@ IL_0061:
 		NullCheck(L_26);
 		bool L_30;
 		L_30 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_26, L_27, L_29, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:102>
 		goto IL_0061;
 	}
 
 IL_00a4:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:104>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:104>
 		bool L_31 = V_1;
 		if (L_31)
 		{
@@ -5040,7 +5040,7 @@ IL_00a4:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:105>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:105>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_32 = __this->____stallHeuristic;
 		int32_t L_33 = __this->____errorSimilarityLine;
 		BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3* L_34 = (BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3*)(&__this->____stallHeuristicReader);
@@ -5050,7 +5050,7 @@ IL_00a4:
 		NullCheck(L_32);
 		bool L_37;
 		L_37 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_32, L_33, L_36, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:106>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:106>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_38 = __this->____stallHeuristic;
 		int32_t L_39 = __this->____correctionProgressLine;
 		BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3* L_40 = (BufferedDataReader_1_t9D40606CFB3E81FDC627E741F73F79819525CCF3*)(&__this->____stallHeuristicReader);
@@ -5064,13 +5064,13 @@ IL_00a4:
 
 IL_00eb:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:110>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:110>
 		V_1 = (bool)0;
 	}
 
 IL_00ed:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:111>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:111>
 		BufferedDataReader_1_t1C61D5AE150E4F6B1F36EC7490F02711C01E6EEB* L_44 = (BufferedDataReader_1_t1C61D5AE150E4F6B1F36EC7490F02711C01E6EEB*)(&__this->____stallReader);
 		bool L_45;
 		L_45 = BufferedDataReader_1_Read_m8EDF596EEF29CBE565FE2FA643106E970F4F4FE8(L_44, (&V_3), BufferedDataReader_1_Read_m8EDF596EEF29CBE565FE2FA643106E970F4F4FE8_RuntimeMethod_var);
@@ -5080,7 +5080,7 @@ IL_00ed:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:112>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:112>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_46 = __this->____stallHeuristic;
 		int32_t L_47 = __this->____accruedScoreLine;
 		StallData_t2481CD827C4E3550CC51D4387E59DA66E0F83ABD L_48 = V_3;
@@ -5088,15 +5088,15 @@ IL_00ed:
 		NullCheck(L_46);
 		bool L_50;
 		L_50 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_46, L_47, L_49, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:113>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:113>
 		V_1 = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:114>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:114>
 		goto IL_00ed;
 	}
 
 IL_0118:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:116>
 		bool L_51 = V_1;
 		if (L_51)
 		{
@@ -5104,7 +5104,7 @@ IL_0118:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:117>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_52 = __this->____stallHeuristic;
 		int32_t L_53 = __this->____accruedScoreLine;
 		BufferedDataReader_1_t1C61D5AE150E4F6B1F36EC7490F02711C01E6EEB* L_54 = (BufferedDataReader_1_t1C61D5AE150E4F6B1F36EC7490F02711C01E6EEB*)(&__this->____stallReader);
@@ -5118,7 +5118,7 @@ IL_0118:
 
 IL_013d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:121>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:121>
 		BufferedDataReader_1_t8F4E8A93D19E35BD686A63CCEAB9430345B664A4* L_58 = (BufferedDataReader_1_t8F4E8A93D19E35BD686A63CCEAB9430345B664A4*)(&__this->____forecastReader);
 		bool L_59;
 		L_59 = BufferedDataReader_1_Read_m913FBD32D1AB8B1D7208876BC77B2F67F75C17A9(L_58, (&V_4), BufferedDataReader_1_Read_m913FBD32D1AB8B1D7208876BC77B2F67F75C17A9_RuntimeMethod_var);
@@ -5128,7 +5128,7 @@ IL_013d:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:122>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:122>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_60 = __this->____velocityCorrection;
 		int32_t L_61 = __this->____currentVelocityLine;
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* L_62 = (Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2*)(&(&V_4)->___PreviousVelocity);
@@ -5137,7 +5137,7 @@ IL_013d:
 		NullCheck(L_60);
 		bool L_64;
 		L_64 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_60, L_61, L_63, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:123>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:123>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_65 = __this->____velocityCorrection;
 		int32_t L_66 = __this->____desiredVelocityLine;
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* L_67 = (Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2*)(&(&V_4)->___DesiredVelocity);
@@ -5146,7 +5146,7 @@ IL_013d:
 		NullCheck(L_65);
 		bool L_69;
 		L_69 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_65, L_66, L_68, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:124>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:124>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_70 = __this->____velocityCorrection;
 		int32_t L_71 = __this->____lerpedVelocityLine;
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* L_72 = (Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2*)(&(&V_4)->___NewVelocity);
@@ -5155,7 +5155,7 @@ IL_013d:
 		NullCheck(L_70);
 		bool L_74;
 		L_74 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_70, L_71, L_73, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:125>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:125>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_75 = __this->____velocityCorrection;
 		int32_t L_76 = __this->____lerpAlphaLine;
 		ForecastData_t5F444E4A9166BBFC6D9C8290B6A7069414A82BAD L_77 = V_4;
@@ -5163,13 +5163,13 @@ IL_013d:
 		NullCheck(L_75);
 		bool L_79;
 		L_79 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_75, L_76, L_78, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:126>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:126>
 		goto IL_013d;
 	}
 
 IL_01c4:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:129>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:129>
 		BufferedDataReader_1_tB47FC94C2475F0055C9F92CF2C4DA16898762FC5* L_80 = (BufferedDataReader_1_tB47FC94C2475F0055C9F92CF2C4DA16898762FC5*)(&__this->____collisionEnterReader);
 		bool L_81;
 		L_81 = BufferedDataReader_1_Read_mFAED6212414701E446A0BE999F5304D09FF9C812(L_80, (&V_5), BufferedDataReader_1_Read_mFAED6212414701E446A0BE999F5304D09FF9C812_RuntimeMethod_var);
@@ -5179,7 +5179,7 @@ IL_01c4:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:130>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:130>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_82 = __this->____collisionEnterHeuristic;
 		int32_t L_83 = __this->____impactSpeedLine;
 		CollisionEnterData_t8924268F76C565F5F706002381FEA47CA688496D L_84 = V_5;
@@ -5187,7 +5187,7 @@ IL_01c4:
 		NullCheck(L_82);
 		bool L_86;
 		L_86 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_82, L_83, L_85, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:131>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:131>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_87 = __this->____collisionEnterHeuristic;
 		int32_t L_88 = __this->____totalSpeedLine;
 		CollisionEnterData_t8924268F76C565F5F706002381FEA47CA688496D L_89 = V_5;
@@ -5195,13 +5195,13 @@ IL_01c4:
 		NullCheck(L_87);
 		bool L_91;
 		L_91 = MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC(L_87, L_88, L_90, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:132>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:132>
 		goto IL_01c4;
 	}
 
 IL_0207:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:135>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:135>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_92 = __this->____collisionEnterHeuristic;
 		int32_t L_93 = __this->____minImpactThreshold;
 		PhysicsSettings_t486EFB4662FBC05381A9CC8E326B932CE014305A L_94 = V_0;
@@ -5209,31 +5209,31 @@ IL_0207:
 		NullCheck(L_92);
 		bool L_96;
 		L_96 = MultilineGraph_SetThresholdValue_m8E223B99B08A5FEF040D44FFF9DE0A3BA2D33457(L_92, L_93, L_95, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:136>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:136>
 		return;
 	}
 }
-// Method Definition Index: 94538
+// Method Definition Index: 94510
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats_RefreshView_mF714BC44E80E043633468A4B2612524985A0AA64 (FusionStatisticsForecastObjectStats_t68F3431DFD62BBE0A22172CF3F6301AB61AA0B33* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:142>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:142>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_0 = __this->____velocityCorrection;
 		NullCheck(L_0);
 		MultilineGraph_RefreshDisplay_mDC09A5BAA06A311E4D7F413495603DE5325201AC(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:143>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:143>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_1 = __this->____stallHeuristic;
 		NullCheck(L_1);
 		MultilineGraph_RefreshDisplay_mDC09A5BAA06A311E4D7F413495603DE5325201AC(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:144>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:144>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_2 = __this->____collisionEnterHeuristic;
 		NullCheck(L_2);
 		MultilineGraph_RefreshDisplay_mDC09A5BAA06A311E4D7F413495603DE5325201AC(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:145>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:145>
 		return;
 	}
 }
-// Method Definition Index: 94539
+// Method Definition Index: 94511
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats__ctor_mF5B8347534CD8A12ED2BCD062341211833F87A86 (FusionStatisticsForecastObjectStats_t68F3431DFD62BBE0A22172CF3F6301AB61AA0B33* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5249,7 +5249,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsForecastObjectStats__cto
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94540
+// Method Definition Index: 94512
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass24_0__ctor_m662DEE5EC9D26429DAA27C57A458C42BA63FD379 (U3CU3Ec__DisplayClass24_0_t0A6F9C7CE590606C5C8E62103C744F47705E0779* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5257,16 +5257,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass24_0__ctor_m662DEE5
 		return;
 	}
 }
-// Method Definition Index: 94541
+// Method Definition Index: 94513
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass24_0_U3CSetupU3Eb__0_mD88A4DEA7C4453978EB5E5A182A7DB7551FDCF44 (U3CU3Ec__DisplayClass24_0_t0A6F9C7CE590606C5C8E62103C744F47705E0779* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
 		FusionStatisticsForecastObjectPage_t821E0C93F9FB4B8B24A7632F88662F67F440AB42* L_0 = __this->___objectPage;
 		FusionStatisticsForecastObjectStats_t68F3431DFD62BBE0A22172CF3F6301AB61AA0B33* L_1 = __this->___U3CU3E4__this;
 		NullCheck(L_0);
 		FusionStatisticsForecastObjectPage_RemoveMonitoredNetworkObject_mFCA9E77CA5F3B415A91F9413192C011C49DBB524(L_0, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsForecastObjectStats.cs:52>
 		return;
 	}
 }
@@ -5278,7 +5278,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass24_0_U3CSetupU3Eb__
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94542
+// Method Definition Index: 94514
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsMemoryPage_get_PageName_m70580676BE93D915B026C15021EBCF48E828BB3D (FusionStatisticsMemoryPage_t585A5719CA58966B1A169464AD2F59A1ACAD326C* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5288,11 +5288,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsMemoryPage_get_Page
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:6>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:6>
 		return _stringLiteralB45B20FB2C76528A9AB42DA9418B5F1E50271585;
 	}
 }
-// Method Definition Index: 94543
+// Method Definition Index: 94515
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage_Init_mDA05949952E4AE59D5CCBF771D51E7FA97FD725D (FusionStatisticsMemoryPage_t585A5719CA58966B1A169464AD2F59A1ACAD326C* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5303,51 +5303,51 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage_Init_mDA05949
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:18>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:18>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_0 = __this->____objectMemoryChart;
 		NullCheck(L_0);
 		RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084(L_0, _stringLiteralDB7F8B3CDB3DD5E74BA25D78306204962552BA13, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:19>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:19>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_1 = __this->____objectFreeBlocksChart;
 		NullCheck(L_1);
 		RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084(L_1, _stringLiteralAAD83C411E623D9F9B5D643CB1DEDAD131621F19, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:20>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:20>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_2 = __this->____generalMemoryChart;
 		NullCheck(L_2);
 		RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084(L_2, _stringLiteralDB7F8B3CDB3DD5E74BA25D78306204962552BA13, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:21>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_3 = __this->____generalFreeBlocksChart;
 		NullCheck(L_3);
 		RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084(L_3, _stringLiteralAAD83C411E623D9F9B5D643CB1DEDAD131621F19, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:22>
 		return;
 	}
 }
-// Method Definition Index: 94544
+// Method Definition Index: 94516
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage_Render_m20FD98CB446E023DA13964178F5A71194B0CCA2C (FusionStatisticsMemoryPage_t585A5719CA58966B1A169464AD2F59A1ACAD326C* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:26>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_0 = __this->____objectMemoryChart;
 		NullCheck(L_0);
 		RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:27>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_1 = __this->____objectFreeBlocksChart;
 		NullCheck(L_1);
 		RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:28>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_2 = __this->____generalMemoryChart;
 		NullCheck(L_2);
 		RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:29>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_3 = __this->____generalFreeBlocksChart;
 		NullCheck(L_3);
 		RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:30>
 		return;
 	}
 }
-// Method Definition Index: 94545
+// Method Definition Index: 94517
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage_AfterFusionUpdate_mB27369838755454A4E967B9A7286C392007303DD (FusionStatisticsMemoryPage_t585A5719CA58966B1A169464AD2F59A1ACAD326C* __this, const RuntimeMethod* method) 
 {
 	FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* V_0 = NULL;
@@ -5360,94 +5360,94 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage_AfterFusionUp
 	int32_t V_7 = 0;
 	int32_t V_8 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:34>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:34>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_0);
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_1;
 		L_1 = FusionStatisticsManager_get_MemorySnapshot_m05086420E9DC4BA371B13B5D906BCE8132B7E72D(L_0, NULL);
 		V_0 = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:37>
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_2 = V_0;
 		NullCheck(L_2);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_3 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_2->___ObjectAllocatorMemorySnapshot);
 		int32_t L_4 = L_3->___TotalBytesUsed;
 		V_1 = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:38>
 		int32_t L_5 = V_1;
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_6 = V_0;
 		NullCheck(L_6);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_7 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_6->___ObjectAllocatorMemorySnapshot);
 		int32_t L_8 = L_7->___TotalBytesFree;
 		V_2 = ((int32_t)il2cpp_codegen_add(L_5, L_8));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:39>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_9 = __this->____objectMemoryChart;
 		int32_t L_10 = V_1;
 		int32_t L_11 = V_2;
 		NullCheck(L_9);
 		RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2(L_9, ((float)L_10), ((float)L_11), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:41>
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_12 = V_0;
 		NullCheck(L_12);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_13 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_12->___ObjectAllocatorMemorySnapshot);
 		int32_t L_14 = L_13->___TotalBlocks;
 		V_3 = L_14;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:42>
 		int32_t L_15 = V_3;
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_16 = V_0;
 		NullCheck(L_16);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_17 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_16->___ObjectAllocatorMemorySnapshot);
 		int32_t L_18 = L_17->___TotalFreeBlocks;
 		V_4 = ((int32_t)il2cpp_codegen_subtract(L_15, L_18));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:43>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_19 = __this->____objectFreeBlocksChart;
 		int32_t L_20 = V_4;
 		int32_t L_21 = V_3;
 		NullCheck(L_19);
 		RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2(L_19, ((float)L_20), ((float)L_21), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:46>
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_22 = V_0;
 		NullCheck(L_22);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_23 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_22->___GeneralAllocatorMemorySnapshot);
 		int32_t L_24 = L_23->___TotalBytesUsed;
 		V_5 = L_24;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:47>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:47>
 		int32_t L_25 = V_5;
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_26 = V_0;
 		NullCheck(L_26);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_27 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_26->___GeneralAllocatorMemorySnapshot);
 		int32_t L_28 = L_27->___TotalBytesFree;
 		V_6 = ((int32_t)il2cpp_codegen_add(L_25, L_28));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:48>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_29 = __this->____generalMemoryChart;
 		int32_t L_30 = V_5;
 		int32_t L_31 = V_6;
 		NullCheck(L_29);
 		RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2(L_29, ((float)L_30), ((float)L_31), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:50>
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_32 = V_0;
 		NullCheck(L_32);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_33 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_32->___GeneralAllocatorMemorySnapshot);
 		int32_t L_34 = L_33->___TotalBlocks;
 		V_7 = L_34;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:51>
 		int32_t L_35 = V_7;
 		FusionMemoryStatisticsSnapshot_t29703318A72E584AEDA6A4A0E8C72452540ED7C4* L_36 = V_0;
 		NullCheck(L_36);
 		FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B* L_37 = (FusionAllocatorMemorySnapshot_t70A1A26F3143F33DF36E62A865991269CD7C380B*)(&L_36->___GeneralAllocatorMemorySnapshot);
 		int32_t L_38 = L_37->___TotalFreeBlocks;
 		V_8 = ((int32_t)il2cpp_codegen_subtract(L_35, L_38));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:52>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_39 = __this->____generalFreeBlocksChart;
 		int32_t L_40 = V_8;
 		int32_t L_41 = V_7;
 		NullCheck(L_39);
 		RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2(L_39, ((float)L_40), ((float)L_41), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsMemoryPage.cs:53>
 		return;
 	}
 }
-// Method Definition Index: 94546
+// Method Definition Index: 94518
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage__ctor_m760E8981B5460868459F6B77C355CD1ABCF03FB6 (FusionStatisticsMemoryPage_t585A5719CA58966B1A169464AD2F59A1ACAD326C* __this, const RuntimeMethod* method) 
 {
 	{
@@ -5463,7 +5463,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsMemoryPage__ctor_m760E89
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94547
+// Method Definition Index: 94519
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsNetworkObjectPage_get_PageName_m56447083F4076B155C6C26CAD1D468893F4D07B2 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5473,11 +5473,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsNetworkObjectPage_g
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:7>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:7>
 		return _stringLiteral117AB21E4C282248285DE4059219EE971303C39E;
 	}
 }
-// Method Definition Index: 94548
+// Method Definition Index: 94520
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_MonitorObject_m3FA27BFA377EA12ECB65581E83D69785ACC45CE4 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 ___0_networkId, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5490,7 +5490,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Monito
 	}
 	FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* V_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:21>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_1 = ___0_networkId;
@@ -5503,20 +5503,20 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Monito
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:21>
 		return;
 	}
 
 IL_000f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:25>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:25>
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_3 = __this->____prefabNOStats;
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_4 = __this->____content;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_5;
 		L_5 = Object_Instantiate_TisFusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0_mAD0A27BF09CFE4BFB76F8760C5E377D7FB039F48(L_3, L_4, Object_Instantiate_TisFusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0_mAD0A27BF09CFE4BFB76F8760C5E377D7FB039F48_RuntimeMethod_var);
 		V_0 = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:26>
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_6 = V_0;
 		NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_7;
 		L_7 = FusionStatisticsPage_get_Runner_m2496DB46A71971AE34D3E8C7105A8FF7D934D9A3_inline(__this, NULL);
@@ -5530,16 +5530,16 @@ IL_000f:
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_11 = ___0_networkId;
 		NullCheck(L_6);
 		FusionStatisticsNetworkObjectStats_Setup_m4B46FCB661E46ADCA2DA258C6CA19FF3CD190DAD(L_6, __this, L_10, L_11, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:27>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_12 = __this->____networkObjectStats;
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_13 = V_0;
 		NullCheck(L_12);
 		List_1_Add_m2145A8EBE6E31D53E3A5548E576A68902DB14F87_inline(L_12, L_13, List_1_Add_m2145A8EBE6E31D53E3A5548E576A68902DB14F87_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:28>
 		return;
 	}
 }
-// Method Definition Index: 94549
+// Method Definition Index: 94521
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_RemoveMonitoredNetworkObject_mA3C187B35B6AD3B3610BE88B2C9696DB4B6C602C (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* ___0_stats, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5550,24 +5550,24 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Remove
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:35>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_0 = __this->____networkObjectStats;
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_1 = ___0_stats;
 		NullCheck(L_0);
 		bool L_2;
 		L_2 = List_1_Remove_mFB2B6D17CAE8DAA21D43262A27DD1B25517190E5(L_0, L_1, List_1_Remove_mFB2B6D17CAE8DAA21D43262A27DD1B25517190E5_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:37>
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_3 = ___0_stats;
 		NullCheck(L_3);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_4;
 		L_4 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(L_3, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_4, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:38>
 		return;
 	}
 }
-// Method Definition Index: 94550
+// Method Definition Index: 94522
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_SearchAllNetworkObjects_mD7CC7BA0FA5AAE36B36090C7C727104D57F067B8 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5595,7 +5595,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Search
 	String_t* G_B3_2 = NULL;
 	MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* G_B3_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:44>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_0 = __this->____NoOptionsInstance;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -5606,13 +5606,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Search
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:44>
 		return;
 	}
 
 IL_000e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:46>
 		NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_2;
 		L_2 = FusionStatisticsPage_get_Runner_m2496DB46A71971AE34D3E8C7105A8FF7D934D9A3_inline(__this, NULL);
 		NullCheck(L_2);
@@ -5622,7 +5622,7 @@ IL_000e:
 		NetworkObjectU5BU5D_tB73C7914AB3A2AB2BCE11B2D5AFDEAE2A48F2D0D* L_4;
 		L_4 = List_1_ToArray_mC0FC50BA2B70DDDA9546A8725D4F6C9BAED8B4E7(L_3, List_1_ToArray_mC0FC50BA2B70DDDA9546A8725D4F6C9BAED8B4E7_RuntimeMethod_var);
 		V_0 = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:48>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_5 = __this->____multipleOptionsPrefab;
 		Canvas_t2DB4CEFDFF732884866C83F11ABF75F5AE8FFB26* L_6;
 		L_6 = FusionStatistics_get_GlobalStatisticsCanvas_mF6D3F04BB738C2CDECAEF980F03BB3AE07A96B66_inline(NULL);
@@ -5634,7 +5634,7 @@ IL_000e:
 		L_8 = Object_Instantiate_TisMultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750_m39ADAB3BEA80F552707DD4B78ABA06C2F1363D57(L_5, L_7, Object_Instantiate_TisMultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750_m39ADAB3BEA80F552707DD4B78ABA06C2F1363D57_RuntimeMethod_var);
 		__this->____NoOptionsInstance = L_8;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____NoOptionsInstance), (void*)L_8);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_9 = __this->____NoOptionsInstance;
 		NetworkObjectU5BU5D_tB73C7914AB3A2AB2BCE11B2D5AFDEAE2A48F2D0D* L_10 = V_0;
 		il2cpp_codegen_runtime_class_init_inline(U3CU3Ec_t9AC3135D6E0D54E1605D32D5795B5E65136EAC2F_il2cpp_TypeInfo_var);
@@ -5673,19 +5673,19 @@ IL_0065:
 		Action_1__ctor_m0F0DBEB19DEEF56809333BDB6D73929F87EA2262(L_16, __this, (intptr_t)((void*)FusionStatisticsNetworkObjectPage_U3CSearchAllNetworkObjectsU3Eb__9_1_m5B5E4E22F678BD8EF6E74861108B8CEEE95E2668_RuntimeMethod_var), NULL);
 		NullCheck(G_B4_3);
 		MultipleOptionsPanel_Setup_TisNetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C_mD8F17054DF5351CD55AEF647B4D3AE430C55C8F4(G_B4_3, G_B4_2, G_B4_1, G_B4_0, L_16, MultipleOptionsPanel_Setup_TisNetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C_mD8F17054DF5351CD55AEF647B4D3AE430C55C8F4_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:50>
 		return;
 	}
 }
-// Method Definition Index: 94551
+// Method Definition Index: 94523
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Init_m18370AAFA903813191D2D74D90C5D194DF950A62 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:54>
 		return;
 	}
 }
-// Method Definition Index: 94552
+// Method Definition Index: 94524
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Render_mF2F26ECEBF52467AA65A9B2FBDCE97AC92D55387 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5700,7 +5700,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_Render
 	Enumerator_t08772329C83C71D32B915A8F885741555E93E88F V_0;
 	memset((&V_0), 0, sizeof(V_0));
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_0 = __this->____networkObjectStats;
 		NullCheck(L_0);
 		Enumerator_t08772329C83C71D32B915A8F885741555E93E88F L_1;
@@ -5725,17 +5725,17 @@ FINALLY_0025:
 
 IL_000e_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_2;
 				L_2 = Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_inline((&V_0), Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_RuntimeMethod_var);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:59>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:59>
 				NullCheck(L_2);
 				FusionStatisticsNetworkObjectStats_RefreshView_m2A9F87803E182F45874649984D815C2C6F89DA69(L_2, NULL);
 			}
 
 IL_001a_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:58>
 				bool L_3;
 				L_3 = Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146((&V_0), Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146_RuntimeMethod_var);
 				if (L_3)
@@ -5755,11 +5755,11 @@ IL_001a_1:
 
 IL_0033:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:61>
 		return;
 	}
 }
-// Method Definition Index: 94553
+// Method Definition Index: 94525
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_AfterFusionUpdate_m6E2C02836C95D066BC1F0D12D7D83F5C64894FD8 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5782,11 +5782,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_AfterF
 	FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* V_2 = NULL;
 	FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* V_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:65>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_0 = (List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876*)il2cpp_codegen_object_new(List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876_il2cpp_TypeInfo_var);
 		List_1__ctor_mAEA8716373A8C065DB6B47D5846725FDD66B748A(L_0, List_1__ctor_mAEA8716373A8C065DB6B47D5846725FDD66B748A_RuntimeMethod_var);
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_1 = __this->____networkObjectStats;
 		NullCheck(L_1);
 		Enumerator_t08772329C83C71D32B915A8F885741555E93E88F L_2;
@@ -5811,11 +5811,11 @@ FINALLY_004f:
 
 IL_0014_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_3;
 				L_3 = Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_inline((&V_1), Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_RuntimeMethod_var);
 				V_2 = L_3;
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:67>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:67>
 				NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_4;
 				L_4 = FusionStatisticsPage_get_Runner_m2496DB46A71971AE34D3E8C7105A8FF7D934D9A3_inline(__this, NULL);
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_5 = V_2;
@@ -5830,18 +5830,18 @@ IL_0014_1:
 				}
 			}
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:68>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:68>
 				List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_8 = V_0;
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_9 = V_2;
 				NullCheck(L_8);
 				List_1_Add_m2145A8EBE6E31D53E3A5548E576A68902DB14F87_inline(L_8, L_9, List_1_Add_m2145A8EBE6E31D53E3A5548E576A68902DB14F87_RuntimeMethod_var);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:69>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:69>
 				goto IL_0044_1;
 			}
 
 IL_0038_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:72>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:72>
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_10 = V_2;
 				FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_11;
 				L_11 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
@@ -5851,7 +5851,7 @@ IL_0038_1:
 
 IL_0044_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:66>
 				bool L_12;
 				L_12 = Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146((&V_1), Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146_RuntimeMethod_var);
 				if (L_12)
@@ -5871,7 +5871,7 @@ IL_0044_1:
 
 IL_005d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_13 = V_0;
 		NullCheck(L_13);
 		Enumerator_t08772329C83C71D32B915A8F885741555E93E88F L_14;
@@ -5896,17 +5896,17 @@ FINALLY_0091:
 
 IL_0066_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_15;
 				L_15 = Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_inline((&V_1), Enumerator_get_Current_m14D63EA25D67582F20095342D3280F824D88FE25_RuntimeMethod_var);
 				V_3 = L_15;
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:76>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:76>
 				List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_16 = __this->____networkObjectStats;
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_17 = V_3;
 				NullCheck(L_16);
 				bool L_18;
 				L_18 = List_1_Remove_mFB2B6D17CAE8DAA21D43262A27DD1B25517190E5(L_16, L_17, List_1_Remove_mFB2B6D17CAE8DAA21D43262A27DD1B25517190E5_RuntimeMethod_var);
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:77>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:77>
 				FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_19 = V_3;
 				NullCheck(L_19);
 				GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_20;
@@ -5917,7 +5917,7 @@ IL_0066_1:
 
 IL_0086_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:75>
 				bool L_21;
 				L_21 = Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146((&V_1), Enumerator_MoveNext_m40A30B41F2E6B665383D88DF28D87D658E019146_RuntimeMethod_var);
 				if (L_21)
@@ -5937,11 +5937,11 @@ IL_0086_1:
 
 IL_009f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:79>
 		return;
 	}
 }
-// Method Definition Index: 94554
+// Method Definition Index: 94526
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage__ctor_m3173DB9FCDEA6E0781EB4447A3FA7E2B4BE99B01 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5952,7 +5952,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage__ctor_
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:15>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:15>
 		List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876* L_0 = (List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876*)il2cpp_codegen_object_new(List_1_t1BE9E5E7DC12E977DE5ECFC9938B5B8C12E7E876_il2cpp_TypeInfo_var);
 		List_1__ctor_mAEA8716373A8C065DB6B47D5846725FDD66B748A(L_0, List_1__ctor_mAEA8716373A8C065DB6B47D5846725FDD66B748A_RuntimeMethod_var);
 		__this->____networkObjectStats = L_0;
@@ -5961,11 +5961,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage__ctor_
 		return;
 	}
 }
-// Method Definition Index: 94555
+// Method Definition Index: 94527
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_U3CSearchAllNetworkObjectsU3Eb__9_1_m5B5E4E22F678BD8EF6E74861108B8CEEE95E2668 (FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* __this, NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* ___0_no, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
 		NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* L_0 = ___0_no;
 		NullCheck(L_0);
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_1;
@@ -5982,7 +5982,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectPage_U3CSea
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94556
+// Method Definition Index: 94528
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m257EF7D1A3CBC65D91F77884480A43C9DF217F31 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -5999,7 +5999,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_m257EF7D1A3CBC65D91F77884
 		return;
 	}
 }
-// Method Definition Index: 94557
+// Method Definition Index: 94529
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_m6256BB8283891D35E85B523E60252F00C34A9198 (U3CU3Ec_t9AC3135D6E0D54E1605D32D5795B5E65136EAC2F* __this, const RuntimeMethod* method) 
 {
 	{
@@ -6007,11 +6007,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_m6256BB8283891D35E85B523E6
 		return;
 	}
 }
-// Method Definition Index: 94558
+// Method Definition Index: 94530
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CSearchAllNetworkObjectsU3Eb__9_0_mA41EC28414B7AA08F66BE205FB1BE6433E92C0B9 (U3CU3Ec_t9AC3135D6E0D54E1605D32D5795B5E65136EAC2F* __this, NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* ___0_no, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectPage.cs:49>
 		NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* L_0 = ___0_no;
 		NullCheck(L_0);
 		String_t* L_1;
@@ -6027,7 +6027,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CSearchAllNetworkObjectsU
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94559
+// Method Definition Index: 94531
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Setup_m4B46FCB661E46ADCA2DA258C6CA19FF3CD190DAD (FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* __this, FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* ___0_objectPage, String_t* ___1_title, NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 ___2_id, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6056,33 +6056,33 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Setup
 		NullCheck(L_3);
 		L_3->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_3->___U3CU3E4__this), (void*)__this);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:22>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____inB;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_5 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_BYTES;
 		NullCheck(L_4);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_4, _stringLiteralB38DAF29180B0EE41C9AFAD92C45ADCE16E798FA, L_5, _stringLiteralD73CF4BB8A380CC220E26F7A8E043F82AE17D5ED, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:23>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:23>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____outB;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_7 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_BYTES;
 		NullCheck(L_6);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_6, _stringLiteral00144776F55FB874576EE35F1C1E0A329134421F, L_7, _stringLiteralD73CF4BB8A380CC220E26F7A8E043F82AE17D5ED, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:24>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:24>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_8 = __this->____title;
 		String_t* L_9 = ___1_title;
 		NullCheck(L_8);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_8, L_9);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:25>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:25>
 		NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 L_10 = ___2_id;
 		__this->___ID = L_10;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:26>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_11 = __this->____closeButton;
 		NullCheck(L_11);
 		ButtonClickedEvent_t8EA72E90B3BD1392FB3B3EF167D5121C23569E4C* L_12;
 		L_12 = Button_get_onClick_m701712A7F7F000CC80D517C4510697E15722C35C_inline(L_11, NULL);
 		NullCheck(L_12);
 		UnityEventBase_RemoveAllListeners_m6E68297189537543B0C72FE38804646CA204D076(L_12, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_13 = __this->____closeButton;
 		NullCheck(L_13);
 		ButtonClickedEvent_t8EA72E90B3BD1392FB3B3EF167D5121C23569E4C* L_14;
@@ -6092,11 +6092,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Setup
 		UnityAction__ctor_mC53E20D6B66E0D5688CD81B88DBB34F5A58B7131(L_16, L_15, (intptr_t)((void*)U3CU3Ec__DisplayClass6_0_U3CSetupU3Eb__0_mDF1015EA559666F05AB9090D4DE3AE829F4ECCBD_RuntimeMethod_var), NULL);
 		NullCheck(L_14);
 		UnityEvent_AddListener_m8AA4287C16628486B41DA41CA5E7A856A706D302(L_14, L_16, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:28>
 		return;
 	}
 }
-// Method Definition Index: 94560
+// Method Definition Index: 94532
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_SetData_m97D4ED4538549598BA0266420755C526F920F50F (FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* __this, FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* ___0_statisticsManager, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6110,7 +6110,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_SetDa
 	float V_1 = 0.0f;
 	float V_2 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:34>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:34>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0 = ___0_statisticsManager;
 		NullCheck(L_0);
 		NetworkObjectStatisticsSnapshot_tAD7320ACE44DBF152307F1D9116462C9E3686FC8* L_1;
@@ -6127,21 +6127,21 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_SetDa
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:35>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_5 = __this->____inB;
 		NullCheck(L_5);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_5, (0.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:36>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____outB;
 		NullCheck(L_6);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_6, (0.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:37>
 		return;
 	}
 
 IL_003b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:40>
 		Dictionary_2_t36B70AFA1EB92D9E2934190DA52235E5D10D7A4C* L_7 = V_0;
 		NullCheck(L_7);
 		bool L_8;
@@ -6152,7 +6152,7 @@ IL_003b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:41>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_9 = __this->____inB;
 		float L_10 = V_1;
 		NullCheck(L_9);
@@ -6161,7 +6161,7 @@ IL_003b:
 
 IL_0052:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:44>
 		Dictionary_2_t36B70AFA1EB92D9E2934190DA52235E5D10D7A4C* L_11 = V_0;
 		NullCheck(L_11);
 		bool L_12;
@@ -6172,7 +6172,7 @@ IL_0052:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:45>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:45>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_13 = __this->____outB;
 		float L_14 = V_2;
 		NullCheck(L_13);
@@ -6181,15 +6181,15 @@ IL_0052:
 
 IL_0069:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:47>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:47>
 		return;
 	}
 }
-// Method Definition Index: 94561
+// Method Definition Index: 94533
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Update_m29D1457AAA75962134C79CAC2C492345EAD2D20A (FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:50>
 		float L_0 = __this->____timer;
 		if ((!(((float)L_0) > ((float)(0.0f)))))
 		{
@@ -6197,7 +6197,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Updat
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:51>
 		float L_1 = __this->____timer;
 		float L_2;
 		L_2 = Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865(NULL);
@@ -6206,27 +6206,27 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_Updat
 
 IL_001f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:53>
 		return;
 	}
 }
-// Method Definition Index: 94562
+// Method Definition Index: 94534
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats_RefreshView_m2A9F87803E182F45874649984D815C2C6F89DA69 (FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:59>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____inB;
 		NullCheck(L_0);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:60>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____outB;
 		NullCheck(L_1);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:61>
 		return;
 	}
 }
-// Method Definition Index: 94563
+// Method Definition Index: 94535
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats__ctor_m6EB8BEC8FFC3A45C813D442C2298229E41CDCB13 (FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* __this, const RuntimeMethod* method) 
 {
 	{
@@ -6242,7 +6242,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkObjectStats__ctor
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94564
+// Method Definition Index: 94536
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0__ctor_m1A45D65A2F7D021AEE02707FA40A7A1B9161ED62 (U3CU3Ec__DisplayClass6_0_t4EF6951A97BF6D75C134C7546754ABD1E01296B2* __this, const RuntimeMethod* method) 
 {
 	{
@@ -6250,16 +6250,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0__ctor_m1A45D65A
 		return;
 	}
 }
-// Method Definition Index: 94565
+// Method Definition Index: 94537
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0_U3CSetupU3Eb__0_mDF1015EA559666F05AB9090D4DE3AE829F4ECCBD (U3CU3Ec__DisplayClass6_0_t4EF6951A97BF6D75C134C7546754ABD1E01296B2* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
 		FusionStatisticsNetworkObjectPage_t8F3041DD8BFCFDD2FEED89FA95A63B4D58FDB904* L_0 = __this->___objectPage;
 		FusionStatisticsNetworkObjectStats_t83830E340AE3020C6A8F58B7D65394874F9CCEC0* L_1 = __this->___U3CU3E4__this;
 		NullCheck(L_0);
 		FusionStatisticsNetworkObjectPage_RemoveMonitoredNetworkObject_mA3C187B35B6AD3B3610BE88B2C9696DB4B6C602C(L_0, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkObjectStats.cs:27>
 		return;
 	}
 }
@@ -6271,7 +6271,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass6_0_U3CSetupU3Eb__0
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94566
+// Method Definition Index: 94538
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsNetworkPage_get_PageName_mE13A9B5A2D736497880C3DF9DF9AB07EF46A1B3B (FusionStatisticsNetworkPage_t323E5F94B4247724837176947C08294D3E42BCC7* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6281,11 +6281,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsNetworkPage_get_Pag
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:7>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:7>
 		return _stringLiteral78F56529E0F2D4459413FC1874F402EB2A0F4C7B;
 	}
 }
-// Method Definition Index: 94567
+// Method Definition Index: 94539
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_Init_mB23AE8BADED35C1F2464CF3B53D0D10F524D1F5F (FusionStatisticsNetworkPage_t323E5F94B4247724837176947C08294D3E42BCC7* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6308,95 +6308,95 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_Init_mB23AE8
 	StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* V_1 = NULL;
 	StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* V_2 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:22>
 		V_0 = _stringLiteralD73CF4BB8A380CC220E26F7A8E043F82AE17D5ED;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:23>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:23>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_0 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0;
 		V_1 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:24>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:24>
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_1 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_BYTES;
 		V_2 = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:26>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____rtt;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_3 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_2);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_2, _stringLiteralB54AF7679D0021EA2FA830F9B29E36CF941AE7E6, L_3, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)1, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:27>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____inBandwidth;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_5 = V_2;
 		String_t* L_6 = V_0;
 		NullCheck(L_4);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_4, _stringLiteralB38DAF29180B0EE41C9AFAD92C45ADCE16E798FA, L_5, L_6, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:28>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_7 = __this->____outBandwidth;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_8 = V_2;
 		String_t* L_9 = V_0;
 		NullCheck(L_7);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_7, _stringLiteral00144776F55FB874576EE35F1C1E0A329134421F, L_8, L_9, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:29>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_10 = __this->____inPackets;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_11 = V_1;
 		NullCheck(L_10);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_10, _stringLiteral9BEA4336947301351A632DFE3F2182F5D58DAB92, L_11, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:30>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_12 = __this->____outPackets;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_13 = V_1;
 		NullCheck(L_12);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_12, _stringLiteral86E7FA4AD1C671B01A4DEF879251EE6E17A7C67D, L_13, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:31>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_14 = __this->____inputInBandwidth;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_15 = V_2;
 		String_t* L_16 = V_0;
 		NullCheck(L_14);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_14, _stringLiteralEF81EDBAE11359563594E806CD4629A4BF58A28D, L_15, L_16, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:32>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_17 = __this->____inputOutBandwidth;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_18 = V_2;
 		String_t* L_19 = V_0;
 		NullCheck(L_17);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_17, _stringLiteralBB1ECD40C559323B8AA35A9A9F8247CDC735720B, L_18, L_19, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:33>
 		return;
 	}
 }
-// Method Definition Index: 94568
+// Method Definition Index: 94540
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_Render_m3CD832A3D1002385EE79C4B3F96C0113BDA5DAF3 (FusionStatisticsNetworkPage_t323E5F94B4247724837176947C08294D3E42BCC7* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:37>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____rtt;
 		NullCheck(L_0);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:38>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____inBandwidth;
 		NullCheck(L_1);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:39>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____outBandwidth;
 		NullCheck(L_2);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:40>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____inPackets;
 		NullCheck(L_3);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:41>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____outPackets;
 		NullCheck(L_4);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_4, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:42>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_5 = __this->____inputInBandwidth;
 		NullCheck(L_5);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:43>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____inputOutBandwidth;
 		NullCheck(L_6);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_6, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:44>
 		return;
 	}
 }
-// Method Definition Index: 94569
+// Method Definition Index: 94541
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionUpdate_m2CA0126AAC5505731F5DD29D6239AE1687AD6026 (FusionStatisticsNetworkPage_t323E5F94B4247724837176947C08294D3E42BCC7* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6413,7 +6413,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 	float V_5 = 0.0f;
 	float V_6 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:48>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_0);
@@ -6424,7 +6424,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_3;
 		L_3 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_2, 6, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_0 = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:49>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_4;
 		L_4 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_4);
@@ -6435,7 +6435,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_7;
 		L_7 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_6, 4, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_1 = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:50>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_8;
 		L_8 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_8);
@@ -6446,7 +6446,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_11;
 		L_11 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_10, 5, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_2 = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:51>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_12;
 		L_12 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_12);
@@ -6457,7 +6457,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_15;
 		L_15 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_14, 2, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_3 = L_15;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:52>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_16;
 		L_16 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_16);
@@ -6468,7 +6468,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_19;
 		L_19 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_18, 3, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_4 = L_19;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:53>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_20;
 		L_20 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_20);
@@ -6479,7 +6479,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_23;
 		L_23 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_22, 7, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_5 = L_23;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:54>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_24;
 		L_24 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_24);
@@ -6490,7 +6490,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		float L_27;
 		L_27 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_26, 8, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_6 = L_27;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:56>
 		float L_28 = V_0;
 		if ((!(((float)L_28) == ((float)(0.0f)))))
 		{
@@ -6498,59 +6498,59 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage_AfterFusionU
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:57>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:57>
 		float L_29 = __this->____lastRTT;
 		V_0 = L_29;
 	}
 
 IL_00d6:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:60>
 		float L_30 = V_0;
 		__this->____lastRTT = L_30;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:61>
 		float L_31 = V_0;
 		V_0 = ((float)il2cpp_codegen_multiply(L_31, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:63>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:63>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_32 = __this->____rtt;
 		float L_33 = V_0;
 		NullCheck(L_32);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_32, L_33, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:64>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:64>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_34 = __this->____inBandwidth;
 		float L_35 = V_1;
 		NullCheck(L_34);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_34, L_35, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:65>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_36 = __this->____outBandwidth;
 		float L_37 = V_2;
 		NullCheck(L_36);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_36, L_37, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:66>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_38 = __this->____inPackets;
 		float L_39 = V_3;
 		NullCheck(L_38);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_38, L_39, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:67>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:67>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_40 = __this->____outPackets;
 		float L_41 = V_4;
 		NullCheck(L_40);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_40, L_41, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:68>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_42 = __this->____inputInBandwidth;
 		float L_43 = V_5;
 		NullCheck(L_42);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_42, L_43, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:69>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:69>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_44 = __this->____inputOutBandwidth;
 		float L_45 = V_6;
 		NullCheck(L_44);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_44, L_45, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:70>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsNetworkPage.cs:70>
 		return;
 	}
 }
-// Method Definition Index: 94570
+// Method Definition Index: 94542
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage__ctor_m01F3E754E08B80654DD0F3C6F07E50A69A58C799 (FusionStatisticsNetworkPage_t323E5F94B4247724837176947C08294D3E42BCC7* __this, const RuntimeMethod* method) 
 {
 	{
@@ -6566,7 +6566,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsNetworkPage__ctor_m01F3E
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94571
+// Method Definition Index: 94543
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* FusionStatisticsRoot_get_ActiveRoot_m643336E45F86E776B15886DFE2CC2B27141FE38D (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6576,13 +6576,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR FusionStatisticsRoot_t2E330A6C02A83E492862357
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_0 = ((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___U3CActiveRootU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 94572
+// Method Definition Index: 94544
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_ActiveRoot_mF56561D761342C0F32D58D51CA9C959FF08A7F57 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6592,7 +6592,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_ActiveRoot_mF56
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_0 = ___0_value;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___U3CActiveRootU3Ek__BackingField = L_0;
@@ -6600,25 +6600,25 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_ActiveRoot_mF56
 		return;
 	}
 }
-// Method Definition Index: 94573
+// Method Definition Index: 94545
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* FusionStatisticsRoot_get_Statistics_m4750390A6347D89D81D72847CE52C1D17DB0975E (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:20>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:20>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_0 = __this->____statistics;
 		return L_0;
 	}
 }
-// Method Definition Index: 94574
+// Method Definition Index: 94546
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool FusionStatisticsRoot_get_IsVisible_mD158C1AEAEEB9EC8C835CFDC31335FF79AD577B8 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:21>
 		bool L_0 = __this->____collapsed;
 		return (bool)((((int32_t)L_0) == ((int32_t)0))? 1 : 0);
 	}
 }
-// Method Definition Index: 94575
+// Method Definition Index: 94547
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ResetStaticFields_m91F4645CC363A1CB170E7F0E6760FDA3194BE7F4 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6630,31 +6630,31 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ResetStaticFields_m
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:33>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:34>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:34>
 		List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A* L_0 = (List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A*)il2cpp_codegen_object_new(List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A_il2cpp_TypeInfo_var);
 		List_1__ctor_m6C8051FEBED438A7746A1D6EC5070522F4B1BD07(L_0, List_1__ctor_m6C8051FEBED438A7746A1D6EC5070522F4B1BD07_RuntimeMethod_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___Roots = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___Roots), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:35>
 		FusionStatisticsRoot_set_ActiveRoot_mF56561D761342C0F32D58D51CA9C959FF08A7F57_inline((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544*)NULL, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:36>
 		return;
 	}
 }
-// Method Definition Index: 94576
+// Method Definition Index: 94548
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_Start_m24585838ACF748AD0DDB5B75CC02D3FF2F93695D (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:39>
 		FusionStatisticsRoot_EnsureCorrectAnchor_mCC14487A76DF710715910EC78E9EA2CD0FE37C0C(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:40>
 		return;
 	}
 }
-// Method Definition Index: 94577
+// Method Definition Index: 94549
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetupStatistics_m70EE91DFE392BA41DA3EA4ED252BF4195DB7367B (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* ___0_statistics, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6668,11 +6668,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetupStatistics_m70
 	PlayerRef_tFAC74D9C43A58F5E8E2959C36FFCB98B7E834EDC V_0;
 	memset((&V_0), 0, sizeof(V_0));
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:46>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_0 = ___0_statistics;
 		__this->____statistics = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____statistics), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:47>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:47>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_1 = __this->____peerText;
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_2 = __this->____statistics;
 		NullCheck(L_2);
@@ -6687,27 +6687,27 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetupStatistics_m70
 		L_5 = PlayerRef_ToString_m05113102A41F10A257877EBF2B48D20D52132434((&V_0), NULL);
 		NullCheck(L_1);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_1, L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:49>
 		__this->____collapsed = (bool)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:50>
 		CanvasScaler_t3BC095205EAD308CF3EAC27136A73387AC32FC3B* L_6;
 		L_6 = Component_GetComponentInParent_TisCanvasScaler_t3BC095205EAD308CF3EAC27136A73387AC32FC3B_m27403B9D7A98DE954C46570CD17022AF05B8A02E(__this, Component_GetComponentInParent_TisCanvasScaler_t3BC095205EAD308CF3EAC27136A73387AC32FC3B_m27403B9D7A98DE954C46570CD17022AF05B8A02E_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:51>
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_7;
 		L_7 = Component_get_transform_m2919A1D81931E6932C7F06D4C2F0AB8DDA9A5371(__this, NULL);
 		__this->____rectTransform = ((RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5*)CastclassSealed((RuntimeObject*)L_7, RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var));
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____rectTransform), (void*)((RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5*)CastclassSealed((RuntimeObject*)L_7, RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:52>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_8 = __this->____rectTransform;
 		NullCheck(L_8);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_9;
 		L_9 = RectTransform_get_anchoredPosition_m38F25A4253B0905BB058BE73DBF43C7172CE0680(L_8, NULL);
 		__this->____originAnchoredPosition = L_9;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:53>
 		return;
 	}
 }
-// Method Definition Index: 94578
+// Method Definition Index: 94550
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetupPagesDropdown_m2389E9CCCB41E7BB6F60C12C3AA9AA2AB946E8A5 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6728,11 +6728,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetupPagesDropdown_
 	memset((&V_0), 0, sizeof(V_0));
 	FusionStatisticsPage_t0553A8AD1CE5215E3ADC0D667551D658382DDF8D* V_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:59>
 		Dropdown_t54C0BDC1441E058BE37E796F68886671C270EF89* L_0 = __this->____pagesDropdown;
 		NullCheck(L_0);
 		Dropdown_ClearOptions_m3EE71BFE47AB96BC7F731C4EE6BC728ED0E6EE56(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_1 = __this->____statistics;
 		NullCheck(L_1);
 		List_1_tD10DC5D4F97EEB381ACE87859927E0A4D3C985B3* L_2;
@@ -6760,11 +6760,11 @@ FINALLY_0052:
 
 IL_001e_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
 				FusionStatisticsPage_t0553A8AD1CE5215E3ADC0D667551D658382DDF8D* L_4;
 				L_4 = Enumerator_get_Current_mD3B8CBD53B8DA9F5D39670E4217B538C83678E96_inline((&V_0), Enumerator_get_Current_mD3B8CBD53B8DA9F5D39670E4217B538C83678E96_RuntimeMethod_var);
 				V_1 = L_4;
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:61>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:61>
 				Dropdown_t54C0BDC1441E058BE37E796F68886671C270EF89* L_5 = __this->____pagesDropdown;
 				NullCheck(L_5);
 				List_1_tCEC1993B65ACD0529D8C0BB5006274E22D7D8A55* L_6;
@@ -6784,7 +6784,7 @@ IL_001e_1:
 
 IL_0047_1:
 			{
-				//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
+				//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:60>
 				bool L_11;
 				L_11 = Enumerator_MoveNext_mD7B8473C28AFEAFC8AF0AC8780184BBDA15E5628((&V_0), Enumerator_MoveNext_mD7B8473C28AFEAFC8AF0AC8780184BBDA15E5628_RuntimeMethod_var);
 				if (L_11)
@@ -6804,7 +6804,7 @@ IL_0047_1:
 
 IL_0060:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:68>
 		Dropdown_t54C0BDC1441E058BE37E796F68886671C270EF89* L_12 = __this->____pagesDropdown;
 		NullCheck(L_12);
 		DropdownEvent_t8A008B010A742724CFC93576D6976E474BB13059* L_13;
@@ -6813,11 +6813,11 @@ IL_0060:
 		UnityAction_1__ctor_m48C26C8BF8CF832FAFF2818DC9246BACBC3CCF2B(L_14, __this, (intptr_t)((void*)FusionStatisticsRoot_U3CSetupPagesDropdownU3Eg__OnDropdownChangedU7C26_0_m2AA09A7952AF240197EC9017ABC26D94A640FB73_RuntimeMethod_var), NULL);
 		NullCheck(L_13);
 		UnityEvent_1_AddListener_m846E66E06483E90ED947176C8DB2BE23495A93AE(L_13, L_14, UnityEvent_1_AddListener_m846E66E06483E90ED947176C8DB2BE23495A93AE_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:69>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:69>
 		return;
 	}
 }
-// Method Definition Index: 94579
+// Method Definition Index: 94551
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleMultiPeerPanel_mE36C0BD880BF392DD3E3B7E35AD7894DFF8FD46D (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6846,7 +6846,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleMultiPeerPane
 	String_t* G_B5_2 = NULL;
 	MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* G_B5_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:75>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_0 = __this->____statistics;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -6876,13 +6876,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleMultiPeerPane
 
 IL_0022:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:75>
 		return;
 	}
 
 IL_0023:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:77>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:77>
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_5;
 		L_5 = Component_get_transform_m2919A1D81931E6932C7F06D4C2F0AB8DDA9A5371(__this, NULL);
 		NullCheck(L_5);
@@ -6892,7 +6892,7 @@ IL_0023:
 		FusionStatisticsRootU5BU5D_t45328ACEA0ACF371A28A9FD592C096646C1F0752* L_7;
 		L_7 = Component_GetComponentsInChildren_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_mF353D5EF7150BCBA83845C0EB4E9496537E40FDC(L_6, (bool)1, Component_GetComponentsInChildren_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_mF353D5EF7150BCBA83845C0EB4E9496537E40FDC_RuntimeMethod_var);
 		V_0 = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:78>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:78>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_8 = __this->____multipleOptionsPrefab;
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_9;
 		L_9 = Component_get_transform_m2919A1D81931E6932C7F06D4C2F0AB8DDA9A5371(__this, NULL);
@@ -6903,10 +6903,10 @@ IL_0023:
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_11;
 		L_11 = Object_Instantiate_TisMultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750_m39ADAB3BEA80F552707DD4B78ABA06C2F1363D57(L_8, L_10, Object_Instantiate_TisMultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750_m39ADAB3BEA80F552707DD4B78ABA06C2F1363D57_RuntimeMethod_var);
 		V_1 = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:79>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:80>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:81>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:82>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:81>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:82>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_12 = V_1;
 		FusionStatisticsRootU5BU5D_t45328ACEA0ACF371A28A9FD592C096646C1F0752* L_13 = V_0;
 		il2cpp_codegen_runtime_class_init_inline(U3CU3Ec_t99108058F211FFFBDDE1E0FDFAE28D332A2A81F2_il2cpp_TypeInfo_var);
@@ -6945,15 +6945,15 @@ IL_0072:
 		Action_1__ctor_m998ABADDA9ACEA8DC28D6005B68EAFCB707FBB77(L_19, __this, (intptr_t)((void*)FusionStatisticsRoot_U3CToggleMultiPeerPanelU3Eb__27_1_m017E638A1EEDA64602D8187B12B9F931C5BD6E4B_RuntimeMethod_var), NULL);
 		NullCheck(G_B6_3);
 		MultipleOptionsPanel_Setup_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_m9ED91E328F71C14227DF11423B16AE41E6E29380(G_B6_3, G_B6_2, G_B6_1, G_B6_0, L_19, MultipleOptionsPanel_Setup_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_m9ED91E328F71C14227DF11423B16AE41E6E29380_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:84>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:84>
 		MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* L_20 = V_1;
 		__this->____peerOptionsInstance = L_20;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____peerOptionsInstance), (void*)L_20);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:85>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:85>
 		return;
 	}
 }
-// Method Definition Index: 94580
+// Method Definition Index: 94552
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetActiveRoot_mC044BA36E340C32F7ED88559C35C4B6A4AB527AE (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* ___0_root, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -6963,22 +6963,22 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_SetActiveRoot_mC044
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:88>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_0 = ___0_root;
 		NullCheck(L_0);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_1;
 		L_1 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(L_0, NULL);
 		NullCheck(L_1);
 		GameObject_SetActive_m638E92E1E75E519E5B24CF150B08CA8E0CDFAB92(L_1, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:89>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_2 = ___0_root;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		FusionStatisticsRoot_set_ActiveRoot_mF56561D761342C0F32D58D51CA9C959FF08A7F57_inline(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:90>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:90>
 		return;
 	}
 }
-// Method Definition Index: 94581
+// Method Definition Index: 94553
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleCollapse_m6DA22C4C427832EBE13504611D59441ECF1E50A6 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7013,14 +7013,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleCollapse_m6DA
 	float G_B12_2 = 0.0f;
 	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* G_B12_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:96>
 		bool L_0 = __this->____collapsed;
 		__this->____collapsed = (bool)((((int32_t)L_0) == ((int32_t)0))? 1 : 0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:97>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:97>
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_1;
 		L_1 = Component_get_transform_m2919A1D81931E6932C7F06D4C2F0AB8DDA9A5371(__this, NULL);
 		V_0 = ((RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5*)CastclassSealed((RuntimeObject*)L_1, RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:99>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:99>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		int32_t L_2 = ((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide;
 		if (!L_2)
@@ -7045,7 +7045,7 @@ IL_0029:
 IL_002e:
 	{
 		V_1 = G_B3_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:100>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:100>
 		bool L_5 = __this->____collapsed;
 		if (L_5)
 		{
@@ -7080,13 +7080,13 @@ IL_003f:
 IL_005f:
 	{
 		V_2 = G_B6_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:101>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:101>
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_14 = V_2;
 		RuntimeObject* L_15;
 		L_15 = FusionStatisticsRoot_MoveToPosition_m1627D09B321A3A10A0311647549CA21E6940BD83(__this, L_14, (0.200000003f), NULL);
 		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_16;
 		L_16 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(__this, L_15, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:102>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		int32_t L_17 = ((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide;
 		if (!L_17)
@@ -7107,7 +7107,7 @@ IL_007e:
 IL_0080:
 	{
 		V_3 = G_B9_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:103>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:103>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_18 = __this->____collapseButton;
 		NullCheck(L_18);
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_19;
@@ -7151,21 +7151,21 @@ IL_00a9:
 		L_24 = Quaternion_Euler_m9262AB29E3E9CE94EF71051F38A28E82AEC73F90_inline(G_B12_2, G_B12_1, ((float)G_B12_0), NULL);
 		NullCheck(G_B12_3);
 		Transform_set_rotation_m61340DE74726CF0F9946743A727C4D444397331D(G_B12_3, L_24, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:105>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:105>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_25 = __this->____anchorButton;
 		bool L_26 = __this->____collapsed;
 		NullCheck(L_25);
 		Selectable_set_interactable_m8DD581C1AD99B2EFA8B3EE9AF69EDDF26688B492(L_25, (bool)((((int32_t)L_26) == ((int32_t)0))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:106>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:106>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_27 = __this->____multiPeerButton;
 		bool L_28 = __this->____collapsed;
 		NullCheck(L_27);
 		Selectable_set_interactable_m8DD581C1AD99B2EFA8B3EE9AF69EDDF26688B492(L_27, (bool)((((int32_t)L_28) == ((int32_t)0))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:107>
 		return;
 	}
 }
-// Method Definition Index: 94582
+// Method Definition Index: 94554
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleAnchorSide_m66ED63C231E1F002E45FA253EFC16D03ABAF0383 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7179,7 +7179,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_ToggleAnchorSide_m6
 	int32_t V_1 = 0;
 	int32_t G_B3_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:113>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:113>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		int32_t L_0 = ((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide;
 		if (!L_0)
@@ -7201,7 +7201,7 @@ IL_000b:
 	{
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide = G_B3_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:115>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:115>
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_1;
 		L_1 = Component_get_transform_m2919A1D81931E6932C7F06D4C2F0AB8DDA9A5371(__this, NULL);
 		NullCheck(L_1);
@@ -7210,7 +7210,7 @@ IL_000b:
 		NullCheck(L_2);
 		FusionStatisticsRootU5BU5D_t45328ACEA0ACF371A28A9FD592C096646C1F0752* L_3;
 		L_3 = Component_GetComponentsInChildren_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_mF353D5EF7150BCBA83845C0EB4E9496537E40FDC(L_2, (bool)1, Component_GetComponentsInChildren_TisFusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_mF353D5EF7150BCBA83845C0EB4E9496537E40FDC_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
 		V_0 = L_3;
 		V_1 = 0;
 		goto IL_0032;
@@ -7218,13 +7218,13 @@ IL_000b:
 
 IL_0026:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
 		FusionStatisticsRootU5BU5D_t45328ACEA0ACF371A28A9FD592C096646C1F0752* L_4 = V_0;
 		int32_t L_5 = V_1;
 		NullCheck(L_4);
 		int32_t L_6 = L_5;
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_7 = (L_4)->GetAt(static_cast<il2cpp_array_size_t>(L_6));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:117>
 		NullCheck(L_7);
 		FusionStatisticsRoot_EnsureCorrectAnchor_mCC14487A76DF710715910EC78E9EA2CD0FE37C0C(L_7, NULL);
 		int32_t L_8 = V_1;
@@ -7233,7 +7233,7 @@ IL_0026:
 
 IL_0032:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:116>
 		int32_t L_9 = V_1;
 		FusionStatisticsRootU5BU5D_t45328ACEA0ACF371A28A9FD592C096646C1F0752* L_10 = V_0;
 		NullCheck(L_10);
@@ -7243,11 +7243,11 @@ IL_0032:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:119>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:119>
 		return;
 	}
 }
-// Method Definition Index: 94583
+// Method Definition Index: 94555
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_EnsureCorrectAnchor_mCC14487A76DF710715910EC78E9EA2CD0FE37C0C (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7284,23 +7284,23 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_EnsureCorrectAnchor
 	float G_B12_0 = 0.0f;
 	Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7* G_B12_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:122>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:122>
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		int32_t L_0 = ((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide;
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:124>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:124>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_1 = __this->____sideBar;
 		NullCheck(L_1);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_2;
 		L_2 = RectTransform_get_anchorMin_mD85363930BE38EC188F933B9F4D58320CAB72F03(L_1, NULL);
 		V_1 = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:125>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:125>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_3 = __this->____sideBar;
 		NullCheck(L_3);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_4;
 		L_4 = RectTransform_get_anchorMax_mEF870BE2A134CEB9C2326930A71D3961271297DB(L_3, NULL);
 		V_2 = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:126>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:126>
 		int32_t L_5 = V_0;
 		if (!L_5)
 		{
@@ -7320,29 +7320,29 @@ IL_0024:
 IL_0025:
 	{
 		V_3 = G_B3_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:127>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:127>
 		int32_t L_6 = V_3;
 		(&V_1)->___x = ((float)L_6);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:128>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:128>
 		int32_t L_7 = V_3;
 		(&V_2)->___x = ((float)L_7);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:129>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:129>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_8 = __this->____sideBar;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_9 = V_1;
 		NullCheck(L_8);
 		RectTransform_set_anchorMin_m931442ABE3368D6D4309F43DF1D64AB64B0F52E3(L_8, L_9, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:130>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:130>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_10 = __this->____sideBar;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_11 = V_2;
 		NullCheck(L_10);
 		RectTransform_set_anchorMax_m52829ABEDD229ABD3DA20BCA676FA1DCA4A39B7D(L_10, L_11, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:132>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:132>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_12 = __this->____sideBar;
 		NullCheck(L_12);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_13;
 		L_13 = RectTransform_get_pivot_mA8334AF05AA7FF09A173A2430F2BB9E85E5CBFFF(L_12, NULL);
 		V_4 = L_13;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:133>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:133>
 		int32_t L_14 = V_0;
 		if (!L_14)
 		{
@@ -7366,12 +7366,12 @@ IL_0065:
 IL_0066:
 	{
 		G_B6_1->___x = ((float)G_B6_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:134>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:134>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_15 = __this->____sideBar;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_16 = V_4;
 		NullCheck(L_15);
 		RectTransform_set_pivot_m79D0177D383D432A93C2615F1932B739B1C6E146(L_15, L_16, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:135>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:135>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_17 = __this->____sideBar;
 		Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 L_18;
 		L_18 = Vector3_get_zero_m0C1249C3F25B1C70EAD3CC8B31259975A457AE39_inline(NULL);
@@ -7379,19 +7379,19 @@ IL_0066:
 		L_19 = Vector2_op_Implicit_mE8EBEE9291F11BB02F062D6E000F4798968CBD96_inline(L_18, NULL);
 		NullCheck(L_17);
 		RectTransform_set_anchoredPosition_mF903ACE04F6959B1CD67E2B94FABC0263068F965(L_17, L_19, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:137>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:137>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_20 = __this->____rectTransform;
 		NullCheck(L_20);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_21;
 		L_21 = RectTransform_get_anchorMin_mD85363930BE38EC188F933B9F4D58320CAB72F03(L_20, NULL);
 		V_5 = L_21;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:138>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:138>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_22 = __this->____rectTransform;
 		NullCheck(L_22);
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_23;
 		L_23 = RectTransform_get_anchorMax_mEF870BE2A134CEB9C2326930A71D3961271297DB(L_22, NULL);
 		V_6 = L_23;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:140>
 		int32_t L_24 = V_0;
 		if (!L_24)
 		{
@@ -7415,7 +7415,7 @@ IL_00b4:
 IL_00b9:
 	{
 		G_B9_1->___x = G_B9_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:141>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:141>
 		int32_t L_25 = V_0;
 		if (!L_25)
 		{
@@ -7439,17 +7439,17 @@ IL_00ca:
 IL_00cf:
 	{
 		G_B12_1->___x = G_B12_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:142>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:142>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_26 = __this->____rectTransform;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_27 = V_5;
 		NullCheck(L_26);
 		RectTransform_set_anchorMin_m931442ABE3368D6D4309F43DF1D64AB64B0F52E3(L_26, L_27, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:143>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:143>
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_28 = __this->____rectTransform;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_29 = V_6;
 		NullCheck(L_28);
 		RectTransform_set_anchorMax_m52829ABEDD229ABD3DA20BCA676FA1DCA4A39B7D(L_28, L_29, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:145>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:145>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_30 = __this->____collapseButton;
 		NullCheck(L_30);
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_31;
@@ -7461,12 +7461,12 @@ IL_00cf:
 		Quaternion_tDA59F214EF07D7700B26E40E562F267AF7306974 L_33;
 		L_33 = Transform_get_rotation_m32AF40CA0D50C797DA639A696F8EAEC7524C179C(L_32, NULL);
 		V_7 = L_33;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:146>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:146>
 		float* L_34 = (float*)(&(&V_7)->___z);
 		float* L_35 = L_34;
 		float L_36 = *((float*)L_35);
 		*((float*)L_35) = (float)((float)il2cpp_codegen_multiply(L_36, (-1.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:147>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:147>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_37 = __this->____collapseButton;
 		NullCheck(L_37);
 		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_38;
@@ -7477,11 +7477,11 @@ IL_00cf:
 		Quaternion_tDA59F214EF07D7700B26E40E562F267AF7306974 L_40 = V_7;
 		NullCheck(L_39);
 		Transform_set_rotation_m61340DE74726CF0F9946743A727C4D444397331D(L_39, L_40, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:148>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:148>
 		return;
 	}
 }
-// Method Definition Index: 94584
+// Method Definition Index: 94556
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_Update_m526C0BF8637B0B38CAD3184755C9E364A3B39762 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7492,7 +7492,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_Update_m526C0BF8637
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:151>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:151>
 		Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* L_0 = __this->____multiPeerButton;
 		NullCheck(L_0);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_1;
@@ -7504,11 +7504,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_Update_m526C0BF8637
 		L_3 = List_1_get_Count_m354E4C4BE82C38D6EE4485097D42E7F83D04ED5F_inline(L_2, List_1_get_Count_m354E4C4BE82C38D6EE4485097D42E7F83D04ED5F_RuntimeMethod_var);
 		NullCheck(L_1);
 		GameObject_SetActive_m638E92E1E75E519E5B24CF150B08CA8E0CDFAB92(L_1, (bool)((((int32_t)L_3) > ((int32_t)1))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:152>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:152>
 		return;
 	}
 }
-// Method Definition Index: 94585
+// Method Definition Index: 94557
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* FusionStatisticsRoot_MoveToPosition_m1627D09B321A3A10A0311647549CA21E6940BD83 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___0_target, float ___1_duration, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7535,7 +7535,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* FusionStatisticsRoot_MoveToPos
 		return L_4;
 	}
 }
-// Method Definition Index: 94586
+// Method Definition Index: 94558
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot__ctor_mD9240ECF7D040B9DF7C5224CB94B7BE8BBEA0EF3 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7543,7 +7543,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot__ctor_mD9240ECF7D04
 		return;
 	}
 }
-// Method Definition Index: 94587
+// Method Definition Index: 94559
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot__cctor_mDC0110B25EB4422E8ED68E485FE558A861CB2D85 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7555,30 +7555,30 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot__cctor_mDC0110B25EB
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:10>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:10>
 		List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A* L_0 = (List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A*)il2cpp_codegen_object_new(List_1_tEE76C010027B8D3BAAEF7DCBDC896AFCA7A8302A_il2cpp_TypeInfo_var);
 		List_1__ctor_m6C8051FEBED438A7746A1D6EC5070522F4B1BD07(L_0, List_1__ctor_m6C8051FEBED438A7746A1D6EC5070522F4B1BD07_RuntimeMethod_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___Roots = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___Roots), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:28>
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->____anchorSide = 0;
 		return;
 	}
 }
-// Method Definition Index: 94588
+// Method Definition Index: 94560
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_U3CSetupPagesDropdownU3Eg__OnDropdownChangedU7C26_0_m2AA09A7952AF240197EC9017ABC26D94A640FB73 (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, int32_t ___0_selected, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:65>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_0 = __this->____statistics;
 		int32_t L_1 = ___0_selected;
 		NullCheck(L_0);
 		FusionStatistics_ChangePage_m3E57FA49EB5B5BCE25BAB219AF9A09B9E0061B8B(L_0, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:66>
 		return;
 	}
 }
-// Method Definition Index: 94589
+// Method Definition Index: 94561
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_U3CToggleMultiPeerPanelU3Eb__27_1_m017E638A1EEDA64602D8187B12B9F931C5BD6E4B (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* ___0_root, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7588,16 +7588,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_U3CToggleMultiPeerP
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:80>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_0;
 		L_0 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(__this, NULL);
 		NullCheck(L_0);
 		GameObject_SetActive_m638E92E1E75E519E5B24CF150B08CA8E0CDFAB92(L_0, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:81>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:81>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_1 = ___0_root;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		FusionStatisticsRoot_SetActiveRoot_mC044BA36E340C32F7ED88559C35C4B6A4AB527AE(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:82>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:82>
 		return;
 	}
 }
@@ -7609,7 +7609,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsRoot_U3CToggleMultiPeerP
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94590
+// Method Definition Index: 94562
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_mF62A497BA4F250D60A08D2942F14641700B49233 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7626,7 +7626,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__cctor_mF62A497BA4F250D60A08D294
 		return;
 	}
 }
-// Method Definition Index: 94591
+// Method Definition Index: 94563
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_m33999721DB4CCE4B1FACD6CAC63033A905394AF8 (U3CU3Ec_t99108058F211FFFBDDE1E0FDFAE28D332A2A81F2* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7634,7 +7634,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__ctor_m33999721DB4CCE4B1FACD6CAC
 		return;
 	}
 }
-// Method Definition Index: 94592
+// Method Definition Index: 94564
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CToggleMultiPeerPanelU3Eb__27_0_mD83E2CF3A55EA1E5AE65AA1C18BF1BE5E146B003 (U3CU3Ec_t99108058F211FFFBDDE1E0FDFAE28D332A2A81F2* __this, FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* ___0_root, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7648,7 +7648,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* U3CU3Ec_U3CToggleMultiPeerPanelU3Eb
 	FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* G_B2_0 = NULL;
 	FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* G_B1_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:79>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_0 = ___0_root;
 		NullCheck(L_0);
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_1;
@@ -7688,7 +7688,7 @@ IL_000c:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94593
+// Method Definition Index: 94565
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CMoveToPositionU3Ed__33__ctor_m30325ABA1DAFF414BE9FA18398023275F2F50240 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
 {
 	{
@@ -7698,14 +7698,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CMoveToPositionU3Ed__33__ctor_m30325AB
 		return;
 	}
 }
-// Method Definition Index: 94594
+// Method Definition Index: 94566
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CMoveToPositionU3Ed__33_System_IDisposable_Dispose_m23137E1478975FF8E3B916091B32711688284CE4 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, const RuntimeMethod* method) 
 {
 	{
 		return;
 	}
 }
-// Method Definition Index: 94595
+// Method Definition Index: 94567
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CMoveToPositionU3Ed__33_MoveNext_m83C617583F5C0925CE5639B50A059A48315FE687 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -7735,9 +7735,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CMoveToPositionU3Ed__33_MoveNext_m83C6
 IL_0017:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:156>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:156>
 		__this->___U3CtimeU3E5__2 = (0.0f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:157>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:157>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_4 = V_1;
 		NullCheck(L_4);
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_5 = L_4->____rectTransform;
@@ -7750,7 +7750,7 @@ IL_0017:
 
 IL_003c:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:161>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:161>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_7 = V_1;
 		NullCheck(L_7);
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_8 = L_7->____rectTransform;
@@ -7762,12 +7762,12 @@ IL_003c:
 		L_13 = Vector2_Lerp_m1A36103F7967F653A929556E26E6D052C298C00C_inline(L_9, L_10, ((float)(L_11/L_12)), NULL);
 		NullCheck(L_8);
 		RectTransform_set_anchoredPosition_mF903ACE04F6959B1CD67E2B94FABC0263068F965(L_8, L_13, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:162>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:162>
 		float L_14 = __this->___U3CtimeU3E5__2;
 		float L_15;
 		L_15 = Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865(NULL);
 		__this->___U3CtimeU3E5__2 = ((float)il2cpp_codegen_add(L_14, L_15));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:163>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:163>
 		__this->___U3CU3E2__current = NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
 		__this->___U3CU3E1__state = 1;
@@ -7781,7 +7781,7 @@ IL_0087:
 
 IL_008e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:159>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:159>
 		float L_16 = __this->___U3CtimeU3E5__2;
 		float L_17 = __this->___duration;
 		if ((((float)L_16) < ((float)L_17)))
@@ -7790,18 +7790,18 @@ IL_008e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:166>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:166>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_18 = V_1;
 		NullCheck(L_18);
 		RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* L_19 = L_18->____rectTransform;
 		Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 L_20 = __this->___target;
 		NullCheck(L_19);
 		RectTransform_set_anchoredPosition_mF903ACE04F6959B1CD67E2B94FABC0263068F965(L_19, L_20, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:167>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:167>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 94596
+// Method Definition Index: 94568
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CMoveToPositionU3Ed__33_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m2DD9CEB5DEFBED25B417263EB612F6B68BB01640 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7809,7 +7809,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CMoveToPositionU3Ed__33_Syst
 		return L_0;
 	}
 }
-// Method Definition Index: 94597
+// Method Definition Index: 94569
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CMoveToPositionU3Ed__33_System_Collections_IEnumerator_Reset_m5EFA436CD6A06E1107A936D0197208C7639777F4 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7818,7 +7818,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CMoveToPositionU3Ed__33_System_Collect
 		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CMoveToPositionU3Ed__33_System_Collections_IEnumerator_Reset_m5EFA436CD6A06E1107A936D0197208C7639777F4_RuntimeMethod_var)));
 	}
 }
-// Method Definition Index: 94598
+// Method Definition Index: 94570
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CMoveToPositionU3Ed__33_System_Collections_IEnumerator_get_Current_mF3B2D66C5DEDC519CB7A908AE7311A49A0033B65 (U3CMoveToPositionU3Ed__33_tABC062CA4E9FF8AD08DD62C29EE58D548C1A48A6* __this, const RuntimeMethod* method) 
 {
 	{
@@ -7834,7 +7834,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CMoveToPositionU3Ed__33_Syst
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94599
+// Method Definition Index: 94571
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsSimulationPage_get_PageName_m0405EB530FF48BA11208C6E53E1DCE42C40FE059 (FusionStatisticsSimulationPage_t90E71C0B161118871B956D405C75C83B129E7896* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7844,11 +7844,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* FusionStatisticsSimulationPage_get_
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:7>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:7>
 		return _stringLiteralF19C18F7AD0DE016975CED83AC8D812F332A3EEB;
 	}
 }
-// Method Definition Index: 94600
+// Method Definition Index: 94572
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_Init_mD17BC55DF4834007BEFFE55D1529532073B446CA (FusionStatisticsSimulationPage_t90E71C0B161118871B956D405C75C83B129E7896* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7863,56 +7863,56 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_Init_mD17
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:17>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:17>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____forwardTick;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_1 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0;
 		NullCheck(L_0);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_0, _stringLiteralDF9C523ED23063D079E2C7731C4A759C619506CF, L_1, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:18>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:18>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____resimTick;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_3 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0;
 		NullCheck(L_2);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_2, _stringLiteral9CE8099A174A23283D7A9ECCA6B5BBDFE909B9F6, L_3, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:20>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:20>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____objUpdateIn;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_5 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0;
 		NullCheck(L_4);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_4, _stringLiteralC5526BF9FF4E91B66B4018CCEFC21BFEEA64A4D9, L_5, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:21>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____objUpdateOut;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_7 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0;
 		NullCheck(L_6);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_6, _stringLiteral7A7471B5BA6172A1A4244F9DAC5487D849A5F2BF, L_7, _stringLiteral23114468D04FA2B7A2DA455B545DB914D0A3ED94, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:22>
 		return;
 	}
 }
-// Method Definition Index: 94601
+// Method Definition Index: 94573
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_Render_m220BBC507044FCEE82E90E654C0A5B7FBD94B451 (FusionStatisticsSimulationPage_t90E71C0B161118871B956D405C75C83B129E7896* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:27>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____forwardTick;
 		NullCheck(L_0);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:28>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____resimTick;
 		NullCheck(L_1);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:29>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____objUpdateIn;
 		NullCheck(L_2);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:30>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____objUpdateOut;
 		NullCheck(L_3);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:31>
 		return;
 	}
 }
-// Method Definition Index: 94602
+// Method Definition Index: 94574
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusionUpdate_mE7C4D61753DCA784EB1B44589A8E923EA49064F0 (FusionStatisticsSimulationPage_t90E71C0B161118871B956D405C75C83B129E7896* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -7926,7 +7926,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusi
 	float V_2 = 0.0f;
 	float V_3 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:35>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_0);
@@ -7937,7 +7937,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusi
 		float L_3;
 		L_3 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_2, 1, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_0 = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:36>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_4;
 		L_4 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_4);
@@ -7948,7 +7948,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusi
 		float L_7;
 		L_7 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_6, 0, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_1 = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:37>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_8;
 		L_8 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_8);
@@ -7959,7 +7959,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusi
 		float L_11;
 		L_11 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_10, ((int32_t)9), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_2 = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:38>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_12;
 		L_12 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_12);
@@ -7970,31 +7970,31 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage_AfterFusi
 		float L_15;
 		L_15 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_14, ((int32_t)10), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_3 = L_15;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:40>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_16 = __this->____forwardTick;
 		float L_17 = V_0;
 		NullCheck(L_16);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_16, L_17, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:41>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_18 = __this->____resimTick;
 		float L_19 = V_1;
 		NullCheck(L_18);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_18, L_19, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:42>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_20 = __this->____objUpdateIn;
 		float L_21 = V_2;
 		NullCheck(L_20);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_20, L_21, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:43>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_22 = __this->____objUpdateOut;
 		float L_23 = V_3;
 		NullCheck(L_22);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_22, L_23, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsSimulationPage.cs:44>
 		return;
 	}
 }
-// Method Definition Index: 94603
+// Method Definition Index: 94575
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage__ctor_mAB8BA4C4DC91BC925E7CBE23C000EE7E62622CD4 (FusionStatisticsSimulationPage_t90E71C0B161118871B956D405C75C83B129E7896* __this, const RuntimeMethod* method) 
 {
 	{
@@ -8010,7 +8010,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FusionStatisticsSimulationPage__ctor_mAB
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94604
+// Method Definition Index: 94576
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* LagCompensationStatisticsPage_get_PageName_m6827DF4561B223EFD6D0E9CCEE7CA2988E0E6233 (LagCompensationStatisticsPage_t165573598D1ED69A7EF7AAA86C838AF204647F18* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -8020,11 +8020,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* LagCompensationStatisticsPage_get_P
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:8>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:8>
 		return _stringLiteral2BFE30E2AB04140E4276191414D3AD1121DB4513;
 	}
 }
-// Method Definition Index: 94605
+// Method Definition Index: 94577
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage_Init_mED58F75C90F06E98FE040EF320B46EB7CC94AFB3 (LagCompensationStatisticsPage_t165573598D1ED69A7EF7AAA86C838AF204647F18* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -8043,103 +8043,103 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage_Init_mED58
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:22>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_0 = __this->____hitboxesUsage;
 		NullCheck(L_0);
 		RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084(L_0, _stringLiteral49A8093A342847DB3F0DA7014EC415D9C6D17618, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:24>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:24>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____totalElapsedTime;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_2 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_1);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_1, _stringLiteral808C4BC2673B7A5558503E835D21E8986AC10212, L_2, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:25>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:25>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____advanceBufferTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_4 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_3);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_3, _stringLiteralDC5D3F3DFFF71720EAB6BA6ADBD93AD1A576690D, L_4, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:26>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_5 = __this->____updateBufferTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_6 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_5);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_5, _stringLiteral2C6FAE2022A3492A6F1D695F144B647D2BE8E1C3, L_6, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:27>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_7 = __this->____addOnBufferTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_8 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_7);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_7, _stringLiteral2CF64DCF1358714D707D5B1C9A3CA7D4246B4787, L_8, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:28>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_9 = __this->____refitBVHTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_10 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_9);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_9, _stringLiteral7CBC8C7B39EA73ADB54B5BBADC2F5D8F7DE5E0E9, L_10, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:29>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_11 = __this->____updateBVHTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_12 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_11);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_11, _stringLiteralB4E704BFC47D260BD9EC19E0E346F12F88B93F04, L_12, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:30>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_13 = __this->____addOnBVHTime;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_14 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
 		NullCheck(L_13);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_13, _stringLiteralA128288E03EEEA3E38282010AD576180E819FF66, L_14, _stringLiteralB1E61CE2F05441A8436568E3D9EEF79C3ABDDCE4, (bool)0, (100.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:31>
 		return;
 	}
 }
-// Method Definition Index: 94606
+// Method Definition Index: 94578
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage_Render_mF01A46CC3B7F6CE64A1C6EDAC24FB8E518204D7D (LagCompensationStatisticsPage_t165573598D1ED69A7EF7AAA86C838AF204647F18* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:35>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____totalElapsedTime;
 		NullCheck(L_0);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:36>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____advanceBufferTime;
 		NullCheck(L_1);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:37>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____updateBufferTime;
 		NullCheck(L_2);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:38>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____addOnBufferTime;
 		NullCheck(L_3);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:39>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____refitBVHTime;
 		NullCheck(L_4);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_4, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:40>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_5 = __this->____updateBVHTime;
 		NullCheck(L_5);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:41>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____addOnBVHTime;
 		NullCheck(L_6);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_6, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:43>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_7 = __this->____hitboxesUsage;
 		NullCheck(L_7);
 		RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745(L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:44>
 		return;
 	}
 }
-// Method Definition Index: 94607
+// Method Definition Index: 94579
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage_AfterFusionUpdate_mC4CE7BB0024F181E02B6AD9D2A9FB1B20E4AA90A (LagCompensationStatisticsPage_t165573598D1ED69A7EF7AAA86C838AF204647F18* __this, const RuntimeMethod* method) 
 {
 	LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* V_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:48>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_0);
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_1;
 		L_1 = FusionStatisticsManager_get_LagCompensationSnapshot_m9B0A026CE8BC5804B1EF277BA90E9831E990BEC3(L_0, NULL);
 		V_0 = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:49>
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_2 = V_0;
 		if (L_2)
 		{
@@ -8147,13 +8147,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage_AfterFusio
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:49>
 		return;
 	}
 
 IL_0010:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:51>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____totalElapsedTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_4 = V_0;
 		NullCheck(L_4);
@@ -8161,7 +8161,7 @@ IL_0010:
 		L_5 = LagCompensationStatisticsSnapshot_get_TotalElapsedTime_mFDE17D6E06F75BE6F1ADAFFD2E133B60E8D1591F(L_4, NULL);
 		NullCheck(L_3);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_3, ((float)L_5), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:52>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____advanceBufferTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_7 = V_0;
 		NullCheck(L_7);
@@ -8169,7 +8169,7 @@ IL_0010:
 		L_8 = LagCompensationStatisticsSnapshot_get_AdvanceBufferTime_m8EC1AE774167323092C54BF42018A99604DAFECE_inline(L_7, NULL);
 		NullCheck(L_6);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_6, ((float)L_8), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:53>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_9 = __this->____updateBufferTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_10 = V_0;
 		NullCheck(L_10);
@@ -8177,7 +8177,7 @@ IL_0010:
 		L_11 = LagCompensationStatisticsSnapshot_get_UpdateBufferTime_m8E2613345AB3917FDCB323CFC52D8FCAEFB8213F_inline(L_10, NULL);
 		NullCheck(L_9);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_9, ((float)L_11), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:54>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_12 = __this->____addOnBufferTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_13 = V_0;
 		NullCheck(L_13);
@@ -8185,7 +8185,7 @@ IL_0010:
 		L_14 = LagCompensationStatisticsSnapshot_get_AddOnBufferTime_m23E5A156A91C6334C1DE8E5412B1C19901ADF97F_inline(L_13, NULL);
 		NullCheck(L_12);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_12, ((float)L_14), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:55>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:55>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_15 = __this->____refitBVHTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_16 = V_0;
 		NullCheck(L_16);
@@ -8193,7 +8193,7 @@ IL_0010:
 		L_17 = LagCompensationStatisticsSnapshot_get_RefitBVHTime_mF4F19B3C07F77252CB7E4C9FD447D4C315882637_inline(L_16, NULL);
 		NullCheck(L_15);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_15, ((float)L_17), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:56>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_18 = __this->____updateBVHTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_19 = V_0;
 		NullCheck(L_19);
@@ -8201,7 +8201,7 @@ IL_0010:
 		L_20 = LagCompensationStatisticsSnapshot_get_UpdateBVHTime_m9996193E60220E880FE849F0D97FC2C4B76028A1_inline(L_19, NULL);
 		NullCheck(L_18);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_18, ((float)L_20), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:57>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:57>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_21 = __this->____addOnBVHTime;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_22 = V_0;
 		NullCheck(L_22);
@@ -8209,7 +8209,7 @@ IL_0010:
 		L_23 = LagCompensationStatisticsSnapshot_get_AddOnBVHTime_m37D92D36670CCF4346CC959D2C7798E6E9902AA9_inline(L_22, NULL);
 		NullCheck(L_21);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_21, ((float)L_23), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:59>
 		RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* L_24 = __this->____hitboxesUsage;
 		LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* L_25 = V_0;
 		NullCheck(L_25);
@@ -8226,11 +8226,11 @@ IL_0010:
 		int32_t L_30 = L_29->___HitboxDefaultCapacity;
 		NullCheck(L_24);
 		RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2(L_24, ((float)L_26), ((float)L_30), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LagCompensationStatisticsPage.cs:60>
 		return;
 	}
 }
-// Method Definition Index: 94608
+// Method Definition Index: 94580
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage__ctor_mFADF19F069BCBCEE608432943B1A6BC58711099B (LagCompensationStatisticsPage_t165573598D1ED69A7EF7AAA86C838AF204647F18* __this, const RuntimeMethod* method) 
 {
 	{
@@ -8246,7 +8246,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LagCompensationStatisticsPage__ctor_mFAD
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94609
+// Method Definition Index: 94581
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_set_Title_mA7A84F4F189A20C73FE0C552616B42878878E2C2 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -8256,7 +8256,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_set_Title_mA7A84F4F189A20C73FE
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:26>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_0 = __this->____titleText;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -8267,7 +8267,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_set_Title_mA7A84F4F189A20C73FE
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:26>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_2 = __this->____titleText;
 		String_t* L_3 = ___0_value;
 		NullCheck(L_2);
@@ -8276,16 +8276,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_set_Title_mA7A84F4F189A20C73FE
 
 IL_0019:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:27>
 		return;
 	}
 }
-// Method Definition Index: 94610
+// Method Definition Index: 94582
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetThreshold_m067631F9E68F0C8D1B495A165F5D847D7D7E7FFF (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, float ___0_threshold, const RuntimeMethod* method) 
 {
 	float G_B3_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:54>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_0 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_1 = L_0->___DisplayingPerSecond;
 		if (L_1)
@@ -8310,17 +8310,17 @@ IL_0010:
 IL_0018:
 	{
 		___0_threshold = G_B3_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:55>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:55>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_5 = __this->____material;
 		int32_t L_6 = __this->____thresholdShaderPropertyID;
 		float L_7 = ___0_threshold;
 		NullCheck(L_5);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_5, L_6, L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:56>
 		return;
 	}
 }
-// Method Definition Index: 94611
+// Method Definition Index: 94583
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A330DA11F11DF826D266B1 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* ___0_defaultGradient, Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* ___1_thresholdGradient, bool ___2_zeroIsTransparent, const RuntimeMethod* method) 
 {
 	int32_t G_B2_0 = 0;
@@ -8331,7 +8331,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A
 	int32_t G_B3_1 = 0;
 	Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* G_B3_2 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:62>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:62>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_0 = __this->____material;
 		int32_t L_1 = __this->____baseBottomColorShaderPropertyID;
 		Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* L_2 = ___0_defaultGradient;
@@ -8340,7 +8340,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A
 		L_3 = Gradient_Evaluate_m332A32F48EA3F884CB55D74131DF8064F29F9C32(L_2, (0.0f), NULL);
 		NullCheck(L_0);
 		Material_SetColor_m573C88F2FB1B5A978C53A197B414F9E9C6AC5B9A(L_0, L_1, L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:63>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:63>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		int32_t L_5 = __this->____baseTopColorShaderPropertyID;
 		Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* L_6 = ___0_defaultGradient;
@@ -8349,7 +8349,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A
 		L_7 = Gradient_Evaluate_m332A32F48EA3F884CB55D74131DF8064F29F9C32(L_6, (1.0f), NULL);
 		NullCheck(L_4);
 		Material_SetColor_m573C88F2FB1B5A978C53A197B414F9E9C6AC5B9A(L_4, L_5, L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:65>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_8 = __this->____material;
 		int32_t L_9 = __this->____thresholdBottomColorShaderPropertyID;
 		Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* L_10 = ___1_thresholdGradient;
@@ -8358,7 +8358,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A
 		L_11 = Gradient_Evaluate_m332A32F48EA3F884CB55D74131DF8064F29F9C32(L_10, (0.0f), NULL);
 		NullCheck(L_8);
 		Material_SetColor_m573C88F2FB1B5A978C53A197B414F9E9C6AC5B9A(L_8, L_9, L_11, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:66>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_12 = __this->____material;
 		int32_t L_13 = __this->____thresholdTopColorShaderPropertyID;
 		Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* L_14 = ___1_thresholdGradient;
@@ -8367,7 +8367,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_SetColors_m09AE1AAA2A921546E0A
 		L_15 = Gradient_Evaluate_m332A32F48EA3F884CB55D74131DF8064F29F9C32(L_14, (1.0f), NULL);
 		NullCheck(L_12);
 		Material_SetColor_m573C88F2FB1B5A978C53A197B414F9E9C6AC5B9A(L_12, L_13, L_15, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:68>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_16 = __this->____material;
 		int32_t L_17 = __this->____zeroIsTransparentShaderPropertyId;
 		bool L_18 = ___2_zeroIsTransparent;
@@ -8398,35 +8398,35 @@ IL_0083:
 	{
 		NullCheck(G_B3_2);
 		Material_SetInteger_m37332E747B3F19DA02FA85DC37BBCBDC99C300F4(G_B3_2, G_B3_1, G_B3_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:69>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:69>
 		return;
 	}
 }
-// Method Definition Index: 94612
+// Method Definition Index: 94584
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_Clear_m2139624A5E0A673C6E516E011D1EDF1A3D8AED6C (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
 		V_0 = 0;
 		goto IL_0015;
 	}
 
 IL_0004:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:76>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:76>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->____values;
 		int32_t L_1 = V_0;
 		NullCheck(L_0);
 		(L_0)->SetAt(static_cast<il2cpp_array_size_t>(L_1), (float)(0.0f));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
 		int32_t L_2 = V_0;
 		V_0 = ((int32_t)il2cpp_codegen_add(L_2, 1));
 	}
 
 IL_0015:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:75>
 		int32_t L_3 = V_0;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_4 = __this->____values;
 		NullCheck(L_4);
@@ -8436,11 +8436,11 @@ IL_0015:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:78>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:78>
 		return;
 	}
 }
-// Method Definition Index: 94613
+// Method Definition Index: 94585
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_DispatchValuesToShader_mC22EF3586A5C8FF2ACBFDD248EEB6810D350F479 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -8469,35 +8469,35 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_DispatchValuesToShader_mC22EF3
 	float G_B23_0 = 0.0f;
 	float G_B26_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:84>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:84>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->____values;
 		int32_t L_1 = __this->____headIndex;
 		NullCheck(L_0);
 		int32_t L_2 = L_1;
 		float L_3 = (L_0)->GetAt(static_cast<il2cpp_array_size_t>(L_2));
 		V_0 = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:85>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:85>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_4 = __this->____values;
 		int32_t L_5 = __this->____headIndex;
 		NullCheck(L_4);
 		int32_t L_6 = L_5;
 		float L_7 = (L_4)->GetAt(static_cast<il2cpp_array_size_t>(L_6));
 		V_1 = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:86>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:86>
 		V_2 = (0.0f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:87>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:87>
 		V_3 = (bool)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
 		int32_t L_8 = __this->____headIndex;
 		V_6 = ((int32_t)(((int32_t)il2cpp_codegen_add(L_8, 1))%((int32_t)180)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
 		V_7 = 0;
 		goto IL_00ab;
 	}
 
 IL_0039:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:89>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_9 = __this->____valuesToDispatch;
 		int32_t L_10 = V_7;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_11 = __this->____values;
@@ -8507,7 +8507,7 @@ IL_0039:
 		float L_14 = (L_11)->GetAt(static_cast<il2cpp_array_size_t>(L_13));
 		NullCheck(L_9);
 		(L_9)->SetAt(static_cast<il2cpp_array_size_t>(L_10), (float)L_14);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:90>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:90>
 		float L_15 = V_2;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_16 = __this->____valuesToDispatch;
 		int32_t L_17 = V_7;
@@ -8515,7 +8515,7 @@ IL_0039:
 		int32_t L_18 = L_17;
 		float L_19 = (L_16)->GetAt(static_cast<il2cpp_array_size_t>(L_18));
 		V_2 = ((float)il2cpp_codegen_add(L_15, L_19));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:91>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:91>
 		bool L_20 = V_3;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_21 = __this->____valuesToDispatch;
 		int32_t L_22 = V_7;
@@ -8523,7 +8523,7 @@ IL_0039:
 		int32_t L_23 = L_22;
 		float L_24 = (L_21)->GetAt(static_cast<il2cpp_array_size_t>(L_23));
 		V_3 = (bool)((int32_t)((int32_t)L_20|((((int32_t)((((float)L_24) == ((float)(0.0f)))? 1 : 0)) == ((int32_t)0))? 1 : 0)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:92>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:92>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_25 = __this->____values;
 		int32_t L_26 = V_6;
 		NullCheck(L_25);
@@ -8536,7 +8536,7 @@ IL_0039:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:92>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:92>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_30 = __this->____values;
 		int32_t L_31 = V_6;
 		NullCheck(L_30);
@@ -8547,7 +8547,7 @@ IL_0039:
 
 IL_0083:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:93>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:93>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_34 = __this->____values;
 		int32_t L_35 = V_6;
 		NullCheck(L_34);
@@ -8560,7 +8560,7 @@ IL_0083:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:93>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:93>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_39 = __this->____values;
 		int32_t L_40 = V_6;
 		NullCheck(L_39);
@@ -8571,17 +8571,17 @@ IL_0083:
 
 IL_0099:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:94>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:94>
 		int32_t L_43 = V_6;
 		V_6 = ((int32_t)(((int32_t)il2cpp_codegen_add(L_43, 1))%((int32_t)180)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
 		int32_t L_44 = V_7;
 		V_7 = ((int32_t)il2cpp_codegen_add(L_44, 1));
 	}
 
 IL_00ab:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:88>
 		int32_t L_45 = V_7;
 		if ((((int32_t)L_45) < ((int32_t)((int32_t)180))))
 		{
@@ -8589,10 +8589,10 @@ IL_00ab:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:97>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:97>
 		float L_46 = V_2;
 		V_2 = ((float)(L_46/(180.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:98>
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_47 = __this->____lookupTable;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_48 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0_00ms;
@@ -8616,17 +8616,17 @@ IL_00ab:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:98>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:98>
 		V_2 = (1.0f);
 	}
 
 IL_00df:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:100>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:100>
 		FusionStatisticsConfig_tE789913CB02F9839DD21C10F045F4CFF0E5376A0* L_51;
 		L_51 = FusionStatistics_get_Config_mFAE631706F38DDAE0B1CF0B1D01E6C67E26A811D_inline(NULL);
 		V_4 = L_51;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:101>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:101>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_52 = __this->____valuesToDispatch;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_53 = L_52;
 		NullCheck(L_53);
@@ -8634,7 +8634,7 @@ IL_00df:
 		int32_t L_54 = ((int32_t)il2cpp_codegen_subtract(((int32_t)(((RuntimeArray*)L_53)->max_length)), 1));
 		float L_55 = (L_53)->GetAt(static_cast<il2cpp_array_size_t>(L_54));
 		V_5 = L_55;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:102>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:102>
 		float L_56 = V_5;
 		if ((((float)L_56) == ((float)(0.0f))))
 		{
@@ -8642,14 +8642,14 @@ IL_00df:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:103>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:103>
 		float L_57 = V_5;
 		__this->____lastNonZeroValue = L_57;
 	}
 
 IL_0105:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:105>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:105>
 		bool L_58 = V_3;
 		if (L_58)
 		{
@@ -8675,7 +8675,7 @@ IL_0116:
 	{
 		NullCheck(G_B16_1);
 		G_B16_1->____lastNonZeroValue = G_B16_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:106>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:106>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_60 = __this->____peakValueText;
 		float L_61 = V_1;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_62 = __this->____lookupTable;
@@ -8686,7 +8686,7 @@ IL_0116:
 		L_65 = FusionStatsLookup_GetValueText_mA5F8FE596D135D16291884BF95E5AF4223849EA0(L_61, L_62, L_63, L_64, NULL);
 		NullCheck(L_60);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_60, L_65);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:107>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:107>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_66 = __this->____lastValueText;
 		float L_67 = V_5;
 		if ((!(((float)L_67) == ((float)(0.0f)))))
@@ -8733,7 +8733,7 @@ IL_0160:
 		L_75 = FusionStatsLookup_GetValueText_mA5F8FE596D135D16291884BF95E5AF4223849EA0(G_B20_0, L_72, L_73, L_74, NULL);
 		NullCheck(G_B20_1);
 		VirtualActionInvoker1< String_t* >::Invoke(75, G_B20_1, L_75);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:108>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:108>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_76 = __this->____avgValueText;
 		float L_77 = V_2;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_78 = __this->____lookupTable;
@@ -8743,13 +8743,13 @@ IL_0160:
 		L_81 = FusionStatsLookup_GetValueText_mA5F8FE596D135D16291884BF95E5AF4223849EA0(L_77, L_78, L_79, L_80, NULL);
 		NullCheck(L_76);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_76, L_81);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:111>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:111>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_82 = __this->____material;
 		int32_t L_83 = __this->____valuesShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_84 = __this->____valuesToDispatch;
 		NullCheck(L_82);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_82, L_83, L_84, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:114>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:114>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_85 = __this->____material;
 		int32_t L_86 = __this->____valueMinShaderPropertyID;
 		NullCheck(L_85);
@@ -8780,7 +8780,7 @@ IL_01cc:
 IL_01e5:
 	{
 		V_0 = G_B23_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:115>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:115>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_93 = __this->____material;
 		int32_t L_94 = __this->____valueMaxShaderPropertyID;
 		NullCheck(L_93);
@@ -8811,36 +8811,36 @@ IL_01fc:
 IL_0215:
 	{
 		V_1 = G_B26_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:116>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_101 = __this->____material;
 		int32_t L_102 = __this->____valueMinShaderPropertyID;
 		float L_103 = V_0;
 		NullCheck(L_101);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_101, L_102, L_103, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:117>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:117>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_104 = __this->____material;
 		int32_t L_105 = __this->____valueMaxShaderPropertyID;
 		float L_106 = V_1;
 		NullCheck(L_104);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_104, L_105, L_106, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:118>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:118>
 		return;
 	}
 }
-// Method Definition Index: 94614
+// Method Definition Index: 94586
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:124>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:124>
 		float L_0 = __this->____threshold;
 		LineChart_SetThreshold_m067631F9E68F0C8D1B495A165F5D847D7D7E7FFF(__this, L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:125>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:125>
 		LineChart_DispatchValuesToShader_mC22EF3586A5C8FF2ACBFDD248EEB6810D350F479(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:126>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:126>
 		return;
 	}
 }
-// Method Definition Index: 94615
+// Method Definition Index: 94587
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, String_t* ___0_title, StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* ___1_lookupTable, String_t* ___2_labelFormat, bool ___3_forcePerUpdate, float ___4_lookUpTableMultiplier, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -8865,7 +8865,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_Setup_mB4F6953291FA7C9A53AB318
 	String_t* G_B3_2 = NULL;
 	LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* G_B3_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:137>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:137>
 		RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* L_0 = __this->____sourceImage;
 		NullCheck(L_0);
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_1;
@@ -8874,29 +8874,29 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_Setup_mB4F6953291FA7C9A53AB318
 		Material__ctor_mFCC42FB90257F1E8F7516A8640A79C465A39961C(L_2, L_1, NULL);
 		__this->____material = L_2;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____material), (void*)L_2);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:138>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:138>
 		RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* L_3 = __this->____sourceImage;
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		NullCheck(L_3);
 		VirtualActionInvoker1< Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* >::Invoke(33, L_3, L_4);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:139>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:139>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_5 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)((int32_t)180));
 		__this->____values = L_5;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____values), (void*)L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:140>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_6 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)((int32_t)180));
 		__this->____valuesToDispatch = L_6;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____valuesToDispatch), (void*)L_6);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:141>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:141>
 		__this->____headIndex = 0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:143>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:143>
 		bool L_7 = ___3_forcePerUpdate;
 		__this->____forcePerUpdate = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:144>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:144>
 		String_t* L_8 = ___0_title;
 		__this->____originalTitle = L_8;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____originalTitle), (void*)L_8);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:145>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:145>
 		String_t* L_9 = __this->____originalTitle;
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_10 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_11 = L_10->___DisplayingPerSecond;
@@ -8933,25 +8933,25 @@ IL_0082:
 		L_12 = String_Concat_m8855A6DE10F84DA7F4EC113CADDB59873A25573B(G_B3_2, G_B3_1, G_B3_0, NULL);
 		NullCheck(G_B3_3);
 		LineChart_set_Title_mA7A84F4F189A20C73FE0C552616B42878878E2C2(G_B3_3, L_12, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:146>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:146>
 		String_t* L_13 = ___2_labelFormat;
 		__this->____labelFormat = L_13;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____labelFormat), (void*)L_13);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:147>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:147>
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_14 = ___1_lookupTable;
 		__this->____lookupTable = L_14;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____lookupTable), (void*)L_14);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:148>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:148>
 		float L_15 = ___4_lookUpTableMultiplier;
 		__this->____lookUpTableMultiplier = L_15;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:149>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:149>
 		float L_16 = __this->____threshold;
 		LineChart_SetThreshold_m067631F9E68F0C8D1B495A165F5D847D7D7E7FFF(__this, L_16, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:150>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:150>
 		FusionStatisticsConfig_tE789913CB02F9839DD21C10F045F4CFF0E5376A0* L_17;
 		L_17 = FusionStatistics_get_Config_mFAE631706F38DDAE0B1CF0B1D01E6C67E26A811D_inline(NULL);
 		V_0 = L_17;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:151>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:151>
 		FusionStatisticsConfig_tE789913CB02F9839DD21C10F045F4CFF0E5376A0* L_18 = V_0;
 		NullCheck(L_18);
 		Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E* L_19 = L_18->___DefaultGradient;
@@ -8962,27 +8962,27 @@ IL_0082:
 		NullCheck(L_22);
 		bool L_23 = L_22->___RenderZeroAsTransparent;
 		LineChart_SetColors_m09AE1AAA2A921546E0A330DA11F11DF826D266B1(__this, L_19, L_21, L_23, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:152>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:152>
 		return;
 	}
 }
-// Method Definition Index: 94616
+// Method Definition Index: 94588
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, float ___0_value, const RuntimeMethod* method) 
 {
 	float V_0 = 0.0f;
 	float V_1 = 0.0f;
 	float G_B6_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:158>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:158>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_0 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		float L_1;
 		L_1 = StatAccumulator_get_LastTimeStamp_m0EB517242FE3786ED2B1D37084F9B7487FD7A6D8_inline(L_0, NULL);
 		V_0 = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:159>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:159>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_2 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		float L_3 = ___0_value;
 		StatAccumulator_Accumulate_mB5545BA155B43241942360C4ECB72BDB0F58BEE3(L_2, L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:162>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:162>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_4 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_5 = L_4->___DisplayingPerSecond;
 		if (!L_5)
@@ -9003,13 +9003,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_AddValue_mCDC40FF57E9D26459339
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:162>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:162>
 		return;
 	}
 
 IL_0039:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:164>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:164>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_10 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_11 = L_10->___DisplayingPerSecond;
 		if (L_11)
@@ -9036,20 +9036,20 @@ IL_0053:
 IL_005e:
 	{
 		V_1 = G_B6_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:165>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:165>
 		int32_t L_16 = __this->____headIndex;
 		__this->____headIndex = ((int32_t)(((int32_t)il2cpp_codegen_add(L_16, 1))%((int32_t)180)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:166>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:166>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_17 = __this->____values;
 		int32_t L_18 = __this->____headIndex;
 		float L_19 = V_1;
 		NullCheck(L_17);
 		(L_17)->SetAt(static_cast<il2cpp_array_size_t>(L_18), (float)L_19);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:167>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:167>
 		return;
 	}
 }
-// Method Definition Index: 94617
+// Method Definition Index: 94589
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_UnityEngine_EventSystems_IPointerClickHandler_OnPointerClick_mAFE696771E5E39896FDFEE6B2423432CAFEEB124 (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, PointerEventData_t9670F3C7D823CCB738A1604C72A1EB90292396FB* ___0_eventData, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9071,7 +9071,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_UnityEngine_EventSystems_IPoin
 	String_t* G_B6_2 = NULL;
 	LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* G_B6_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:170>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:170>
 		bool L_0 = __this->____forcePerUpdate;
 		if (!L_0)
 		{
@@ -9079,7 +9079,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_UnityEngine_EventSystems_IPoin
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:171>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:171>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_1 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		L_1->___DisplayingPerSecond = (bool)0;
 		goto IL_002f;
@@ -9087,7 +9087,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart_UnityEngine_EventSystems_IPoin
 
 IL_0016:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:173>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:173>
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_2 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_3 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_4 = L_3->___DisplayingPerSecond;
@@ -9096,7 +9096,7 @@ IL_0016:
 
 IL_002f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:176>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:176>
 		String_t* L_5 = __this->____originalTitle;
 		StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* L_6 = (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264*)(&__this->____accumulator);
 		bool L_7 = L_6->___DisplayingPerSecond;
@@ -9133,11 +9133,11 @@ IL_0054:
 		L_8 = String_Concat_m8855A6DE10F84DA7F4EC113CADDB59873A25573B(G_B6_2, G_B6_1, G_B6_0, NULL);
 		NullCheck(G_B6_3);
 		LineChart_set_Title_mA7A84F4F189A20C73FE0C552616B42878878E2C2(G_B6_3, L_8, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:177>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:177>
 		return;
 	}
 }
-// Method Definition Index: 94618
+// Method Definition Index: 94590
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart__ctor_m3E3D53E43A93D5E0E36DDA1CE9E6959964EDB46D (LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9155,39 +9155,39 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart__ctor_m3E3D53E43A93D5E0E36DDA1
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:31>
 		int32_t L_0;
 		L_0 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral599F88F1FEED540C81CC04FC37DBE38A70F2458C, NULL);
 		__this->____valuesShaderPropertyID = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:32>
 		int32_t L_1;
 		L_1 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralD898E2B999F31DE32CD8FE4D4F6216F8CDDE6BB5, NULL);
 		__this->____valueMinShaderPropertyID = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:33>
 		int32_t L_2;
 		L_2 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral9DAFBA2CBC6FD96C8D0ADCD1E74D29F95FA6A5CE, NULL);
 		__this->____valueMaxShaderPropertyID = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:34>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:34>
 		int32_t L_3;
 		L_3 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral207B3D9446F2D4167D3D15FA99BDA04AA93AD0A0, NULL);
 		__this->____thresholdShaderPropertyID = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:35>
 		int32_t L_4;
 		L_4 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralAEA47C49E64C1DFBCE2EBCF9CD3D77E06FCDF845, NULL);
 		__this->____baseBottomColorShaderPropertyID = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:36>
 		int32_t L_5;
 		L_5 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral2F30AC8AFBFF25FE763FE60C0B1D93F1EB7BF8D9, NULL);
 		__this->____baseTopColorShaderPropertyID = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:37>
 		int32_t L_6;
 		L_6 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral3579C6B9F40FD6E331A2EE2B7A254B0F5AC0DFD5, NULL);
 		__this->____thresholdBottomColorShaderPropertyID = L_6;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:38>
 		int32_t L_7;
 		L_7 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral9258813EE82E1DEF906043CFF528135320A893A1, NULL);
 		__this->____thresholdTopColorShaderPropertyID = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/LineChart.cs:39>
 		int32_t L_8;
 		L_8 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral27A073B6E187E75B1B97948E8D03FDA34CC9033A, NULL);
 		__this->____zeroIsTransparentShaderPropertyId = L_8;
@@ -9203,7 +9203,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LineChart__ctor_m3E3D53E43A93D5E0E36DDA1
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94619
+// Method Definition Index: 94591
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC5677833ED16D0F9CD28F03B1D53 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9219,12 +9219,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC56778
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:77>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:77>
 		RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* L_0;
 		L_0 = Component_GetComponent_TisRawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179_m56775E1085C53732A0C2D919F000176C7BC11C3D(__this, Component_GetComponent_TisRawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179_m56775E1085C53732A0C2D919F000176C7BC11C3D_RuntimeMethod_var);
 		__this->____rawImage = L_0;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____rawImage), (void*)L_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:79>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:79>
 		RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* L_1 = __this->____rawImage;
 		NullCheck(L_1);
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_2;
@@ -9233,33 +9233,33 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC56778
 		Material__ctor_mFCC42FB90257F1E8F7516A8640A79C465A39961C(L_3, L_2, NULL);
 		__this->____material = L_3;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____material), (void*)L_3);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:80>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:80>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_5 = __this->____backgroundColor;
 		NullCheck(L_4);
 		Material_SetColor_mFAB32FAA44461E46FD707B34184EC080CBB3539F(L_4, _stringLiteral279E9DAEE8430F8DA304C3E3D7D1A0E3EBB41E05, L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:81>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:81>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_6 = __this->____material;
 		float L_7 = __this->____lineWidth;
 		NullCheck(L_6);
 		Material_SetFloat_m879CF81D740BAE6F23C9822400679F4D16365836(L_6, _stringLiteral519DAD143F3ABB54FB9406C4CDC66B16A745D354, L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:82>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:82>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_8 = __this->____material;
 		float L_9 = __this->____thresholdWidth;
 		NullCheck(L_8);
 		Material_SetFloat_m879CF81D740BAE6F23C9822400679F4D16365836(L_8, _stringLiteralA995AFB71FD000B6433C960A0A5E4149E58F1B6E, L_9, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:83>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:83>
 		RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* L_10 = __this->____rawImage;
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_11 = __this->____material;
 		NullCheck(L_10);
 		VirtualActionInvoker1< Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* >::Invoke(33, L_10, L_11);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:85>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:85>
 		bool L_12 = __this->____useFullPrecision;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_13 = (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B*)il2cpp_codegen_object_new(MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B_il2cpp_TypeInfo_var);
 		MultilineGraphData__ctor_mE01460A3BB4700D302B593DC67AEC2406C03EAB1(L_13, L_12, NULL);
 		__this->____graphData = L_13;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____graphData), (void*)L_13);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:86>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:86>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_14 = __this->____graphData;
 		float L_15 = __this->____defaultMin;
 		float L_16 = __this->____defaultMax;
@@ -9267,7 +9267,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC56778
 		float L_18 = __this->____rangePadding;
 		NullCheck(L_14);
 		MultilineGraphData_SetRange_m9DBBAB8D0424AFE67C251EEA8F1CC17A34CE1066(L_14, L_15, L_16, L_17, L_18, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:88>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:88>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_19 = __this->___HeaderText;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_20;
@@ -9291,7 +9291,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC56778
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:89>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:89>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_24 = __this->___HeaderText;
 		NullCheck(L_24);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_25;
@@ -9302,11 +9302,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_Awake_mE3E63447AEFBC56778
 
 IL_00da:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:91>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:91>
 		return;
 	}
 }
-// Method Definition Index: 94620
+// Method Definition Index: 94592
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_OnDestroy_mA31316AE2A82FC892CF9B1B9B67BCEE5DE2E20F6 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9318,7 +9318,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_OnDestroy_mA31316AE2A82FC
 	MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* G_B2_0 = NULL;
 	MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* G_B1_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:94>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:94>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_1 = L_0;
 		if (L_1)
@@ -9340,7 +9340,7 @@ IL_000c:
 
 IL_0011:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:96>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:96>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_2 = __this->____material;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_3;
@@ -9351,7 +9351,7 @@ IL_0011:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:97>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:97>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_4, NULL);
@@ -9359,11 +9359,11 @@ IL_0011:
 
 IL_002a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:99>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:99>
 		return;
 	}
 }
-// Method Definition Index: 94621
+// Method Definition Index: 94593
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddLine_mF2A9A83CF8282515A34102968295B97D04AF0FE0 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, Color_tD001788D726C3A7F1379BEED0260B9591F440C1F ___0_color, String_t* ___1_label, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9386,7 +9386,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddLine_mF2A9A83CF8282
 		NullCheck(L_1);
 		L_1->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:110>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:110>
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_2 = V_0;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_3 = __this->____graphData;
 		NullCheck(L_3);
@@ -9394,7 +9394,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddLine_mF2A9A83CF8282
 		L_4 = MultilineGraphData_AddLine_mFF8435DD444536130B2F35530F723425A64507D0(L_3, NULL);
 		NullCheck(L_2);
 		L_2->___index = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:112>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:112>
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_5 = V_0;
 		NullCheck(L_5);
 		int32_t L_6 = L_5->___index;
@@ -9404,7 +9404,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddLine_mF2A9A83CF8282
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:113>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:113>
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_7 = V_0;
 		NullCheck(L_7);
 		int32_t L_8 = L_7->___index;
@@ -9413,7 +9413,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddLine_mF2A9A83CF8282
 
 IL_002e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:116>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:116>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_9 = __this->____graphData;
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_10 = V_0;
 		NullCheck(L_10);
@@ -9421,7 +9421,7 @@ IL_002e:
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_12 = ___0_color;
 		NullCheck(L_9);
 		MultilineGraphData_SetLineColor_m03C582055A3F02BC3051F19DF26755ABB6D201ED(L_9, L_11, L_12, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:119>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:119>
 		VerticalLayoutGroup_t06B5E51FC8051BF2009E6494876FBB9F3E5320B8* L_13 = __this->____linesLegendHolder;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_14;
@@ -9442,7 +9442,7 @@ IL_002e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:120>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:120>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_17 = __this->____legendItemPrefab;
 		VerticalLayoutGroup_t06B5E51FC8051BF2009E6494876FBB9F3E5320B8* L_18 = __this->____linesLegendHolder;
 		NullCheck(L_18);
@@ -9451,17 +9451,17 @@ IL_002e:
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_20;
 		L_20 = Object_Instantiate_TisGameObject_t76FEDD663AB33C991A9C9A23129337651094216F_m58C654F1134533E29502629CA67645682B404811(L_17, L_19, Object_Instantiate_TisGameObject_t76FEDD663AB33C991A9C9A23129337651094216F_m58C654F1134533E29502629CA67645682B404811_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:121>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:121>
 		NullCheck(L_20);
 		MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* L_21;
 		L_21 = GameObject_GetComponent_TisMultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822_m5A2643247BDD31407971F3814710D7DB27B9DBAC(L_20, GameObject_GetComponent_TisMultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822_m5A2643247BDD31407971F3814710D7DB27B9DBAC_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:122>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:122>
 		MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* L_22 = L_21;
 		String_t* L_23 = ___1_label;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_24 = ___0_color;
 		NullCheck(L_22);
 		MultilineGraphLegendItem_Set_mDBDD7849C87B7026E95AE939C6CCF460F83FF927(L_22, L_23, L_24, (bool)0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:123>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:123>
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_25 = V_0;
 		Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* L_26 = (Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C*)il2cpp_codegen_object_new(Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C_il2cpp_TypeInfo_var);
 		Action_1__ctor_mA8C3AC97D1F076EA5D1D0C10CEE6BD3E94711501(L_26, L_25, (intptr_t)((void*)U3CU3Ec__DisplayClass20_0_U3CAddLineU3Eb__0_mCDB2FAEAAE8A292A0253703B8B6981DAA0FB37F1_RuntimeMethod_var), NULL);
@@ -9472,14 +9472,14 @@ IL_002e:
 
 IL_0091:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:126>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:126>
 		U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* L_27 = V_0;
 		NullCheck(L_27);
 		int32_t L_28 = L_27->___index;
 		return L_28;
 	}
 }
-// Method Definition Index: 94622
+// Method Definition Index: 94594
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddThreshold_m72DFB1B56B6A3C850C90E01B8DE05D5F4D885FB2 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, float ___0_value, Color_tD001788D726C3A7F1379BEED0260B9591F440C1F ___1_color, String_t* ___2_label, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9503,7 +9503,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddThreshold_m72DFB1B5
 		NullCheck(L_1);
 		L_1->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:140>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:140>
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_2 = V_0;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_3 = __this->____graphData;
 		NullCheck(L_3);
@@ -9511,7 +9511,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddThreshold_m72DFB1B5
 		L_4 = MultilineGraphData_AddThreshold_mD8535AFCCA184BE826F19657036EDB29DAC0C1D2(L_3, NULL);
 		NullCheck(L_2);
 		L_2->___index = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:142>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:142>
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_5 = V_0;
 		NullCheck(L_5);
 		int32_t L_6 = L_5->___index;
@@ -9521,7 +9521,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddThreshold_m72DFB1B5
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:143>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:143>
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_7 = V_0;
 		NullCheck(L_7);
 		int32_t L_8 = L_7->___index;
@@ -9530,7 +9530,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraph_AddThreshold_m72DFB1B5
 
 IL_002e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:145>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:145>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_9 = __this->____graphData;
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_10 = V_0;
 		NullCheck(L_10);
@@ -9539,7 +9539,7 @@ IL_002e:
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_13 = ___1_color;
 		NullCheck(L_9);
 		MultilineGraphData_SetThreshold_mAF26A6671B935E00A08A6082FA5C5CC517D87982(L_9, L_11, L_12, L_13, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:148>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:148>
 		VerticalLayoutGroup_t06B5E51FC8051BF2009E6494876FBB9F3E5320B8* L_14 = __this->____thresholdLegendHolder;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_15;
@@ -9560,7 +9560,7 @@ IL_002e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:149>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:149>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_18 = __this->____legendItemPrefab;
 		VerticalLayoutGroup_t06B5E51FC8051BF2009E6494876FBB9F3E5320B8* L_19 = __this->____thresholdLegendHolder;
 		NullCheck(L_19);
@@ -9569,11 +9569,11 @@ IL_002e:
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_21;
 		L_21 = Object_Instantiate_TisGameObject_t76FEDD663AB33C991A9C9A23129337651094216F_m58C654F1134533E29502629CA67645682B404811(L_18, L_20, Object_Instantiate_TisGameObject_t76FEDD663AB33C991A9C9A23129337651094216F_m58C654F1134533E29502629CA67645682B404811_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:150>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:150>
 		NullCheck(L_21);
 		MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* L_22;
 		L_22 = GameObject_GetComponent_TisMultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822_m5A2643247BDD31407971F3814710D7DB27B9DBAC(L_21, GameObject_GetComponent_TisMultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822_m5A2643247BDD31407971F3814710D7DB27B9DBAC_RuntimeMethod_var);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:151>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:151>
 		MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* L_23 = L_22;
 		String_t* L_24 = ___2_label;
 		float L_25 = ___0_value;
@@ -9584,7 +9584,7 @@ IL_002e:
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_29 = ___1_color;
 		NullCheck(L_23);
 		MultilineGraphLegendItem_Set_mDBDD7849C87B7026E95AE939C6CCF460F83FF927(L_23, L_28, L_29, (bool)1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:152>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:152>
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_30 = V_0;
 		Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* L_31 = (Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C*)il2cpp_codegen_object_new(Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C_il2cpp_TypeInfo_var);
 		Action_1__ctor_mA8C3AC97D1F076EA5D1D0C10CEE6BD3E94711501(L_31, L_30, (intptr_t)((void*)U3CU3Ec__DisplayClass21_0_U3CAddThresholdU3Eb__0_m4208D6A23CEC3BCADD3C7CB4CE78776032C493AD_RuntimeMethod_var), NULL);
@@ -9595,46 +9595,46 @@ IL_002e:
 
 IL_00a2:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:155>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:155>
 		U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* L_32 = V_0;
 		NullCheck(L_32);
 		int32_t L_33 = L_32->___index;
 		return L_33;
 	}
 }
-// Method Definition Index: 94623
+// Method Definition Index: 94595
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_SetLineVisible_m868ECC3862DBAD95BD0FDFAF795112645043DB2F (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, int32_t ___0_index, bool ___1_visible, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:162>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:162>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		int32_t L_1 = ___0_index;
 		bool L_2 = ___1_visible;
 		NullCheck(L_0);
 		MultilineGraphData_SetLineVisible_mEF3C1E84F92D6D97B6BCB1F433EDA9B0BB1CE877(L_0, L_1, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:163>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:163>
 		return;
 	}
 }
-// Method Definition Index: 94624
+// Method Definition Index: 94596
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_SetThresholdVisible_mA1F26DAF586EF0C0626C6E8A5439059677115F91 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, int32_t ___0_index, bool ___1_visible, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:169>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:169>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		int32_t L_1 = ___0_index;
 		bool L_2 = ___1_visible;
 		NullCheck(L_0);
 		MultilineGraphData_SetThresholdVisible_mAB1E248F9F03E48D2EE954D0E014DFF3E79DF935(L_0, L_1, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:170>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:170>
 		return;
 	}
 }
-// Method Definition Index: 94625
+// Method Definition Index: 94597
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraph_AddValue_m3811F6387D791DDB22B273EF45A2B1AC471B01FC (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, int32_t ___0_lineIndex, float ___1_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:179>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:179>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		int32_t L_1 = ___0_lineIndex;
 		float L_2 = ___1_value;
@@ -9644,11 +9644,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraph_AddValue_m3811F6387D791DD
 		return L_3;
 	}
 }
-// Method Definition Index: 94626
+// Method Definition Index: 94598
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraph_SetThresholdValue_m8E223B99B08A5FEF040D44FFF9DE0A3BA2D33457 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, int32_t ___0_index, float ___1_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:190>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:190>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		int32_t L_1 = ___0_index;
 		float L_2 = ___1_value;
@@ -9658,7 +9658,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraph_SetThresholdValue_m8E223B
 		return L_3;
 	}
 }
-// Method Definition Index: 94627
+// Method Definition Index: 94599
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_RefreshDisplay_mDC09A5BAA06A311E4D7F413495603DE5325201AC (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9670,16 +9670,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_RefreshDisplay_mDC09A5BAA
 	}
 	float V_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:197>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:197>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_0 = __this->____graphData;
 		NullCheck(L_0);
 		MultilineGraphData_Apply_m89210799AA4C22563D64DC925E4E0F32540FF369(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:198>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:198>
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_1 = __this->____graphData;
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_2 = __this->____material;
 		NullCheck(L_1);
 		MultilineGraphData_ApplyToMaterial_m37D8BAC4F30BCE9B1E2328FA5A1206C078F9DB63(L_1, L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:200>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:200>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_3 = __this->___RangeUpper;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_4;
@@ -9690,7 +9690,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_RefreshDisplay_mDC09A5BAA
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:201>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:201>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_5 = __this->___RangeUpper;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_6 = __this->____graphData;
 		NullCheck(L_6);
@@ -9705,7 +9705,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph_RefreshDisplay_mDC09A5BAA
 
 IL_004d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:204>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:204>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_9 = __this->___RangeLower;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_10;
@@ -9716,7 +9716,7 @@ IL_004d:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:205>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:205>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_11 = __this->___RangeLower;
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_12 = __this->____graphData;
 		NullCheck(L_12);
@@ -9731,27 +9731,27 @@ IL_004d:
 
 IL_007e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:207>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:207>
 		return;
 	}
 }
-// Method Definition Index: 94628
+// Method Definition Index: 94600
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph__ctor_mF24FE96514AD027BACBCA32D2FA961CBC988D8A3 (MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:43>
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_0;
 		L_0 = Color_get_black_mB50217951591A045844C61E7FF31EEE3FEF16737_inline(NULL);
 		__this->____backgroundColor = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:44>
 		__this->____lineWidth = (0.00999999978f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:45>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:45>
 		__this->____thresholdWidth = (0.00999999978f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:59>
 		__this->____defaultMax = (1.0f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:60>
 		__this->____rangeType = 1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:61>
 		__this->____rangePadding = (0.100000001f);
 		MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E(__this, NULL);
 		return;
@@ -9773,7 +9773,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraph__ctor_mF24FE96514AD027BAC
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94629
+// Method Definition Index: 94601
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass20_0__ctor_m4534CB045AA4FA63485F0C1CEE756E3E68287E0B (U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* __this, const RuntimeMethod* method) 
 {
 	{
@@ -9781,11 +9781,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass20_0__ctor_m4534CB0
 		return;
 	}
 }
-// Method Definition Index: 94630
+// Method Definition Index: 94602
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass20_0_U3CAddLineU3Eb__0_mCDB2FAEAAE8A292A0253703B8B6981DAA0FB37F1 (U3CU3Ec__DisplayClass20_0_t7925385963ABFB8B3C671DA86B3FB0FE25BA6933* __this, bool ___0_visible, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:123>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:123>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_0 = __this->___U3CU3E4__this;
 		NullCheck(L_0);
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_1 = L_0->____graphData;
@@ -9804,7 +9804,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass20_0_U3CAddLineU3Eb
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94631
+// Method Definition Index: 94603
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass21_0__ctor_m71425001C055F6D633D75F106207CAE37ABB66DC (U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* __this, const RuntimeMethod* method) 
 {
 	{
@@ -9812,11 +9812,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass21_0__ctor_m7142500
 		return;
 	}
 }
-// Method Definition Index: 94632
+// Method Definition Index: 94604
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass21_0_U3CAddThresholdU3Eb__0_m4208D6A23CEC3BCADD3C7CB4CE78776032C493AD (U3CU3Ec__DisplayClass21_0_t20411DEF6B2301A140E736C8AEA9AB2EC67EC8A7* __this, bool ___0_visible, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:152>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:152>
 		MultilineGraph_tD7512510630BFF044B3B4577C659743ABEC0DF02* L_0 = __this->___U3CU3E4__this;
 		NullCheck(L_0);
 		MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* L_1 = L_0->____graphData;
@@ -9835,43 +9835,43 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass21_0_U3CAddThreshol
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94633
+// Method Definition Index: 94605
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_get_LineCount_mD950341F3D30D91038C19236B7D50F0AFAC28E28 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:283>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:283>
 		int32_t L_0 = __this->____lineCount;
 		return L_0;
 	}
 }
-// Method Definition Index: 94634
+// Method Definition Index: 94606
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_get_ThresholdCount_m4DFDEB03454D85B2D5FC6AB96D4236F3759047C4 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:288>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:288>
 		int32_t L_0 = __this->____thresholdCount;
 		return L_0;
 	}
 }
-// Method Definition Index: 94635
+// Method Definition Index: 94607
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float MultilineGraphData_get_MinValue_m7801A7573BCCB342035E7A9DBFD284CF8F72888C (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:293>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:293>
 		float L_0 = __this->____minValue;
 		return L_0;
 	}
 }
-// Method Definition Index: 94636
+// Method Definition Index: 94608
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float MultilineGraphData_get_MaxValue_mC65416BE20536E568754DFE87D2ABAC523595171 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:298>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:298>
 		float L_0 = __this->____maxValue;
 		return L_0;
 	}
 }
-// Method Definition Index: 94637
+// Method Definition Index: 94609
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData__ctor_mE01460A3BB4700D302B593DC67AEC2406C03EAB1 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, bool ___0_useFullPrecision, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -9908,115 +9908,115 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData__ctor_mE01460A3BB4700
 	int32_t G_B3_2 = 0;
 	MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* G_B3_3 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:214>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:214>
 		int32_t L_0;
 		L_0 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral2292F7DE4611BEB5C902CCC01B9EDC9B36B66C8F, NULL);
 		__this->____dataTextureShaderPropertyID = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:215>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:215>
 		int32_t L_1;
 		L_1 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral9652D6E39E95BD3EBCD1E1070468B5428709753C, NULL);
 		__this->____thresholdsShaderPropertyID = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:216>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:216>
 		int32_t L_2;
 		L_2 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral48B77021A31BB6F815FA1BF393B25D4CBF5501CD, NULL);
 		__this->____maxSamplesShaderPropertyID = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:217>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:217>
 		int32_t L_3;
 		L_3 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral88227EC5529D57C77C2BFE446398C390823EC0EF, NULL);
 		__this->____lineCountShaderPropertyID = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:218>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:218>
 		int32_t L_4;
 		L_4 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralB7B2933CA7D7C67C3D4405081F8B0EC5F0AF663C, NULL);
 		__this->____thresholdCountShaderPropertyID = L_4;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:219>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:219>
 		int32_t L_5;
 		L_5 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralE9E9FD72B8A1463941BB7B69AEC5F7DBB8DF0F84, NULL);
 		__this->____minValueShaderPropertyID = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:220>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:220>
 		int32_t L_6;
 		L_6 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral85266B31D58901961D5A6588B945F7B1A10D38B5, NULL);
 		__this->____maxValueShaderPropertyID = L_6;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:221>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:221>
 		int32_t L_7;
 		L_7 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralF48C6FCE94CFD60314CA6695713BD1DEBE5B1395, NULL);
 		__this->____lineColorsShaderPropertyID = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:222>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:222>
 		int32_t L_8;
 		L_8 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral02EE431535994413D2F572F6A5DAC70E894AD93D, NULL);
 		__this->____thresholdColorsShaderPropertyID = L_8;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:223>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:223>
 		int32_t L_9;
 		L_9 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralDF72344CA35D048F8B84ADC1811EE3F2498C42EF, NULL);
 		__this->____writeIndicesShaderPropertyID = L_9;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:224>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:224>
 		int32_t L_10;
 		L_10 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralD266139AB7ED17968ACE9DDEE3A254D2B96A5311, NULL);
 		__this->____sampleCountsShaderPropertyID = L_10;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:225>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:225>
 		int32_t L_11;
 		L_11 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral1688703FE989BC31FE2E3428E040D6934153D02F, NULL);
 		__this->____lineVisibleShaderPropertyID = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:226>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:226>
 		int32_t L_12;
 		L_12 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteral6E508330BBA1BB72CC3A59C2AA7756E450EC1C6B, NULL);
 		__this->____thresholdVisibleShaderPropertyID = L_12;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:250>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:250>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_13 = (Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)SZArrayNew(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____writeIndices = L_13;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____writeIndices), (void*)L_13);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:251>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:251>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_14 = (Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C*)SZArrayNew(Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____sampleCounts = L_14;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____sampleCounts), (void*)L_14);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:253>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:253>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_15 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____writeIndicesFloat = L_15;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____writeIndicesFloat), (void*)L_15);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:254>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:254>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_16 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____sampleCountsFloat = L_16;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____sampleCountsFloat), (void*)L_16);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:256>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:256>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_17 = (ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)SZArrayNew(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____lineColors = L_17;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____lineColors), (void*)L_17);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:257>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:257>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_18 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____thresholds = L_18;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____thresholds), (void*)L_18);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:258>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:258>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_19 = (ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)SZArrayNew(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389_il2cpp_TypeInfo_var, (uint32_t)4);
 		__this->____thresholdColors = L_19;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____thresholdColors), (void*)L_19);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:259>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:259>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_20 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)4);
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_21 = L_20;
 		RuntimeFieldHandle_t6E4C45B6D2EA12FC99185805A7E77527899B25C5 L_22 = { reinterpret_cast<intptr_t> (U3CPrivateImplementationDetailsU3E_tBFE04046E060D47EB2ABEBED52FD134C578F090E____F6BB1294DA2F78CD935B01C7656280DF5EAA0439E9D97BC03775825A41A508E4_FieldInfo_var) };
 		RuntimeHelpers_InitializeArray_m751372AA3F24FBF6DA9B9D687CBFA2DE436CAB9B((RuntimeArray*)L_21, L_22, NULL);
 		__this->____lineVisible = L_21;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____lineVisible), (void*)L_21);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:260>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:260>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_23 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)4);
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_24 = L_23;
 		RuntimeFieldHandle_t6E4C45B6D2EA12FC99185805A7E77527899B25C5 L_25 = { reinterpret_cast<intptr_t> (U3CPrivateImplementationDetailsU3E_tBFE04046E060D47EB2ABEBED52FD134C578F090E____F6BB1294DA2F78CD935B01C7656280DF5EAA0439E9D97BC03775825A41A508E4_FieldInfo_var) };
 		RuntimeHelpers_InitializeArray_m751372AA3F24FBF6DA9B9D687CBFA2DE436CAB9B((RuntimeArray*)L_24, L_25, NULL);
 		__this->____thresholdVisible = L_24;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____thresholdVisible), (void*)L_24);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:269>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:269>
 		__this->____defaultMaxValue = (1.0f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:270>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:270>
 		__this->____rangeType = 1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:271>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:271>
 		__this->____rangePadding = (0.100000001f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:274>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:274>
 		__this->____dataMin = ((std::numeric_limits<float>::max)());
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:275>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:275>
 		__this->____dataMax = (-(std::numeric_limits<float>::max)());
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:276>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:276>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:302>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:302>
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:303>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:303>
 		bool L_26 = ___0_useFullPrecision;
 		if (L_26)
 		{
@@ -10052,23 +10052,23 @@ IL_01a2:
 		NullCheck(G_B3_3);
 		G_B3_3->____dataTexture = L_27;
 		Il2CppCodeGenWriteBarrier((void**)(&G_B3_3->____dataTexture), (void*)L_27);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:304>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:304>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_28 = __this->____dataTexture;
 		NullCheck(L_28);
 		Texture_set_filterMode_mE423E58C0C16D059EA62BA87AD70F44AEA50CCC9(L_28, 0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:305>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:305>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_29 = __this->____dataTexture;
 		NullCheck(L_29);
 		Texture_set_wrapMode_m1F74A690E3883EC9C5C371D502D09642F15D0F7E(L_29, 1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:306>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:306>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_30 = (ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389*)SZArrayNew(ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389_il2cpp_TypeInfo_var, (uint32_t)((int32_t)2048));
 		__this->____dataPixels = L_30;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____dataPixels), (void*)L_30);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:307>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:307>
 		return;
 	}
 }
-// Method Definition Index: 94638
+// Method Definition Index: 94610
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Dispose_mA92F4DE78A13114BB6E3808B657424E6BC3F91DA (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -10078,7 +10078,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Dispose_mA92F4DE78A13
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:311>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:311>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_0 = __this->____dataTexture;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -10089,26 +10089,26 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Dispose_mA92F4DE78A13
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:312>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:312>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_2 = __this->____dataTexture;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:313>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:313>
 		__this->____dataTexture = (Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____dataTexture), (void*)(Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4*)NULL);
 	}
 
 IL_0020:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:315>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:315>
 		return;
 	}
 }
-// Method Definition Index: 94639
+// Method Definition Index: 94611
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_AddLine_mFF8435DD444536130B2F35530F723425A64507D0 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:326>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:326>
 		int32_t L_0 = __this->____lineCount;
 		if ((!(((uint32_t)L_0) == ((uint32_t)4))))
 		{
@@ -10116,25 +10116,25 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_AddLine_mFF8435DD4
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:327>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:327>
 		return (-1);
 	}
 
 IL_000b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:330>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:330>
 		int32_t L_1 = __this->____lineCount;
 		__this->____lineCount = ((int32_t)il2cpp_codegen_add(L_1, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:331>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:331>
 		int32_t L_2 = __this->____lineCount;
 		return ((int32_t)il2cpp_codegen_subtract(L_2, 1));
 	}
 }
-// Method Definition Index: 94640
+// Method Definition Index: 94612
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_AddThreshold_mD8535AFCCA184BE826F19657036EDB29DAC0C1D2 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:343>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:343>
 		int32_t L_0 = __this->____thresholdCount;
 		if ((!(((uint32_t)L_0) == ((uint32_t)4))))
 		{
@@ -10142,25 +10142,25 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t MultilineGraphData_AddThreshold_mD853
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:344>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:344>
 		return (-1);
 	}
 
 IL_000b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:347>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:347>
 		int32_t L_1 = __this->____thresholdCount;
 		__this->____thresholdCount = ((int32_t)il2cpp_codegen_add(L_1, 1));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:348>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:348>
 		int32_t L_2 = __this->____thresholdCount;
 		return ((int32_t)il2cpp_codegen_subtract(L_2, 1));
 	}
 }
-// Method Definition Index: 94641
+// Method Definition Index: 94613
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineColor_m03C582055A3F02BC3051F19DF26755ABB6D201ED (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_index, Color_tD001788D726C3A7F1379BEED0260B9591F440C1F ___1_color, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:357>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:357>
 		int32_t L_0 = ___0_index;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10176,7 +10176,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineColor_m03C5820
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:358>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:358>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_3 = __this->____lineColors;
 		int32_t L_4 = ___0_index;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_5 = ___1_color;
@@ -10186,11 +10186,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineColor_m03C5820
 
 IL_001a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:360>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:360>
 		return;
 	}
 }
-// Method Definition Index: 94642
+// Method Definition Index: 94614
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineVisible_mEF3C1E84F92D6D97B6BCB1F433EDA9B0BB1CE877 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_index, bool ___1_visible, const RuntimeMethod* method) 
 {
 	int32_t G_B4_0 = 0;
@@ -10201,7 +10201,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineVisible_mEF3C1
 	int32_t G_B5_1 = 0;
 	SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* G_B5_2 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:366>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:366>
 		int32_t L_0 = ___0_index;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10217,7 +10217,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetLineVisible_mEF3C1
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:367>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:367>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->____lineVisible;
 		int32_t L_4 = ___0_index;
 		bool L_5 = ___1_visible;
@@ -10248,19 +10248,19 @@ IL_0023:
 	{
 		NullCheck(G_B5_2);
 		(G_B5_2)->SetAt(static_cast<il2cpp_array_size_t>(G_B5_1), (float)G_B5_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:368>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:368>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:369>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:369>
 		__this->____dataDirty = (bool)1;
 	}
 
 IL_0032:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:371>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:371>
 		return;
 	}
 }
-// Method Definition Index: 94643
+// Method Definition Index: 94615
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetThresholdVisible_mAB1E248F9F03E48D2EE954D0E014DFF3E79DF935 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_index, bool ___1_visible, const RuntimeMethod* method) 
 {
 	int32_t G_B4_0 = 0;
@@ -10271,7 +10271,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetThresholdVisible_m
 	int32_t G_B5_1 = 0;
 	SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* G_B5_2 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:377>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:377>
 		int32_t L_0 = ___0_index;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10287,7 +10287,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetThresholdVisible_m
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:378>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:378>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->____thresholdVisible;
 		int32_t L_4 = ___0_index;
 		bool L_5 = ___1_visible;
@@ -10318,23 +10318,23 @@ IL_0023:
 	{
 		NullCheck(G_B5_2);
 		(G_B5_2)->SetAt(static_cast<il2cpp_array_size_t>(G_B5_1), (float)G_B5_0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:379>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:379>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:380>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:380>
 		__this->____dataDirty = (bool)1;
 	}
 
 IL_0032:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:382>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:382>
 		return;
 	}
 }
-// Method Definition Index: 94644
+// Method Definition Index: 94616
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetThreshold_mAF26A6671B935E00A08A6082FA5C5CC517D87982 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_index, float ___1_value, Color_tD001788D726C3A7F1379BEED0260B9591F440C1F ___2_color, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:391>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:391>
 		int32_t L_0 = ___0_index;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10352,35 +10352,35 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetThreshold_mAF26A66
 
 IL_000d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:391>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:391>
 		return;
 	}
 
 IL_000e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:392>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:392>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->____thresholds;
 		int32_t L_4 = ___0_index;
 		float L_5 = ___1_value;
 		NullCheck(L_3);
 		(L_3)->SetAt(static_cast<il2cpp_array_size_t>(L_4), (float)L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:393>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:393>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_6 = __this->____thresholdColors;
 		int32_t L_7 = ___0_index;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_8 = ___2_color;
 		NullCheck(L_6);
 		(L_6)->SetAt(static_cast<il2cpp_array_size_t>(L_7), (Color_tD001788D726C3A7F1379BEED0260B9591F440C1F)L_8);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:394>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:394>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:395>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:395>
 		return;
 	}
 }
-// Method Definition Index: 94645
+// Method Definition Index: 94617
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraphData_SetThresholdValue_mC5D6AFD4A6D3BE86118F4E7A9BB0E459D668C556 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_index, float ___1_value, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:404>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:404>
 		int32_t L_0 = ___0_index;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10398,56 +10398,56 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraphData_SetThresholdValue_mC5
 
 IL_000d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:404>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:404>
 		return (bool)0;
 	}
 
 IL_000f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:405>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:405>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->____thresholds;
 		int32_t L_4 = ___0_index;
 		float L_5 = ___1_value;
 		NullCheck(L_3);
 		(L_3)->SetAt(static_cast<il2cpp_array_size_t>(L_4), (float)L_5);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:406>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:406>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:407>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:407>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 94646
+// Method Definition Index: 94618
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_SetRange_m9DBBAB8D0424AFE67C251EEA8F1CC17A34CE1066 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, float ___0_minValue, float ___1_maxValue, int32_t ___2_rangeType, float ___3_padding, const RuntimeMethod* method) 
 {
 	float V_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:418>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:418>
 		float L_0 = ___0_minValue;
 		float L_1 = L_0;
 		V_0 = L_1;
 		__this->____minValue = L_1;
 		float L_2 = V_0;
 		__this->____defaultMinValue = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:419>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:419>
 		float L_3 = ___1_maxValue;
 		float L_4 = L_3;
 		V_0 = L_4;
 		__this->____maxValue = L_4;
 		float L_5 = V_0;
 		__this->____defaultMaxValue = L_5;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:420>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:420>
 		int32_t L_6 = ___2_rangeType;
 		__this->____rangeType = L_6;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:421>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:421>
 		float L_7 = ___3_padding;
 		__this->____rangePadding = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:422>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:422>
 		__this->____rangeDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:423>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:423>
 		return;
 	}
 }
-// Method Definition Index: 94647
+// Method Definition Index: 94619
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraphData_AddValue_mDBA021EF8F3B9FDF3BAB37117E79794C0C6B6F47 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, int32_t ___0_lineIndex, float ___1_value, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -10456,7 +10456,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraphData_AddValue_mDBA021EF8F3
 	bool V_3 = false;
 	int32_t G_B8_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:429>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:429>
 		int32_t L_0 = ___0_lineIndex;
 		if ((((int32_t)L_0) < ((int32_t)0)))
 		{
@@ -10474,31 +10474,31 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MultilineGraphData_AddValue_mDBA021EF8F3
 
 IL_000d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:429>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:429>
 		return (bool)0;
 	}
 
 IL_000f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:431>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:431>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_3 = __this->____writeIndices;
 		int32_t L_4 = ___0_lineIndex;
 		NullCheck(L_3);
 		int32_t L_5 = L_4;
 		int32_t L_6 = (L_3)->GetAt(static_cast<il2cpp_array_size_t>(L_5));
 		V_0 = L_6;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:432>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:432>
 		int32_t L_7 = ___0_lineIndex;
 		int32_t L_8 = V_0;
 		V_1 = ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_multiply(L_7, ((int32_t)512))), L_8));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:435>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:435>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_9 = __this->____dataPixels;
 		int32_t L_10 = V_1;
 		NullCheck(L_9);
 		float L_11 = ((L_9)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_10)))->___r;
 		V_2 = L_11;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:436>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:437>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:436>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:437>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_12 = __this->____sampleCounts;
 		int32_t L_13 = ___0_lineIndex;
 		NullCheck(L_12);
@@ -10538,19 +10538,19 @@ IL_005a:
 IL_005b:
 	{
 		V_3 = (bool)G_B8_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:439>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:439>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_20 = __this->____dataPixels;
 		int32_t L_21 = V_1;
 		NullCheck(L_20);
 		float L_22 = ___1_value;
 		((L_20)->GetAddressAt(static_cast<il2cpp_array_size_t>(L_21)))->___r = L_22;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:440>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:440>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_23 = __this->____writeIndices;
 		int32_t L_24 = ___0_lineIndex;
 		int32_t L_25 = V_0;
 		NullCheck(L_23);
 		(L_23)->SetAt(static_cast<il2cpp_array_size_t>(L_24), (int32_t)((int32_t)(((int32_t)il2cpp_codegen_add(L_25, 1))%((int32_t)512))));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:441>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:441>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_26 = __this->____sampleCounts;
 		int32_t L_27 = ___0_lineIndex;
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_28 = __this->____sampleCounts;
@@ -10562,7 +10562,7 @@ IL_005b:
 		L_32 = Mathf_Min_m888083F74FF5655778F0403BB5E9608BEFDEA8CB_inline(((int32_t)il2cpp_codegen_add(L_31, 1)), ((int32_t)512), NULL);
 		NullCheck(L_26);
 		(L_26)->SetAt(static_cast<il2cpp_array_size_t>(L_27), (int32_t)L_32);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:444>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:444>
 		float L_33 = ___1_value;
 		bool L_34;
 		L_34 = Single_IsNaN_mFE637F6ECA9F7697CE8EFF56427858F4C5EDF75D_inline(L_33, NULL);
@@ -10581,7 +10581,7 @@ IL_005b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:445>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:445>
 		float L_37 = ___1_value;
 		float L_38 = __this->____dataMin;
 		if ((!(((float)L_37) < ((float)L_38))))
@@ -10590,14 +10590,14 @@ IL_005b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:445>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:445>
 		float L_39 = ___1_value;
 		__this->____dataMin = L_39;
 	}
 
 IL_00bb:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:446>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:446>
 		float L_40 = ___1_value;
 		float L_41 = __this->____dataMax;
 		if ((!(((float)L_40) > ((float)L_41))))
@@ -10606,14 +10606,14 @@ IL_00bb:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:446>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:446>
 		float L_42 = ___1_value;
 		__this->____dataMax = L_42;
 	}
 
 IL_00cb:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:449>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:449>
 		bool L_43 = V_3;
 		if (!L_43)
 		{
@@ -10621,19 +10621,19 @@ IL_00cb:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:449>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:449>
 		__this->____rangeDirty = (bool)1;
 	}
 
 IL_00d5:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:452>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:452>
 		__this->____dataDirty = (bool)1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:453>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:453>
 		return (bool)1;
 	}
 }
-// Method Definition Index: 94648
+// Method Definition Index: 94620
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_RecalculateDataRange_m17FFB304909DE8B71E4162BC2AB11090D33FAED7 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -10644,18 +10644,18 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_RecalculateDataRange_
 	int32_t V_5 = 0;
 	float V_6 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:461>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:461>
 		__this->____dataMin = ((std::numeric_limits<float>::max)());
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:462>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:462>
 		__this->____dataMax = (-(std::numeric_limits<float>::max)());
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
 		V_0 = 0;
 		goto IL_0095;
 	}
 
 IL_001a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:466>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:466>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->____lineVisible;
 		int32_t L_1 = V_0;
 		NullCheck(L_0);
@@ -10667,31 +10667,31 @@ IL_001a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:467>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:467>
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_4 = __this->____sampleCounts;
 		int32_t L_5 = V_0;
 		NullCheck(L_4);
 		int32_t L_6 = L_5;
 		int32_t L_7 = (L_4)->GetAt(static_cast<il2cpp_array_size_t>(L_6));
 		V_1 = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:468>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:468>
 		int32_t L_8 = V_0;
 		V_2 = ((int32_t)il2cpp_codegen_multiply(L_8, ((int32_t)512)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
 		V_3 = 0;
 		goto IL_008d;
 	}
 
 IL_003e:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:471>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:471>
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_9 = __this->____dataPixels;
 		int32_t L_10 = V_2;
 		int32_t L_11 = V_3;
 		NullCheck(L_9);
 		float L_12 = ((L_9)->GetAddressAt(static_cast<il2cpp_array_size_t>(((int32_t)il2cpp_codegen_add(L_10, L_11)))))->___r;
 		V_4 = L_12;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:472>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:472>
 		float L_13 = V_4;
 		bool L_14;
 		L_14 = Single_IsNaN_mFE637F6ECA9F7697CE8EFF56427858F4C5EDF75D_inline(L_13, NULL);
@@ -10710,7 +10710,7 @@ IL_003e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:473>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:473>
 		float L_17 = V_4;
 		float L_18 = __this->____dataMin;
 		if ((!(((float)L_17) < ((float)L_18))))
@@ -10719,14 +10719,14 @@ IL_003e:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:473>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:473>
 		float L_19 = V_4;
 		__this->____dataMin = L_19;
 	}
 
 IL_0077:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:474>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:474>
 		float L_20 = V_4;
 		float L_21 = __this->____dataMax;
 		if ((!(((float)L_20) > ((float)L_21))))
@@ -10735,21 +10735,21 @@ IL_0077:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:474>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:474>
 		float L_22 = V_4;
 		__this->____dataMax = L_22;
 	}
 
 IL_0089:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
 		int32_t L_23 = V_3;
 		V_3 = ((int32_t)il2cpp_codegen_add(L_23, 1));
 	}
 
 IL_008d:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:470>
 		int32_t L_24 = V_3;
 		int32_t L_25 = V_1;
 		if ((((int32_t)L_24) < ((int32_t)L_25)))
@@ -10760,14 +10760,14 @@ IL_008d:
 
 IL_0091:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
 		int32_t L_26 = V_0;
 		V_0 = ((int32_t)il2cpp_codegen_add(L_26, 1));
 	}
 
 IL_0095:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:464>
 		int32_t L_27 = V_0;
 		int32_t L_28 = __this->____lineCount;
 		if ((((int32_t)L_27) < ((int32_t)L_28)))
@@ -10776,14 +10776,14 @@ IL_0095:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
 		V_5 = 0;
 		goto IL_00eb;
 	}
 
 IL_00a6:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:482>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:482>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_29 = __this->____thresholdVisible;
 		int32_t L_30 = V_5;
 		NullCheck(L_29);
@@ -10795,14 +10795,14 @@ IL_00a6:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:484>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:484>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_33 = __this->____thresholds;
 		int32_t L_34 = V_5;
 		NullCheck(L_33);
 		int32_t L_35 = L_34;
 		float L_36 = (L_33)->GetAt(static_cast<il2cpp_array_size_t>(L_35));
 		V_6 = L_36;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:485>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:485>
 		float L_37 = V_6;
 		float L_38 = __this->____dataMin;
 		if ((!(((float)L_37) < ((float)L_38))))
@@ -10811,14 +10811,14 @@ IL_00a6:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:485>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:485>
 		float L_39 = V_6;
 		__this->____dataMin = L_39;
 	}
 
 IL_00d3:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:486>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:486>
 		float L_40 = V_6;
 		float L_41 = __this->____dataMax;
 		if ((!(((float)L_40) > ((float)L_41))))
@@ -10827,21 +10827,21 @@ IL_00d3:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:486>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:486>
 		float L_42 = V_6;
 		__this->____dataMax = L_42;
 	}
 
 IL_00e5:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
 		int32_t L_43 = V_5;
 		V_5 = ((int32_t)il2cpp_codegen_add(L_43, 1));
 	}
 
 IL_00eb:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:480>
 		int32_t L_44 = V_5;
 		int32_t L_45 = __this->____thresholdCount;
 		if ((((int32_t)L_44) < ((int32_t)L_45)))
@@ -10850,13 +10850,13 @@ IL_00eb:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:489>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:489>
 		__this->____rangeDirty = (bool)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:490>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:490>
 		return;
 	}
 }
-// Method Definition Index: 94649
+// Method Definition Index: 94621
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Apply_m89210799AA4C22563D64DC925E4E0F32540FF369 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	float V_0 = 0.0f;
@@ -10867,7 +10867,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Apply_m89210799AA4C22
 	float V_5 = 0.0f;
 	float V_6 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:496>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:496>
 		bool L_0 = __this->____dataDirty;
 		if (L_0)
 		{
@@ -10875,13 +10875,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_Apply_m89210799AA4C22
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:496>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:496>
 		return;
 	}
 
 IL_0009:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:499>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:499>
 		bool L_1 = __this->____rangeDirty;
 		if (!L_1)
 		{
@@ -10889,19 +10889,19 @@ IL_0009:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:500>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:500>
 		MultilineGraphData_RecalculateDataRange_m17FFB304909DE8B71E4162BC2AB11090D33FAED7(__this, NULL);
 	}
 
 IL_0017:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:504>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:504>
 		float L_2 = __this->____dataMin;
 		V_0 = L_2;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:505>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:505>
 		float L_3 = __this->____dataMax;
 		V_1 = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:507>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:507>
 		int32_t L_4 = __this->____rangeType;
 		V_2 = L_4;
 		int32_t L_5 = V_2;
@@ -10927,25 +10927,25 @@ IL_0017:
 
 IL_0043:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:509>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:509>
 		float L_6 = __this->____defaultMinValue;
 		__this->____minValue = L_6;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:510>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:510>
 		float L_7 = __this->____defaultMaxValue;
 		__this->____maxValue = L_7;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:511>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:511>
 		goto IL_0108;
 	}
 
 IL_0060:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:514>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:514>
 		float L_8 = __this->____defaultMinValue;
 		__this->____minValue = L_8;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:515>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:515>
 		float L_9 = __this->____defaultMaxValue;
 		__this->____maxValue = L_9;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:517>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:517>
 		float L_10 = V_0;
 		float L_11 = __this->____minValue;
 		if ((!(((float)L_10) < ((float)L_11))))
@@ -10954,11 +10954,11 @@ IL_0060:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:518>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:518>
 		float L_12 = __this->____minValue;
 		float L_13 = V_0;
 		V_3 = ((float)il2cpp_codegen_subtract(L_12, L_13));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:519>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:519>
 		float L_14 = V_0;
 		float L_15 = V_3;
 		float L_16 = __this->____rangePadding;
@@ -10967,7 +10967,7 @@ IL_0060:
 
 IL_009a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:521>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:521>
 		float L_17 = V_1;
 		float L_18 = __this->____maxValue;
 		if ((!(((float)L_17) > ((float)L_18))))
@@ -10976,22 +10976,22 @@ IL_009a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:522>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:522>
 		float L_19 = V_1;
 		float L_20 = __this->____maxValue;
 		V_4 = ((float)il2cpp_codegen_subtract(L_19, L_20));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:523>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:523>
 		float L_21 = V_1;
 		float L_22 = V_4;
 		float L_23 = __this->____rangePadding;
 		__this->____maxValue = ((float)il2cpp_codegen_add(L_21, ((float)il2cpp_codegen_multiply(L_22, L_23))));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:525>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:525>
 		goto IL_0108;
 	}
 
 IL_00c0:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:528>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:528>
 		float L_24 = V_0;
 		float L_25 = __this->____minValue;
 		if ((!(((float)L_24) < ((float)L_25))))
@@ -11000,11 +11000,11 @@ IL_00c0:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:529>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:529>
 		float L_26 = __this->____minValue;
 		float L_27 = V_0;
 		V_5 = ((float)il2cpp_codegen_subtract(L_26, L_27));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:530>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:530>
 		float L_28 = V_0;
 		float L_29 = V_5;
 		float L_30 = __this->____rangePadding;
@@ -11013,7 +11013,7 @@ IL_00c0:
 
 IL_00e4:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:532>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:532>
 		float L_31 = V_1;
 		float L_32 = __this->____maxValue;
 		if ((!(((float)L_31) > ((float)L_32))))
@@ -11022,11 +11022,11 @@ IL_00e4:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:533>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:533>
 		float L_33 = V_1;
 		float L_34 = __this->____maxValue;
 		V_6 = ((float)il2cpp_codegen_subtract(L_33, L_34));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:534>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:534>
 		float L_35 = V_1;
 		float L_36 = V_6;
 		float L_37 = __this->____rangePadding;
@@ -11035,7 +11035,7 @@ IL_00e4:
 
 IL_0108:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:540>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:540>
 		float L_38 = __this->____minValue;
 		float L_39 = __this->____maxValue;
 		if ((!(((float)L_38) >= ((float)L_39))))
@@ -11044,13 +11044,13 @@ IL_0108:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:541>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:541>
 		float L_40 = __this->____defaultMinValue;
 		__this->____minValue = L_40;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:542>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:542>
 		float L_41 = __this->____defaultMaxValue;
 		__this->____maxValue = L_41;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:544>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:544>
 		float L_42 = __this->____minValue;
 		float L_43 = __this->____maxValue;
 		if ((!(((float)L_42) >= ((float)L_43))))
@@ -11059,42 +11059,42 @@ IL_0108:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:545>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:545>
 		__this->____minValue = (0.0f);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:546>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:546>
 		__this->____maxValue = (1.0f);
 	}
 
 IL_0152:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:550>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:550>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_44 = __this->____dataTexture;
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_45 = __this->____dataPixels;
 		NullCheck(L_44);
 		Texture2D_SetPixels_mAE0CDFA15FA96F840D7FFADC31405D8AF20D9073(L_44, L_45, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:551>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:551>
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_46 = __this->____dataTexture;
 		NullCheck(L_46);
 		Texture2D_Apply_mA014182C9EE0BBF6EEE3B286854F29E50EB972DC(L_46, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:553>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:553>
 		__this->____dataDirty = (bool)0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:554>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:554>
 		return;
 	}
 }
-// Method Definition Index: 94650
+// Method Definition Index: 94622
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphData_ApplyToMaterial_m37D8BAC4F30BCE9B1E2328FA5A1206C078F9DB63 (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* ___0_mat, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
 		V_0 = 0;
 		goto IL_002a;
 	}
 
 IL_0004:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:559>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:559>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->____writeIndicesFloat;
 		int32_t L_1 = V_0;
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_2 = __this->____writeIndices;
@@ -11104,7 +11104,7 @@ IL_0004:
 		int32_t L_5 = (L_2)->GetAt(static_cast<il2cpp_array_size_t>(L_4));
 		NullCheck(L_0);
 		(L_0)->SetAt(static_cast<il2cpp_array_size_t>(L_1), (float)((float)L_5));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:560>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:560>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_6 = __this->____sampleCountsFloat;
 		int32_t L_7 = V_0;
 		Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C* L_8 = __this->____sampleCounts;
@@ -11114,14 +11114,14 @@ IL_0004:
 		int32_t L_11 = (L_8)->GetAt(static_cast<il2cpp_array_size_t>(L_10));
 		NullCheck(L_6);
 		(L_6)->SetAt(static_cast<il2cpp_array_size_t>(L_7), (float)((float)L_11));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
 		int32_t L_12 = V_0;
 		V_0 = ((int32_t)il2cpp_codegen_add(L_12, 1));
 	}
 
 IL_002a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:558>
 		int32_t L_13 = V_0;
 		if ((((int32_t)L_13) < ((int32_t)4)))
 		{
@@ -11129,84 +11129,84 @@ IL_002a:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:563>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:563>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_14 = ___0_mat;
 		int32_t L_15 = __this->____dataTextureShaderPropertyID;
 		Texture2D_tE6505BC111DD8A424A9DBE8E05D7D09E11FFFCF4* L_16 = __this->____dataTexture;
 		NullCheck(L_14);
 		Material_SetTexture_mA9F8461850AAB88F992E9C6FA6F24C2E050B83FD(L_14, L_15, L_16, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:564>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:564>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_17 = ___0_mat;
 		int32_t L_18 = __this->____maxSamplesShaderPropertyID;
 		NullCheck(L_17);
 		Material_SetInt_m9C05C9D7C152CFCC48F8572710F89DDAC9277E39(L_17, L_18, ((int32_t)512), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:565>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:565>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_19 = ___0_mat;
 		int32_t L_20 = __this->____lineCountShaderPropertyID;
 		int32_t L_21 = __this->____lineCount;
 		NullCheck(L_19);
 		Material_SetInt_m9C05C9D7C152CFCC48F8572710F89DDAC9277E39(L_19, L_20, L_21, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:566>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:566>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_22 = ___0_mat;
 		int32_t L_23 = __this->____thresholdCountShaderPropertyID;
 		int32_t L_24 = __this->____thresholdCount;
 		NullCheck(L_22);
 		Material_SetInt_m9C05C9D7C152CFCC48F8572710F89DDAC9277E39(L_22, L_23, L_24, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:567>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:567>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_25 = ___0_mat;
 		int32_t L_26 = __this->____minValueShaderPropertyID;
 		float L_27 = __this->____minValue;
 		NullCheck(L_25);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_25, L_26, L_27, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:568>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:568>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_28 = ___0_mat;
 		int32_t L_29 = __this->____maxValueShaderPropertyID;
 		float L_30 = __this->____maxValue;
 		NullCheck(L_28);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_28, L_29, L_30, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:569>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:569>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_31 = ___0_mat;
 		int32_t L_32 = __this->____lineColorsShaderPropertyID;
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_33 = __this->____lineColors;
 		NullCheck(L_31);
 		Material_SetColorArray_m6D5CC76757E4A82F11725C9F0CFA2CEBEB358FC4(L_31, L_32, L_33, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:570>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:570>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_34 = ___0_mat;
 		int32_t L_35 = __this->____thresholdsShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_36 = __this->____thresholds;
 		NullCheck(L_34);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_34, L_35, L_36, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:571>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:571>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_37 = ___0_mat;
 		int32_t L_38 = __this->____thresholdColorsShaderPropertyID;
 		ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* L_39 = __this->____thresholdColors;
 		NullCheck(L_37);
 		Material_SetColorArray_m6D5CC76757E4A82F11725C9F0CFA2CEBEB358FC4(L_37, L_38, L_39, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:572>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:572>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_40 = ___0_mat;
 		int32_t L_41 = __this->____writeIndicesShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_42 = __this->____writeIndicesFloat;
 		NullCheck(L_40);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_40, L_41, L_42, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:573>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:573>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_43 = ___0_mat;
 		int32_t L_44 = __this->____sampleCountsShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_45 = __this->____sampleCountsFloat;
 		NullCheck(L_43);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_43, L_44, L_45, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:574>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:574>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_46 = ___0_mat;
 		int32_t L_47 = __this->____lineVisibleShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_48 = __this->____lineVisible;
 		NullCheck(L_46);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_46, L_47, L_48, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:575>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:575>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_49 = ___0_mat;
 		int32_t L_50 = __this->____thresholdVisibleShaderPropertyID;
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_51 = __this->____thresholdVisible;
 		NullCheck(L_49);
 		Material_SetFloatArray_m2CEEB49F79A9D1DB96F04C81ADF63E6407DB9081(L_49, L_50, L_51, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:576>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:576>
 		return;
 	}
 }
@@ -11218,16 +11218,16 @@ IL_002a:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94651
+// Method Definition Index: 94623
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_UI_Clicked_m6DD2F55E3350403A5F5D8545F096747D4F2B2B7D (MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* __this, const RuntimeMethod* method) 
 {
 	Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* G_B2_0 = NULL;
 	Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* G_B1_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:18>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:18>
 		bool L_0 = __this->____visible;
 		__this->____visible = (bool)((((int32_t)L_0) == ((int32_t)0))? 1 : 0);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:20>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:20>
 		Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* L_1 = __this->___OnToggled;
 		Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* L_2 = L_1;
 		if (L_2)
@@ -11250,30 +11250,30 @@ IL_001b:
 
 IL_0026:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:22>
 		MultilineGraphLegendItem_UpdateColors_m29DA8E11A712806BF363CA53DB10F549DCCD6131(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:23>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:23>
 		return;
 	}
 }
-// Method Definition Index: 94652
+// Method Definition Index: 94624
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_Set_mDBDD7849C87B7026E95AE939C6CCF460F83FF927 (MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* __this, String_t* ___0_label, Color_tD001788D726C3A7F1379BEED0260B9591F440C1F ___1_color, bool ___2_usesDashedSwatch, const RuntimeMethod* method) 
 {
 	ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* V_0 = NULL;
 	int32_t V_1 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:26>
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_0 = ___1_color;
 		__this->____color = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:27>
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_1;
 		L_1 = MultilineGraphLegendItem_GetColor_m4A922E4E01E93C0815A8260B2E680BBA2F647578(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:29>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_2 = __this->____label;
 		String_t* L_3 = ___0_label;
 		NullCheck(L_2);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_2, L_3);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:31>
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_4 = __this->____swatch;
 		NullCheck(L_4);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_5;
@@ -11281,7 +11281,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_Set_mDBDD7849C8
 		bool L_6 = ___2_usesDashedSwatch;
 		NullCheck(L_5);
 		GameObject_SetActive_m638E92E1E75E519E5B24CF150B08CA8E0CDFAB92(L_5, (bool)((((int32_t)L_6) == ((int32_t)0))? 1 : 0), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_7 = __this->____dashedSwatch;
 		V_0 = L_7;
 		V_1 = 0;
@@ -11290,13 +11290,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_Set_mDBDD7849C8
 
 IL_0039:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_8 = V_0;
 		int32_t L_9 = V_1;
 		NullCheck(L_8);
 		int32_t L_10 = L_9;
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_11 = (L_8)->GetAt(static_cast<il2cpp_array_size_t>(L_10));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:33>
 		NullCheck(L_11);
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_12;
 		L_12 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(L_11, NULL);
@@ -11309,7 +11309,7 @@ IL_0039:
 
 IL_004b:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:32>
 		int32_t L_15 = V_1;
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_16 = V_0;
 		NullCheck(L_16);
@@ -11319,13 +11319,13 @@ IL_004b:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:36>
 		MultilineGraphLegendItem_UpdateColors_m29DA8E11A712806BF363CA53DB10F549DCCD6131(__this, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:37>
 		return;
 	}
 }
-// Method Definition Index: 94653
+// Method Definition Index: 94625
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_UpdateColors_m29DA8E11A712806BF363CA53DB10F549DCCD6131 (MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* __this, const RuntimeMethod* method) 
 {
 	Color_tD001788D726C3A7F1379BEED0260B9591F440C1F V_0;
@@ -11333,21 +11333,21 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_UpdateColors_m2
 	ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* V_1 = NULL;
 	int32_t V_2 = 0;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:40>
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_0;
 		L_0 = MultilineGraphLegendItem_GetColor_m4A922E4E01E93C0815A8260B2E680BBA2F647578(__this, NULL);
 		V_0 = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:41>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_1 = __this->____label;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_2 = V_0;
 		NullCheck(L_1);
 		VirtualActionInvoker1< Color_tD001788D726C3A7F1379BEED0260B9591F440C1F >::Invoke(23, L_1, L_2);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:42>
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_3 = __this->____swatch;
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_4 = V_0;
 		NullCheck(L_3);
 		VirtualActionInvoker1< Color_tD001788D726C3A7F1379BEED0260B9591F440C1F >::Invoke(23, L_3, L_4);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_5 = __this->____dashedSwatch;
 		V_1 = L_5;
 		V_2 = 0;
@@ -11356,13 +11356,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem_UpdateColors_m2
 
 IL_002a:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_6 = V_1;
 		int32_t L_7 = V_2;
 		NullCheck(L_6);
 		int32_t L_8 = L_7;
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_9 = (L_6)->GetAt(static_cast<il2cpp_array_size_t>(L_8));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:44>
 		Color_tD001788D726C3A7F1379BEED0260B9591F440C1F L_10 = V_0;
 		NullCheck(L_9);
 		VirtualActionInvoker1< Color_tD001788D726C3A7F1379BEED0260B9591F440C1F >::Invoke(23, L_9, L_10);
@@ -11372,7 +11372,7 @@ IL_002a:
 
 IL_0037:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:43>
 		int32_t L_12 = V_2;
 		ImageU5BU5D_t8869694C217655DA7B1315DC02C80F1308B78B78* L_13 = V_1;
 		NullCheck(L_13);
@@ -11382,15 +11382,15 @@ IL_0037:
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:46>
 		return;
 	}
 }
-// Method Definition Index: 94654
+// Method Definition Index: 94626
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F MultilineGraphLegendItem_GetColor_m4A922E4E01E93C0815A8260B2E680BBA2F647578 (MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:48>
 		bool L_0 = __this->____visible;
 		if (L_0)
 		{
@@ -11409,11 +11409,11 @@ IL_000e:
 		return L_2;
 	}
 }
-// Method Definition Index: 94655
+// Method Definition Index: 94627
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem__ctor_mE7360D7FC00B171C478D4A2B87711B9D06B13C72 (MultilineGraphLegendItem_t85B6A851681277A9FFCC7631B975F759FC75C822* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:14>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraphLegendItem.cs:14>
 		__this->____visible = (bool)1;
 		MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E(__this, NULL);
 		return;
@@ -11427,7 +11427,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultilineGraphLegendItem__ctor_mE7360D7F
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94657
+// Method Definition Index: 94629
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultipleOptionsPanel_Close_m560D12B6A6E2F26D3CBA342C3539DD9286872D96 (MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11437,16 +11437,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultipleOptionsPanel_Close_m560D12B6A6E2
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultipleOptionsPanel.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultipleOptionsPanel.cs:46>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_0;
 		L_0 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(__this, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultipleOptionsPanel.cs:47>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultipleOptionsPanel.cs:47>
 		return;
 	}
 }
-// Method Definition Index: 94658
+// Method Definition Index: 94630
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultipleOptionsPanel__ctor_mFE4A64ED54E6A9ADB1FF43B0A8371466F1CF4577 (MultipleOptionsPanel_t72BB20B0480B2D9FE11B82BA6C0C04DD9396F750* __this, const RuntimeMethod* method) 
 {
 	{
@@ -11462,13 +11462,13 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MultipleOptionsPanel__ctor_mFE4A64ED54E6
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94667
+// Method Definition Index: 94639
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* RadialChart_get_Title_m5E532CDE22E52FC4B6C635784B647A2DF72B4AB7 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, const RuntimeMethod* method) 
 {
 	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* G_B2_0 = NULL;
 	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* G_B1_0 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:19>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:19>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_0 = __this->____titleText;
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_1 = L_0;
 		if (L_1)
@@ -11490,7 +11490,7 @@ IL_000c:
 		return L_2;
 	}
 }
-// Method Definition Index: 94668
+// Method Definition Index: 94640
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_set_Title_m6ABB735C6616E518364BF12FD77C4F47DE065882 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11500,7 +11500,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_set_Title_m6ABB735C6616E5183
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:21>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_0 = __this->____titleText;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_1;
@@ -11511,7 +11511,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_set_Title_m6ABB735C6616E5183
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:21>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:21>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_2 = __this->____titleText;
 		String_t* L_3 = ___0_value;
 		NullCheck(L_2);
@@ -11520,11 +11520,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_set_Title_m6ABB735C6616E5183
 
 IL_0019:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:22>
 		return;
 	}
 }
-// Method Definition Index: 94669
+// Method Definition Index: 94641
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_SetShaderValues_m23DB5BEDC0BD0E151FA085F0724451E787ADE3C9 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, float ___0_value, float ___1_totalValue, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11536,7 +11536,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_SetShaderValues_m23DB5BEDC0B
 	}
 	float V_0 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:30>
 		float L_0 = ___1_totalValue;
 		if ((!(((float)L_0) == ((float)(0.0f)))))
 		{
@@ -11544,14 +11544,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_SetShaderValues_m23DB5BEDC0B
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:31>
 		V_0 = (0.0f);
 		goto IL_0019;
 	}
 
 IL_0010:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:33>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:33>
 		float L_1 = ___0_value;
 		float L_2 = ___1_totalValue;
 		float L_3;
@@ -11561,13 +11561,13 @@ IL_0010:
 
 IL_0019:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:35>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:35>
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		int32_t L_5 = __this->____fillShaderPropertyID;
 		float L_6 = V_0;
 		NullCheck(L_4);
 		Material_SetFloat_m3ECFD92072347A8620254F014865984FA68211A8(L_4, L_5, L_6, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:36>
 		Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* L_7 = __this->____percentText;
 		float L_8 = V_0;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
@@ -11576,23 +11576,23 @@ IL_0019:
 		L_10 = FusionStatsLookup_GetValueText_mA5F8FE596D135D16291884BF95E5AF4223849EA0(((float)il2cpp_codegen_multiply(L_8, (100.0f))), L_9, _stringLiteral517C1E9240257ADB3B22BB9D500C1A9DA0CF2A66, (1.0f), NULL);
 		NullCheck(L_7);
 		VirtualActionInvoker1< String_t* >::Invoke(75, L_7, L_10);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:37>
 		return;
 	}
 }
-// Method Definition Index: 94670
+// Method Definition Index: 94642
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_RefreshDisplay_mAE81742812AF72E78C98733782F4EDB130AA7745 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:41>
 		float L_0 = __this->____value;
 		float L_1 = __this->____maxValue;
 		RadialChart_SetShaderValues_m23DB5BEDC0BD0E151FA085F0724451E787ADE3C9(__this, L_0, L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:42>
 		return;
 	}
 }
-// Method Definition Index: 94671
+// Method Definition Index: 94643
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_Setup_mA2F65D3DF4999EC47BDA489630C439A3F47B5084 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, String_t* ___0_title, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11602,7 +11602,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_Setup_mA2F65D3DF4999EC47BDA4
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:46>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:46>
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_0 = __this->____sourceImage;
 		NullCheck(L_0);
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_1;
@@ -11611,33 +11611,33 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_Setup_mA2F65D3DF4999EC47BDA4
 		Material__ctor_mFCC42FB90257F1E8F7516A8640A79C465A39961C(L_2, L_1, NULL);
 		__this->____material = L_2;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->____material), (void*)L_2);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:47>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:47>
 		Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* L_3 = __this->____sourceImage;
 		Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* L_4 = __this->____material;
 		NullCheck(L_3);
 		VirtualActionInvoker1< Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* >::Invoke(33, L_3, L_4);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:48>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:48>
 		String_t* L_5 = ___0_title;
 		RadialChart_set_Title_m6ABB735C6616E518364BF12FD77C4F47DE065882(__this, L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:49>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:49>
 		return;
 	}
 }
-// Method Definition Index: 94672
+// Method Definition Index: 94644
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart_SetValue_m4DC79FFE775FB5C3BC2B53521BF97F3067E68BC2 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, float ___0_value, float ___1_maxValue, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:52>
 		float L_0 = ___0_value;
 		__this->____value = L_0;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:53>
 		float L_1 = ___1_maxValue;
 		__this->____maxValue = L_1;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:54>
 		return;
 	}
 }
-// Method Definition Index: 94673
+// Method Definition Index: 94645
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart__ctor_m4074E33C17D00B1420A1867B3CD01C0619A30F01 (RadialChart_t6EBF0A41577AE8898722E605252E3A26709488C8* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11647,7 +11647,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart__ctor_m4074E33C17D00B1420A18
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:10>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/RadialChart.cs:10>
 		int32_t L_0;
 		L_0 = Shader_PropertyToID_mE98523D50F5656CAE89B30695C458253EB8956CA(_stringLiteralED3E394CD8989C9069B26DA80D8A90E02D972827, NULL);
 		__this->____fillShaderPropertyID = L_0;
@@ -11663,7 +11663,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RadialChart__ctor_m4074E33C17D00B1420A18
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94674
+// Method Definition Index: 94646
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* TimeStatisticsPage_get_PageName_m3B17439F0CB428CB860D4C1BEAA3E3019A8916BA (TimeStatisticsPage_t0BC407FE803F1CF959402C52342B8E98DD830ADC* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11673,11 +11673,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* TimeStatisticsPage_get_PageName_m3B
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:7>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:7>
 		return _stringLiteral664D9C29880874A1D83C89317B5C36E3DDC79D58;
 	}
 }
-// Method Definition Index: 94675
+// Method Definition Index: 94647
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_Init_m7E19DBC45E5AFFC016537A60FA560A0C900DAD6B (TimeStatisticsPage_t0BC407FE803F1CF959402C52342B8E98DD830ADC* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11699,99 +11699,99 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_Init_m7E19DBC45E5AFFC
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:23>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:23>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____rtt;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var);
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_1 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_0);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_0, _stringLiteralB54AF7679D0021EA2FA830F9B29E36CF941AE7E6, L_1, _stringLiteral72BA6375A4617967BEAE4367A39E37039B511346, (bool)1, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:24>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:24>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____inputReceiveDelta;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_3 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_2);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_2, _stringLiteralF3D055935416EE3D714DA0D9DFB3FD18A1996124, L_3, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:25>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:25>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____timeResets;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_5 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_4);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_4, _stringLiteral65537BE3235C06207313627A19538521513190AD, L_5, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:26>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____stateReceiveDelta;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_7 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_6);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_6, _stringLiteral343FDC705F926C9FE20C2FD313D1E374DD139F1E, L_7, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:27>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:27>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_8 = __this->____simulationTimeOffset;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_9 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_8);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_8, _stringLiteral9BC3D6CF3FA799B67BF642C6C3202299F4845804, L_9, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:28>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:28>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_10 = __this->____simulationSpeed;
 		NullCheck(L_10);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_10, _stringLiteral0FABE4E72E238DE3253C45875EB1F20CB4D76086, (StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF*)NULL, _stringLiteral6097B6757610EE147F03486C6BD13886A62F1AF3, (bool)1, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:29>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:29>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_11 = __this->____interpolationOffset;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_12 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_11);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_11, _stringLiteralB59BA9EDDD1511E2656BE7A81C83C81114EEC89A, L_12, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:30>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:30>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_13 = __this->____interpolationSpeed;
 		NullCheck(L_13);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_13, _stringLiteral49D416115DAE1C791651DABB00379FC7ED4C4BFF, (StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF*)NULL, _stringLiteral6097B6757610EE147F03486C6BD13886A62F1AF3, (bool)1, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:31>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:31>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_14 = __this->____inputDelay;
 		StringU5BU5DU5BU5D_t8BCC500C5CC1686D9BADCBAA811074FE00F83ACF* L_15 = ((FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatsLookup_t8C21F7B2A7A428CF6FCCDC7F6F48DF697740A293_il2cpp_TypeInfo_var))->___LOOKUP_TABLE_0ms;
 		NullCheck(L_14);
 		LineChart_Setup_mB4F6953291FA7C9A53AB318DC2C1C1A255ECFB23(L_14, _stringLiteral8EF2FB18B25445AE69BC8E58B650DDA45A9BA559, L_15, _stringLiteral18BD8387FD07F0D337BEEDA440328C459F491507, (bool)0, (1.0f), NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:32>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:32>
 		return;
 	}
 }
-// Method Definition Index: 94676
+// Method Definition Index: 94648
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_Render_m61526540A321C0768D4BAADF7A84DCD99653F58E (TimeStatisticsPage_t0BC407FE803F1CF959402C52342B8E98DD830ADC* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:36>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:36>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_0 = __this->____rtt;
 		NullCheck(L_0);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_0, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:37>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:37>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_1 = __this->____inputReceiveDelta;
 		NullCheck(L_1);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_1, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:38>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:38>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_2 = __this->____timeResets;
 		NullCheck(L_2);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_2, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:39>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:39>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_3 = __this->____stateReceiveDelta;
 		NullCheck(L_3);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_3, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:40>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:40>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_4 = __this->____simulationTimeOffset;
 		NullCheck(L_4);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_4, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:41>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:41>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_5 = __this->____simulationSpeed;
 		NullCheck(L_5);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_5, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:42>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:42>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_6 = __this->____interpolationOffset;
 		NullCheck(L_6);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_6, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:43>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:43>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_7 = __this->____interpolationSpeed;
 		NullCheck(L_7);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_7, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:44>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:44>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_8 = __this->____inputDelay;
 		NullCheck(L_8);
 		LineChart_RefreshDisplay_mA9A641598C1877AD4A43ADF3F628E88891A053D8(L_8, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:45>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:45>
 		return;
 	}
 }
-// Method Definition Index: 94677
+// Method Definition Index: 94649
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33BC3EAEBB7A8D241D4AC67A1C6F29AB734D7409 (TimeStatisticsPage_t0BC407FE803F1CF959402C52342B8E98DD830ADC* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -11810,7 +11810,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 	float V_7 = 0.0f;
 	float V_8 = 0.0f;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:50>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:50>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0;
 		L_0 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_0);
@@ -11821,7 +11821,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_3;
 		L_3 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_2, ((int32_t)13), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_0 = ((float)il2cpp_codegen_multiply(L_3, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:51>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:51>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_4;
 		L_4 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_4);
@@ -11832,7 +11832,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_7;
 		L_7 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_6, ((int32_t)14), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_1 = ((float)il2cpp_codegen_multiply(L_7, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:52>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:52>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_8;
 		L_8 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_8);
@@ -11843,7 +11843,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_11;
 		L_11 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_10, ((int32_t)15), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_2 = ((float)il2cpp_codegen_multiply(L_11, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:53>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:53>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_12;
 		L_12 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_12);
@@ -11854,7 +11854,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_15;
 		L_15 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_14, ((int32_t)17), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_3 = ((float)il2cpp_codegen_multiply(L_15, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:54>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:54>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_16;
 		L_16 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_16);
@@ -11865,7 +11865,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_19;
 		L_19 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_18, ((int32_t)18), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_4 = L_19;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:55>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:55>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_20;
 		L_20 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_20);
@@ -11876,7 +11876,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_23;
 		L_23 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_22, ((int32_t)19), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_5 = ((float)il2cpp_codegen_multiply(L_23, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:56>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:56>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_24;
 		L_24 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_24);
@@ -11887,7 +11887,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_27;
 		L_27 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_26, ((int32_t)20), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_6 = L_27;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:57>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:57>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_28;
 		L_28 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_28);
@@ -11898,7 +11898,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_31;
 		L_31 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_30, ((int32_t)16), (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_7 = ((float)il2cpp_codegen_multiply(L_31, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:59>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:59>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_32;
 		L_32 = FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline(__this, NULL);
 		NullCheck(L_32);
@@ -11909,7 +11909,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		float L_35;
 		L_35 = CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23(L_34, 6, (0.0f), CollectionExtensions_GetValueOrDefault_TisFusionStatType_tBA27D35561B48F7A6EBA8E0850A75C3FA3827FEE_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mBB3239C2DAB5BC22876996745E79E20A0C5FDB23_RuntimeMethod_var);
 		V_8 = ((float)il2cpp_codegen_multiply(L_35, (1000.0f)));
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:60>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:60>
 		float L_36 = V_8;
 		if ((!(((float)L_36) == ((float)(0.0f)))))
 		{
@@ -11917,66 +11917,66 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage_AfterFusionUpdate_m33
 		}
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:61>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:61>
 		float L_37 = __this->____lastRTT;
 		V_8 = L_37;
 	}
 
 IL_0144:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:63>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:63>
 		float L_38 = V_8;
 		__this->____lastRTT = L_38;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:65>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:65>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_39 = __this->____rtt;
 		float L_40 = V_8;
 		NullCheck(L_39);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_39, L_40, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:66>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:66>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_41 = __this->____inputReceiveDelta;
 		float L_42 = V_0;
 		NullCheck(L_41);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_41, L_42, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:67>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:67>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_43 = __this->____timeResets;
 		float L_44 = V_1;
 		NullCheck(L_43);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_43, L_44, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:68>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:68>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_45 = __this->____stateReceiveDelta;
 		float L_46 = V_2;
 		NullCheck(L_45);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_45, L_46, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:69>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:69>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_47 = __this->____simulationTimeOffset;
 		float L_48 = V_3;
 		NullCheck(L_47);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_47, L_48, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:70>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:70>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_49 = __this->____simulationSpeed;
 		float L_50 = V_4;
 		NullCheck(L_49);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_49, L_50, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:71>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:71>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_51 = __this->____interpolationOffset;
 		float L_52 = V_5;
 		NullCheck(L_51);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_51, L_52, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:72>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:72>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_53 = __this->____interpolationSpeed;
 		float L_54 = V_6;
 		NullCheck(L_53);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_53, L_54, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:73>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:73>
 		LineChart_t653CEA4FA89A4655DCD5DEA46B2E1E15EE6EACEB* L_55 = __this->____inputDelay;
 		float L_56 = V_7;
 		NullCheck(L_55);
 		LineChart_AddValue_mCDC40FF57E9D264593398619DBCD28EFE3F8F8D3(L_55, L_56, NULL);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:74>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/TimeStatisticsPage.cs:74>
 		return;
 	}
 }
-// Method Definition Index: 94678
+// Method Definition Index: 94650
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage__ctor_m2ECC7F66E4857C34C6F3290FF502A4606BA576EA (TimeStatisticsPage_t0BC407FE803F1CF959402C52342B8E98DD830ADC* __this, const RuntimeMethod* method) 
 {
 	{
@@ -11992,7 +11992,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TimeStatisticsPage__ctor_m2ECC7F66E4857C
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 94679
+// Method Definition Index: 94651
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MatchmakingArguments_tECD4BD501416C62E7D791C0DD0B8E6CDD52566A5 MatchmakingArgumentsExtensions_SetupForFusion_m0EE3A5D0711A101B4C1AA967045310AA670C5A47 (MatchmakingArguments_tECD4BD501416C62E7D791C0DD0B8E6CDD52566A5 ___0_arguments, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12010,10 +12010,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MatchmakingArguments_tECD4BD501416C62E7D791C0
 	RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* G_B3_0 = NULL;
 	MatchmakingArguments_tECD4BD501416C62E7D791C0DD0B8E6CDD52566A5* G_B3_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2803>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2803>
 		(&___0_arguments)->___PluginName = _stringLiteralB3BFDB52A6F011E967AD0B9DD18FA6D64E33F063;
 		Il2CppCodeGenWriteBarrier((void**)(&(&___0_arguments)->___PluginName), (void*)_stringLiteralB3BFDB52A6F011E967AD0B9DD18FA6D64E33F063);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2804>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2804>
 		NetworkProjectConfigAsset_tE15DE02C104AB50F01593A78085558578A4BE9C7* L_0;
 		L_0 = NetworkProjectConfigAsset_get_Global_mDF2DFB5DF54C65AA56B3F097A33612B332E1A20A(NULL);
 		NullCheck(L_0);
@@ -12023,7 +12023,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MatchmakingArguments_tECD4BD501416C62E7D791C0
 		NullCheck(L_2);
 		int32_t L_3 = L_2->___PlayerCount;
 		(&___0_arguments)->___MaxPlayers = L_3;
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2805>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2805>
 		AppSettings_t75C7F582CE415602B67A6136209B727294F7A247** L_4 = (AppSettings_t75C7F582CE415602B67A6136209B727294F7A247**)(&(&___0_arguments)->___PhotonSettings);
 		V_0 = L_4;
 		AppSettings_t75C7F582CE415602B67A6136209B727294F7A247** L_5 = V_0;
@@ -12045,8 +12045,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MatchmakingArguments_tECD4BD501416C62E7D791C0
 
 IL_003f:
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2806>
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2807>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2806>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2807>
 		MatchmakingArguments_tECD4BD501416C62E7D791C0DD0B8E6CDD52566A5 L_10 = ___0_arguments;
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_11 = L_10.___NetworkClient;
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_12 = L_11;
@@ -12075,12 +12075,12 @@ IL_0051:
 		L_16 = RealtimeClientExtensions_SetupForFusion_m9B077898FF397AEFB1E919C04F5FF138611FB0D7(G_B4_0, ((FusionAppSettings_tF99BB8CD0463E8C3C572E6493D188184EDB39423*)IsInstClass((RuntimeObject*)L_15, FusionAppSettings_tF99BB8CD0463E8C3C572E6493D188184EDB39423_il2cpp_TypeInfo_var)), NULL);
 		G_B4_1->___NetworkClient = L_16;
 		Il2CppCodeGenWriteBarrier((void**)(&G_B4_1->___NetworkClient), (void*)L_16);
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2809>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2809>
 		MatchmakingArguments_tECD4BD501416C62E7D791C0DD0B8E6CDD52566A5 L_17 = ___0_arguments;
 		return L_17;
 	}
 }
-// Method Definition Index: 94680
+// Method Definition Index: 94652
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* MatchmakingArgumentsExtensions_BuildRealtimeClient_mD3EFC833272772F44EA95C0272252A7B610855BE (FusionAppSettings_tF99BB8CD0463E8C3C572E6493D188184EDB39423* ___0_config, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12095,7 +12095,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE83
 	FusionAppSettings_tF99BB8CD0463E8C3C572E6493D188184EDB39423* G_B1_0 = NULL;
 	RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* G_B1_1 = NULL;
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2816>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:2816>
 		RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB* L_0 = (RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB*)il2cpp_codegen_object_new(RealtimeClient_tE413900DE2D5DD1EAAD4DE007DE833877D1934DB_il2cpp_TypeInfo_var);
 		RealtimeClient__ctor_m36BD63C07CCCB9AD075BDCCF93319892C2ECA171(L_0, 0, NULL);
 		FusionAppSettings_tF99BB8CD0463E8C3C572E6493D188184EDB39423* L_1 = ___0_config;
@@ -12161,7 +12161,7 @@ IL_0015:
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-// Method Definition Index: 58706
+// Method Definition Index: 58698
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool NetworkTransform_get_HasForecastEnabled_mE63DA2E617FA502A0FAFA55753FD303FDD144435_inline (NetworkTransform_tBD10DF8A12E3AFF3F8838F6A4A17FD29CFA84454* __this, const RuntimeMethod* method) 
 {
 	NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* G_B3_0 = NULL;
@@ -12218,16 +12218,16 @@ IL_0027:
 		return (bool)G_B6_0;
 	}
 }
-// Method Definition Index: 94464
+// Method Definition Index: 94436
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* FusionStatisticsPage_get_Runner_m2496DB46A71971AE34D3E8C7105A8FF7D934D9A3_inline (FusionStatisticsPage_t0553A8AD1CE5215E3ADC0D667551D658382DDF8D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:3434>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:3434>
 		NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* L_0 = __this->___U3CRunnerU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 116825
+// Method Definition Index: 116795
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR ButtonClickedEvent_t8EA72E90B3BD1392FB3B3EF167D5121C23569E4C* Button_get_onClick_m701712A7F7F000CC80D517C4510697E15722C35C_inline (Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12236,7 +12236,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR ButtonClickedEvent_t8EA72E90B3BD1
 		return L_0;
 	}
 }
-// Method Definition Index: 70332
+// Method Definition Index: 70308
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F Color_get_cyan_m182A29E7475C0A98ACC03E1CF5252BAB83F0BA31_inline (const RuntimeMethod* method) 
 {
 	{
@@ -12246,7 +12246,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED02
 		return L_0;
 	}
 }
-// Method Definition Index: 70337
+// Method Definition Index: 70313
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F Color_get_magenta_mE31C432891E0B3D23C8FB03CB3A38A60E7F52A9A_inline (const RuntimeMethod* method) 
 {
 	{
@@ -12256,7 +12256,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED02
 		return L_0;
 	}
 }
-// Method Definition Index: 70340
+// Method Definition Index: 70316
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F Color_get_yellow_m66637FA14383E8D74F24AE256B577CE1D55D469F_inline (const RuntimeMethod* method) 
 {
 	{
@@ -12266,7 +12266,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED02
 		return L_0;
 	}
 }
-// Method Definition Index: 70336
+// Method Definition Index: 70312
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F Color_get_green_mEB001F2CD8C68C6BBAEF9101990B779D3AA2A6EF_inline (const RuntimeMethod* method) 
 {
 	{
@@ -12276,7 +12276,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED02
 		return L_0;
 	}
 }
-// Method Definition Index: 70491
+// Method Definition Index: 70467
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Vector3_get_magnitude_mF0D6017E90B345F1F52D1CC564C640F1A847AF2D_inline (Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12298,16 +12298,16 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Vector3_get_magnitude_mF0D6
 		return ((float)L_6);
 	}
 }
-// Method Definition Index: 94460
+// Method Definition Index: 94432
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* FusionStatisticsPage_get_StatisticsManager_m97706FDC78F7F46CCBEA00788B4E29374B1D4AEF_inline (FusionStatisticsPage_t0553A8AD1CE5215E3ADC0D667551D658382DDF8D* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:3432>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:3432>
 		FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* L_0 = __this->___U3CStatisticsManagerU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 62575
+// Method Definition Index: 62567
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool FusionStatisticsManager_IsObjectMonitored_m9E88644A4D54BB48A742704D5BF4C0BE52B90FEC_inline (FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* __this, NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 ___0_id, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12325,7 +12325,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool FusionStatisticsManager_IsOb
 		return L_2;
 	}
 }
-// Method Definition Index: 94498
+// Method Definition Index: 94470
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Canvas_t2DB4CEFDFF732884866C83F11ABF75F5AE8FFB26* FusionStatistics_get_GlobalStatisticsCanvas_mF6D3F04BB738C2CDECAEF980F03BB3AE07A96B66_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12335,12 +12335,12 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Canvas_t2DB4CEFDFF732884866C83F11
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:18>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:18>
 		Canvas_t2DB4CEFDFF732884866C83F11ABF75F5AE8FFB26* L_0 = ((FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_il2cpp_TypeInfo_var))->___U3CGlobalStatisticsCanvasU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 60043
+// Method Definition Index: 60035
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkId_t55BD78F35465C7B51581907AC1DB01F8568237F2 NetworkObject_get_Id_m3A2FB6E53BA3ACA5D9D531213A7CD61A25D776D8_inline (NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12386,7 +12386,7 @@ IL_0026:
 		return G_B3_0;
 	}
 }
-// Method Definition Index: 62563
+// Method Definition Index: 62555
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkObjectStatisticsSnapshot_tAD7320ACE44DBF152307F1D9116462C9E3686FC8* FusionStatisticsManager_get_ObjectSnapshot_mBDA64F1070DE729395E7FD1C20D910720E4A7692_inline (FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12394,7 +12394,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkObjectStatisticsSnapshot_t
 		return L_0;
 	}
 }
-// Method Definition Index: 62562
+// Method Definition Index: 62554
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatisticsSnapshot_t806F9D754C35E442DC0D8A9DFF2DF420D9C93CA7* FusionStatisticsManager_get_SimulationSnapshot_m4207A69414E88DC0873D7DC863D06971809A8F44_inline (FusionStatisticsManager_t95B38BA6264D1CEA70E7B8D4652DFF217F46ADE8* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12402,7 +12402,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatisticsSnapshot_t806F9D7
 		return L_0;
 	}
 }
-// Method Definition Index: 94572
+// Method Definition Index: 94544
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_ActiveRoot_mF56561D761342C0F32D58D51CA9C959FF08A7F57_inline (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12412,7 +12412,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_Act
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:9>
 		FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* L_0 = ___0_value;
 		il2cpp_codegen_runtime_class_init_inline(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var);
 		((FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544_il2cpp_TypeInfo_var))->___U3CActiveRootU3Ek__BackingField = L_0;
@@ -12420,7 +12420,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void FusionStatisticsRoot_set_Act
 		return;
 	}
 }
-// Method Definition Index: 58630
+// Method Definition Index: 58622
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* SimulationBehaviour_get_Runner_m8D7107E8BE26590918B009087E49A2AB7B6432E3_inline (SimulationBehaviour_t39725B66BC703470FBE62B427C25F58B3B7054F0* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12428,16 +12428,16 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkRunner_tEB731E5822AE5C5847
 		return L_0;
 	}
 }
-// Method Definition Index: 94505
+// Method Definition Index: 94477
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR List_1_tD10DC5D4F97EEB381ACE87859927E0A4D3C985B3* FusionStatistics_get_Pages_mDF7F8D80D158169527D3B229C699E5B11ABD8A6D_inline (FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:34>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:34>
 		List_1_tD10DC5D4F97EEB381ACE87859927E0A4D3C985B3* L_0 = __this->____pages;
 		return L_0;
 	}
 }
-// Method Definition Index: 116986
+// Method Definition Index: 116956
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void OptionData_set_text_mA6022A455FC38025B0CA97B4E3629DA10FDE259E_inline (OptionData_t68DC820D58A3ABBAE844326B15A7F14D48FAE55F* __this, String_t* ___0_value, const RuntimeMethod* method) 
 {
 	{
@@ -12449,7 +12449,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void OptionData_set_text_mA6022A4
 		return;
 	}
 }
-// Method Definition Index: 116936
+// Method Definition Index: 116906
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR DropdownEvent_t8A008B010A742724CFC93576D6976E474BB13059* Dropdown_get_onValueChanged_mAC49CE9A83E258FEC024662127057567275CAC12_inline (Dropdown_t54C0BDC1441E058BE37E796F68886671C270EF89* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12458,7 +12458,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR DropdownEvent_t8A008B010A742724CF
 		return L_0;
 	}
 }
-// Method Definition Index: 70677
+// Method Definition Index: 70653
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_get_left_m851D1A435131CE336F60115E19FC8C21480284BC_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12472,7 +12472,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2D
 		return L_0;
 	}
 }
-// Method Definition Index: 70678
+// Method Definition Index: 70654
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_get_right_m99043ED6B3D5AEA5033313FE3DA9571F39D1B280_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12486,7 +12486,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2D
 		return L_0;
 	}
 }
-// Method Definition Index: 68745
+// Method Definition Index: 68735
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Rect_get_width_m620D67551372073C9C32C4C4624C2A5713F7F9A9_inline (Rect_tA04E0F8A1830E767F40FB27ECD8D309303571F0D* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12494,7 +12494,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Rect_get_width_m620D6755137
 		return L_0;
 	}
 }
-// Method Definition Index: 70666
+// Method Definition Index: 70642
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_op_Multiply_m2D984B613020089BF5165BA4CA10988E2DC771FE_inline (Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___0_a, float ___1_d, const RuntimeMethod* method) 
 {
 	Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 V_0;
@@ -12513,7 +12513,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2D
 		return L_6;
 	}
 }
-// Method Definition Index: 70661
+// Method Definition Index: 70637
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_op_Addition_m8136742CE6EE33BA4EB81C5F584678455917D2AE_inline (Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___0_a, Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___1_b, const RuntimeMethod* method) 
 {
 	Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 V_0;
@@ -12534,7 +12534,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2D
 		return L_8;
 	}
 }
-// Method Definition Index: 70557
+// Method Definition Index: 70533
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Quaternion_tDA59F214EF07D7700B26E40E562F267AF7306974 Quaternion_Euler_m9262AB29E3E9CE94EF71051F38A28E82AEC73F90_inline (float ___0_x, float ___1_y, float ___2_z, const RuntimeMethod* method) 
 {
 	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 V_0;
@@ -12552,7 +12552,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Quaternion_tDA59F214EF07D7700B26E
 		return L_3;
 	}
 }
-// Method Definition Index: 70498
+// Method Definition Index: 70474
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 Vector3_get_zero_m0C1249C3F25B1C70EAD3CC8B31259975A457AE39_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12566,7 +12566,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector3_t24C512C7B96BBABAD472002D
 		return L_0;
 	}
 }
-// Method Definition Index: 70671
+// Method Definition Index: 70647
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_op_Implicit_mE8EBEE9291F11BB02F062D6E000F4798968CBD96_inline (Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___0_v, const RuntimeMethod* method) 
 {
 	Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 V_0;
@@ -12583,16 +12583,16 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2D
 		return L_4;
 	}
 }
-// Method Definition Index: 94573
+// Method Definition Index: 94545
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* FusionStatisticsRoot_get_Statistics_m4750390A6347D89D81D72847CE52C1D17DB0975E_inline (FusionStatisticsRoot_t2E330A6C02A83E492862357D87CFD1A7F547E544* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:20>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatisticsRoot.cs:20>
 		FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8* L_0 = __this->____statistics;
 		return L_0;
 	}
 }
-// Method Definition Index: 70643
+// Method Definition Index: 70619
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 Vector2_Lerp_m1A36103F7967F653A929556E26E6D052C298C00C_inline (Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___0_a, Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 ___1_b, float ___2_t, const RuntimeMethod* method) 
 {
 	Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 V_0;
@@ -12631,7 +12631,7 @@ IL_0047:
 		return L_17;
 	}
 }
-// Method Definition Index: 62596
+// Method Definition Index: 62588
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_AdvanceBufferTime_m8EC1AE774167323092C54BF42018A99604DAFECE_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12639,7 +12639,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62594
+// Method Definition Index: 62586
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_UpdateBufferTime_m8E2613345AB3917FDCB323CFC52D8FCAEFB8213F_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12647,7 +12647,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62588
+// Method Definition Index: 62580
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_AddOnBufferTime_m23E5A156A91C6334C1DE8E5412B1C19901ADF97F_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12655,7 +12655,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62598
+// Method Definition Index: 62590
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_RefitBVHTime_mF4F19B3C07F77252CB7E4C9FD447D4C315882637_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12663,7 +12663,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62592
+// Method Definition Index: 62584
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_UpdateBVHTime_m9996193E60220E880FE849F0D97FC2C4B76028A1_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12671,7 +12671,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62590
+// Method Definition Index: 62582
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsSnapshot_get_AddOnBVHTime_m37D92D36670CCF4346CC959D2C7798E6E9902AA9_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12679,7 +12679,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR double LagCompensationStatisticsS
 		return L_0;
 	}
 }
-// Method Definition Index: 62586
+// Method Definition Index: 62578
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t LagCompensationStatisticsSnapshot_get_HitboxesCount_mB8EC2F32CE2CD7F052A6EDB5A512C237AEEEA161_inline (LagCompensationStatisticsSnapshot_tD5D7D333CB56F7377DFE834DFC57001BD483A3F3* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12687,7 +12687,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t LagCompensationStatistics
 		return L_0;
 	}
 }
-// Method Definition Index: 60641
+// Method Definition Index: 60633
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkProjectConfig_t0D1807A7DE80BB18A606CEF45A35BFA1C29D8BBF* NetworkRunner_get_Config_mD7D0F65C494EB1B08A7DC8A9F6C016588006BD0E_inline (NetworkRunner_tEB731E5822AE5C584747D8D3BDA75386725AC12A* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12695,7 +12695,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkProjectConfig_t0D1807A7DE8
 		return L_0;
 	}
 }
-// Method Definition Index: 94502
+// Method Definition Index: 94474
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t FusionStatistics_get_EstimateFusionAfterUpdatesPerSecond_m1CF50A2C86DA2E83C9AF2398EA252FD4BEFED18A_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12705,12 +12705,12 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t FusionStatistics_get_Esti
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:26>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:26>
 		int32_t L_0 = ((FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_il2cpp_TypeInfo_var))->___U3CEstimateFusionAfterUpdatesPerSecondU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 94500
+// Method Definition Index: 94472
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatisticsConfig_tE789913CB02F9839DD21C10F045F4CFF0E5376A0* FusionStatistics_get_Config_mFAE631706F38DDAE0B1CF0B1D01E6C67E26A811D_inline (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12720,21 +12720,21 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR FusionStatisticsConfig_tE789913CB
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:22>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/FusionStatistics.cs:22>
 		FusionStatisticsConfig_tE789913CB02F9839DD21C10F045F4CFF0E5376A0* L_0 = ((FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_StaticFields*)il2cpp_codegen_static_fields_for(FusionStatistics_tB54FF27EC993CCE8B3E0C4C22C163561AFA00FF8_il2cpp_TypeInfo_var))->___U3CConfigU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 94474
+// Method Definition Index: 94446
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float StatAccumulator_get_LastTimeStamp_m0EB517242FE3786ED2B1D37084F9B7487FD7A6D8_inline (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4033>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4033>
 		float L_0 = __this->____lastTimeStamp;
 		return L_0;
 	}
 }
-// Method Definition Index: 70625
+// Method Definition Index: 70601
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool Mathf_Approximately_m1DADD012A8FC82E11FB282501AE2EBBF9A77150B_inline (float ___0_a, float ___1_b, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -12770,20 +12770,20 @@ IL_0035:
 		return L_10;
 	}
 }
-// Method Definition Index: 94471
+// Method Definition Index: 94443
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float StatAccumulator_get_Value_m9C8C4A73D234E3755AB4779F19388BB5E78E3A9D_inline (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4024>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4024>
 		float L_0 = __this->___U3CValueU3Ek__BackingField;
 		return L_0;
 	}
 }
-// Method Definition Index: 94473
+// Method Definition Index: 94445
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float StatAccumulator_get_ValuePerSecond_mE0A1610DBBB55A08E65F91914A3F25E7899ACACC_inline (StatAccumulator_t59BD8FDD67C25DB66B8D6AB33B6D0EA5BD0D9264* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4028>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Fusion.Unity.cs:4028>
 		float L_0 = __this->____completedSecondSum;
 		return L_0;
 	}
@@ -12796,25 +12796,25 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t String_get_Length_m42625D
 		return L_0;
 	}
 }
-// Method Definition Index: 94636
+// Method Definition Index: 94608
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float MultilineGraphData_get_MaxValue_mC65416BE20536E568754DFE87D2ABAC523595171_inline (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:298>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:298>
 		float L_0 = __this->____maxValue;
 		return L_0;
 	}
 }
-// Method Definition Index: 94635
+// Method Definition Index: 94607
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float MultilineGraphData_get_MinValue_m7801A7573BCCB342035E7A9DBFD284CF8F72888C_inline (MultilineGraphData_tCD9E8EB2207B0D87D3CF6C6808029540D79A148B* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:D:/UnityProjects/ThermalMotion/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:293>
+		//<source_info:C:/Users/Daniel/Documents/ThermalGameDemo/Assets/Photon/Fusion/Runtime/Statistics/Scripts/MultilineGraph.cs:293>
 		float L_0 = __this->____minValue;
 		return L_0;
 	}
 }
-// Method Definition Index: 70329
+// Method Definition Index: 70305
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED0260B9591F440C1F Color_get_black_mB50217951591A045844C61E7FF31EEE3FEF16737_inline (const RuntimeMethod* method) 
 {
 	{
@@ -12824,7 +12824,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Color_tD001788D726C3A7F1379BEED02
 		return L_0;
 	}
 }
-// Method Definition Index: 70599
+// Method Definition Index: 70575
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t Mathf_Min_m888083F74FF5655778F0403BB5E9608BEFDEA8CB_inline (int32_t ___0_a, int32_t ___1_b, const RuntimeMethod* method) 
 {
 	int32_t V_0 = 0;
@@ -12861,7 +12861,7 @@ IL_000c:
 		return L_4;
 	}
 }
-// Method Definition Index: 2490
+// Method Definition Index: 2483
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool Single_IsNaN_mFE637F6ECA9F7697CE8EFF56427858F4C5EDF75D_inline (float ___0_f, const RuntimeMethod* method) 
 {
 	{
@@ -12871,7 +12871,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool Single_IsNaN_mFE637F6ECA9F76
 		return (bool)((((int32_t)((int32_t)(L_1&((int32_t)2147483647LL)))) > ((int32_t)((int32_t)2139095040)))? 1 : 0);
 	}
 }
-// Method Definition Index: 2489
+// Method Definition Index: 2482
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool Single_IsInfinity_m8D101DE5C104130734F6DCA3E6E86345B064E4AD_inline (float ___0_f, const RuntimeMethod* method) 
 {
 	{
@@ -12881,7 +12881,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool Single_IsInfinity_m8D101DE5C
 		return (bool)((((int32_t)((int32_t)(L_1&((int32_t)2147483647LL)))) == ((int32_t)((int32_t)2139095040)))? 1 : 0);
 	}
 }
-// Method Definition Index: 70619
+// Method Definition Index: 70595
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Mathf_Clamp01_mA7E048DBDA832D399A581BE4D6DED9FA44CE0F14_inline (float ___0_value, const RuntimeMethod* method) 
 {
 	bool V_0 = false;
@@ -12929,7 +12929,7 @@ IL_002d:
 		return L_5;
 	}
 }
-// Method Definition Index: 11882
+// Method Definition Index: 11874
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void List_1_Add_mEBCF994CC3814631017F46A387B1A192ED6C85C7_gshared_inline (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* __this, RuntimeObject* ___0_item, const RuntimeMethod* method) 
 {
 	ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* V_0 = NULL;
@@ -12967,7 +12967,7 @@ IL_0034:
 		return;
 	}
 }
-// Method Definition Index: 11935
+// Method Definition Index: 11927
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Current_m6330F15D18EE4F547C05DF9BF83C5EB710376027_gshared_inline (Enumerator_t9473BAB568A27E2339D48C1F91319E0F6D244D7A* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12975,7 +12975,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Cur
 		return L_0;
 	}
 }
-// Method Definition Index: 11871
+// Method Definition Index: 11863
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t List_1_get_Count_m4407E4C389F22B8CEC282C15D56516658746C383_gshared_inline (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* __this, const RuntimeMethod* method) 
 {
 	{
@@ -12989,7 +12989,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Action_1_Invoke_m69C8773D696
 	typedef void (*FunctionPointerType) (RuntimeObject*, bool, const RuntimeMethod*);
 	((FunctionPointerType)__this->___invoke_impl)((Il2CppObject*)__this->___method_code, ___0_obj, reinterpret_cast<RuntimeMethod*>(__this->___method));
 }
-// Method Definition Index: 70302
+// Method Definition Index: 70278
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Color__ctor_m3786F0D6E510D9CFA544523A955870BD2A514C8C_inline (Color_tD001788D726C3A7F1379BEED0260B9591F440C1F* __this, float ___0_r, float ___1_g, float ___2_b, float ___3_a, const RuntimeMethod* method) 
 {
 	{
@@ -13004,7 +13004,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Color__ctor_m3786F0D6E510D9C
 		return;
 	}
 }
-// Method Definition Index: 60042
+// Method Definition Index: 60034
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR Span_1_t3C5DB525B005B1AC5A1F3BDD528900C5C7C7D316 NetworkObject_get_RawWords_m8AAFD021E7051C036585B6898828149AC2DA0D9D_inline (NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -13048,7 +13048,7 @@ IL_002b:
 		return G_B3_0;
 	}
 }
-// Method Definition Index: 60041
+// Method Definition Index: 60033
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkObjectHeader_t219E9872D689BE1D6AA04171F8FADE785745B413* NetworkObject_get_Header_m9561A34E8B70ABC171407DB9B3735420488A9141_inline (NetworkObject_t6AA3B74338F725B9B1C05D73EBC12AF9E9CC0E5C* __this, const RuntimeMethod* method) 
 {
 	{
@@ -13056,7 +13056,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR NetworkObjectHeader_t219E9872D689
 		return (NetworkObjectHeader_t219E9872D689BE1D6AA04171F8FADE785745B413*)(L_0);
 	}
 }
-// Method Definition Index: 70601
+// Method Definition Index: 70577
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR float Mathf_Max_mF5379E63D2BBAC76D090748695D833934F8AD051_inline (float ___0_a, float ___1_b, const RuntimeMethod* method) 
 {
 	float V_0 = 0.0f;
@@ -13101,7 +13101,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t BitConverter_SingleToInt3
 		return L_0;
 	}
 }
-// Method Definition Index: 2529
+// Method Definition Index: 2522
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR void Span_1__ctor_m31EE4A5510B5C504DB26DB281BC7D4179B859F2B_gshared_inline (Span_1_t3C5DB525B005B1AC5A1F3BDD528900C5C7C7D316* __this, void* ___0_pointer, int32_t ___1_length, const RuntimeMethod* method) 
 {
 	{

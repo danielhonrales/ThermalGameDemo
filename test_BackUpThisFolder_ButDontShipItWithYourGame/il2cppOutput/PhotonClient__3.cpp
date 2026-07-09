@@ -720,7 +720,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RuntimeHelpers_InitializeArray_m751372AA
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 122396
+// Method Definition Index: 122366
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Type_t* StructWrapperUtility_GetWrappedType_mF741A8AE9B62C6769AC0264AA0B1089A0B13B5D2 (RuntimeObject* ___0_obj, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -767,7 +767,7 @@ IL_0022:
 		return L_7;
 	}
 }
-// Method Definition Index: 122399
+// Method Definition Index: 122369
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR StructWrapper_1_t1940100CE714E71A2F9C43BEAB97BF69F8846A21* StructWrapperUtility_Wrap_m6CD64975B3BDDE0DEC0CAC3B3E22947866C4F31B (uint8_t ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -794,7 +794,7 @@ IL_000b:
 		return L_4;
 	}
 }
-// Method Definition Index: 122400
+// Method Definition Index: 122370
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR StructWrapper_1_tA407391C1F68B2B192CA7ABC0B5D3C7A8383A354* StructWrapperUtility_Wrap_mD8FF3B4E5A30A52AA86922EB635BB308B04C54E3 (bool ___0_value, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -846,7 +846,7 @@ IL_0011:
 		return L_4;
 	}
 }
-// Method Definition Index: 122403
+// Method Definition Index: 122373
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* StructWrapperUtility_ReleaseAllWrappers_m2AC277EAE322FB39EFDDFCD056987E8B88C6C2D1 (List_1_tA239CB83DE5615F348BB0507E45F490F4F7C9A8D* ___0_collection, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -946,7 +946,7 @@ IL_004c:
 		return L_9;
 	}
 }
-// Method Definition Index: 122404
+// Method Definition Index: 122374
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* StructWrapperUtility_ReleaseAllWrappers_m82173AE7964405D9D6EBB718CEDE981487A4AB24 (ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* ___0_collection, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1025,7 +1025,7 @@ IL_0037:
 		return L_13;
 	}
 }
-// Method Definition Index: 122405
+// Method Definition Index: 122375
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* StructWrapperUtility_ReleaseAllWrappers_mCE530E1C9E1BC0BD9B7DB61512B6FC1ADAEC327C (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___0_table, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1129,7 +1129,7 @@ IL_0051:
 		return L_10;
 	}
 }
-// Method Definition Index: 122406
+// Method Definition Index: 122376
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void StructWrapperUtility_BoxAll_m3C1D6E668C742052E9271DF0280B46E5DFC0F603 (PhotonHashtable_tBB50D1A3046A14352AE8802906DD77E6DCE90C58* ___0_table, bool ___1_recursive, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1267,7 +1267,7 @@ IL_0073:
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 122416
+// Method Definition Index: 122386
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__ctor_m1D17AF2D909659D6F1B2FCA16F86FEFFA5AC2EA5 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1296,7 +1296,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__ctor_m1D17A
 		return;
 	}
 }
-// Method Definition Index: 122417
+// Method Definition Index: 122387
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__ctor_m3DA4D4F597E6146634F866783CE9B99E4E78BB25 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_cryptoKey, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1326,7 +1326,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__ctor_m3DA4D
 		return;
 	}
 }
-// Method Definition Index: 122418
+// Method Definition Index: 122388
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool DiffieHellmanCryptoProvider_get_IsInitialized_m7116809CC5282A15A881E21470B1C70E138F39D5 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, const RuntimeMethod* method) 
 {
 	bool V_0 = false;
@@ -1342,7 +1342,7 @@ IL_000d:
 		return L_1;
 	}
 }
-// Method Definition Index: 122419
+// Method Definition Index: 122389
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_get_PublicKey_mD218FC5D389CF4E1DD8DAB76B73C7552B749445C (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1372,7 +1372,7 @@ IL_0018:
 		return L_3;
 	}
 }
-// Method Definition Index: 122420
+// Method Definition Index: 122390
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider_DeriveSharedKey_mAD759617616DC01F57D63E546F4FF6BDCA591DA7 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_otherPartyPublicKey, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1474,7 +1474,7 @@ IL_004f:
 		return;
 	}
 }
-// Method Definition Index: 122421
+// Method Definition Index: 122391
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_PhotonBigIntArrayToMsBigIntArray_m393C5E73AE9C53027CA0357B6E0FAAC89852E1F7 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_array, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1530,7 +1530,7 @@ IL_0041:
 		return L_13;
 	}
 }
-// Method Definition Index: 122422
+// Method Definition Index: 122392
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_MsBigIntArrayToPhotonBigIntArray_m679C2703EB7C8ACC4CF5367EECDCE446D5605492 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_array, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1584,7 +1584,7 @@ IL_0035:
 		return L_12;
 	}
 }
-// Method Definition Index: 122423
+// Method Definition Index: 122393
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_Encrypt_mA913EB1AD8FD14E3378A5E527EB14DB05571018B (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_data, const RuntimeMethod* method) 
 {
 	ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* V_0 = NULL;
@@ -1604,7 +1604,7 @@ IL_000f:
 		return L_3;
 	}
 }
-// Method Definition Index: 122424
+// Method Definition Index: 122394
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_Encrypt_mACA1249C55FA3952B4CE042E3DB1B2CBDDEA6DAF (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_data, int32_t ___1_offset, int32_t ___2_count, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1672,7 +1672,7 @@ IL_0025:
 		return L_9;
 	}
 }
-// Method Definition Index: 122425
+// Method Definition Index: 122395
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_Decrypt_m464C3EE5A44ADBEFC4312058C0E80865A10C5819 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_data, const RuntimeMethod* method) 
 {
 	ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* V_0 = NULL;
@@ -1692,7 +1692,7 @@ IL_000f:
 		return L_3;
 	}
 }
-// Method Definition Index: 122426
+// Method Definition Index: 122396
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* DiffieHellmanCryptoProvider_Decrypt_m85F22AADC3418DA4007A342B706F1775567A7762 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031* ___0_data, int32_t ___1_offset, int32_t ___2_count, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1760,7 +1760,7 @@ IL_0025:
 		return L_9;
 	}
 }
-// Method Definition Index: 122427
+// Method Definition Index: 122397
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider_Dispose_m44B22CFF4539841BBC0C11EB27A0442B8E939BA2 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1776,7 +1776,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider_Dispose_m44B
 		return;
 	}
 }
-// Method Definition Index: 122428
+// Method Definition Index: 122398
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider_Dispose_mA0178DD003B4E949E78AEC7F4C0A860F20668D31 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, bool ___0_disposing, const RuntimeMethod* method) 
 {
 	bool V_0 = false;
@@ -1798,7 +1798,7 @@ IL_000c:
 		return;
 	}
 }
-// Method Definition Index: 122429
+// Method Definition Index: 122399
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR BigInteger_tF7779A0AA6D6B9BE0E0C1C293E7708765DEF7D0F DiffieHellmanCryptoProvider_CalculatePublicKey_mC94D4BAAB916EBF7D5DE96FB554A4414FE5B91BC (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1828,7 +1828,7 @@ IL_001a:
 		return L_4;
 	}
 }
-// Method Definition Index: 122430
+// Method Definition Index: 122400
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR BigInteger_tF7779A0AA6D6B9BE0E0C1C293E7708765DEF7D0F DiffieHellmanCryptoProvider_CalculateSharedKey_m87F1021D36BE71C9FD5D88DFD060198CCFF1C049 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, BigInteger_tF7779A0AA6D6B9BE0E0C1C293E7708765DEF7D0F ___0_otherPartyPublicKey, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1856,7 +1856,7 @@ IL_0016:
 		return L_4;
 	}
 }
-// Method Definition Index: 122431
+// Method Definition Index: 122401
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR BigInteger_tF7779A0AA6D6B9BE0E0C1C293E7708765DEF7D0F DiffieHellmanCryptoProvider_GenerateRandomSecret_m009AD79162C29E3C1980E3F966CF734226104116 (DiffieHellmanCryptoProvider_tEA3C95C165DD7742F3A5EAC8BBF3F09042A7E9FF* __this, int32_t ___0_secretLength, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1941,7 +1941,7 @@ IL_004f:
 		return L_15;
 	}
 }
-// Method Definition Index: 122432
+// Method Definition Index: 122402
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__cctor_m96FB112C5A03786FA3BDDEE36DCC70CC9CA46003 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1970,7 +1970,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DiffieHellmanCryptoProvider__cctor_m96FB
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 122447
+// Method Definition Index: 122417
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OakleyGroups__cctor_m934641B8494700D26A4592E1AA7D2A12183F30A4 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -2057,7 +2057,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OakleyGroups__cctor_m934641B8494700D26A4
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-// Method Definition Index: 11935
+// Method Definition Index: 11927
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Current_m6330F15D18EE4F547C05DF9BF83C5EB710376027_gshared_inline (Enumerator_t9473BAB568A27E2339D48C1F91319E0F6D244D7A* __this, const RuntimeMethod* method) 
 {
 	{
@@ -2065,7 +2065,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Cur
 		return L_0;
 	}
 }
-// Method Definition Index: 11822
+// Method Definition Index: 11814
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR RuntimeObject* Enumerator_get_Current_mB407E755F3B4C51C54D24338D00A352E5B16E7F3_gshared_inline (Enumerator_t44124D16E0B2F7308FF4069BE06369B5A83896EB* __this, const RuntimeMethod* method) 
 {
 	{
