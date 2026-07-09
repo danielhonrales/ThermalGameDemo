@@ -20,6 +20,13 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# Unity player/build byproducts
+/*_BackUpThisFolder_ButDontShipItWithYourGame/
+/*_BurstDebugInformation_DoNotShip/
+/BuildProfiles*.apk
+/BuildProfiles_BackUpThisFolder_ButDontShipItWithYourGame/
+/ThermalGameDemo_BurstDebugInformation_DoNotShip/
+
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be committed to version control.
 *.blend1
 *.blend1.meta
@@ -80,6 +87,18 @@ mono_crash.*
 *.unitypackage
 *.unitypackage.meta
 *.app
+
+# Third-party/demo art packs are external prerequisites; see docs/EXTERNAL_ASSETS.md.
+/[Aa]ssets/Autarca/
+/[Aa]ssets/Autarca.meta
+/[Aa]ssets/GabrielAguiarProductions/
+/[Aa]ssets/GabrielAguiarProductions.meta
+/[Aa]ssets/Hovl Studio/
+/[Aa]ssets/Hovl Studio.meta
+/[Aa]ssets/Tomerinio/
+/[Aa]ssets/Tomerinio.meta
+/[Aa]ssets/UnityTechnologies/
+/[Aa]ssets/UnityTechnologies.meta
 
 # Crashlytics generated file
 crashlytics-build.properties
