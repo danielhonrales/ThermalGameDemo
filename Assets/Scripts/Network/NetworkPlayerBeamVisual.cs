@@ -6,16 +6,23 @@ using UnityEngine;
 public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
 {
     [SerializeField] private bool showLocalNetworkBeam = false;
+    [SerializeField] private bool showSimpleLineRenderer;
     [SerializeField, Min(0.001f)] private float lineWidth = 0.025f;
     [SerializeField] private bool useThermalEffects = true;
 
     [Networked] private NetworkBool BeamVisible { get; set; }
     [Networked] private Vector3 BeamStart { get; set; }
     [Networked] private Vector3 BeamEnd { get; set; }
+    [Networked] private Vector3 BeamMountPosition { get; set; }
+    [Networked] private Quaternion BeamMountRotation { get; set; }
+    [Networked] private NetworkBool BeamHitSomething { get; set; }
+    [Networked] private Vector3 BeamHitPoint { get; set; }
     [Networked] private Vector4 BeamColor { get; set; }
     [Networked] private NetworkBool ChargeVisible { get; set; }
     [Networked] private Vector3 ChargePosition { get; set; }
+    [Networked] private Quaternion ChargeRotation { get; set; }
     [Networked] private Vector4 ChargeColor { get; set; }
+    [Networked] private float ChargeProgress { get; set; }
 
     private LineRenderer beamLine;
     private ThermalBeamEffects thermalEffects;
@@ -33,14 +40,14 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
         EnsureLineRenderer();
 
         bool visible = BeamVisible && (!IsLocalPlayer || showLocalNetworkBeam);
-        beamLine.enabled = visible;
+        beamLine.enabled = visible && showSimpleLineRenderer;
         if (!visible)
         {
             bool showRemoteCharge = ChargeVisible && !IsLocalPlayer;
             if (thermalEffects != null && showRemoteCharge)
             {
                 Color chargeColor = new Color(ChargeColor.x, ChargeColor.y, ChargeColor.z, ChargeColor.w);
-                thermalEffects.ShowCharge(ChargePosition, chargeColor);
+                thermalEffects.ShowCharge(ChargePosition, chargeColor, ChargeProgress, ChargePosition, ChargeRotation);
             }
             else if (thermalEffects != null)
             {
@@ -58,39 +65,54 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
 
         if (thermalEffects != null)
         {
-            thermalEffects.ShowBeam(BeamStart, BeamEnd, color, false);
+            thermalEffects.ShowBeam(BeamStart, BeamEnd, color, BeamHitSomething, BeamHitPoint, BeamMountPosition, BeamMountRotation);
         }
     }
 
     public void SubmitBeam(Vector3 start, Vector3 end, Color color)
     {
-        Vector4 colorVector = new Vector4(color.r, color.g, color.b, color.a);
-
-        if (Object != null && Object.HasStateAuthority)
-        {
-            SetBeam(start, end, colorVector, true);
-            return;
-        }
-
-        if (Object != null)
-        {
-            RPC_SubmitBeam(start, end, colorVector, true);
-        }
+        SubmitBeam(start, end, color, false, end, start, Quaternion.LookRotation((end - start).sqrMagnitude > 0.0001f ? (end - start).normalized : Vector3.forward, Vector3.up));
     }
 
-    public void SubmitCharge(Vector3 position, Color color)
+    public void SubmitBeam(Vector3 start, Vector3 end, Color color, Vector3 mountPosition, Quaternion mountRotation)
+    {
+        SubmitBeam(start, end, color, false, end, mountPosition, mountRotation);
+    }
+
+    public void SubmitBeam(Vector3 start, Vector3 end, Color color, bool hitSomething, Vector3 hitPoint, Vector3 mountPosition, Quaternion mountRotation)
     {
         Vector4 colorVector = new Vector4(color.r, color.g, color.b, color.a);
 
         if (Object != null && Object.HasStateAuthority)
         {
-            SetCharge(position, colorVector, true);
+            SetBeam(start, end, mountPosition, mountRotation, hitSomething, hitPoint, colorVector, true);
             return;
         }
 
         if (Object != null)
         {
-            RPC_SubmitCharge(position, colorVector, true);
+            RPC_SubmitBeam(start, end, mountPosition, mountRotation, hitSomething, hitPoint, colorVector, true);
+        }
+    }
+
+    public void SubmitCharge(Vector3 position, Color color, float progress)
+    {
+        SubmitCharge(position, Quaternion.identity, color, progress);
+    }
+
+    public void SubmitCharge(Vector3 position, Quaternion rotation, Color color, float progress)
+    {
+        Vector4 colorVector = new Vector4(color.r, color.g, color.b, color.a);
+
+        if (Object != null && Object.HasStateAuthority)
+        {
+            SetCharge(position, rotation, colorVector, progress, true);
+            return;
+        }
+
+        if (Object != null)
+        {
+            RPC_SubmitCharge(position, rotation, colorVector, progress, true);
         }
     }
 
@@ -105,27 +127,31 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
 
         if (Object != null)
         {
-            RPC_SubmitBeam(BeamStart, BeamEnd, BeamColor, false);
-            RPC_SubmitCharge(ChargePosition, ChargeColor, false);
+            RPC_SubmitBeam(BeamStart, BeamEnd, BeamMountPosition, BeamMountRotation, BeamHitSomething, BeamHitPoint, BeamColor, false);
+            RPC_SubmitCharge(ChargePosition, ChargeRotation, ChargeColor, ChargeProgress, false);
         }
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitBeam(Vector3 start, Vector3 end, Vector4 color, NetworkBool visible)
+    private void RPC_SubmitBeam(Vector3 start, Vector3 end, Vector3 mountPosition, Quaternion mountRotation, NetworkBool hitSomething, Vector3 hitPoint, Vector4 color, NetworkBool visible)
     {
-        SetBeam(start, end, color, visible);
+        SetBeam(start, end, mountPosition, mountRotation, hitSomething, hitPoint, color, visible);
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitCharge(Vector3 position, Vector4 color, NetworkBool visible)
+    private void RPC_SubmitCharge(Vector3 position, Quaternion rotation, Vector4 color, float progress, NetworkBool visible)
     {
-        SetCharge(position, color, visible);
+        SetCharge(position, rotation, color, progress, visible);
     }
 
-    private void SetBeam(Vector3 start, Vector3 end, Vector4 color, NetworkBool visible)
+    private void SetBeam(Vector3 start, Vector3 end, Vector3 mountPosition, Quaternion mountRotation, NetworkBool hitSomething, Vector3 hitPoint, Vector4 color, NetworkBool visible)
     {
         BeamStart = start;
         BeamEnd = end;
+        BeamMountPosition = mountPosition;
+        BeamMountRotation = mountRotation;
+        BeamHitSomething = hitSomething;
+        BeamHitPoint = hitPoint;
         BeamColor = color;
         BeamVisible = visible;
         if (visible)
@@ -134,10 +160,12 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
         }
     }
 
-    private void SetCharge(Vector3 position, Vector4 color, NetworkBool visible)
+    private void SetCharge(Vector3 position, Quaternion rotation, Vector4 color, float progress, NetworkBool visible)
     {
         ChargePosition = position;
+        ChargeRotation = rotation;
         ChargeColor = color;
+        ChargeProgress = progress;
         ChargeVisible = visible;
         if (visible)
         {

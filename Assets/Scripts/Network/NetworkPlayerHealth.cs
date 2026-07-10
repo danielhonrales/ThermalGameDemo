@@ -25,14 +25,17 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     [SerializeField] private bool logDamage = true;
 
     [Networked] public int CurrentHealth { get; private set; }
+    [Networked] private NetworkBool ShieldActive { get; set; }
 
     private float nextDamageAllowedTime;
     private Transform healthBarRoot;
     private Transform fillBar;
+    private Renderer backgroundRenderer;
     private Renderer fillRenderer;
 
     public bool IsLocalPlayer => Object != null && Object.HasInputAuthority;
     public bool IsAlive => CurrentHealth > 0;
+    public bool IsShieldActive => ShieldActive;
     public float Health01 => maxHealth <= 0 ? 0f : Mathf.Clamp01(CurrentHealth / (float)maxHealth);
 
     public override void Spawned()
@@ -72,6 +75,19 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         RPC_RequestHeadshotDamage();
     }
 
+    public void SetShieldActive(bool active)
+    {
+        if (Object == null)
+        {
+            return;
+        }
+
+        if (Object.HasStateAuthority)
+        {
+            ShieldActive = active;
+        }
+    }
+
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RPC_RequestHeadshotDamage()
     {
@@ -93,6 +109,16 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
 
     private void ApplyHeadshotDamage()
     {
+        if (ShieldActive)
+        {
+            if (logDamage)
+            {
+                Debug.Log($"NetworkPlayerHealth: {name} blocked damage with forearm shield.", this);
+            }
+
+            return;
+        }
+
         if (Time.time < nextDamageAllowedTime)
         {
             return;
@@ -148,17 +174,18 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         healthBarRoot = root.transform;
         healthBarRoot.SetParent(transform, false);
 
-        Transform background = CreateBarPart("Background", backgroundColor).transform;
+        Transform background = CreateBarPart("Background", backgroundColor, false).transform;
         background.SetParent(healthBarRoot, false);
         background.localScale = new Vector3(barWidth, barHeight, 0.01f);
+        backgroundRenderer = background.GetComponent<Renderer>();
 
-        fillBar = CreateBarPart("Fill", healthyColor).transform;
+        fillBar = CreateBarPart("Fill", healthyColor, false).transform;
         fillBar.SetParent(healthBarRoot, false);
         fillBar.localScale = new Vector3(barWidth, barHeight * 0.68f, 0.012f);
         fillRenderer = fillBar.GetComponent<Renderer>();
     }
 
-    private GameObject CreateBarPart(string partName, Color color)
+    private GameObject CreateBarPart(string partName, Color color, bool allowTransparency)
     {
         GameObject part = GameObject.CreatePrimitive(PrimitiveType.Cube);
         part.name = partName;
@@ -170,9 +197,44 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         }
 
         Renderer renderer = part.GetComponent<Renderer>();
-        renderer.material = new Material(Shader.Find("Sprites/Default"));
-        renderer.material.color = color;
+        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        renderer.receiveShadows = false;
+        renderer.material = CreateHealthBarMaterial(color, allowTransparency);
         return part;
+    }
+
+    private static Material CreateHealthBarMaterial(Color color, bool allowTransparency)
+    {
+        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+        if (shader == null)
+        {
+            shader = Shader.Find("Unlit/Color");
+        }
+
+        if (shader == null)
+        {
+            shader = Shader.Find("Sprites/Default");
+        }
+
+        Material material = new Material(shader);
+        Color finalColor = color;
+        if (!allowTransparency)
+        {
+            finalColor.a = 1f;
+        }
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", finalColor);
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", finalColor);
+        }
+
+        material.renderQueue = allowTransparency ? 3000 : 2000;
+        return material;
     }
 
     private void UpdateHealthBar()
@@ -194,19 +256,49 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             healthBarRoot.position = headTarget.position + worldOffset;
         }
 
-        Camera mainCamera = Camera.main;
-        if (mainCamera != null)
+        Camera viewCamera = Camera.main;
+        if (viewCamera != null)
         {
-            healthBarRoot.rotation = mainCamera.transform.rotation;
+            FaceTowardCamera(healthBarRoot, viewCamera);
         }
 
         float health = Health01;
         fillBar.localScale = new Vector3(barWidth * health, barHeight * 0.68f, 0.012f);
-        fillBar.localPosition = new Vector3(-barWidth * (1f - health) * 0.5f, 0f, -0.003f);
+        fillBar.localPosition = new Vector3(-barWidth * (1f - health) * 0.5f, 0f, 0.006f);
 
-        if (fillRenderer != null)
+        SetMaterialColor(backgroundRenderer, backgroundColor);
+        SetMaterialColor(fillRenderer, Color.Lerp(lowHealthColor, healthyColor, health));
+    }
+
+    private static void FaceTowardCamera(Transform target, Camera camera)
+    {
+        Vector3 toCamera = camera.transform.position - target.position;
+        if (toCamera.sqrMagnitude <= 0.0001f)
         {
-            fillRenderer.material.color = Color.Lerp(lowHealthColor, healthyColor, health);
+            return;
+        }
+
+        target.rotation = Quaternion.LookRotation(toCamera.normalized, Vector3.up);
+    }
+
+    private static void SetMaterialColor(Renderer renderer, Color color)
+    {
+        if (renderer == null)
+        {
+            return;
+        }
+
+        Color opaqueColor = color;
+        opaqueColor.a = 1f;
+        Material material = renderer.material;
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", opaqueColor);
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", opaqueColor);
         }
     }
 }

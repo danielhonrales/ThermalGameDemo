@@ -15,11 +15,20 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     [Header("Aim")]
     [SerializeField] private Transform palmOrigin;
+    [SerializeField] private Transform forearmMount;
     [SerializeField] private LocalAxis rayAxis = LocalAxis.Forward;
     [SerializeField] private Vector3 localOriginOffset;
     [SerializeField] private float worldUpOriginOffset = 0.08f;
-    [SerializeField, Min(0.1f)] private float maxDistance = 20f;
+    [SerializeField, Min(0.1f)] private float maxDistance = 100f;
+    [SerializeField, Min(1f)] private float visualRayDistance = 500f;
     [SerializeField] private bool fireContinuously = true;
+
+    [Header("Aim Guide")]
+    [SerializeField] private bool showAimGuide = true;
+    [SerializeField] private LineRenderer aimGuideLine;
+    [SerializeField, Min(0.001f)] private float aimGuideWidth = 0.014f;
+    [SerializeField] private Color aimGuideColor = new Color(1f, 0.55f, 0.12f, 0.38f);
+    [SerializeField] private Color aimGuideHitColor = new Color(1f, 0.88f, 0.45f, 0.92f);
 
     [Header("Optional Iron Man Pose Gate")]
     [SerializeField] private bool requireIronManPose = true;
@@ -37,15 +46,21 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     [Header("Charge")]
     [SerializeField] private bool requireChargeBeforeFire = true;
-    [SerializeField, Min(0f)] private float chargeSeconds = 2f;
+    [SerializeField, Min(0f)] private float chargeSeconds = 0.75f;
     [SerializeField] private Color chargeColor = new Color(1f, 0.25f, 0.05f, 1f);
 
+    [Header("Beam Burst")]
+    [SerializeField, Min(0f)] private float maxBeamDurationSeconds = 3f;
+    [SerializeField, Min(0f)] private float beamCooldownSeconds = 2f;
+
     [Header("Visuals")]
+    [SerializeField] private bool showSimpleBeamLine;
     [SerializeField] private LineRenderer beamLine;
     [SerializeField] private float lineWidth = 0.025f;
-    [SerializeField] private Color missColor = new Color(0.15f, 0.8f, 1f, 1f);
+    [SerializeField] private Color missColor = new Color(1f, 0.48f, 0.08f, 1f);
     [SerializeField] private Color blockedColor = new Color(1f, 0.85f, 0.1f, 1f);
-    [SerializeField] private Color headshotColor = new Color(1f, 0.05f, 0.05f, 1f);
+    [SerializeField] private Color shieldBlockedColor = new Color(0.35f, 0.78f, 1f, 1f);
+    [SerializeField] private Color headshotColor = new Color(1f, 0.12f, 0.02f, 1f);
 
     [Header("Debug")]
     [SerializeField] private bool logHits = true;
@@ -56,6 +71,10 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private NetworkPlayerBeamVisual localNetworkBeam;
     private ThermalBeamEffects beamEffects;
     private float poseChargeStartTime = -1f;
+    private float beamBurstStartTime = -1f;
+    private float nextAllowedFireTime;
+    private ForearmShieldController shieldController;
+    private bool wasAttackPoseActive;
 
     private void Reset()
     {
@@ -66,7 +85,9 @@ public sealed class PalmBeamShooter : MonoBehaviour
     {
         combatMask = CombatLayers.CombatHitMask;
         beamEffects = GetComponent<ThermalBeamEffects>();
+        shieldController = GetComponent<ForearmShieldController>();
         EnsureLineRenderer();
+        EnsureAimGuideLine();
 
         int layer = CombatLayers.BeamLayer;
         if (layer >= 0)
@@ -79,9 +100,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     {
         if (!fireContinuously)
         {
-            SetBeamVisible(false);
-            PublishNetworkBeamHidden();
-            ResetCharge();
+            StopBeamBurst(false);
             return;
         }
 
@@ -93,67 +112,152 @@ public sealed class PalmBeamShooter : MonoBehaviour
     {
         if (palmOrigin == null)
         {
-            SetBeamVisible(false);
-            PublishNetworkBeamHidden();
-            ResetCharge();
+            StopBeamBurst(false);
             return;
         }
 
-        if (requireIronManPose && !IsIronManPoseActive())
+        bool attackPoseActive = !requireIronManPose || IsIronManPoseActive();
+        if (attackPoseActive && !wasAttackPoseActive)
         {
-            SetBeamVisible(false);
-            PublishNetworkBeamHidden();
-            ResetCharge();
+            shieldController?.CancelForAttack();
+        }
+
+        wasAttackPoseActive = attackPoseActive;
+
+        if (Time.time < nextAllowedFireTime)
+        {
+            StopBeamBurst(false);
+            return;
+        }
+
+        if (shieldController != null && shieldController.IsShieldActive)
+        {
+            StopBeamBurst(false);
+            return;
+        }
+
+        if (requireIronManPose && !attackPoseActive)
+        {
+            StopBeamBurst(beamBurstStartTime >= 0f);
             return;
         }
 
         Vector3 origin = GetBeamOrigin();
         Vector3 direction = GetAxisDirection(palmOrigin, rayAxis);
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            StopBeamBurst(false);
+            return;
+        }
+
+        direction.Normalize();
+        ResolveBeamHits(origin, direction, out Vector3 beamEnd, out bool hitSomething, out Color beamColor, out string result, out Collider hitCollider);
 
         if (requireChargeBeforeFire && !IsChargeComplete())
         {
             SetRayVisualOnly(false);
             PublishNetworkBeamHidden();
+            ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor);
 
             if (beamEffects != null)
             {
-                beamEffects.ShowCharge(origin, chargeColor);
+                Vector3 chargeOrigin = GetBeamOrigin();
+                beamEffects.ShowCharge(chargeOrigin, chargeColor, GetChargeProgress(), chargeOrigin, GetChargeRotation());
             }
 
-            PublishNetworkCharge(origin, chargeColor);
+            PublishNetworkCharge(GetBeamOrigin(), GetChargeRotation(), chargeColor, GetChargeProgress());
             return;
         }
 
-        Vector3 end = origin + direction * maxDistance;
-        Color beamColor = missColor;
-        string result = "Miss";
-        Collider hitCollider = null;
-
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, maxDistance, combatMask, QueryTriggerInteraction.Ignore))
+        if (beamBurstStartTime < 0f)
         {
-            end = hit.point;
-            hitCollider = hit.collider;
-
-            if (hit.collider.GetComponentInParent<HeadshotTarget>() != null || hit.collider.gameObject.layer == CombatLayers.HeadTargetLayer)
-            {
-                result = "Headshot";
-                beamColor = headshotColor;
-                ApplyHeadshotDamage(hit.collider);
-            }
-            else if (hit.collider.GetComponentInParent<GameplayCoverMarker>() != null || hit.collider.gameObject.layer == CombatLayers.GameplayCoverLayer)
-            {
-                result = "Blocked";
-                beamColor = blockedColor;
-            }
+            beamBurstStartTime = Time.time;
         }
 
-        DrawBeam(origin, end, beamColor);
+        if (Time.time - beamBurstStartTime >= maxBeamDurationSeconds)
+        {
+            StopBeamBurst(true);
+            return;
+        }
+
+        ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor);
+        DrawBeam(origin, beamEnd, beamColor);
         if (beamEffects != null)
         {
-            beamEffects.ShowBeam(origin, end, beamColor, hitCollider != null);
+            beamEffects.ShowBeam(origin, beamEnd, beamColor, hitSomething, beamEnd, GetEffectMountPosition(), GetEffectMountRotation());
         }
-        PublishNetworkBeam(origin, end, beamColor);
+
+        PublishNetworkBeam(origin, beamEnd, beamColor, hitSomething, beamEnd, GetEffectMountPosition(), GetEffectMountRotation());
         LogResultIfChanged(result, hitCollider);
+    }
+
+    private void ResolveBeamHits(
+        Vector3 origin,
+        Vector3 direction,
+        out Vector3 beamEnd,
+        out bool hitSomething,
+        out Color beamColor,
+        out string result,
+        out Collider hitCollider)
+    {
+        float rayDistance = GetRayDistance();
+        hitSomething = false;
+        hitCollider = null;
+        result = "Miss";
+        beamColor = missColor;
+        beamEnd = origin + direction * rayDistance;
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, rayDistance, combatMask, QueryTriggerInteraction.Ignore))
+        {
+            hitSomething = true;
+            beamEnd = hit.point;
+            hitCollider = hit.collider;
+            beamColor = ClassifyHit(hit.collider, out result);
+            ApplyCombatResult(hit.collider, result);
+        }
+    }
+
+    private float GetRayDistance()
+    {
+        return Mathf.Max(visualRayDistance, maxDistance);
+    }
+
+    private Color ClassifyHit(Collider collider, out string result)
+    {
+        NetworkPlayerHealth health = collider.GetComponentInParent<NetworkPlayerHealth>();
+        bool isHeadTarget = collider.GetComponentInParent<HeadshotTarget>() != null
+            || collider.gameObject.layer == CombatLayers.HeadTargetLayer;
+
+        if (isHeadTarget && health != null && health.IsShieldActive)
+        {
+            result = "Shield";
+            return shieldBlockedColor;
+        }
+
+        if (isHeadTarget)
+        {
+            result = "Headshot";
+            return headshotColor;
+        }
+
+        if (collider.GetComponentInParent<GameplayCoverMarker>() != null || collider.gameObject.layer == CombatLayers.GameplayCoverLayer)
+        {
+            result = "Blocked";
+            return blockedColor;
+        }
+
+        result = "Hit";
+        return missColor;
+    }
+
+    private void ApplyCombatResult(Collider hitCollider, string result)
+    {
+        if (result != "Headshot")
+        {
+            return;
+        }
+
+        ApplyHeadshotDamage(hitCollider);
     }
 
     public void SetPalmOrigin(Transform newPalmOrigin)
@@ -164,6 +268,24 @@ public sealed class PalmBeamShooter : MonoBehaviour
     public void SetHeadset(Transform newHeadset)
     {
         headset = newHeadset;
+    }
+
+    public void SetForearmMount(Transform newForearmMount)
+    {
+        forearmMount = newForearmMount;
+    }
+
+    public bool IsAttackPoseActive()
+    {
+        return !requireIronManPose || IsIronManPoseActive();
+    }
+
+    public bool IsAttackEngaged => beamBurstStartTime >= 0f || poseChargeStartTime >= 0f;
+
+    public void CancelForShield()
+    {
+        StopBeamBurst(false);
+        wasAttackPoseActive = false;
     }
 
     private void ApplyHeadshotDamage(Collider hitCollider)
@@ -177,21 +299,21 @@ public sealed class PalmBeamShooter : MonoBehaviour
         health.RequestHeadshotDamage();
     }
 
-    private void PublishNetworkBeam(Vector3 start, Vector3 end, Color color)
+    private void PublishNetworkBeam(Vector3 start, Vector3 end, Color color, bool hitSomething, Vector3 hitPoint, Vector3 mountPosition, Quaternion mountRotation)
     {
         NetworkPlayerBeamVisual beamVisual = FindLocalNetworkBeam();
         if (beamVisual != null)
         {
-            beamVisual.SubmitBeam(start, end, color);
+            beamVisual.SubmitBeam(start, end, color, hitSomething, hitPoint, mountPosition, mountRotation);
         }
     }
 
-    private void PublishNetworkCharge(Vector3 position, Color color)
+    private void PublishNetworkCharge(Vector3 position, Quaternion rotation, Color color, float progress)
     {
         NetworkPlayerBeamVisual beamVisual = FindLocalNetworkBeam();
         if (beamVisual != null)
         {
-            beamVisual.SubmitCharge(position, color);
+            beamVisual.SubmitCharge(position, rotation, color, progress);
         }
     }
 
@@ -243,9 +365,88 @@ public sealed class PalmBeamShooter : MonoBehaviour
         return Time.time - poseChargeStartTime >= chargeSeconds;
     }
 
+    private float GetChargeProgress()
+    {
+        if (chargeSeconds <= 0f || poseChargeStartTime < 0f)
+        {
+            return 1f;
+        }
+
+        return Mathf.Clamp01((Time.time - poseChargeStartTime) / chargeSeconds);
+    }
+
     private void ResetCharge()
     {
         poseChargeStartTime = -1f;
+    }
+
+    private void StopBeamBurst(bool startCooldown)
+    {
+        SetBeamVisible(false);
+        HideAimGuide();
+        PublishNetworkBeamHidden();
+        ResetCharge();
+        beamBurstStartTime = -1f;
+
+        if (startCooldown)
+        {
+            nextAllowedFireTime = Time.time + beamCooldownSeconds;
+        }
+    }
+
+    private void ShowAimGuide(Vector3 origin, Vector3 beamEnd, Color endMarkerColor)
+    {
+        if (!showAimGuide)
+        {
+            HideAimGuide();
+            return;
+        }
+
+        EnsureAimGuideLine();
+        aimGuideLine.enabled = true;
+        aimGuideLine.startColor = aimGuideColor;
+        aimGuideLine.endColor = aimGuideHitColor;
+        aimGuideLine.SetPosition(0, origin);
+        aimGuideLine.SetPosition(1, beamEnd);
+        beamEffects?.ShowAimMarker(beamEnd, endMarkerColor);
+        beamEffects?.HideRangeLimitMarker();
+    }
+
+    private void HideAimGuide()
+    {
+        if (aimGuideLine != null)
+        {
+            aimGuideLine.enabled = false;
+        }
+
+        beamEffects?.HideAimMarker();
+        beamEffects?.HideRangeLimitMarker();
+    }
+
+    private void EnsureAimGuideLine()
+    {
+        if (aimGuideLine != null)
+        {
+            ConfigureAimGuideLine();
+            return;
+        }
+
+        GameObject lineObject = new GameObject("AimGuideLine");
+        lineObject.transform.SetParent(transform, false);
+        aimGuideLine = lineObject.AddComponent<LineRenderer>();
+        ConfigureAimGuideLine();
+    }
+
+    private void ConfigureAimGuideLine()
+    {
+        aimGuideLine.positionCount = 2;
+        aimGuideLine.useWorldSpace = true;
+        aimGuideLine.startWidth = aimGuideWidth;
+        aimGuideLine.endWidth = aimGuideWidth * 1.35f;
+        aimGuideLine.numCapVertices = 6;
+        aimGuideLine.alignment = LineAlignment.View;
+        aimGuideLine.material = new Material(Shader.Find("Sprites/Default"));
+        aimGuideLine.enabled = false;
     }
 
     private bool IsIronManPoseActive()
@@ -320,6 +521,35 @@ public sealed class PalmBeamShooter : MonoBehaviour
             + Vector3.up * worldUpOriginOffset;
     }
 
+    private Vector3 GetEffectMountPosition()
+    {
+        Transform mount = forearmMount != null ? forearmMount : palmOrigin;
+        return mount != null ? mount.position : GetBeamOrigin();
+    }
+
+    private Quaternion GetEffectMountRotation()
+    {
+        Transform mount = forearmMount != null ? forearmMount : palmOrigin;
+        return mount != null ? mount.rotation : Quaternion.identity;
+    }
+
+    private Quaternion GetChargeRotation()
+    {
+        if (palmOrigin == null)
+        {
+            return Quaternion.identity;
+        }
+
+        Vector3 direction = GetAxisDirection(palmOrigin, rayAxis);
+        Vector3 up = GetAxisDirection(palmOrigin, fingerUpAxis);
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            return palmOrigin.rotation;
+        }
+
+        return Quaternion.LookRotation(direction, up);
+    }
+
     private void EnsureLineRenderer()
     {
         if (beamLine != null)
@@ -347,7 +577,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private void DrawBeam(Vector3 start, Vector3 end, Color color)
     {
         EnsureLineRenderer();
-        beamLine.enabled = true;
+        beamLine.enabled = showSimpleBeamLine;
         beamLine.startColor = color;
         beamLine.endColor = color;
         beamLine.SetPosition(0, start);

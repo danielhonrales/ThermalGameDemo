@@ -2851,8 +2851,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 98868219}
+  - component: {fileID: 98868222}
   - component: {fileID: 98868220}
   - component: {fileID: 98868221}
+  - component: {fileID: 98868223}
+  - component: {fileID: 98868224}
+  - component: {fileID: 98868225}
+  - component: {fileID: 98868226}
+  - component: {fileID: 98868227}
   m_Layer: 0
   m_Name: Beam
   m_TagString: Untagged
@@ -2882,17 +2888,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98868218}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ca6524293e0cffa7a3e6c2013adb3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PalmBeamShooter
   palmOrigin: {fileID: 986828966}
+  forearmMount: {fileID: 986828966}
   rayAxis: 3
   localOriginOffset: {x: 0, y: 0, z: 0}
   worldUpOriginOffset: 0.08
-  maxDistance: 20
+  maxDistance: 100
+  visualRayDistance: 500
   fireContinuously: 1
+  showAimGuide: 1
+  aimGuideLine: {fileID: 0}
+  aimGuideWidth: 0.014
+  aimGuideColor: {r: 1, g: 0.55, b: 0.12, a: 0.38}
+  aimGuideHitColor: {r: 1, g: 0.88, b: 0.45, a: 0.92}
   requireIronManPose: 1
   requirePalmFacingAwayFromHead: 0
   requireFingersPointUp: 1
@@ -2903,16 +2916,20 @@ MonoBehaviour:
   palmFacingAxis: 1
   fingerUpAxis: 0
   awayFromHeadDotThreshold: -1
-  fingersUpDotThreshold: 0.3
+  fingersUpDotThreshold: 0.05
   maxFingerPinchForOpenPalm: 0.35
   requireChargeBeforeFire: 1
-  chargeSeconds: 0.75
+  chargeSeconds: 1
   chargeColor: {r: 1, g: 0.25, b: 0.05, a: 1}
+  maxBeamDurationSeconds: 3
+  beamCooldownSeconds: 2
+  showSimpleBeamLine: 0
   beamLine: {fileID: 0}
   lineWidth: 0.025
-  missColor: {r: 0.15, g: 0.8, b: 1, a: 1}
+  missColor: {r: 1, g: 0.48, b: 0.08, a: 1}
   blockedColor: {r: 1, g: 0.85, b: 0.1, a: 1}
-  headshotColor: {r: 1, g: 0.05, b: 0.05, a: 1}
+  shieldBlockedColor: {r: 0.35, g: 0.78, b: 1, a: 1}
+  headshotColor: {r: 1, g: 0.12, b: 0.02, a: 1}
   logHits: 1
 --- !u!114 &98868221
 MonoBehaviour:
@@ -2926,23 +2943,210 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cfd3e9ae7173821915e541a4b40f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThermalBeamEffects
-  useThermalInMotionBeamPrefab: 1
-  beamPrefabResourcePath: CustomAssets/Beam/Beam
-  useHotBeam: 1
-  beamPrefabRotationOffset: {x: 0, y: 0, z: 0}
-  useProceduralFallbackEffects: 0
-  createGlowLine: 1
-  coreWidth: 0.025
-  glowWidth: 0.075
-  pulseSpeed: 18
-  pulseAmount: 0.35
-  createParticles: 1
+  coreWidth: 0.065
+  glowWidth: 0.2
+  haloWidth: 0.34
+  beamStartExtension: 0.04
+  beamEndExtension: 0.18
+  pulseSpeed: 22
+  pulseAmount: 0.22
+  beamScrollSpeed: 12
+  textureTileMeters: 0.08
+  beamTextureResourcePath: CustomAssets/spark
+  fireCoreColor: {r: 1, g: 0.97, b: 0.82, a: 1}
+  fireMidColor: {r: 1, g: 0.52, b: 0.06, a: 0.92}
+  fireOuterColor: {r: 1, g: 0.18, b: 0.02, a: 0.42}
+  beamLightIntensity: 5.5
+  impactFlashIntensity: 7
+  impactFlashDuration: 0.12
+  showBeamTrailParticles: 1
+  beamTrailRate: 85
+  beamChargeResourcePath: CustomAssets/Beam/Beam
+  ledTubeChargeResourcePath: CustomAssets/PowerSleeve/ledTube
+  chargeLocalOffset: {x: 0, y: 0, z: 0.03}
+  chargeStartScale: 0.45
+  chargeEndScale: 1.15
+  chargePulseSpeed: 7
+  chargePulseAmount: 0.14
+  chargeLightIntensity: 3.5
+  chargeLayerScale: 12
+  showFallbackChargeParticles: 1
   chargeParticleRate: 35
+  chargeTextureResourcePath: CustomAssets/circle
+  playChargeAudio: 1
+  chargeVolume: 0.45
+  chargeAudioResourcePath: CustomAssets/Audio/beamCharge
+  showImpactParticles: 1
+  aimMarkerSize: 0.14
+  aimMarkerWidth: 0.01
+  rangeLimitMarkerSize: 0.09
+  rangeLimitMarkerWidth: 0.008
   impactCooldownSeconds: 0.08
-  impactColor: {r: 1, g: 0.2, b: 0.05, a: 1}
+  impactSparkTextureResourcePath: CustomAssets/spark
+  impactSmokeTextureResourcePath: CustomAssets/smoke
   playBeamAudio: 1
   beamVolume: 0.25
   beamLoopResourcePath: CustomAssets/Audio/fireBeam
+--- !u!114 &98868222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e1cc7fd7a8491fabe895f4e181796b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatWeaponMode
+  activeMode: 1
+  beamShooter: {fileID: 98868220}
+  grenadeLauncher: {fileID: 98868223}
+--- !u!114 &98868223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5707511fb0b477dacb423ba0cf6d6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceGrenadeLauncher
+  palmOrigin: {fileID: 986828966}
+  headset: {fileID: 1213240146}
+  throwAxis: 3
+  aimUpAxis: 2
+  localOriginOffset: {x: 0, y: 0, z: 0}
+  worldUpOriginOffset: 0.08
+  headAimBlend: 0.65
+  floorReference: {fileID: 703814192}
+  floorLocalHeight: -0.4
+  minThrowDistance: 0.75
+  maxThrowDistance: 4
+  lowHandHeightOffsetFromHeadset: -0.45
+  highHandHeightOffsetFromHeadset: 0.4
+  lowHandHeightAboveFloor: 0.85
+  highHandHeightAboveFloor: 1.75
+  gravityMultiplier: 1
+  arcPeakHeight: 0.75
+  minArcPeakHeight: 0.25
+  requireIronManPose: 1
+  requireTrackedHand: 1
+  requireFingersPointUp: 1
+  requireOpenFingers: 1
+  handTrackingSource: {fileID: 1156316756}
+  fingerUpAxis: 0
+  fingersUpDotThreshold: 0.05
+  maxFingerPinchForOpenPalm: 0.35
+  requireChargeBeforeThrow: 1
+  chargeSeconds: 0.9
+  throwCooldownSeconds: 0.35
+  showArcPreview: 1
+  arcPreviewSteps: 24
+  arcPreviewWidth: 0.018
+  arcPreviewColor: {r: 0.55, g: 0.78, b: 1, a: 0.55}
+  logThrows: 1
+--- !u!114 &98868224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee71e97b7b64bebbfd0345a20840f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceGrenadeEffects
+  iceColor: {r: 0.25, g: 0.82, b: 1, a: 1}
+  sparkleColor: {r: 0.58, g: 0.8, b: 1, a: 1}
+  beamChargeResourcePath: CustomAssets/Beam/Beam
+  ledTubeResourcePath: CustomAssets/PowerSleeve/ledTube
+  chargeLocalOffset: {x: 0, y: 0, z: 0.03}
+  chargeStartScale: 0.4
+  chargeEndScale: 1.2
+  chargePulseSpeed: 8
+  chargePulseAmount: 0.16
+  chargeLightIntensity: 4
+  chargeLayerScale: 14
+  chargeParticleRate: 60
+  chargeTextureResourcePath: CustomAssets/circle
+  chargeAudioResourcePath: CustomAssets/Audio/iceBeam
+  chargeVolume: 0.5
+  grenadeVisualScale: 0.14
+  grenadeLightIntensity: 2.5
+  trailTextureResourcePath: CustomAssets/spark
+  trailEmissionRate: 42
+  explosionRadius: 1.5
+  explosionAudioResourcePath: CustomAssets/Audio/IceBlast
+  explosionVolume: 0.7
+  impactSparkTextureResourcePath: CustomAssets/spark
+  impactSmokeTextureResourcePath: CustomAssets/smoke
+--- !u!114 &98868225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e7d9f3a8214c6e8f0a2b4c6d8e0f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForearmShieldController
+  handOrigin: {fileID: 986828966}
+  headset: {fileID: 1213240146}
+  shieldLocalOffset: {x: 0, y: 0, z: 0}
+  shieldForwardDistance: 0.16
+  shieldFacingAxis: 0
+  requireTrackedHand: 1
+  handTrackingSource: {fileID: 1156316756}
+  handSkeleton: {fileID: 0}
+  fingertipNearPalmDistance: 0.13
+  requiredFingertipsNearPalm: 2
+  shieldDurationSeconds: 3
+  logShieldState: 0
+--- !u!114 &98868226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f8c2e1d94b4f68a9e0d7c5b2a81463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForearmShieldEffects
+  ledTubeResourcePath: CustomAssets/PowerSleeve/ledTube
+  shieldEffectPath: ColdHit/Magic shield blue
+  shieldLayerScale: 20
+  shieldColor: {r: 0.35, g: 0.78, b: 1, a: 0.38}
+  shieldLightIntensity: 3
+  shieldDiscDiameter: 0.5
+  shieldDiscThickness: 0.012
+--- !u!114 &98868227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98868218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e4a1c93f2b4e68a7c0d5e9b1f32456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RightHandWeaponModeToggle
+  rightHand: {fileID: 1156316756}
+  weaponMode: {fileID: 98868222}
+  pinchThreshold: 0.75
+  indexPinchMax: 0.35
+  holdSeconds: 1
+  repeatCooldownSeconds: 1.5
+  requireHandTracked: 1
+  logModeSwitch: 1
 --- !u!114 &112163183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10544,6 +10748,37 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &447981270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447981271}
+  m_Layer: 0
+  m_Name: Forearm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &447981271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447981270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0014, z: -0.0082}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 986828966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &455086296
 GameObject:
   m_ObjectHideFlags: 0
@@ -18130,6 +18365,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 222710509}
+  - {fileID: 447981271}
   - {fileID: 402304282}
   m_Father: {fileID: 169426135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

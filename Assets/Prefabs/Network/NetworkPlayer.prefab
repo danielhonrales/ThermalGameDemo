@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6949283131314129676}
   - component: {fileID: 6245974701364679907}
   - component: {fileID: 642555981759791425}
+  - component: {fileID: 8172635448192039485}
+  - component: {fileID: 928374651908273641}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -99,6 +101,8 @@ MonoBehaviour:
   - {fileID: 6949283131314129676}
   - {fileID: 6245974701364679907}
   - {fileID: 642555981759791425}
+  - {fileID: 8172635448192039485}
+  - {fileID: 928374651908273641}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &6949283131314129676
 MonoBehaviour:
@@ -159,6 +163,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerBeamVisual
   showLocalNetworkBeam: 0
   lineWidth: 0.025
+--- !u!114 &8172635448192039485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199685895408053478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf486bee2a34b47935eee03d212e6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerGrenadeVisual
+  useIceEffects: 1
+--- !u!114 &928374651908273641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199685895408053478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f8e0a2b4315d7e9f1a3c5e7b9d1f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerShieldVisual
+  useShieldEffects: 1
 --- !u!1 &4994756237331356355
 GameObject:
   m_ObjectHideFlags: 0
