@@ -37,7 +37,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     [Header("Charge")]
     [SerializeField] private bool requireChargeBeforeThrow = true;
-    [SerializeField, Min(0f)] private float chargeSeconds = 0.9f;
+    [SerializeField, Min(0f)] private float chargeSeconds = 2f;
     [SerializeField, Min(0f)] private float throwCooldownSeconds = 0.35f;
 
     [Header("Arc Preview")]
@@ -141,6 +141,26 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     public void SetHeadset(Transform newHeadset)
     {
         headset = newHeadset;
+    }
+
+    /// <summary>Immediately clears charge, arc, grenade, and explosion feedback on a weapon-mode change.</summary>
+    public void CancelWeaponVisuals()
+    {
+        ResetCharge();
+        waitingForPoseReset = false;
+        HideArcPreview();
+        grenadeEffects?.CancelAllWeaponVisuals();
+        if (activeProjectile != null && activeProjectile.IsAlive)
+        {
+            activeProjectile.Cancel();
+        }
+
+        PublishHidden();
+    }
+
+    private void OnDisable()
+    {
+        CancelWeaponVisuals();
     }
 
     private void ThrowGrenade(Vector3 origin, Vector3 launchVelocity)

@@ -32,6 +32,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     private Transform fillBar;
     private Renderer backgroundRenderer;
     private Renderer fillRenderer;
+    private NetworkHeadTracker headTracker;
 
     public bool IsLocalPlayer => Object != null && Object.HasInputAuthority;
     public bool IsAlive => CurrentHealth > 0;
@@ -151,6 +152,11 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
 
     private void FindHeadTarget()
     {
+        if (headTracker == null)
+        {
+            headTracker = GetComponent<NetworkHeadTracker>();
+        }
+
         if (headTarget != null)
         {
             return;
@@ -251,7 +257,11 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             return;
         }
 
-        if (headTarget != null)
+        if (headTracker != null)
+        {
+            healthBarRoot.position = headTracker.HeadWorldPosition + worldOffset;
+        }
+        else if (headTarget != null)
         {
             healthBarRoot.position = headTarget.position + worldOffset;
         }

@@ -56,6 +56,25 @@ public sealed class IceGrenadeProjectile : MonoBehaviour
         }
     }
 
+    /// <summary>Stops an in-flight grenade without creating an explosion when its weapon is switched away.</summary>
+    public void Cancel()
+    {
+        enabled = false;
+
+        if (flightLight != null)
+        {
+            flightLight.enabled = false;
+        }
+
+        if (visualRoot != null)
+        {
+            Destroy(visualRoot.gameObject);
+            visualRoot = null;
+        }
+
+        gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         float deltaTime = Time.deltaTime;

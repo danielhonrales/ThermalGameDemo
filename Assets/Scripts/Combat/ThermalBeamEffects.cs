@@ -22,6 +22,14 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     [SerializeField, Min(0f)] private float impactFlashDuration = 0.12f;
     [SerializeField] private bool showBeamTrailParticles = true;
     [SerializeField] private float beamTrailRate = 85f;
+    [SerializeField] private bool showContinuousBeamSmoke = true;
+    [SerializeField, Range(0f, 1f)] private float continuousSmokeAlpha = 0.68f;
+    [SerializeField, Min(0f)] private float continuousSmokeRatePerMeter = 46f;
+    [SerializeField, Min(0.01f)] private float continuousSmokeWidth = 0.24f;
+    [SerializeField] private bool tileHotBeamParticles;
+    [SerializeField, Min(0.1f)] private float hotBeamParticleTileSpacing = 0.45f;
+    [SerializeField, Range(1, 96)] private int maxHotBeamParticleTiles = 64;
+    [SerializeField, Min(0.01f)] private float hotBeamParticleTileScale = 1f;
 
     [Header("Charge")]
     [SerializeField] private string beamChargeResourcePath = "CustomAssets/Beam/Beam";
@@ -32,10 +40,16 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     [SerializeField] private float chargePulseSpeed = 7f;
     [SerializeField] private float chargePulseAmount = 0.14f;
     [SerializeField] private float chargeLightIntensity = 3.5f;
+    [Tooltip("Large imported HotHit/Absorb aura layers. Disabled to keep the charge local to the hand.")]
+    [SerializeField] private bool showLargeChargeAuraLayers;
     [SerializeField] private float chargeLayerScale = 14f;
     [SerializeField] private bool showFallbackChargeParticles = true;
     [SerializeField] private float chargeParticleRate = 55f;
     [SerializeField] private string chargeTextureResourcePath = "CustomAssets/circle";
+    [Tooltip("Keeps compact smoke and sparks around the firing hand during both charge and beam fire.")]
+    [SerializeField] private bool showPalmAtmosphere = true;
+    [SerializeField, Min(0f)] private float palmSmokeRate = 34f;
+    [SerializeField, Min(0f)] private float palmSparkRate = 68f;
     [SerializeField] private bool playChargeAudio = true;
     [SerializeField, Range(0f, 1f)] private float chargeVolume = 0.45f;
     [SerializeField] private string chargeAudioResourcePath = "CustomAssets/Audio/beamCharge";
@@ -63,7 +77,10 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     private LineRenderer aimMarkerCrossB;
     private LineRenderer rangeLimitMarkerRing;
     private ParticleSystem fallbackChargeParticles;
+    private ParticleSystem palmSmokeParticles;
+    private ParticleSystem palmSparkParticles;
     private ParticleSystem beamEmberTrail;
+    private ParticleSystem beamSmokeTrail;
     private ParticleSystem muzzleEmbers;
     private ParticleSystem impactSparks;
     private ParticleSystem impactSmoke;
@@ -78,6 +95,9 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     private ParticleSystem beamChargeParticles;
     private ParticleSystem[] layeredChargeParticles;
     private ParticleSystem[] hotBeamParticles;
+    private Transform[] hotBeamParticleTileRoots;
+    private ParticleSystem[][] hotBeamParticleTiles;
+    private ParticleSystem[] visibleBeamTileParticles;
     private Light chargeLight;
     private Light beamLight;
     private Light impactFlashLight;
@@ -111,6 +131,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     {
         EnsureEffects();
         HidePalmCharge();
+        UpdatePalmAtmosphere(mountPosition, color, 1f);
 
         Vector3 direction = end - start;
         if (direction.sqrMagnitude <= 0.0001f)
@@ -215,6 +236,8 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             }
         }
 
+        UpdatePalmAtmosphere(chargePosition, chargeTint, progress);
+
         if (playChargeAudio && chargeAudio != null)
         {
             chargeAudio.volume = chargeVolume * Mathf.Lerp(0.35f, 1f, progress);
@@ -295,6 +318,14 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         {
             fallbackChargeParticles = CreateChargeParticles();
             fallbackChargeParticles.transform.SetParent(transform, false);
+        }
+
+        if (showPalmAtmosphere && palmSmokeParticles == null)
+        {
+            palmSmokeParticles = CreatePalmSmokeParticles();
+            palmSmokeParticles.transform.SetParent(transform, false);
+            palmSparkParticles = CreatePalmSparkParticles();
+            palmSparkParticles.transform.SetParent(transform, false);
         }
 
         if (showImpactParticles && impactSparks == null)
@@ -435,6 +466,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             beamAudio.Stop();
         }
 
+        StopPalmAtmosphere();
         StopBeamTrail();
     }
 
@@ -450,7 +482,9 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         chargeRoot = rootObject.transform;
 
         beamChargeParticles = ExtractBeamChargeParticles(chargeRoot);
-        layeredChargeParticles = ExtractLedTubeChargeParticles(chargeRoot);
+        layeredChargeParticles = showLargeChargeAuraLayers
+            ? ExtractLedTubeChargeParticles(chargeRoot)
+            : System.Array.Empty<ParticleSystem>();
 
         GameObject lightObject = new GameObject("PalmChargeLight");
         lightObject.transform.SetParent(chargeRoot, false);
@@ -573,6 +607,43 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         {
             chargeLight.enabled = false;
         }
+    }
+
+    private void UpdatePalmAtmosphere(Vector3 position, Color tint, float intensity)
+    {
+        if (!showPalmAtmosphere)
+        {
+            return;
+        }
+
+        intensity = Mathf.Clamp01(intensity);
+        if (palmSmokeParticles != null)
+        {
+            palmSmokeParticles.transform.position = position;
+            ParticleSystem.MainModule main = palmSmokeParticles.main;
+            main.startColor = WithAlpha(BlendFireColor(fireOuterColor, tint, 0.3f), Mathf.Lerp(0.28f, 0.72f, intensity));
+            main.startSize = Mathf.Lerp(0.1f, 0.2f, intensity);
+            ParticleSystem.EmissionModule emission = palmSmokeParticles.emission;
+            emission.rateOverTime = palmSmokeRate * Mathf.Lerp(0.35f, 1f, intensity);
+            PlayParticles(palmSmokeParticles);
+        }
+
+        if (palmSparkParticles != null)
+        {
+            palmSparkParticles.transform.position = position;
+            ParticleSystem.MainModule main = palmSparkParticles.main;
+            main.startColor = WithAlpha(BlendFireColor(fireCoreColor, tint, 0.35f), Mathf.Lerp(0.55f, 1f, intensity));
+            main.startSize = Mathf.Lerp(0.045f, 0.09f, intensity);
+            ParticleSystem.EmissionModule emission = palmSparkParticles.emission;
+            emission.rateOverTime = palmSparkRate * Mathf.Lerp(0.3f, 1f, intensity);
+            PlayParticles(palmSparkParticles);
+        }
+    }
+
+    private void StopPalmAtmosphere()
+    {
+        StopParticles(palmSmokeParticles);
+        StopParticles(palmSparkParticles);
     }
 
     private void SetLayeredChargeIntensity(Color color, float progress)
@@ -757,7 +828,14 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         rootObject.transform.SetParent(transform, false);
         beamTrailRoot = rootObject.transform;
 
-        hotBeamParticles = ExtractHotBeamParticles(beamTrailRoot);
+        if (tileHotBeamParticles)
+        {
+            EnsureHotBeamParticleTilePool(1);
+        }
+        else
+        {
+            hotBeamParticles = ExtractHotBeamParticles(beamTrailRoot);
+        }
 
         if (showBeamTrailParticles)
         {
@@ -765,6 +843,12 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             beamEmberTrail.transform.SetParent(beamTrailRoot, false);
             muzzleEmbers = CreateMuzzleEmbers();
             muzzleEmbers.transform.SetParent(beamTrailRoot, false);
+        }
+
+        if (showContinuousBeamSmoke)
+        {
+            beamSmokeTrail = CreateContinuousBeamSmoke();
+            beamSmokeTrail.transform.SetParent(beamTrailRoot, false);
         }
 
         GameObject beamLightObject = new GameObject("BeamLight");
@@ -792,23 +876,49 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             return;
         }
 
-        beamTrailRoot.SetPositionAndRotation(start, Quaternion.LookRotation(direction));
-        beamTrailRoot.localScale = new Vector3(1f, 1f, Mathf.Max(0.5f, length));
+        beamTrailRoot.SetPositionAndRotation(start, Quaternion.LookRotation(direction, Vector3.up));
+        beamTrailRoot.localScale = Vector3.one;
 
         Color trailTint = BlendFireColor(fireMidColor, tint, 0.35f);
-        PlayParticles(hotBeamParticles, trailTint);
+        if (tileHotBeamParticles)
+        {
+            UpdateTiledHotBeamParticles(length, trailTint);
+        }
+        else
+        {
+            PlayParticles(hotBeamParticles, trailTint);
+        }
 
         if (beamEmberTrail != null)
         {
-            beamEmberTrail.transform.localPosition = Vector3.zero;
+            beamEmberTrail.transform.localPosition = Vector3.forward * (length * 0.5f);
             beamEmberTrail.transform.localRotation = Quaternion.identity;
             ParticleSystem.MainModule main = beamEmberTrail.main;
             main.startColor = trailTint;
             ParticleSystem.EmissionModule emission = beamEmberTrail.emission;
-            emission.rateOverTime = beamTrailRate * pulse;
+            emission.rateOverTime = beamTrailRate * pulse * Mathf.Clamp(length / 2f, 1f, 36f);
+            ParticleSystem.ShapeModule shape = beamEmberTrail.shape;
+            shape.scale = new Vector3(0.08f, 0.08f, Mathf.Max(0.05f, length));
             if (!beamEmberTrail.isPlaying)
             {
                 beamEmberTrail.Play();
+            }
+        }
+
+        if (beamSmokeTrail != null)
+        {
+            beamSmokeTrail.transform.localPosition = Vector3.forward * (length * 0.5f);
+            beamSmokeTrail.transform.localRotation = Quaternion.identity;
+            ParticleSystem.MainModule main = beamSmokeTrail.main;
+            Color smokeColor = BlendFireColor(fireOuterColor, tint, 0.28f);
+            main.startColor = WithAlpha(smokeColor, continuousSmokeAlpha);
+            ParticleSystem.EmissionModule emission = beamSmokeTrail.emission;
+            emission.rateOverTime = continuousSmokeRatePerMeter * Mathf.Clamp(length, 0.5f, 28f);
+            ParticleSystem.ShapeModule shape = beamSmokeTrail.shape;
+            shape.scale = new Vector3(continuousSmokeWidth, continuousSmokeWidth, Mathf.Max(0.05f, length));
+            if (!beamSmokeTrail.isPlaying)
+            {
+                beamSmokeTrail.Play();
             }
         }
 
@@ -826,16 +936,19 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         if (beamLight != null)
         {
             beamLight.enabled = true;
-            beamLight.transform.localPosition = Vector3.zero;
+            beamLight.transform.localPosition = Vector3.forward * (length * 0.5f);
             beamLight.color = trailTint;
             beamLight.intensity = beamLightIntensity * pulse;
+            beamLight.range = Mathf.Max(2.4f, length * 0.65f);
         }
     }
 
     private void StopBeamTrail()
     {
         StopParticles(hotBeamParticles);
+        StopTiledHotBeamParticles();
         StopParticles(beamEmberTrail);
+        StopParticles(beamSmokeTrail);
         StopParticles(muzzleEmbers);
 
         if (beamLight != null)
@@ -863,11 +976,191 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             hotBeam.localPosition = Vector3.zero;
             hotBeam.localRotation = Quaternion.identity;
             hotBeam.localScale = Vector3.one;
+            hotBeam.gameObject.SetActive(true);
             particles.AddRange(hotBeam.GetComponentsInChildren<ParticleSystem>(true));
         }
 
         Destroy(beamInstance);
-        return particles.ToArray();
+        ParticleSystem[] extractedParticles = particles.ToArray();
+        foreach (ParticleSystem particle in extractedParticles)
+        {
+            if (particle == null)
+            {
+                continue;
+            }
+
+            ParticleSystem.MainModule main = particle.main;
+            main.loop = true;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+        }
+
+        return extractedParticles;
+    }
+
+    private void EnsureHotBeamParticleTilePool(int requiredCount)
+    {
+        if (!tileHotBeamParticles || beamTrailRoot == null)
+        {
+            return;
+        }
+
+        int clampedRequiredCount = Mathf.Clamp(requiredCount, 1, Mathf.Max(1, maxHotBeamParticleTiles));
+        if (hotBeamParticleTileRoots == null || hotBeamParticleTileRoots.Length != maxHotBeamParticleTiles)
+        {
+            hotBeamParticleTileRoots = new Transform[maxHotBeamParticleTiles];
+            hotBeamParticleTiles = new ParticleSystem[maxHotBeamParticleTiles][];
+            visibleBeamTileParticles = new ParticleSystem[maxHotBeamParticleTiles];
+        }
+
+        for (int i = 0; i < clampedRequiredCount; i++)
+        {
+            if (hotBeamParticleTileRoots[i] != null)
+            {
+                continue;
+            }
+
+            GameObject tileObject = new GameObject($"HotBeamParticleTile_{i:00}");
+            tileObject.transform.SetParent(beamTrailRoot, false);
+            tileObject.SetActive(false);
+
+            hotBeamParticleTileRoots[i] = tileObject.transform;
+            hotBeamParticleTiles[i] = ExtractHotBeamParticles(tileObject.transform);
+            visibleBeamTileParticles[i] = CreateVisibleBeamTileParticles(tileObject.transform);
+        }
+    }
+
+    private void UpdateTiledHotBeamParticles(float length, Color tint)
+    {
+        int tileCount = Mathf.Clamp(
+            Mathf.CeilToInt(length / Mathf.Max(0.1f, hotBeamParticleTileSpacing)) + 1,
+            1,
+            Mathf.Max(1, maxHotBeamParticleTiles));
+        EnsureHotBeamParticleTilePool(tileCount);
+
+        for (int i = 0; i < maxHotBeamParticleTiles; i++)
+        {
+            Transform tileRoot = hotBeamParticleTileRoots != null && i < hotBeamParticleTileRoots.Length
+                ? hotBeamParticleTileRoots[i]
+                : null;
+            if (tileRoot == null)
+            {
+                continue;
+            }
+
+            bool shouldShowTile = i < tileCount;
+            tileRoot.gameObject.SetActive(shouldShowTile);
+            if (!shouldShowTile)
+            {
+                if (hotBeamParticleTiles != null && i < hotBeamParticleTiles.Length)
+                {
+                    StopParticles(hotBeamParticleTiles[i]);
+                }
+
+                continue;
+            }
+
+            float t = tileCount <= 1 ? 0.5f : i / (float)(tileCount - 1);
+            tileRoot.localPosition = Vector3.forward * (length * t);
+            tileRoot.localRotation = Quaternion.identity;
+            tileRoot.localScale = Vector3.one * hotBeamParticleTileScale;
+
+            if (hotBeamParticleTiles != null && i < hotBeamParticleTiles.Length)
+            {
+                PlayParticles(hotBeamParticleTiles[i], tint);
+            }
+
+            if (visibleBeamTileParticles != null
+                && i < visibleBeamTileParticles.Length
+                && visibleBeamTileParticles[i] != null)
+            {
+                ParticleSystem tileParticles = visibleBeamTileParticles[i];
+                ParticleSystem.MainModule main = tileParticles.main;
+                main.startColor = WithAlpha(tint, 0.78f);
+                ParticleSystem.EmissionModule emission = tileParticles.emission;
+                emission.rateOverTime = beamTrailRate * 0.45f;
+
+                if (!tileParticles.isPlaying)
+                {
+                    tileParticles.Play();
+                }
+            }
+        }
+    }
+
+    private void StopTiledHotBeamParticles()
+    {
+        if (hotBeamParticleTileRoots == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < hotBeamParticleTileRoots.Length; i++)
+        {
+            if (hotBeamParticleTiles != null && i < hotBeamParticleTiles.Length)
+            {
+                StopParticles(hotBeamParticleTiles[i]);
+            }
+
+            if (visibleBeamTileParticles != null
+                && i < visibleBeamTileParticles.Length
+                && visibleBeamTileParticles[i] != null)
+            {
+                StopParticles(visibleBeamTileParticles[i]);
+            }
+
+            if (hotBeamParticleTileRoots[i] != null)
+            {
+                hotBeamParticleTileRoots[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private ParticleSystem CreateVisibleBeamTileParticles(Transform parent)
+    {
+        GameObject particleObject = new GameObject("VisibleBeamTileParticles");
+        particleObject.transform.SetParent(parent, false);
+
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        main.startLifetime = 0.2f;
+        main.startSpeed = 0.08f;
+        main.startSize = 0.13f;
+        main.maxParticles = 48;
+        main.simulationSpace = ParticleSystemSimulationSpace.Local;
+
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = beamTrailRate * 0.45f;
+
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.055f;
+
+        ParticleSystem.VelocityOverLifetimeModule velocity = particles.velocityOverLifetime;
+        velocity.enabled = true;
+        velocity.space = ParticleSystemSimulationSpace.Local;
+        velocity.z = 0.55f;
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLifetime = particles.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new[]
+            {
+                new GradientColorKey(fireCoreColor, 0f),
+                new GradientColorKey(fireMidColor, 0.45f),
+                new GradientColorKey(fireOuterColor, 1f)
+            },
+            new[]
+            {
+                new GradientAlphaKey(0.95f, 0f),
+                new GradientAlphaKey(0.55f, 0.55f),
+                new GradientAlphaKey(0f, 1f)
+            });
+        colorOverLifetime.color = gradient;
+
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(beamTextureResourcePath));
+        return particles;
     }
 
     private ParticleSystem CreateBeamEmberTrail()
@@ -886,9 +1179,8 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         emission.rateOverTime = beamTrailRate;
 
         ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
-        shape.radius = 0.001f;
-        shape.scale = new Vector3(1f, 1f, 1f);
+        shape.shapeType = ParticleSystemShapeType.Box;
+        shape.scale = new Vector3(0.08f, 0.08f, 1f);
 
         ParticleSystem.VelocityOverLifetimeModule velocity = particles.velocityOverLifetime;
         velocity.enabled = true;
@@ -914,6 +1206,58 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         colorOverLifetime.color = gradient;
 
         ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(beamTextureResourcePath));
+        return particles;
+    }
+
+    private ParticleSystem CreateContinuousBeamSmoke()
+    {
+        GameObject particleObject = new GameObject("BeamVolumeSmoke");
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        // This is intentionally larger and denser than the ember stream.  In passthrough,
+        // the old low-alpha, short-lived particles were effectively invisible against a room.
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.32f, 0.58f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.04f, 0.18f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.15f, 0.3f);
+        main.maxParticles = 900;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = continuousSmokeRatePerMeter;
+
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Box;
+        shape.scale = new Vector3(continuousSmokeWidth, continuousSmokeWidth, 1f);
+
+        ParticleSystem.NoiseModule noise = particles.noise;
+        noise.enabled = true;
+        noise.strength = 0.14f;
+        noise.frequency = 1.25f;
+        noise.scrollSpeed = 0.32f;
+        noise.damping = true;
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLifetime = particles.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new[]
+            {
+                new GradientColorKey(fireCoreColor, 0f),
+                new GradientColorKey(fireMidColor, 0.28f),
+                new GradientColorKey(fireOuterColor, 1f)
+            },
+            new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(continuousSmokeAlpha, 0.12f),
+                new GradientAlphaKey(continuousSmokeAlpha * 0.7f, 0.7f),
+                new GradientAlphaKey(0f, 1f)
+            });
+        colorOverLifetime.color = gradient;
+
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
         return particles;
     }
 
@@ -1014,6 +1358,55 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         shape.radius = 0.07f;
 
         ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(chargeTextureResourcePath));
+        return particles;
+    }
+
+    private ParticleSystem CreatePalmSmokeParticles()
+    {
+        GameObject particleObject = new GameObject("BeamPalmSmoke");
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.38f, 0.68f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.04f, 0.18f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.1f, 0.2f);
+        main.maxParticles = 160;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = palmSmokeRate;
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.075f;
+        ParticleSystem.NoiseModule noise = particles.noise;
+        noise.enabled = true;
+        noise.strength = 0.12f;
+        noise.frequency = 1.4f;
+        noise.scrollSpeed = 0.35f;
+
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
+        return particles;
+    }
+
+    private ParticleSystem CreatePalmSparkParticles()
+    {
+        GameObject particleObject = new GameObject("BeamPalmSparks");
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.16f, 0.3f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.35f, 0.9f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.045f, 0.09f);
+        main.maxParticles = 200;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = palmSparkRate;
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.055f;
+
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSparkTextureResourcePath));
         return particles;
     }
 

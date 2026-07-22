@@ -53,11 +53,21 @@ public sealed class CombatWeaponMode : MonoBehaviour
 
         if (beamShooter != null)
         {
+            if (!useBeam)
+            {
+                beamShooter.CancelWeaponVisuals();
+            }
+
             beamShooter.enabled = useBeam;
         }
 
         if (grenadeLauncher != null)
         {
+            if (useBeam)
+            {
+                grenadeLauncher.CancelWeaponVisuals();
+            }
+
             grenadeLauncher.enabled = !useBeam;
         }
     }

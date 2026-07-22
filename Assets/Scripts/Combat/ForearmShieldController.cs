@@ -8,7 +8,13 @@ public sealed class ForearmShieldController : MonoBehaviour
     [SerializeField] private Transform headset;
     [SerializeField] private Vector3 shieldLocalOffset = Vector3.zero;
     [SerializeField, Min(0.02f)] private float shieldForwardDistance = 0.1f;
+    [Tooltip("Hand-local axis used only to push the shield off the hand. Up is the back-of-hand side for this rig; Down is the palm/beam side.")]
+    [SerializeField] private PalmBeamShooter.LocalAxis shieldMountOffsetAxis = PalmBeamShooter.LocalAxis.Up;
     [SerializeField] private PalmBeamShooter.LocalAxis shieldFacingAxis = PalmBeamShooter.LocalAxis.Forward;
+    [Tooltip("Places the shield on the back of the hand instead of in front of a closed fist.")]
+    [SerializeField] private bool mountOnBackOfHand = true;
+    [Tooltip("Local rotation applied only for the back-of-hand mount. Adjust the signed X value if the shield faces the wrong way on-device.")]
+    [SerializeField] private Vector3 backHandRotationOffset = new Vector3(90f, 0f, 0f);
 
     [Header("Fist Gate")]
     [SerializeField] private bool requireTrackedHand = true;
@@ -365,14 +371,16 @@ public sealed class ForearmShieldController : MonoBehaviour
             return true;
         }
 
-        Vector3 forward = GetWorldAxisDirection(handOrigin, shieldFacingAxis);
-        if (forward.sqrMagnitude <= 0.0001f)
+        Vector3 handForward = GetWorldAxisDirection(handOrigin, shieldFacingAxis);
+        if (handForward.sqrMagnitude <= 0.0001f)
         {
             return false;
         }
 
-        worldPosition = handOrigin.position + handOrigin.TransformVector(shieldLocalOffset) + forward * shieldForwardDistance;
+        Vector3 forward = mountOnBackOfHand ? -handForward : handForward;
+        worldPosition = handOrigin.position + handOrigin.TransformVector(shieldLocalOffset) + GetMountOffsetDirection() * shieldForwardDistance;
         worldRotation = BuildShieldRotation(worldPosition, forward);
+        worldRotation = ApplyBackHandRotation(worldRotation);
         return true;
     }
 
@@ -417,9 +425,28 @@ public sealed class ForearmShieldController : MonoBehaviour
         }
 
         forward.Normalize();
-        worldPosition = knuckleCenter + forward * shieldForwardDistance + handOrigin.TransformVector(shieldLocalOffset);
+        if (mountOnBackOfHand)
+        {
+            forward = -forward;
+        }
+
+        worldPosition = knuckleCenter + GetMountOffsetDirection() * shieldForwardDistance + handOrigin.TransformVector(shieldLocalOffset);
         worldRotation = BuildShieldRotation(knuckleCenter, forward);
+        worldRotation = ApplyBackHandRotation(worldRotation);
         return true;
+    }
+
+    private Quaternion ApplyBackHandRotation(Quaternion rotation)
+    {
+        return mountOnBackOfHand
+            ? rotation * Quaternion.Euler(backHandRotationOffset)
+            : rotation;
+    }
+
+    private Vector3 GetMountOffsetDirection()
+    {
+        Vector3 offsetDirection = GetWorldAxisDirection(handOrigin, shieldMountOffsetAxis);
+        return offsetDirection.sqrMagnitude > 0.0001f ? offsetDirection.normalized : Vector3.up;
     }
 
     private Quaternion BuildShieldRotation(Vector3 shieldAnchor, Vector3 forward)

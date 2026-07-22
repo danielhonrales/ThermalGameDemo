@@ -25,6 +25,8 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     [Header("Aim Guide")]
     [SerializeField] private bool showAimGuide = true;
+    [Tooltip("Keeps the targeting line and impact marker hidden while the palm is charging. The actual beam is always hidden until firing begins.")]
+    [SerializeField] private bool showAimGuideWhileCharging;
     [SerializeField] private LineRenderer aimGuideLine;
     [SerializeField, Min(0.001f)] private float aimGuideWidth = 0.014f;
     [SerializeField] private Color aimGuideColor = new Color(1f, 0.55f, 0.12f, 0.38f);
@@ -59,7 +61,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     [SerializeField] private float lineWidth = 0.025f;
     [SerializeField] private Color missColor = new Color(1f, 0.48f, 0.08f, 1f);
     [SerializeField] private Color blockedColor = new Color(1f, 0.85f, 0.1f, 1f);
-    [SerializeField] private Color shieldBlockedColor = new Color(0.35f, 0.78f, 1f, 1f);
+    [SerializeField] private Color shieldBlockedColor = new Color(0.72f, 0.2f, 1f, 1f);
     [SerializeField] private Color headshotColor = new Color(1f, 0.12f, 0.02f, 1f);
 
     [Header("Debug")]
@@ -157,7 +159,14 @@ public sealed class PalmBeamShooter : MonoBehaviour
         {
             SetRayVisualOnly(false);
             PublishNetworkBeamHidden();
-            ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor);
+            if (showAimGuideWhileCharging)
+            {
+                ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor);
+            }
+            else
+            {
+                HideAimGuide();
+            }
 
             if (beamEffects != null)
             {
@@ -286,6 +295,20 @@ public sealed class PalmBeamShooter : MonoBehaviour
     {
         StopBeamBurst(false);
         wasAttackPoseActive = false;
+    }
+
+    /// <summary>Immediately clears the beam/charge visuals when another weapon takes over.</summary>
+    public void CancelWeaponVisuals()
+    {
+        StopBeamBurst(false);
+        SetRayVisualOnly(false);
+        beamEffects?.HideBeam();
+        wasAttackPoseActive = false;
+    }
+
+    private void OnDisable()
+    {
+        CancelWeaponVisuals();
     }
 
     private void ApplyHeadshotDamage(Collider hitCollider)
