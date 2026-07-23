@@ -7,10 +7,11 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
     [SerializeField] private CombatWeaponMode weaponMode;
     [SerializeField, Range(0f, 1f)] private float pinchThreshold = 0.75f;
     [SerializeField, Range(0f, 1f)] private float indexPinchMax = 0.35f;
-    [SerializeField, Min(0f)] private float holdSeconds = 1f;
+    [SerializeField, Min(0f)] private float holdSeconds = 0.5f;
     [SerializeField, Min(0f)] private float repeatCooldownSeconds = 1.5f;
     [SerializeField] private bool requireHandTracked = true;
     [SerializeField] private bool logModeSwitch = true;
+    [SerializeField] private WeaponTransitionEffects transitionEffects;
 
     private float heldTime;
     private float nextAllowedToggleTime;
@@ -19,6 +20,7 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
     private void Awake()
     {
         FindSceneReferences();
+        EnsureTransitionEffects();
     }
 
     private void Update()
@@ -30,11 +32,13 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         {
             heldTime = 0f;
             loggedPoseDetected = false;
+            transitionEffects?.HideTransition();
             return;
         }
 
         if (Time.time < nextAllowedToggleTime)
         {
+            transitionEffects?.HideTransition();
             return;
         }
 
@@ -45,6 +49,14 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         }
 
         heldTime += Time.deltaTime;
+        CombatWeaponMode.WeaponMode targetMode = GetNextMode();
+        Transform effectMount = GetEffectMount();
+        if (transitionEffects != null && effectMount != null)
+        {
+            float progress = holdSeconds <= 0f ? 1f : Mathf.Clamp01(heldTime / holdSeconds);
+            transitionEffects.ShowTransition(effectMount.position, effectMount.rotation, progress, targetMode);
+        }
+
         if (heldTime < holdSeconds)
         {
             return;
@@ -54,6 +66,10 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         loggedPoseDetected = false;
         nextAllowedToggleTime = Time.time + repeatCooldownSeconds;
         ToggleWeaponMode();
+        if (transitionEffects != null && effectMount != null)
+        {
+            transitionEffects.PlayCompletion(effectMount.position, effectMount.rotation, targetMode);
+        }
     }
 
     [ContextMenu("Toggle Weapon Mode")]
@@ -70,9 +86,7 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
             return;
         }
 
-        CombatWeaponMode.WeaponMode nextMode = weaponMode.ActiveMode == CombatWeaponMode.WeaponMode.ThermalBeam
-            ? CombatWeaponMode.WeaponMode.IceGrenade
-            : CombatWeaponMode.WeaponMode.ThermalBeam;
+        CombatWeaponMode.WeaponMode nextMode = GetNextMode();
 
         weaponMode.SetMode(nextMode);
 
@@ -93,6 +107,42 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         if (rightHand == null)
         {
             rightHand = FindRightHand();
+        }
+
+        EnsureTransitionEffects();
+    }
+
+    private CombatWeaponMode.WeaponMode GetNextMode()
+    {
+        return weaponMode != null && weaponMode.ActiveMode == CombatWeaponMode.WeaponMode.ThermalBeam
+            ? CombatWeaponMode.WeaponMode.IceGrenade
+            : CombatWeaponMode.WeaponMode.ThermalBeam;
+    }
+
+    private Transform GetEffectMount()
+    {
+        // The OVRHand component can live on a detached tracking object. The anchor is
+        // the same transform used by the actual weapons, so prefer it for visible VFX.
+        GameObject rightHandAnchor = GameObject.Find("RightHandAnchor");
+        if (rightHandAnchor != null)
+        {
+            return rightHandAnchor.transform;
+        }
+
+        return rightHand != null ? rightHand.transform : transform;
+    }
+
+    private void EnsureTransitionEffects()
+    {
+        if (transitionEffects != null)
+        {
+            return;
+        }
+
+        transitionEffects = GetComponent<WeaponTransitionEffects>();
+        if (transitionEffects == null)
+        {
+            transitionEffects = gameObject.AddComponent<WeaponTransitionEffects>();
         }
     }
 

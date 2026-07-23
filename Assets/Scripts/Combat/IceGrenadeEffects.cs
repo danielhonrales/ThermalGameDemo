@@ -16,9 +16,15 @@ public sealed class IceGrenadeEffects : MonoBehaviour
     [SerializeField] private float chargePulseSpeed = 8f;
     [SerializeField] private float chargePulseAmount = 0.16f;
     [SerializeField] private float chargeLightIntensity = 4f;
+    [Tooltip("Large imported Magic Shield/Absorb aura layers. Disabled to keep the charge local to the hand.")]
+    [SerializeField] private bool showLargeChargeAuraLayers;
     [SerializeField] private float chargeLayerScale = 14f;
     [SerializeField] private float chargeParticleRate = 60f;
     [SerializeField] private string chargeTextureResourcePath = "CustomAssets/circle";
+    [Tooltip("Compact smoke and sparkle layers around the throwing hand; separate from the disabled large arena aura.")]
+    [SerializeField] private bool showHandChargeAtmosphere = true;
+    [SerializeField, Min(0f)] private float handChargeSmokeRate = 38f;
+    [SerializeField, Min(0f)] private float handChargeSparkRate = 74f;
     [SerializeField] private string chargeAudioResourcePath = "CustomAssets/Audio/iceBeam";
     [SerializeField, Range(0f, 1f)] private float chargeVolume = 0.5f;
 
@@ -31,29 +37,61 @@ public sealed class IceGrenadeEffects : MonoBehaviour
     [SerializeField] private float trailEmissionRate = 42f;
 
     [Header("Explosion")]
-    [SerializeField, Min(0.1f)] private float explosionRadius = 1.5f;
+    [SerializeField, Min(0.1f)] private float explosionRadius = 0.8f;
     [SerializeField] private string explosionAudioResourcePath = "CustomAssets/Audio/IceBlast";
     [SerializeField, Range(0f, 1f)] private float explosionVolume = 0.7f;
     [SerializeField] private string impactSparkTextureResourcePath = "CustomAssets/spark";
     [SerializeField] private string impactSmokeTextureResourcePath = "CustomAssets/smoke";
+    [SerializeField] private string explosionRangePrefabResourcePath = "CustomAssets/MagicShieldBlue";
+    [SerializeField, Range(0f, 1f)] private float explosionRangeAlpha = 0.9f;
+    [SerializeField, Min(0.1f)] private float explosionRangeVisibleSeconds = 1.5f;
+    [SerializeField, Min(0.1f)] private float explosionRangePrefabDiameterMeters = 2f;
+    [SerializeField] private float explosionRangeVerticalOffset = 0.03f;
+    [SerializeField, Min(8)] private int explosionRangeRingSegments = 56;
+    [SerializeField, Min(0.001f)] private float explosionRangeRingWidth = 0.065f;
 
     private Transform chargeRoot;
     private Transform grenadeVisualRoot;
     private ParticleSystem beamChargeParticles;
     private ParticleSystem[] layeredChargeParticles;
     private ParticleSystem fallbackChargeParticles;
+    private ParticleSystem handChargeSmokeParticles;
+    private ParticleSystem handChargeSparkParticles;
     private ParticleSystem flightTrail;
     private ParticleSystem explosionBurst;
     private ParticleSystem explosionSmoke;
+    private GameObject explosionRangeVisual;
+    private ParticleSystem[] explosionRangeParticles;
+    private LineRenderer explosionRangeRing;
     private Light chargeLight;
     private Light explosionLight;
     private AudioSource chargeAudio;
     private AudioSource oneShotAudio;
+    private float hideExplosionRangeAtTime;
 
     private void Awake()
     {
         EnsureEffects();
         HideAll();
+        HideExplosionRange();
+    }
+
+    private void Update()
+    {
+        if (explosionRangeVisual != null
+            && explosionRangeVisual.activeSelf
+            && Time.time >= hideExplosionRangeAtTime)
+        {
+            HideExplosionRange();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (explosionRangeVisual != null)
+        {
+            Destroy(explosionRangeVisual);
+        }
     }
 
     public Transform CreateGrenadeVisual(Transform parent)
@@ -124,6 +162,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
             }
         }
 
+        UpdateHandChargeAtmosphere(chargePosition, tint, progress);
+
         if (chargeAudio != null)
         {
             chargeAudio.volume = chargeVolume * Mathf.Lerp(0.3f, 1f, progress);
@@ -144,6 +184,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         StopParticle(beamChargeParticles);
         StopParticles(layeredChargeParticles);
         StopParticle(fallbackChargeParticles);
+        StopParticle(handChargeSmokeParticles);
+        StopParticle(handChargeSparkParticles);
 
         if (chargeLight != null)
         {
@@ -208,7 +250,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         {
             explosionSmoke.transform.position = position;
             ParticleSystem.MainModule main = explosionSmoke.main;
-            main.startColor = WithAlpha(iceColor, 0.65f);
+            main.startColor = WithAlpha(iceColor, 0.9f);
             explosionSmoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             explosionSmoke.Play();
         }
@@ -217,7 +259,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         {
             explosionLight.transform.position = position;
             explosionLight.color = iceColor;
-            explosionLight.intensity = 8f;
+            explosionLight.intensity = 11f;
             explosionLight.enabled = true;
             CancelInvoke(nameof(DisableExplosionLight));
             Invoke(nameof(DisableExplosionLight), 0.35f);
@@ -231,6 +273,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
                 oneShotAudio.PlayOneShot(clip, explosionVolume);
             }
         }
+
+        ShowExplosionRange(position);
     }
 
     private void DisableExplosionLight()
@@ -245,8 +289,19 @@ public sealed class IceGrenadeEffects : MonoBehaviour
 
     public void HideAll()
     {
+        // This is called whenever the throwing pose ends. Explosion range feedback is
+        // world-space and must survive that routine charge/flight cleanup.
         HideCharge();
         StopFlightTrail();
+    }
+
+    /// <summary>Used for an immediate weapon-mode change, including active grenade VFX.</summary>
+    public void CancelAllWeaponVisuals()
+    {
+        HideAll();
+        StopParticle(explosionBurst);
+        StopParticle(explosionSmoke);
+        HideExplosionRange();
     }
 
     private void EnsureEffects()
@@ -261,13 +316,24 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         chargeRoot = rootObject.transform;
 
         beamChargeParticles = ExtractBeamChargeParticles(chargeRoot);
-        layeredChargeParticles = ExtractColdChargeParticles(chargeRoot);
+        layeredChargeParticles = showLargeChargeAuraLayers
+            ? ExtractColdChargeParticles(chargeRoot)
+            : System.Array.Empty<ParticleSystem>();
         fallbackChargeParticles = CreateFallbackChargeParticles();
         fallbackChargeParticles.transform.SetParent(transform, false);
+        if (showHandChargeAtmosphere)
+        {
+            handChargeSmokeParticles = CreateHandChargeSmokeParticles();
+            handChargeSmokeParticles.transform.SetParent(transform, false);
+            handChargeSparkParticles = CreateHandChargeSparkParticles();
+            handChargeSparkParticles.transform.SetParent(transform, false);
+        }
         grenadeVisualRoot = BuildGrenadeVisualTemplate();
         flightTrail = CreateFlightTrail();
         explosionBurst = CreateExplosionBurst();
         explosionSmoke = CreateExplosionSmoke();
+        explosionRangeVisual = CreateExplosionRangeVisual();
+        explosionRangeRing = CreateExplosionRangeRing();
 
         GameObject lightObject = new GameObject("IceChargeLight");
         lightObject.transform.SetParent(chargeRoot, false);
@@ -301,6 +367,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         oneShotAudio.maxDistance = 12f;
 
         HideAll();
+        HideExplosionRange();
     }
 
     private Transform BuildGrenadeVisualTemplate()
@@ -431,6 +498,76 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         return particles;
     }
 
+    private void UpdateHandChargeAtmosphere(Vector3 position, Color tint, float progress)
+    {
+        progress = Mathf.Clamp01(progress);
+        if (handChargeSmokeParticles != null)
+        {
+            handChargeSmokeParticles.transform.position = position;
+            ParticleSystem.MainModule main = handChargeSmokeParticles.main;
+            main.startColor = WithAlpha(tint, Mathf.Lerp(0.26f, 0.72f, progress));
+            main.startSize = Mathf.Lerp(0.11f, 0.23f, progress);
+            ParticleSystem.EmissionModule emission = handChargeSmokeParticles.emission;
+            emission.rateOverTime = handChargeSmokeRate * Mathf.Lerp(0.35f, 1f, progress);
+            PlayParticle(handChargeSmokeParticles);
+        }
+
+        if (handChargeSparkParticles != null)
+        {
+            handChargeSparkParticles.transform.position = position;
+            ParticleSystem.MainModule main = handChargeSparkParticles.main;
+            main.startColor = WithAlpha(sparkleColor, Mathf.Lerp(0.5f, 1f, progress));
+            main.startSize = Mathf.Lerp(0.05f, 0.1f, progress);
+            ParticleSystem.EmissionModule emission = handChargeSparkParticles.emission;
+            emission.rateOverTime = handChargeSparkRate * Mathf.Lerp(0.3f, 1f, progress);
+            PlayParticle(handChargeSparkParticles);
+        }
+    }
+
+    private ParticleSystem CreateHandChargeSmokeParticles()
+    {
+        GameObject particleObject = new GameObject("IceHandChargeSmoke");
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.42f, 0.74f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.03f, 0.15f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.11f, 0.23f);
+        main.maxParticles = 180;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = handChargeSmokeRate;
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.08f;
+        ParticleSystem.NoiseModule noise = particles.noise;
+        noise.enabled = true;
+        noise.strength = 0.1f;
+        noise.frequency = 1.25f;
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
+        return particles;
+    }
+
+    private ParticleSystem CreateHandChargeSparkParticles()
+    {
+        GameObject particleObject = new GameObject("IceHandChargeSparks");
+        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = particles.main;
+        main.loop = true;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.18f, 0.34f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.3f, 0.8f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
+        main.maxParticles = 220;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverTime = handChargeSparkRate;
+        ParticleSystem.ShapeModule shape = particles.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.06f;
+        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSparkTextureResourcePath));
+        return particles;
+    }
+
     private ParticleSystem CreateFlightTrail()
     {
         GameObject particleObject = new GameObject("IceFlightTrail");
@@ -464,10 +601,10 @@ public sealed class IceGrenadeEffects : MonoBehaviour
 
         ParticleSystem.MainModule main = particles.main;
         main.loop = false;
-        main.startLifetime = 0.55f;
-        main.startSpeed = 4.5f;
-        main.startSize = 0.35f;
-        main.maxParticles = 160;
+        main.startLifetime = 0.36f;
+        main.startSpeed = Mathf.Max(1.15f, explosionRadius * 1.7f);
+        main.startSize = 0.22f;
+        main.maxParticles = 128;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
 
         ParticleSystem.EmissionModule emission = particles.emission;
@@ -476,7 +613,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
 
         ParticleSystem.ShapeModule shape = particles.shape;
         shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.15f;
+        shape.radius = 0.07f;
 
         ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSparkTextureResourcePath));
         return particles;
@@ -490,22 +627,157 @@ public sealed class IceGrenadeEffects : MonoBehaviour
 
         ParticleSystem.MainModule main = particles.main;
         main.loop = false;
-        main.startLifetime = 0.9f;
-        main.startSpeed = 1.6f;
-        main.startSize = 0.55f;
-        main.maxParticles = 48;
+        main.startLifetime = 0.55f;
+        main.startSpeed = Mathf.Max(0.35f, explosionRadius * 0.65f);
+        main.startSize = 0.28f;
+        main.maxParticles = 32;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
 
         ParticleSystem.EmissionModule emission = particles.emission;
         emission.rateOverTime = 0f;
-        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 20) });
+        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 12) });
 
         ParticleSystem.ShapeModule shape = particles.shape;
         shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.2f;
+        shape.radius = 0.09f;
 
         ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
         return particles;
+    }
+
+    private GameObject CreateExplosionRangeVisual()
+    {
+        GameObject sourcePrefab = Resources.Load<GameObject>(explosionRangePrefabResourcePath);
+        if (sourcePrefab == null)
+        {
+            Debug.LogWarning($"Explosion range prefab was not found in Resources at '{explosionRangePrefabResourcePath}'.", this);
+            return null;
+        }
+
+        GameObject rangeVisual = Instantiate(sourcePrefab);
+        rangeVisual.name = "IceExplosionRangeShield";
+        rangeVisual.SetActive(false);
+
+        foreach (Collider rangeCollider in rangeVisual.GetComponentsInChildren<Collider>(true))
+        {
+            rangeCollider.enabled = false;
+        }
+
+        explosionRangeParticles = rangeVisual.GetComponentsInChildren<ParticleSystem>(true);
+        foreach (ParticleSystem particle in explosionRangeParticles)
+        {
+            ParticleSystem.MainModule main = particle.main;
+            main.loop = true;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            SetParticleColor(particle, WithAlpha(iceColor, explosionRangeAlpha));
+
+            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
+            if (renderer != null)
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+                MakeRendererMaterialsTransparent(renderer, explosionRangeAlpha, 2990);
+            }
+        }
+
+        foreach (Renderer renderer in rangeVisual.GetComponentsInChildren<Renderer>(true))
+        {
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            if (renderer is ParticleSystemRenderer)
+            {
+                MakeRendererMaterialsTransparent(renderer, explosionRangeAlpha, 2990);
+            }
+            else
+            {
+                MakeRendererMaterialsOpaque(renderer);
+            }
+        }
+
+        return rangeVisual;
+    }
+
+    private LineRenderer CreateExplosionRangeRing()
+    {
+        GameObject ringObject = new GameObject("IceExplosionRangeRing");
+        ringObject.transform.SetParent(transform, false);
+
+        LineRenderer ring = ringObject.AddComponent<LineRenderer>();
+        ring.useWorldSpace = true;
+        ring.loop = true;
+        ring.positionCount = explosionRangeRingSegments;
+        ring.startWidth = explosionRangeRingWidth;
+        ring.endWidth = explosionRangeRingWidth;
+        ring.numCapVertices = 4;
+        ring.numCornerVertices = 2;
+        ring.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        ring.receiveShadows = false;
+        ring.material = CreateEmissiveMaterial("IceExplosionRangeRingMaterial", iceColor);
+        ring.enabled = false;
+        return ring;
+    }
+
+    private void ShowExplosionRange(Vector3 position)
+    {
+        Vector3 rangePosition = position + Vector3.up * explosionRangeVerticalOffset;
+        float diameter = explosionRadius * 2f;
+
+        if (explosionRangeVisual != null)
+        {
+            explosionRangeVisual.transform.position = rangePosition;
+            explosionRangeVisual.transform.rotation = Quaternion.identity;
+            explosionRangeVisual.transform.localScale = Vector3.one * (diameter / Mathf.Max(0.01f, explosionRangePrefabDiameterMeters));
+            explosionRangeVisual.SetActive(true);
+
+            if (explosionRangeParticles != null)
+            {
+                foreach (ParticleSystem particle in explosionRangeParticles)
+                {
+                    if (particle == null)
+                    {
+                        continue;
+                    }
+
+                    SetParticleColor(particle, WithAlpha(iceColor, explosionRangeAlpha));
+                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    particle.Play();
+                }
+            }
+        }
+
+        if (explosionRangeRing != null)
+        {
+            explosionRangeRing.enabled = true;
+            explosionRangeRing.startColor = iceColor;
+            explosionRangeRing.endColor = sparkleColor;
+            explosionRangeRing.startWidth = explosionRangeRingWidth;
+            explosionRangeRing.endWidth = explosionRangeRingWidth;
+            explosionRangeRing.positionCount = Mathf.Max(8, explosionRangeRingSegments);
+
+            for (int i = 0; i < explosionRangeRing.positionCount; i++)
+            {
+                float angle = i / (float)explosionRangeRing.positionCount * Mathf.PI * 2f;
+                Vector3 offset = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * explosionRadius;
+                explosionRangeRing.SetPosition(i, rangePosition + offset);
+            }
+        }
+
+        hideExplosionRangeAtTime = Time.time + explosionRangeVisibleSeconds;
+    }
+
+    private void HideExplosionRange()
+    {
+        if (explosionRangeVisual != null)
+        {
+            explosionRangeVisual.SetActive(false);
+        }
+
+        if (explosionRangeRing != null)
+        {
+            explosionRangeRing.enabled = false;
+        }
+
+        StopParticles(explosionRangeParticles);
     }
 
     private void ConfigureParticleRenderer(ParticleSystem particles, Texture2D texture)
@@ -555,6 +827,108 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         };
 
         return material;
+    }
+
+    private static void MakeRendererMaterialsTransparent(Renderer renderer, float alpha, int renderQueue)
+    {
+        if (renderer == null)
+        {
+            return;
+        }
+
+        Material[] materials = renderer.materials;
+        foreach (Material material in materials)
+        {
+            MakeMaterialTransparent(material, alpha, renderQueue);
+        }
+    }
+
+    private static void MakeRendererMaterialsOpaque(Renderer renderer)
+    {
+        if (renderer == null)
+        {
+            return;
+        }
+
+        foreach (Material material in renderer.materials)
+        {
+            if (material == null)
+            {
+                continue;
+            }
+
+            if (material.HasProperty("_Color"))
+            {
+                Color color = material.GetColor("_Color");
+                color.a = 1f;
+                material.SetColor("_Color", color);
+            }
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                Color color = material.GetColor("_BaseColor");
+                color.a = 1f;
+                material.SetColor("_BaseColor", color);
+            }
+
+            if (material.HasProperty("_Surface"))
+            {
+                material.SetFloat("_Surface", 0f);
+            }
+
+            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            material.SetInt("_ZWrite", 1);
+            material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            material.DisableKeyword("_ALPHABLEND_ON");
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+        }
+    }
+
+    private static void MakeMaterialTransparent(Material material, float alpha, int renderQueue)
+    {
+        if (material == null)
+        {
+            return;
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            Color color = material.GetColor("_Color");
+            color.a = alpha;
+            material.SetColor("_Color", color);
+        }
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            Color color = material.GetColor("_BaseColor");
+            color.a = alpha;
+            material.SetColor("_BaseColor", color);
+        }
+
+        if (material.HasProperty("_TintColor"))
+        {
+            Color color = material.GetColor("_TintColor");
+            color.a = alpha;
+            material.SetColor("_TintColor", color);
+        }
+
+        if (material.HasProperty("_Surface"))
+        {
+            material.SetFloat("_Surface", 1f);
+            material.SetFloat("_Blend", 0f);
+            material.SetFloat("_AlphaClip", 0f);
+        }
+
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.EnableKeyword("_ALPHABLEND_ON");
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.SetOverrideTag("RenderType", "Transparent");
+        material.renderQueue = renderQueue;
     }
 
     private void SetLayeredChargeIntensity(Color tint, float progress)

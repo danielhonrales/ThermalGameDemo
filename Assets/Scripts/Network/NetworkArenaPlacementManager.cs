@@ -125,6 +125,79 @@ public sealed class NetworkArenaPlacementManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Establishes a local coordinate frame used only for networked player poses.
+    /// This deliberately leaves ArenaRoot and the visual environment untouched.
+    /// </summary>
+    public void CalibrateNetworkPlayersFromManualReference(Vector3 physicalReferencePoint, Vector3 referencePointInArena)
+    {
+        FindLocalHead();
+
+        Vector3 forward = localHead != null
+            ? Vector3.ProjectOnPlane(localHead.forward, Vector3.up)
+            : Vector3.forward;
+        if (forward.sqrMagnitude < 0.001f)
+        {
+            forward = Vector3.forward;
+        }
+
+        Quaternion rotation = yawOnly
+            ? Quaternion.LookRotation(forward.normalized, Vector3.up)
+            : (localHead != null ? localHead.rotation : Quaternion.identity);
+
+        Vector3 position = physicalReferencePoint - rotation * referencePointInArena;
+        NetworkPlayerAlignment.SetCalibration(position, rotation);
+
+        if (logPlacement)
+        {
+            Debug.Log($"Manual player calibration placed reference {referencePointInArena} at physical point {physicalReferencePoint}; network player frame is {position}, {rotation.eulerAngles}. ArenaRoot was not moved.", this);
+        }
+    }
+
+    /// <summary>
+    /// Calibrates only the coordinate frame used by networked player bodies.
+    /// Stand on the shared physical marker and face the shared direction before
+    /// calling this on each headset. ArenaRoot is never moved.
+    /// </summary>
+    public void CalibrateNetworkPlayersFromThisDevice()
+    {
+        FindLocalHead();
+        if (localHead == null)
+        {
+            Debug.LogWarning("Cannot calibrate networked player bodies because no local head transform was found.", this);
+            return;
+        }
+
+        Vector3 forward = Vector3.ProjectOnPlane(localHead.forward, Vector3.up).normalized;
+        if (forward.sqrMagnitude < 0.001f)
+        {
+            forward = Vector3.forward;
+        }
+
+        Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
+        Vector3 origin = localHead.position;
+
+        // The headset supplies X/Z from the shared standing marker. Reuse the
+        // already-calibrated arena floor only for height so player calibration
+        // cannot disturb the arena itself.
+        if (arenaRoot == null)
+        {
+            GameObject foundArena = GameObject.Find("ArenaRoot");
+            if (foundArena != null)
+            {
+                arenaRoot = foundArena.transform;
+            }
+        }
+
+        origin.y = arenaRoot != null ? arenaRoot.position.y : floorY;
+        NetworkPlayerAlignment.SetCalibration(origin, rotation);
+
+        if (logPlacement)
+        {
+            Debug.Log($"Player-body frame calibrated at {origin}, yaw {rotation.eulerAngles.y:0.0}. ArenaRoot was not moved.", this);
+        }
+    }
+
     private void TryPlaceFromLocalHead()
     {
         attemptedAuthorityPlacement = true;

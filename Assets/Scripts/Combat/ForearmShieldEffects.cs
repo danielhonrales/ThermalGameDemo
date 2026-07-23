@@ -7,7 +7,9 @@ public sealed class ForearmShieldEffects : MonoBehaviour
     [SerializeField] private string ledTubeResourcePath = "CustomAssets/PowerSleeve/ledTube";
     [SerializeField] private string shieldEffectPath = "ColdHit/Magic shield blue";
     [SerializeField] private float shieldLayerScale = 20f;
-    [SerializeField] private Color shieldColor = new Color(0.35f, 0.78f, 1f, 0.38f);
+    [SerializeField] private Color shieldColor = new Color(0.72f, 0.2f, 1f, 0.78f);
+    [SerializeField, Range(0f, 1f)] private float shieldParticleAlphaMultiplier = 0.55f;
+    [SerializeField, Range(0f, 1f)] private float shieldDiscAlphaMultiplier = 0.9f;
     [SerializeField] private float shieldLightIntensity = 3f;
 
     [Header("Shield Disc")]
@@ -203,6 +205,16 @@ public sealed class ForearmShieldEffects : MonoBehaviour
             ParticleSystem.MainModule main = particle.main;
             main.loop = true;
             main.simulationSpace = ParticleSystemSimulationSpace.Local;
+
+            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
+            if (renderer != null)
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+                Color particleTint = shieldColor;
+                particleTint.a *= shieldParticleAlphaMultiplier;
+                TintRendererMaterials(renderer, particleTint, 2990);
+            }
         }
 
         return particles.ToArray();
@@ -253,7 +265,9 @@ public sealed class ForearmShieldEffects : MonoBehaviour
             Renderer renderer = shieldDisc.GetComponent<Renderer>();
             if (renderer != null)
             {
-                renderer.material = CreateEmissiveMaterial("ForearmShieldDiscMaterial", color);
+                Color discColor = color;
+                discColor.a *= shieldDiscAlphaMultiplier;
+                ApplyEmissiveColor(renderer.material, discColor);
             }
         }
 
@@ -271,8 +285,14 @@ public sealed class ForearmShieldEffects : MonoBehaviour
 
             ParticleSystem.MainModule main = particle.main;
             Color particleColor = color;
-            particleColor.a *= 0.55f;
+            particleColor.a *= shieldParticleAlphaMultiplier;
             main.startColor = particleColor;
+
+            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
+            if (renderer != null)
+            {
+                TintRendererMaterials(renderer, particleColor, 2990);
+            }
         }
     }
 
@@ -341,15 +361,87 @@ public sealed class ForearmShieldEffects : MonoBehaviour
             material.SetOverrideTag("RenderType", "Transparent");
             material.renderQueue = 3000;
         }
-        else
-        {
-            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            material.SetInt("_ZWrite", 0);
-            material.EnableKeyword("_ALPHABLEND_ON");
-            material.renderQueue = 3000;
-        }
+
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.EnableKeyword("_ALPHABLEND_ON");
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.renderQueue = 2990;
 
         return material;
+    }
+
+    private static void ApplyEmissiveColor(Material material, Color color)
+    {
+        if (material == null)
+        {
+            return;
+        }
+
+        material.color = color;
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", color);
+        }
+
+        if (material.HasProperty("_EmissionColor"))
+        {
+            material.SetColor("_EmissionColor", new Color(color.r, color.g, color.b, 1f) * 1.6f);
+        }
+    }
+
+    private static void TintRendererMaterials(Renderer renderer, Color tint, int renderQueue)
+    {
+        if (renderer == null)
+        {
+            return;
+        }
+
+        Material[] materials = renderer.materials;
+        foreach (Material material in materials)
+        {
+            MakeMaterialTransparent(material, tint, renderQueue);
+        }
+    }
+
+    private static void MakeMaterialTransparent(Material material, Color tint, int renderQueue)
+    {
+        if (material == null)
+        {
+            return;
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            material.SetColor("_Color", tint);
+        }
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", tint);
+        }
+
+        if (material.HasProperty("_TintColor"))
+        {
+            material.SetColor("_TintColor", tint);
+        }
+
+        if (material.HasProperty("_Surface"))
+        {
+            material.SetFloat("_Surface", 1f);
+            material.SetFloat("_Blend", 0f);
+            material.SetFloat("_AlphaClip", 0f);
+        }
+
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.EnableKeyword("_ALPHABLEND_ON");
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.SetOverrideTag("RenderType", "Transparent");
+        material.renderQueue = renderQueue;
     }
 }

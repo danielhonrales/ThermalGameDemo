@@ -32,7 +32,13 @@ public sealed class NetworkPlayerShieldVisual : NetworkBehaviour
         EnsureShieldEffects();
         if (ShieldVisible)
         {
-            shieldEffects?.ShowShield(ShieldPosition, ShieldRotation);
+            Vector3 position = NetworkPlayerAlignment.HasCalibration
+                ? NetworkPlayerAlignment.TransformPoint(ShieldPosition)
+                : ShieldPosition;
+            Quaternion rotation = NetworkPlayerAlignment.HasCalibration
+                ? NetworkPlayerAlignment.TransformRotation(ShieldRotation)
+                : ShieldRotation;
+            shieldEffects?.ShowShield(RemotePlayerCorrection.Apply(position), rotation);
         }
         else
         {
@@ -42,6 +48,12 @@ public sealed class NetworkPlayerShieldVisual : NetworkBehaviour
 
     public void SubmitShield(bool active, Vector3 position, Quaternion rotation)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            position = NetworkPlayerAlignment.InverseTransformPoint(position);
+            rotation = NetworkPlayerAlignment.InverseTransformRotation(rotation);
+        }
+
         if (Object != null && Object.HasStateAuthority)
         {
             SetShield(active, position, rotation);

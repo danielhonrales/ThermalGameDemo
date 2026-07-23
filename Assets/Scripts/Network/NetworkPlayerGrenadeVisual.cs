@@ -44,7 +44,7 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
 
         if (ChargeVisible)
         {
-            iceEffects?.ShowCharge(ChargePosition, ChargeRotation, ChargeProgress);
+            iceEffects?.ShowCharge(DecodeRemotePoint(ChargePosition), DecodeRemoteRotation(ChargeRotation), ChargeProgress);
         }
         else
         {
@@ -55,7 +55,10 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         {
             remoteLaunchConsumed = true;
             Transform visual = iceEffects != null ? iceEffects.CreateGrenadeVisual(remoteProjectile.transform) : null;
-            remoteProjectile.Launch(GrenadeOrigin, GrenadeVelocity, CombatLayers.CombatHitMask, visual, OnRemoteExploded, 1f, GrenadeFloorY);
+            Vector3 correctedOrigin = DecodeRemotePoint(GrenadeOrigin);
+            Vector3 correctedVelocity = DecodeRemoteDirection(GrenadeVelocity);
+            float correctedFloorY = DecodeRemoteFloorY(GrenadeFloorY) + RemotePlayerCorrection.WorldOffset.y;
+            remoteProjectile.Launch(correctedOrigin, correctedVelocity, CombatLayers.CombatHitMask, visual, OnRemoteExploded, 1f, correctedFloorY);
             iceEffects?.StartFlightTrail(remoteProjectile.transform);
         }
         else if (!GrenadeVisible)
@@ -72,12 +75,18 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         if (ExplosionSequence != lastRenderedExplosionSequence)
         {
             lastRenderedExplosionSequence = ExplosionSequence;
-            iceEffects?.PlayExplosion(ExplosionPosition);
+            iceEffects?.PlayExplosion(DecodeRemotePoint(ExplosionPosition));
         }
     }
 
     public void SubmitCharge(Vector3 position, Quaternion rotation, float progress)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            position = NetworkPlayerAlignment.InverseTransformPoint(position);
+            rotation = NetworkPlayerAlignment.InverseTransformRotation(rotation);
+        }
+
         if (Object != null && Object.HasStateAuthority)
         {
             SetCharge(position, rotation, progress, true);
@@ -92,6 +101,13 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
 
     public void SubmitThrow(Vector3 origin, Vector3 launchVelocity, float floorWorldY)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            origin = NetworkPlayerAlignment.InverseTransformPoint(origin);
+            launchVelocity = NetworkPlayerAlignment.InverseTransformDirection(launchVelocity);
+            floorWorldY = NetworkPlayerAlignment.InverseTransformPoint(new Vector3(0f, floorWorldY, 0f)).y;
+        }
+
         if (Object != null && Object.HasStateAuthority)
         {
             SetThrow(origin, launchVelocity, floorWorldY, true);
@@ -106,6 +122,11 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
 
     public void SubmitExplosion(Vector3 position)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            position = NetworkPlayerAlignment.InverseTransformPoint(position);
+        }
+
         if (Object != null && Object.HasStateAuthority)
         {
             SetExplosion(position, true);
@@ -220,5 +241,34 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         projectileObject.transform.SetParent(transform, false);
         remoteProjectile = projectileObject.AddComponent<IceGrenadeProjectile>();
         projectileObject.SetActive(false);
+    }
+
+    private static Vector3 DecodeRemotePoint(Vector3 point)
+    {
+        Vector3 worldPoint = NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformPoint(point)
+            : point;
+        return RemotePlayerCorrection.Apply(worldPoint);
+    }
+
+    private static Quaternion DecodeRemoteRotation(Quaternion rotation)
+    {
+        return NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformRotation(rotation)
+            : rotation;
+    }
+
+    private static Vector3 DecodeRemoteDirection(Vector3 direction)
+    {
+        return NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformDirection(direction)
+            : direction;
+    }
+
+    private static float DecodeRemoteFloorY(float floorY)
+    {
+        return NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformPoint(new Vector3(0f, floorY, 0f)).y
+            : floorY;
     }
 }

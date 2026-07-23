@@ -47,7 +47,9 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
             if (thermalEffects != null && showRemoteCharge)
             {
                 Color chargeColor = new Color(ChargeColor.x, ChargeColor.y, ChargeColor.z, ChargeColor.w);
-                thermalEffects.ShowCharge(ChargePosition, chargeColor, ChargeProgress, ChargePosition, ChargeRotation);
+                Vector3 correctedChargePosition = DecodeRemotePoint(ChargePosition);
+                Quaternion correctedChargeRotation = DecodeRemoteRotation(ChargeRotation);
+                thermalEffects.ShowCharge(correctedChargePosition, chargeColor, ChargeProgress, correctedChargePosition, correctedChargeRotation);
             }
             else if (thermalEffects != null)
             {
@@ -58,14 +60,19 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
         }
 
         Color color = new Color(BeamColor.x, BeamColor.y, BeamColor.z, BeamColor.w);
+        Vector3 beamStart = IsLocalPlayer ? BeamStart : DecodeRemotePoint(BeamStart);
+        Vector3 beamEnd = IsLocalPlayer ? BeamEnd : DecodeRemotePoint(BeamEnd);
+        Vector3 hitPoint = IsLocalPlayer ? BeamHitPoint : DecodeRemotePoint(BeamHitPoint);
+        Vector3 mountPosition = IsLocalPlayer ? BeamMountPosition : DecodeRemotePoint(BeamMountPosition);
+        Quaternion mountRotation = IsLocalPlayer ? BeamMountRotation : DecodeRemoteRotation(BeamMountRotation);
         beamLine.startColor = color;
         beamLine.endColor = color;
-        beamLine.SetPosition(0, BeamStart);
-        beamLine.SetPosition(1, BeamEnd);
+        beamLine.SetPosition(0, beamStart);
+        beamLine.SetPosition(1, beamEnd);
 
         if (thermalEffects != null)
         {
-            thermalEffects.ShowBeam(BeamStart, BeamEnd, color, BeamHitSomething, BeamHitPoint, BeamMountPosition, BeamMountRotation);
+            thermalEffects.ShowBeam(beamStart, beamEnd, color, BeamHitSomething, hitPoint, mountPosition, mountRotation);
         }
     }
 
@@ -81,6 +88,15 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
 
     public void SubmitBeam(Vector3 start, Vector3 end, Color color, bool hitSomething, Vector3 hitPoint, Vector3 mountPosition, Quaternion mountRotation)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            start = NetworkPlayerAlignment.InverseTransformPoint(start);
+            end = NetworkPlayerAlignment.InverseTransformPoint(end);
+            hitPoint = NetworkPlayerAlignment.InverseTransformPoint(hitPoint);
+            mountPosition = NetworkPlayerAlignment.InverseTransformPoint(mountPosition);
+            mountRotation = NetworkPlayerAlignment.InverseTransformRotation(mountRotation);
+        }
+
         Vector4 colorVector = new Vector4(color.r, color.g, color.b, color.a);
 
         if (Object != null && Object.HasStateAuthority)
@@ -102,6 +118,12 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
 
     public void SubmitCharge(Vector3 position, Quaternion rotation, Color color, float progress)
     {
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            position = NetworkPlayerAlignment.InverseTransformPoint(position);
+            rotation = NetworkPlayerAlignment.InverseTransformRotation(rotation);
+        }
+
         Vector4 colorVector = new Vector4(color.r, color.g, color.b, color.a);
 
         if (Object != null && Object.HasStateAuthority)
@@ -189,6 +211,21 @@ public sealed class NetworkPlayerBeamVisual : NetworkBehaviour
         beamLine.endWidth = lineWidth;
         beamLine.material = new Material(Shader.Find("Sprites/Default"));
         beamLine.enabled = false;
+    }
+
+    private static Vector3 DecodeRemotePoint(Vector3 point)
+    {
+        Vector3 worldPoint = NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformPoint(point)
+            : point;
+        return RemotePlayerCorrection.Apply(worldPoint);
+    }
+
+    private static Quaternion DecodeRemoteRotation(Quaternion rotation)
+    {
+        return NetworkPlayerAlignment.HasCalibration
+            ? NetworkPlayerAlignment.TransformRotation(rotation)
+            : rotation;
     }
 
     private void EnsureThermalEffects()

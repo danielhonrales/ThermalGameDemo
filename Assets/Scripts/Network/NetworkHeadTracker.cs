@@ -14,11 +14,19 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
 
     [Header("Networked Hitbox")]
     [SerializeField] private Transform headHitbox;
+    [Tooltip("Uses the existing HeadHitbox object as a compact full-body target below the tracked head.")]
+    [SerializeField] private bool useFullBodyCapsule = true;
     [SerializeField, Min(0.05f)] private float headRadiusMeters = 0.18f;
-    [SerializeField] private bool hideHeadRenderer = true;
+    [SerializeField, Min(0.1f)] private float headCapsuleHeightMeters = 0.34f;
+    [SerializeField] private Vector3 headCapsuleCenter = Vector3.zero;
+    [SerializeField, Min(0.1f)] private float bodyCapsuleRadiusMeters = 0.28f;
+    [SerializeField, Min(0.2f)] private float bodyCapsuleHeightMeters = 1.7f;
+    [SerializeField, Min(0f)] private float bodyCenterBelowHeadMeters = 0.85f;
 
     [Networked] private Vector3 NetworkHeadPosition { get; set; }
     [Networked] private Quaternion NetworkHeadRotation { get; set; }
+
+    public Vector3 HeadWorldPosition => GetHeadWorldPose().position;
 
     public override void Spawned()
     {
@@ -55,15 +63,21 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
 
         FindArenaRoot();
 
-        if (useArenaRelativeCoordinates && arenaRoot != null)
+        Pose headPose = GetHeadWorldPose();
+        if (useFullBodyCapsule)
         {
-            Vector3 worldPosition = arenaRoot.TransformPoint(NetworkHeadPosition);
-            Quaternion worldRotation = arenaRoot.rotation * NetworkHeadRotation;
-            headHitbox.SetPositionAndRotation(worldPosition, worldRotation);
+            Vector3 bodyPosition = headPose.position + Vector3.down * bodyCenterBelowHeadMeters;
+            Vector3 bodyForward = Vector3.ProjectOnPlane(headPose.rotation * Vector3.forward, Vector3.up);
+            if (bodyForward.sqrMagnitude < 0.0001f)
+            {
+                bodyForward = Vector3.forward;
+            }
+
+            headHitbox.SetPositionAndRotation(bodyPosition, Quaternion.LookRotation(bodyForward.normalized, Vector3.up));
             return;
         }
 
-        headHitbox.SetPositionAndRotation(NetworkHeadPosition, NetworkHeadRotation);
+        headHitbox.SetPositionAndRotation(headPose.position, headPose.rotation);
     }
 
     private void PushLocalHeadToNetwork()
@@ -74,6 +88,13 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
         }
 
         FindArenaRoot();
+
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            NetworkHeadPosition = NetworkPlayerAlignment.InverseTransformPoint(localHead.position);
+            NetworkHeadRotation = NetworkPlayerAlignment.InverseTransformRotation(localHead.rotation);
+            return;
+        }
 
         if (useArenaRelativeCoordinates && arenaRoot != null)
         {
@@ -153,20 +174,33 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
             headHitbox.gameObject.layer = headTargetLayer;
         }
 
-        SphereCollider sphere = headHitbox.GetComponent<SphereCollider>();
-        if (sphere == null)
+        // The hitbox transform is placed at the tracked head. Keep the capsule compact
+        // and locally centered so it cannot drift below or away from the player.
+        foreach (SphereCollider sphere in headHitbox.GetComponents<SphereCollider>())
         {
-            sphere = headHitbox.gameObject.AddComponent<SphereCollider>();
+            sphere.enabled = false;
+            Destroy(sphere);
         }
 
-        sphere.radius = headRadiusMeters;
-        sphere.center = Vector3.zero;
-        sphere.isTrigger = false;
+        CapsuleCollider capsule = headHitbox.GetComponent<CapsuleCollider>();
+        if (capsule == null)
+        {
+            capsule = headHitbox.gameObject.AddComponent<CapsuleCollider>();
+        }
+
+        float radius = useFullBodyCapsule ? bodyCapsuleRadiusMeters : headRadiusMeters;
+        float height = useFullBodyCapsule ? bodyCapsuleHeightMeters : headCapsuleHeightMeters;
+        capsule.radius = radius;
+        capsule.height = Mathf.Max(height, radius * 2f);
+        capsule.center = useFullBodyCapsule ? Vector3.zero : headCapsuleCenter;
+        capsule.direction = 1;
+        capsule.isTrigger = false;
+        capsule.enabled = true;
 
         Renderer[] renderers = headHitbox.GetComponentsInChildren<Renderer>(true);
         foreach (Renderer hitboxRenderer in renderers)
         {
-            hitboxRenderer.enabled = !hideHeadRenderer;
+            Destroy(hitboxRenderer);
         }
     }
 
@@ -180,4 +214,102 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(headHitbox.position, headRadiusMeters);
     }
+
+    private Pose GetHeadWorldPose()
+    {
+        FindArenaRoot();
+        Pose pose;
+        if (NetworkPlayerAlignment.HasCalibration)
+        {
+            pose = new Pose(
+                NetworkPlayerAlignment.TransformPoint(NetworkHeadPosition),
+                NetworkPlayerAlignment.TransformRotation(NetworkHeadRotation));
+        }
+        else if (useArenaRelativeCoordinates && arenaRoot != null)
+        {
+            pose = new Pose(
+                arenaRoot.TransformPoint(NetworkHeadPosition),
+                arenaRoot.rotation * NetworkHeadRotation);
+        }
+        else
+        {
+            pose = new Pose(NetworkHeadPosition, NetworkHeadRotation);
+        }
+
+        if (Object != null && !Object.HasInputAuthority)
+        {
+            pose.position = RemotePlayerCorrection.Apply(pose.position);
+        }
+
+        return pose;
+    }
+}
+
+/// <summary>
+/// Per-headset mapping between a manually registered physical frame and the
+/// shared coordinates transmitted for player tracking. It never moves scene art.
+/// </summary>
+public static class NetworkPlayerAlignment
+{
+    public static bool HasCalibration { get; private set; }
+
+    private static Vector3 origin;
+    private static Quaternion rotation = Quaternion.identity;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetOnPlay()
+    {
+        HasCalibration = false;
+        origin = Vector3.zero;
+        rotation = Quaternion.identity;
+    }
+
+    public static void SetCalibration(Vector3 worldOrigin, Quaternion worldRotation)
+    {
+        origin = worldOrigin;
+        rotation = worldRotation;
+        HasCalibration = true;
+    }
+
+    public static Vector3 InverseTransformPoint(Vector3 worldPoint)
+    {
+        return Quaternion.Inverse(rotation) * (worldPoint - origin);
+    }
+
+    public static Quaternion InverseTransformRotation(Quaternion worldRotation)
+    {
+        return Quaternion.Inverse(rotation) * worldRotation;
+    }
+
+    public static Vector3 TransformPoint(Vector3 alignedPoint)
+    {
+        return origin + rotation * alignedPoint;
+    }
+
+    public static Quaternion TransformRotation(Quaternion alignedRotation)
+    {
+        return rotation * alignedRotation;
+    }
+
+    public static Vector3 InverseTransformDirection(Vector3 worldDirection)
+    {
+        return Quaternion.Inverse(rotation) * worldDirection;
+    }
+
+    public static Vector3 TransformDirection(Vector3 alignedDirection)
+    {
+        return rotation * alignedDirection;
+    }
+}
+
+public static class RemotePlayerCorrection
+{
+    public static Vector3 WorldOffset { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetOnPlay() => Reset();
+
+    public static void SetWorldOffset(Vector3 offset) => WorldOffset = offset;
+    public static Vector3 Apply(Vector3 worldPosition) => worldPosition + WorldOffset;
+    public static void Reset() => WorldOffset = Vector3.zero;
 }
