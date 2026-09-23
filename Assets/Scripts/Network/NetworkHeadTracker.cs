@@ -1,8 +1,8 @@
-using Fusion;
+using Mirror;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(NetworkIdentity))]
 public sealed class NetworkHeadTracker : NetworkBehaviour
 {
     [Header("Local Tracking")]
@@ -23,27 +23,32 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
     [SerializeField, Min(0.2f)] private float bodyCapsuleHeightMeters = 1.7f;
     [SerializeField, Min(0f)] private float bodyCenterBelowHeadMeters = 0.85f;
 
-    [Networked] private Vector3 NetworkHeadPosition { get; set; }
-    [Networked] private Quaternion NetworkHeadRotation { get; set; }
+    [SyncVar] private Vector3 NetworkHeadPosition;
+    [SyncVar] private Quaternion NetworkHeadRotation;
 
     public Vector3 HeadWorldPosition => GetHeadWorldPose().position;
+    public Vector3 CanonicalHeadPosition => isOwned && localHead != null
+        ? NetworkPlayerAlignment.HasCalibration ? NetworkPlayerAlignment.InverseTransformPoint(localHead.position)
+          : useArenaRelativeCoordinates && arenaRoot != null ? arenaRoot.InverseTransformPoint(localHead.position) : localHead.position
+        : NetworkHeadPosition;
 
-    public override void Spawned()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
         EnsureHeadHitbox();
         ApplyHeadHitboxSetup();
         FindArenaRoot();
 
-        if (Object.HasInputAuthority)
+        if (isOwned)
         {
             FindLocalHead();
             PushLocalHeadToNetwork();
         }
     }
 
-    public override void FixedUpdateNetwork()
+    private void FixedUpdate()
     {
-        if (Object.HasInputAuthority)
+        if (isOwned)
         {
             if (localHead == null)
             {
@@ -91,20 +96,35 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
 
         if (NetworkPlayerAlignment.HasCalibration)
         {
-            NetworkHeadPosition = NetworkPlayerAlignment.InverseTransformPoint(localHead.position);
-            NetworkHeadRotation = NetworkPlayerAlignment.InverseTransformRotation(localHead.rotation);
+            SendPose(NetworkPlayerAlignment.InverseTransformPoint(localHead.position),
+                NetworkPlayerAlignment.InverseTransformRotation(localHead.rotation));
             return;
         }
 
         if (useArenaRelativeCoordinates && arenaRoot != null)
         {
-            NetworkHeadPosition = arenaRoot.InverseTransformPoint(localHead.position);
-            NetworkHeadRotation = Quaternion.Inverse(arenaRoot.rotation) * localHead.rotation;
+            SendPose(arenaRoot.InverseTransformPoint(localHead.position),
+                Quaternion.Inverse(arenaRoot.rotation) * localHead.rotation);
             return;
         }
 
-        NetworkHeadPosition = localHead.position;
-        NetworkHeadRotation = localHead.rotation;
+        SendPose(localHead.position, localHead.rotation);
+    }
+
+    private void SendPose(Vector3 position, Quaternion rotation)
+    {
+        if (isServer) { NetworkHeadPosition = position; NetworkHeadRotation = rotation; }
+        else
+        {
+            CmdSetPose(position, rotation);
+        }
+    }
+
+    [Command(channel = Channels.Unreliable)]
+    private void CmdSetPose(Vector3 position, Quaternion rotation)
+    {
+        NetworkHeadPosition = position;
+        NetworkHeadRotation = rotation;
     }
 
     private void FindLocalHead()
@@ -218,6 +238,7 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
     private Pose GetHeadWorldPose()
     {
         FindArenaRoot();
+        if (isOwned && localHead != null) return new Pose(localHead.position, localHead.rotation);
         Pose pose;
         if (NetworkPlayerAlignment.HasCalibration)
         {
@@ -236,7 +257,7 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
             pose = new Pose(NetworkHeadPosition, NetworkHeadRotation);
         }
 
-        if (Object != null && !Object.HasInputAuthority)
+        if (!isOwned)
         {
             pose.position = RemotePlayerCorrection.Apply(pose.position);
         }
@@ -269,6 +290,7 @@ public static class NetworkPlayerAlignment
         origin = worldOrigin;
         rotation = worldRotation;
         HasCalibration = true;
+        CombatEventOutput.Emit("calibrated", "manual");
     }
 
     public static Vector3 InverseTransformPoint(Vector3 worldPoint)

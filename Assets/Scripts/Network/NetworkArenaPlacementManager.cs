@@ -1,9 +1,7 @@
-using Fusion;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NetworkObject))]
-public sealed class NetworkArenaPlacementManager : NetworkBehaviour
+public sealed class NetworkArenaPlacementManager : MonoBehaviour
 {
     [SerializeField] private Transform arenaRoot;
     [SerializeField] private Transform localHead;
@@ -17,36 +15,7 @@ public sealed class NetworkArenaPlacementManager : NetworkBehaviour
     [SerializeField] private bool localOnlyPlacement = true;
     [SerializeField] private bool logPlacement = true;
 
-    [Networked] private NetworkBool IsPlaced { get; set; }
-    [Networked] private Vector3 ArenaPosition { get; set; }
-    [Networked] private Quaternion ArenaRotation { get; set; }
-
-    private bool attemptedAuthorityPlacement;
-
-    public bool HasStateAuthorityForPlacement => Object == null || Runner == null || !Runner.IsRunning || Object.HasStateAuthority;
-
-    public override void Spawned()
-    {
-        FindLocalHead();
-
-        if (Object.HasStateAuthority && placeFromAuthorityOnSpawn)
-        {
-            TryPlaceFromLocalHead();
-        }
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (Object.HasStateAuthority && placeFromAuthorityOnSpawn && !IsPlaced && !attemptedAuthorityPlacement)
-        {
-            TryPlaceFromLocalHead();
-        }
-    }
-
-    private void LateUpdate()
-    {
-        ApplyNetworkedArenaPose();
-    }
+    public bool HasStateAuthorityForPlacement => true;
 
     [ContextMenu("Place Arena From This Device")]
     public void PlaceArenaFromThisDevice()
@@ -75,32 +44,9 @@ public sealed class NetworkArenaPlacementManager : NetworkBehaviour
             rotation = Quaternion.LookRotation(forward, Vector3.up);
         }
 
-        if (localOnlyPlacement)
-        {
-            ApplyLocalArenaPose(position, rotation);
-
-            if (logPlacement)
-            {
-                Debug.Log($"ArenaRoot locally placed at {position} rotation {rotation.eulerAngles}.", this);
-            }
-        }
-        else if (Object != null && Object.HasStateAuthority)
-        {
-            SetArenaPose(position, rotation);
-        }
-        else if (Object != null && Runner != null && Runner.IsRunning)
-        {
-            RPC_RequestArenaPlacement(position, rotation);
-        }
-        else
-        {
-            if (logPlacement)
-            {
-                Debug.Log("ArenaPlacementManager is not running as a Fusion network object, applying arena placement locally.", this);
-            }
-
-            ApplyLocalArenaPose(position, rotation);
-        }
+        ApplyLocalArenaPose(position, rotation);
+        if (logPlacement)
+            Debug.Log($"ArenaRoot locally placed at {position} rotation {rotation.eulerAngles}.", this);
     }
 
     public void PlaceArenaAtWorldPose(Vector3 position, Quaternion rotation)
@@ -196,45 +142,6 @@ public sealed class NetworkArenaPlacementManager : NetworkBehaviour
         {
             Debug.Log($"Player-body frame calibrated at {origin}, yaw {rotation.eulerAngles.y:0.0}. ArenaRoot was not moved.", this);
         }
-    }
-
-    private void TryPlaceFromLocalHead()
-    {
-        attemptedAuthorityPlacement = true;
-        PlaceArenaFromThisDevice();
-    }
-
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    private void RPC_RequestArenaPlacement(Vector3 position, Quaternion rotation)
-    {
-        SetArenaPose(position, rotation);
-    }
-
-    private void SetArenaPose(Vector3 position, Quaternion rotation)
-    {
-        ArenaPosition = position;
-        ArenaRotation = rotation;
-        IsPlaced = true;
-        ApplyLocalArenaPose(position, rotation);
-        if (logPlacement)
-        {
-            Debug.Log($"ArenaRoot placed at {position} rotation {rotation.eulerAngles}.", this);
-        }
-    }
-
-    private void ApplyNetworkedArenaPose()
-    {
-        if (localOnlyPlacement)
-        {
-            return;
-        }
-
-        if (!IsPlaced)
-        {
-            return;
-        }
-
-        ApplyLocalArenaPose(ArenaPosition, ArenaRotation);
     }
 
     private void ApplyLocalArenaPose(Vector3 position, Quaternion rotation)

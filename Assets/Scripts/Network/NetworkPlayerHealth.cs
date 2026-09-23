@@ -1,15 +1,15 @@
-using Fusion;
+using Mirror;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(NetworkIdentity))]
 public sealed class NetworkPlayerHealth : NetworkBehaviour
 {
     [Header("Health")]
-    [SerializeField, Min(1)] private int maxHealth = 100;
+    [SerializeField, Min(1)] private int maxHealth = 300;
     [SerializeField, Min(1)] private int headshotDamage = 20;
     [SerializeField, Min(0f)] private float invulnerabilitySeconds = 2f;
-    [SerializeField] private bool resetToFullHealthOnZero = true;
+    [SerializeField] private bool resetToFullHealthOnZero = false;
 
     [Header("Health Bar")]
     [SerializeField] private Transform headTarget;
@@ -18,100 +18,139 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     [SerializeField, Min(0.01f)] private float barHeight = 0.045f;
     [SerializeField] private bool showLocalHealthBar = false;
     [SerializeField] private Color backgroundColor = new Color(0.03f, 0.03f, 0.03f, 0.85f);
-    [SerializeField] private Color healthyColor = new Color(0.1f, 1f, 0.2f, 1f);
-    [SerializeField] private Color lowHealthColor = new Color(1f, 0.08f, 0.04f, 1f);
+    [SerializeField] private Color healthyColor = new Color(0.16f, 0.95f, 0.43f, 1f);
+    [SerializeField] private Color lowHealthColor = new Color(0.16f, 0.95f, 0.43f, 1f);
 
     [Header("Debug")]
     [SerializeField] private bool logDamage = true;
 
-    [Networked] public int CurrentHealth { get; private set; }
-    [Networked] private NetworkBool ShieldActive { get; set; }
+    [SyncVar] private int currentHealth;
+    public int CurrentHealth => currentHealth;
+    [SyncVar] private bool shieldActive;
 
     private float nextDamageAllowedTime;
+    private float nextBlockEventTime;
     private Transform healthBarRoot;
-    private Transform fillBar;
-    private Renderer backgroundRenderer;
-    private Renderer fillRenderer;
+    private DemoHealthBar healthView;
     private NetworkHeadTracker headTracker;
+    private CombatDamageFeedback damageFeedback;
+    private int lastObservedHealth = -1;
 
-    public bool IsLocalPlayer => Object != null && Object.HasInputAuthority;
+    public bool IsLocalPlayer => isOwned;
     public bool IsAlive => CurrentHealth > 0;
-    public bool IsShieldActive => ShieldActive;
+    public bool IsShieldActive => shieldActive;
     public float Health01 => maxHealth <= 0 ? 0f : Mathf.Clamp01(CurrentHealth / (float)maxHealth);
 
-    public override void Spawned()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
         FindHeadTarget();
 
-        if (Object.HasStateAuthority && CurrentHealth <= 0)
-        {
-            CurrentHealth = maxHealth;
-        }
-
         EnsureHealthBar();
+        damageFeedback = GetComponent<CombatDamageFeedback>() ?? gameObject.AddComponent<CombatDamageFeedback>();
+        lastObservedHealth = CurrentHealth;
+
         UpdateHealthBar();
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        if (currentHealth <= 0) currentHealth = maxHealth;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        CombatEventOutput.SetPlayer((int)netId, CurrentHealth);
     }
 
     private void LateUpdate()
     {
         FindHeadTarget();
         EnsureHealthBar();
+        if (lastObservedHealth >= 0 && CurrentHealth < lastObservedHealth
+            && !IsLocalPlayer && damageFeedback != null)
+            damageFeedback.Play(headTracker != null ? headTracker.HeadWorldPosition : transform.position + Vector3.up * 1.5f);
+        lastObservedHealth = CurrentHealth;
         UpdateHealthBar();
     }
 
-    public void RequestHeadshotDamage()
+    public void RequestHeadshotDamage(string source = "fire")
     {
-        if (Object == null)
-        {
-            ApplyHeadshotDamage();
-            return;
-        }
-
-        if (Object.HasStateAuthority)
-        {
-            ApplyHeadshotDamage();
-            return;
-        }
-
-        RPC_RequestHeadshotDamage();
+        RequestDamage(headshotDamage, false, source);
     }
 
-    public void SetShieldActive(bool active)
+    public void RequestDamage(int damage, bool ignoreShield = false, string source = "unknown")
     {
-        if (Object == null)
-        {
-            return;
-        }
-
-        if (Object.HasStateAuthority)
-        {
-            ShieldActive = active;
-        }
+        if (isServer) ApplyDamage(damage, ignoreShield, source);
+        else if (NetworkClient.active) CmdRequestDamage(damage, ignoreShield, source);
     }
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    private void RPC_RequestHeadshotDamage()
+    [Command(requiresAuthority = false)]
+    private void CmdRequestDamage(int damage, bool ignoreShield, string source, NetworkConnectionToClient sender = null)
     {
-        ApplyHeadshotDamage();
+        if (sender == null || sender.identity == null || sender.identity == netIdentity) return;
+        if (FusionRoundDirector.Active()?.IsFighting != true) return;
+        ApplyDamage(damage, ignoreShield, source);
     }
 
+    [Server]
+    public void SetShieldActive(bool active) => shieldActive = active;
+
+    public void RequestResetHealth() { if (isServer) ResetHealth(); }
+
+    [Server]
     [ContextMenu("Reset Health")]
     public void ResetHealth()
     {
-        if (Object != null && !Object.HasStateAuthority)
-        {
-            return;
-        }
-
-        CurrentHealth = maxHealth;
+        currentHealth = maxHealth;
         nextDamageAllowedTime = 0f;
+        if (isOwned) ReportReset(currentHealth);
+        else if (connectionToClient != null) TargetReset(connectionToClient, currentHealth);
         UpdateHealthBar();
     }
 
-    private void ApplyHeadshotDamage()
+    [TargetRpc]
+    private void TargetReset(NetworkConnectionToClient owner, int health) => ReportReset(health);
+
+    private static void ReportReset(int health)
     {
-        if (ShieldActive)
+        CombatEventOutput.State("dead", false);
+        CombatEventOutput.Emit("health_reset", "round", 0, health);
+    }
+
+    [TargetRpc]
+    private void TargetDamage(NetworkConnectionToClient owner, string source, int amount, int health, bool blocked)
+        => ReportDamage(source, amount, health, blocked);
+
+    private static void ReportDamage(string source, int amount, int health, bool blocked)
+    {
+        if (blocked) { CombatEventOutput.Emit("shield_block", source, amount, health); return; }
+        CombatEventOutput.Emit("hit_received", source, amount, health);
+        if (health <= 0)
         {
+            CombatEventOutput.State("dead", true);
+            CombatEventOutput.Emit("death", source, 0, 0);
+        }
+    }
+
+    private void ReportToOwner(string source, int amount, bool blocked)
+    {
+        if (isOwned) ReportDamage(source, amount, currentHealth, blocked);
+        else if (connectionToClient != null) TargetDamage(connectionToClient, source, amount, currentHealth, blocked);
+    }
+
+    private void ApplyDamage(int damage, bool ignoreShield, string source)
+    {
+        if (CurrentHealth <= 0) return;
+        if (shieldActive && !ignoreShield)
+        {
+            if (Time.time >= nextBlockEventTime)
+            {
+                nextBlockEventTime = Time.time + 0.25f;
+                ReportToOwner(source, damage, true);
+            }
             if (logDamage)
             {
                 Debug.Log($"NetworkPlayerHealth: {name} blocked damage with forearm shield.", this);
@@ -130,17 +169,23 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             return;
         }
 
-        CurrentHealth = Mathf.Max(0, CurrentHealth - headshotDamage);
+        FusionRoundDirector round = FusionRoundDirector.Active();
+        if (round != null && round.IsFighting && round.FightElapsed < 20f)
+            damage = Mathf.CeilToInt(damage * 0.5f);
+        damage = Mathf.Clamp(damage, 1, maxHealth);
+        damage = Mathf.Min(damage, CurrentHealth);
+        currentHealth = Mathf.Max(0, currentHealth - damage);
         nextDamageAllowedTime = Time.time + invulnerabilitySeconds;
+        ReportToOwner(source, damage, false);
 
         if (logDamage)
         {
-            Debug.Log($"NetworkPlayerHealth: {name} took {headshotDamage} headshot damage. Health {CurrentHealth}/{maxHealth}. Immune for {invulnerabilitySeconds:0.00}s.", this);
+            Debug.Log($"NetworkPlayerHealth: {name} took {damage} damage. Health {CurrentHealth}/{maxHealth}. Immune for {invulnerabilitySeconds:0.00}s.", this);
         }
 
         if (CurrentHealth <= 0 && resetToFullHealthOnZero)
         {
-            CurrentHealth = maxHealth;
+            currentHealth = maxHealth;
             nextDamageAllowedTime = Time.time + invulnerabilitySeconds;
 
             if (logDamage)
@@ -171,144 +216,36 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
 
     private void EnsureHealthBar()
     {
-        if (healthBarRoot != null)
-        {
-            return;
-        }
-
-        GameObject root = new GameObject("HealthBar");
-        healthBarRoot = root.transform;
-        healthBarRoot.SetParent(transform, false);
-
-        Transform background = CreateBarPart("Background", backgroundColor, false).transform;
-        background.SetParent(healthBarRoot, false);
-        background.localScale = new Vector3(barWidth, barHeight, 0.01f);
-        backgroundRenderer = background.GetComponent<Renderer>();
-
-        fillBar = CreateBarPart("Fill", healthyColor, false).transform;
-        fillBar.SetParent(healthBarRoot, false);
-        fillBar.localScale = new Vector3(barWidth, barHeight * 0.68f, 0.012f);
-        fillRenderer = fillBar.GetComponent<Renderer>();
-    }
-
-    private GameObject CreateBarPart(string partName, Color color, bool allowTransparency)
-    {
-        GameObject part = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        part.name = partName;
-
-        Collider partCollider = part.GetComponent<Collider>();
-        if (partCollider != null)
-        {
-            Destroy(partCollider);
-        }
-
-        Renderer renderer = part.GetComponent<Renderer>();
-        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        renderer.receiveShadows = false;
-        renderer.material = CreateHealthBarMaterial(color, allowTransparency);
-        return part;
-    }
-
-    private static Material CreateHealthBarMaterial(Color color, bool allowTransparency)
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null)
-        {
-            shader = Shader.Find("Unlit/Color");
-        }
-
-        if (shader == null)
-        {
-            shader = Shader.Find("Sprites/Default");
-        }
-
-        Material material = new Material(shader);
-        Color finalColor = color;
-        if (!allowTransparency)
-        {
-            finalColor.a = 1f;
-        }
-
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", finalColor);
-        }
-
-        if (material.HasProperty("_Color"))
-        {
-            material.SetColor("_Color", finalColor);
-        }
-
-        material.renderQueue = allowTransparency ? 3000 : 2000;
-        return material;
+        if (healthView != null) return;
+        healthView = new DemoHealthBar(transform, "Opponent health");
+        healthBarRoot = healthView.Root;
+        healthBarRoot.localScale = Vector3.one * (barWidth / 320f);
     }
 
     private void UpdateHealthBar()
     {
-        if (healthBarRoot == null || fillBar == null)
+        if (healthView == null) return;
+        bool visible = !IsLocalPlayer || showLocalHealthBar;
+        Camera camera = Camera.main;
+        Vector3 headPosition = headTracker != null ? headTracker.HeadWorldPosition
+            : headTarget != null ? headTarget.position : transform.position;
+        if (visible && camera != null)
         {
-            return;
+            int coverLayer = CombatLayers.GameplayCoverLayer;
+            Vector3 toHead = headPosition - camera.transform.position;
+            if (coverLayer >= 0 && toHead.magnitude > 0.05f)
+                visible = !Physics.Raycast(camera.transform.position, toHead.normalized,
+                    toHead.magnitude - 0.05f, 1 << coverLayer, QueryTriggerInteraction.Ignore);
         }
-
-        bool visible = (!IsLocalPlayer || showLocalHealthBar) && CurrentHealth > 0;
         healthBarRoot.gameObject.SetActive(visible);
-        if (!visible)
+        if (!visible) return;
+        healthBarRoot.position = headPosition + worldOffset;
+        if (camera != null)
         {
-            return;
+            Vector3 facing = healthBarRoot.position - camera.transform.position;
+            if (facing.sqrMagnitude > 0.0001f)
+                healthBarRoot.rotation = Quaternion.LookRotation(facing, Vector3.up);
         }
-
-        if (headTracker != null)
-        {
-            healthBarRoot.position = headTracker.HeadWorldPosition + worldOffset;
-        }
-        else if (headTarget != null)
-        {
-            healthBarRoot.position = headTarget.position + worldOffset;
-        }
-
-        Camera viewCamera = Camera.main;
-        if (viewCamera != null)
-        {
-            FaceTowardCamera(healthBarRoot, viewCamera);
-        }
-
-        float health = Health01;
-        fillBar.localScale = new Vector3(barWidth * health, barHeight * 0.68f, 0.012f);
-        fillBar.localPosition = new Vector3(-barWidth * (1f - health) * 0.5f, 0f, 0.006f);
-
-        SetMaterialColor(backgroundRenderer, backgroundColor);
-        SetMaterialColor(fillRenderer, Color.Lerp(lowHealthColor, healthyColor, health));
-    }
-
-    private static void FaceTowardCamera(Transform target, Camera camera)
-    {
-        Vector3 toCamera = camera.transform.position - target.position;
-        if (toCamera.sqrMagnitude <= 0.0001f)
-        {
-            return;
-        }
-
-        target.rotation = Quaternion.LookRotation(toCamera.normalized, Vector3.up);
-    }
-
-    private static void SetMaterialColor(Renderer renderer, Color color)
-    {
-        if (renderer == null)
-        {
-            return;
-        }
-
-        Color opaqueColor = color;
-        opaqueColor.a = 1f;
-        Material material = renderer.material;
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", opaqueColor);
-        }
-
-        if (material.HasProperty("_Color"))
-        {
-            material.SetColor("_Color", opaqueColor);
-        }
+        healthView.SetHealth(CurrentHealth, Health01);
     }
 }

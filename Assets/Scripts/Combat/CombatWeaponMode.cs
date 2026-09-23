@@ -49,6 +49,13 @@ public sealed class CombatWeaponMode : MonoBehaviour
 
     private void ApplyMode()
     {
+        if (GetComponent<HandPoseRouter>() != null)
+        {
+            if (beamShooter != null) beamShooter.enabled = true;
+            if (grenadeLauncher != null) grenadeLauncher.enabled = true;
+            return;
+        }
+
         bool useBeam = activeMode == WeaponMode.ThermalBeam;
 
         if (beamShooter != null)

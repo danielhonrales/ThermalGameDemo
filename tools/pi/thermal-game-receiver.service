@@ -1,0 +1,13 @@
+[Unit]
+Description=Thermal Game Quest combat signal receiver
+After=network.target
+
+[Service]
+Type=simple
+User=milabpi
+ExecStart=/usr/bin/python3 /home/milabpi/thermal-game/receiver.py --port 7779
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

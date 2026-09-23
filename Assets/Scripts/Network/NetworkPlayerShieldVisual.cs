@@ -1,23 +1,24 @@
-using Fusion;
+using Mirror;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(NetworkIdentity))]
 public sealed class NetworkPlayerShieldVisual : NetworkBehaviour
 {
     [SerializeField] private bool useShieldEffects = true;
 
-    [Networked] private NetworkBool ShieldVisible { get; set; }
-    [Networked] private Vector3 ShieldPosition { get; set; }
-    [Networked] private Quaternion ShieldRotation { get; set; }
+    [SyncVar] private bool ShieldVisible;
+    [SyncVar] private Vector3 ShieldPosition;
+    [SyncVar] private Quaternion ShieldRotation;
 
     private ForearmShieldEffects shieldEffects;
     private NetworkPlayerHealth playerHealth;
 
-    public bool IsLocalPlayer => Object != null && Object.HasInputAuthority;
+    public bool IsLocalPlayer => isOwned;
 
-    public override void Spawned()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
         EnsureShieldEffects();
         playerHealth = GetComponent<NetworkPlayerHealth>();
     }
@@ -54,25 +55,25 @@ public sealed class NetworkPlayerShieldVisual : NetworkBehaviour
             rotation = NetworkPlayerAlignment.InverseTransformRotation(rotation);
         }
 
-        if (Object != null && Object.HasStateAuthority)
+        if (isServer)
         {
             SetShield(active, position, rotation);
             return;
         }
 
-        if (Object != null)
+        if (isOwned || isServer)
         {
-            RPC_SubmitShield(active, position, rotation);
+            CmdSubmitShield(active, position, rotation);
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitShield(NetworkBool active, Vector3 position, Quaternion rotation)
+    [Command]
+    private void CmdSubmitShield(bool active, Vector3 position, Quaternion rotation)
     {
         SetShield(active, position, rotation);
     }
 
-    private void SetShield(NetworkBool active, Vector3 position, Quaternion rotation)
+    private void SetShield(bool active, Vector3 position, Quaternion rotation)
     {
         ShieldVisible = active;
         ShieldPosition = position;

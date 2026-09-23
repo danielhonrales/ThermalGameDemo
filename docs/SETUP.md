@@ -1,0 +1,135 @@
+# Quest and Raspberry Pi setup
+
+This guide describes the current router-only build. Quest A is the Mirror host and sends its own events to the Pi at `192.168.1.5`. Quest B, when added, installs the **same APK**, runs as the Mirror client, and can send its own events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match.
+
+## 1. Prepare the router and devices
+
+1. Put the Pi and each Quest on the same router LAN. Keep the router powered even when its WAN/Internet cable is disconnected. Disable guest-network/client/AP isolation so Wi-Fi devices can contact each other.
+2. Reserve `192.168.1.5` for the current Pi in the router's DHCP settings, or assign that address statically. If its address changes, update `combat-output.json` on the headset and restart the app.
+3. Use Quest Developer Mode, connect each headset to the build computer by USB, put it on, and accept its USB debugging prompt. Run `adb devices`; every headset being configured must show `device`, not `unauthorized`. With two attached, use `adb -s SERIAL` for **every** headset command.
+4. Allow local UDP traffic: Mirror match port `7777` on Quest A, discovery port `47777` between Quests, and combat output port `7779` on each Pi. No Internet, Photon login, Quest Link, or router port forwarding is needed at runtime.
+
+The Pi service listens on all Pi network interfaces. A firewall on the Pi, if enabled, must allow incoming UDP `7779` from the Quest LAN.
+
+## 2. Clone and build the Unity project
+
+Install Git LFS, Unity **6000.3.14f1**, the Android Build Support module with SDK/NDK and OpenJDK, and Android `adb`. Use a Unity account with a working Editor license. Then:
+
+```bash
+git clone https://github.com/danielhonrales/ThermalGameDemo.git
+cd ThermalGameDemo
+git lfs install
+git lfs pull
+```
+
+Restore the licensed asset folders listed in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md) at their exact paths. They are intentionally absent from GitHub. Open the project in Unity once to import assets and resolve packages. Build from the project root with this computer's `unity` helper:
+
+```bash
+unity run "$PWD" --editor-version 6000.3.14f1 -- \
+  -executeMethod LanDemoSetup.BuildLanApk -logFile /tmp/thermal-lan-build.log
+```
+
+If `unity` is unavailable, run the Editor binary directly, adjusting its installed path:
+
+```bash
+~/Unity/Hub/Editor/6000.3.14f1/Editor/Unity -batchmode -quit \
+  -projectPath "$PWD" -executeMethod LanDemoSetup.BuildLanApk \
+  -logFile /tmp/thermal-lan-build.log
+```
+
+The method runs project regression checks, configures the Mirror scene/prefab, and writes `/tmp/ThermalGameDemo-2min-LAN.apk`. Confirm the log contains `LAN Quest APK built at /tmp/ThermalGameDemo-2min-LAN.apk` and that the APK exists. An APK is a build artifact; it is not stored in Git. Keep the same APK for both Quests.
+
+## 3. Install the Pi receiver
+
+From the project root, copy the Python receiver and systemd service to the current Pi. SSH and sudo will prompt for the Pi credentials; do not put passwords in scripts or Git.
+
+```bash
+scp tools/pi/receiver.py tools/pi/thermal-game-receiver.service milabpi@192.168.1.5:/home/milabpi/
+ssh -t milabpi@192.168.1.5 'mkdir -p /home/milabpi/thermal-game && mv /home/milabpi/receiver.py /home/milabpi/thermal-game/receiver.py && sudo install -m 644 /home/milabpi/thermal-game-receiver.service /etc/systemd/system/thermal-game-receiver.service && sudo systemctl daemon-reload && sudo systemctl enable --now thermal-game-receiver && sudo systemctl restart thermal-game-receiver'
+ssh milabpi@192.168.1.5 'systemctl is-active thermal-game-receiver && systemctl is-enabled thermal-game-receiver'
+```
+
+Both status lines should read `active` and `enabled`. The service starts after Pi reboots. To watch signals:
+
+```bash
+ssh -t milabpi@192.168.1.5 'journalctl -u thermal-game-receiver -f -o cat'
+```
+
+The receiver prints JSON signals only; it does **not** control GPIO, heat, motors, or other hardware. See [the packet contract](RASPBERRY_PI_OUTPUT.md) before attaching any hardware behavior.
+
+## 4. Install and configure Quest A
+
+The Android package ID is `com.UnityTechnologies.com.unity.template.urpblank`. The app reads its two JSON config files **at launch** from `/sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/`. APK updates with `install -r` retain these files; uninstalling the app removes them.
+
+Replace `QUEST_A_SERIAL` with the value shown by `adb devices`. First install and launch the app once so Android creates its app data directory. Confirm that directory exists before pushing configs:
+
+```bash
+export QUEST_A=QUEST_A_SERIAL
+export APP_FILES=/sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files
+adb -s "$QUEST_A" install -r /tmp/ThermalGameDemo-2min-LAN.apk
+adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
+adb -s "$QUEST_A" shell ls "$APP_FILES"
+```
+
+If the `ls` command says the directory does not exist yet, wait for the first launch to finish and run it again. Then set Quest A as host and point its output to the Pi:
+
+```bash
+adb -s "$QUEST_A" shell am force-stop com.UnityTechnologies.com.unity.template.urpblank
+adb -s "$QUEST_A" push tools/pi/quest-a-lan-match.json "$APP_FILES/lan-match.json"
+adb -s "$QUEST_A" push tools/pi/quest-a-combat-output.json "$APP_FILES/combat-output.json"
+adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
+```
+
+Quest A's files select Mirror `host`, Pi `192.168.1.5:7779`, and device label `quest-a`. To change the Pi IP or label, edit the local JSON, push it again, and restart the app. Check startup with:
+
+```bash
+adb -s "$QUEST_A" logcat -d -s Unity:D | grep -E 'LAN: hosting|CombatOutput|Exception'
+```
+
+Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event. A single headset can host and send attack events, but a two-player duel cannot start until Quest B joins and both players calibrate.
+
+## 5. Add Quest B later
+
+Give Quest B the **same APK**. Its `lan-match.json` must have role `client`; `tools/pi/quest-b-lan-match.json` is ready for that. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app and push the client config into Quest B's app data directory.
+
+For Quest B's Pi output, create a separate `combat-output.json` with its own label and the **second Pi's actual LAN IP**:
+
+```json
+{"udpEnabled":true,"host":"SECOND_PI_IP","port":7779,"deviceLabel":"quest-b"}
+```
+
+Save that as a local file, replace `SECOND_PI_IP` with a numeric address, and push it to Quest B as `combat-output.json`. Run the same receiver service on that Pi, substituting its user, address, and home directory in the install commands. If both headsets should temporarily use the current Pi, use `192.168.1.5` for both and keep different device labels; the Pi receiver tracks their sessions separately.
+
+```bash
+export QUEST_B=QUEST_B_SERIAL
+adb -s "$QUEST_B" install -r /tmp/ThermalGameDemo-2min-LAN.apk
+adb -s "$QUEST_B" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
+adb -s "$QUEST_B" shell ls "$APP_FILES"
+adb -s "$QUEST_B" shell am force-stop com.UnityTechnologies.com.unity.template.urpblank
+adb -s "$QUEST_B" push tools/pi/quest-b-lan-match.json "$APP_FILES/lan-match.json"
+adb -s "$QUEST_B" push /path/to/quest-b-combat-output.json "$APP_FILES/combat-output.json"
+adb -s "$QUEST_B" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
+```
+
+Start Quest A first or leave it running. Quest B searches by LAN discovery and retries. If discovery fails because the router blocks broadcast, reserve Quest A's address on the router and put it in Quest B's `fallbackHost` field, then push the edited file and restart Quest B. See [LAN_MATCH.md](LAN_MATCH.md).
+
+## 6. Run and verify the demo
+
+Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. After both players calibrate, the synchronized countdown starts. The right hand uses a pointing index or middle finger for the fire beam, an open palm for the ice grenade, and a relaxed fist for the shield. See [the participant flow](TWO_MINUTE_DEMO.md).
+
+Watch the Pi journal while playing. The receiver prints `ice_shot` when the bomb is thrown, `fire_start`/`fire_stop` as the beam turns on/off, `hit_received` when this headset's player actually loses health, and `shield_block` when this player's active shield actually blocks a hit. It may also print `output_timeout` when the app closes, pauses, or stops sending. The defender's Pi gets hit/block events; a shield pose alone is not a block.
+
+For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi running, start both Quests, calibrate, exercise all four signals, and finish a round. The current single-Quest check has confirmed APK launch, host startup, Pi service startup, Quest-to-Pi UDP delivery, and an app-session timeout on the Pi. A live four-signal, two-Quest match and a WAN-disconnected round remain to be checked.
+
+## Troubleshooting
+
+| Symptom | Check |
+|---|---|
+| `adb devices` shows `unauthorized` | Put on that headset and accept the USB debugging prompt. |
+| APK installs but config push fails | Launch the app once, then check the package-specific `files/` directory exists. |
+| Quest B does not join | Same Wi-Fi/subnet, no client isolation, Quest A running as host, UDP `7777`/`47777`; set client `fallbackHost` if broadcast discovery fails. |
+| Pi journal shows no attack signals | Check Pi service is `active`, Quest output JSON has `udpEnabled:true` and the Pi's current IP, restart the app after edits, then perform an attack. |
+| No `hit_received` or `shield_block` | These are confirmed defender events; use two players in a fighting round or a damage hazard. Firing at empty space and merely raising a shield do not count. |
+| Build from a fresh clone has missing assets | Run `git lfs pull` and restore the excluded licensed folders in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md). |
+
+The headset's local event history is `combat-events.jsonl` in its app data directory. Pull it with `adb -s "$QUEST_A" pull "$APP_FILES/combat-events.jsonl" .` for diagnosis.

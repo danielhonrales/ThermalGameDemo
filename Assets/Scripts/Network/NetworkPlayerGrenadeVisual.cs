@@ -1,33 +1,36 @@
-using Fusion;
+using Mirror;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(NetworkIdentity))]
 public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
 {
     [SerializeField] private bool useIceEffects = true;
 
-    [Networked] private NetworkBool ChargeVisible { get; set; }
-    [Networked] private Vector3 ChargePosition { get; set; }
-    [Networked] private Quaternion ChargeRotation { get; set; }
-    [Networked] private float ChargeProgress { get; set; }
-    [Networked] private NetworkBool GrenadeVisible { get; set; }
-    [Networked] private Vector3 GrenadeOrigin { get; set; }
-    [Networked] private Vector3 GrenadeVelocity { get; set; }
-    [Networked] private float GrenadeFloorY { get; set; }
-    [Networked] private NetworkBool ExplosionVisible { get; set; }
-    [Networked] private Vector3 ExplosionPosition { get; set; }
-    [Networked] private int ExplosionSequence { get; set; }
+    [SyncVar] private bool ChargeVisible;
+    [SyncVar] private Vector3 ChargePosition;
+    [SyncVar] private Quaternion ChargeRotation;
+    [SyncVar] private float ChargeProgress;
+    [SyncVar] private bool GrenadeVisible;
+    [SyncVar] private Vector3 GrenadeOrigin;
+    [SyncVar] private Vector3 GrenadeVelocity;
+    [SyncVar] private float GrenadeFloorY;
+    [SyncVar] private bool ExplosionVisible;
+    [SyncVar] private Vector3 ExplosionPosition;
+    [SyncVar] private int ExplosionContactKind;
+    [SyncVar] private Vector3 ExplosionContactPoint;
+    [SyncVar] private int ExplosionSequence;
 
     private IceGrenadeEffects iceEffects;
     private IceGrenadeProjectile remoteProjectile;
     private int lastRenderedExplosionSequence;
     private bool remoteLaunchConsumed;
 
-    public bool IsLocalPlayer => Object != null && Object.HasInputAuthority;
+    public bool IsLocalPlayer => isOwned;
 
-    public override void Spawned()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
         EnsureIceEffects();
         EnsureRemoteProjectile();
     }
@@ -75,7 +78,8 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         if (ExplosionSequence != lastRenderedExplosionSequence)
         {
             lastRenderedExplosionSequence = ExplosionSequence;
-            iceEffects?.PlayExplosion(DecodeRemotePoint(ExplosionPosition));
+            iceEffects?.PlayExplosion(DecodeRemotePoint(ExplosionPosition),
+                ExplosionContactKind, DecodeRemotePoint(ExplosionContactPoint));
         }
     }
 
@@ -87,15 +91,15 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
             rotation = NetworkPlayerAlignment.InverseTransformRotation(rotation);
         }
 
-        if (Object != null && Object.HasStateAuthority)
+        if (isServer)
         {
             SetCharge(position, rotation, progress, true);
             return;
         }
 
-        if (Object != null)
+        if (isOwned || isServer)
         {
-            RPC_SubmitCharge(position, rotation, progress, true);
+            CmdSubmitCharge(position, rotation, progress, true);
         }
     }
 
@@ -108,72 +112,74 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
             floorWorldY = NetworkPlayerAlignment.InverseTransformPoint(new Vector3(0f, floorWorldY, 0f)).y;
         }
 
-        if (Object != null && Object.HasStateAuthority)
+        if (isServer)
         {
             SetThrow(origin, launchVelocity, floorWorldY, true);
             return;
         }
 
-        if (Object != null)
+        if (isOwned || isServer)
         {
-            RPC_SubmitThrow(origin, launchVelocity, floorWorldY, true);
+            CmdSubmitThrow(origin, launchVelocity, floorWorldY, true);
         }
     }
 
-    public void SubmitExplosion(Vector3 position)
+    public void SubmitExplosion(Vector3 position, int contactKind, Vector3 contactPoint)
     {
         if (NetworkPlayerAlignment.HasCalibration)
         {
             position = NetworkPlayerAlignment.InverseTransformPoint(position);
+            contactPoint = NetworkPlayerAlignment.InverseTransformPoint(contactPoint);
         }
 
-        if (Object != null && Object.HasStateAuthority)
+        if (isServer)
         {
-            SetExplosion(position, true);
+            SetExplosion(position, contactKind, contactPoint, true);
             return;
         }
 
-        if (Object != null)
+        if (isOwned || isServer)
         {
-            RPC_SubmitExplosion(position, true);
+            CmdSubmitExplosion(position, contactKind, contactPoint, true);
         }
     }
 
     public void HideGrenade()
     {
-        if (Object != null && Object.HasStateAuthority)
+        if (isServer)
         {
             ChargeVisible = false;
             GrenadeVisible = false;
             return;
         }
 
-        if (Object != null)
+        if (isOwned || isServer)
         {
-            RPC_SubmitCharge(ChargePosition, ChargeRotation, ChargeProgress, false);
-            RPC_SubmitThrow(GrenadeOrigin, GrenadeVelocity, GrenadeFloorY, false);
+            CmdSubmitCharge(ChargePosition, ChargeRotation, ChargeProgress, false);
+            CmdSubmitThrow(GrenadeOrigin, GrenadeVelocity, GrenadeFloorY, false);
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitCharge(Vector3 position, Quaternion rotation, float progress, NetworkBool visible)
+    [Command]
+    private void CmdSubmitCharge(Vector3 position, Quaternion rotation, float progress, bool visible)
     {
         SetCharge(position, rotation, progress, visible);
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitThrow(Vector3 origin, Vector3 launchVelocity, float floorWorldY, NetworkBool visible)
+    [Command]
+    private void CmdSubmitThrow(Vector3 origin, Vector3 launchVelocity, float floorWorldY, bool visible)
     {
         SetThrow(origin, launchVelocity, floorWorldY, visible);
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SubmitExplosion(Vector3 position, NetworkBool visible)
+    [Command]
+    private void CmdSubmitExplosion(Vector3 position, int contactKind,
+        Vector3 contactPoint, bool visible)
     {
-        SetExplosion(position, visible);
+        SetExplosion(position, contactKind, contactPoint, visible);
     }
 
-    private void SetCharge(Vector3 position, Quaternion rotation, float progress, NetworkBool visible)
+    private void SetCharge(Vector3 position, Quaternion rotation, float progress, bool visible)
     {
         ChargePosition = position;
         ChargeRotation = rotation;
@@ -186,7 +192,7 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         }
     }
 
-    private void SetThrow(Vector3 origin, Vector3 launchVelocity, float floorWorldY, NetworkBool visible)
+    private void SetThrow(Vector3 origin, Vector3 launchVelocity, float floorWorldY, bool visible)
     {
         GrenadeOrigin = origin;
         GrenadeVelocity = launchVelocity;
@@ -199,9 +205,12 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         }
     }
 
-    private void SetExplosion(Vector3 position, NetworkBool visible)
+    private void SetExplosion(Vector3 position, int contactKind,
+        Vector3 contactPoint, bool visible)
     {
         ExplosionPosition = position;
+        ExplosionContactKind = contactKind;
+        ExplosionContactPoint = contactPoint;
         ExplosionVisible = visible;
         if (visible)
         {

@@ -16,6 +16,7 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
     private float heldTime;
     private float nextAllowedToggleTime;
     private bool loggedPoseDetected;
+    private OVRSkeleton forearmSkeleton;
 
     private void Awake()
     {
@@ -25,6 +26,12 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponent<HandPoseRouter>() != null)
+        {
+            transitionEffects?.HideTransition();
+            return;
+        }
+
         FindSceneReferences();
 
         bool poseActive = IsMiddleFingerPinchActive();
@@ -54,7 +61,8 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         if (transitionEffects != null && effectMount != null)
         {
             float progress = holdSeconds <= 0f ? 1f : Mathf.Clamp01(heldTime / holdSeconds);
-            transitionEffects.ShowTransition(effectMount.position, effectMount.rotation, progress, targetMode);
+            transitionEffects.ShowTransition(effectMount.position, effectMount.rotation,
+                progress, targetMode, GetForearmDirection(effectMount));
         }
 
         if (heldTime < holdSeconds)
@@ -68,7 +76,8 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         ToggleWeaponMode();
         if (transitionEffects != null && effectMount != null)
         {
-            transitionEffects.PlayCompletion(effectMount.position, effectMount.rotation, targetMode);
+            transitionEffects.PlayCompletion(effectMount.position, effectMount.rotation,
+                targetMode, GetForearmDirection(effectMount));
         }
     }
 
@@ -130,6 +139,47 @@ public sealed class RightHandWeaponModeToggle : MonoBehaviour
         }
 
         return rightHand != null ? rightHand.transform : transform;
+    }
+
+    private Vector3 GetForearmDirection(Transform wristMount)
+    {
+        if (forearmSkeleton == null && rightHand != null)
+        {
+            forearmSkeleton = rightHand.GetComponent<OVRSkeleton>();
+            if (forearmSkeleton == null)
+                forearmSkeleton = rightHand.GetComponentInChildren<OVRSkeleton>();
+            if (forearmSkeleton == null)
+                forearmSkeleton = rightHand.GetComponentInParent<OVRSkeleton>();
+        }
+
+        if (forearmSkeleton != null && forearmSkeleton.IsInitialized
+            && forearmSkeleton.Bones != null)
+        {
+            Transform wrist = null;
+            Transform forearm = null;
+            foreach (OVRBone bone in forearmSkeleton.Bones)
+            {
+                if (bone.Id == OVRSkeleton.BoneId.Hand_WristRoot
+                    || bone.Id == OVRSkeleton.BoneId.XRHand_Wrist)
+                    wrist = bone.Transform;
+                else if (bone.Id == OVRSkeleton.BoneId.Hand_ForearmStub)
+                    forearm = bone.Transform;
+            }
+            if (wrist != null && forearm != null
+                && Vector3.Distance(wrist.position, forearm.position) > 0.015f)
+                return (forearm.position - wrist.position).normalized;
+        }
+
+        Camera camera = Camera.main;
+        if (camera != null)
+        {
+            Vector3 shoulder = camera.transform.position
+                + camera.transform.right * 0.18f - Vector3.up * 0.2f;
+            Vector3 towardShoulder = shoulder - wristMount.position;
+            if (towardShoulder.sqrMagnitude > 0.01f)
+                return towardShoulder.normalized;
+        }
+        return -(wristMount.rotation * Vector3.up);
     }
 
     private void EnsureTransitionEffects()

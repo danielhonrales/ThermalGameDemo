@@ -111,7 +111,8 @@ public sealed class StartPadMatchManager : MonoBehaviour, INetworkRunnerCallback
             return;
         }
 
-        if (requireColocationReady && colocationArenaBinder != null && !colocationArenaBinder.IsColocated)
+        if (requireColocationReady && colocationArenaBinder != null
+            && colocationArenaBinder.isActiveAndEnabled && !colocationArenaBinder.IsColocated)
         {
             ResetCountdown();
             return;

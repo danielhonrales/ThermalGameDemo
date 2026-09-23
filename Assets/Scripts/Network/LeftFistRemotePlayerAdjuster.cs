@@ -155,25 +155,8 @@ public sealed class LeftFistRemotePlayerAdjuster : MonoBehaviour
 
     private void EnsureSkeleton()
     {
-        if (leftHandSkeleton != null || leftHand == null)
-        {
-            return;
-        }
-
-        leftHandSkeleton = leftHand.GetComponent<OVRSkeleton>();
-        if (leftHandSkeleton == null)
-        {
-            leftHandSkeleton = leftHand.GetComponentInChildren<OVRSkeleton>(true);
-        }
-
-        if (leftHandSkeleton == null)
-        {
-            leftHandSkeleton = leftHand.GetComponentInParent<OVRSkeleton>();
-        }
-
-        if (leftHandSkeleton == null)
-        {
-            leftHandSkeleton = leftHand.gameObject.AddComponent<OVRSkeleton>();
-        }
+        if (leftHand == null) return;
+        if (leftHandSkeleton == null || leftHandSkeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.None)
+            leftHandSkeleton = CombatHandSkeleton.For(leftHand);
     }
 }

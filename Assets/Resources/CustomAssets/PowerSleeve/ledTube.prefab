@@ -19967,7 +19967,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7344714413892026484}
-  - component: {fileID: 2214656089938389730}
   - component: {fileID: 7844469957480538194}
   - component: {fileID: 3194389325554779832}
   m_Layer: 0
@@ -19994,49 +19993,6 @@ Transform:
   - {fileID: 2997974054403482490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2214656089938389730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931627203610337431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51da3daee9491084fafed5f784983464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ledNodes:
-  - {fileID: 2216473858071117227}
-  - {fileID: 2147404630451808148}
-  - {fileID: 2318961848103570518}
-  - {fileID: 227245384982254985}
-  - {fileID: 3945949239921692599}
-  - {fileID: 7318397259045277868}
-  - {fileID: 5884904170441745618}
-  duration: 5000
-  overlap: 620
-  maxChargeIntensity: 0.5
-  minChargeIntensity: 0
-  maxDischargeIntensity: 0.1
-  minDischargeIntensity: 0
-  fire: {fileID: 2100000, guid: abb852c5b6771fa45a55d148864b9956, type: 2}
-  ice: {fileID: 2100000, guid: d2f6c6d261ec30d4788e33a9951a2ef5, type: 2}
-  neutral: {fileID: 2100000, guid: 88cb318a7b39ffc44b6551557bdbe0fd, type: 2}
-  isFire: 0
-  isIce: 0
-  lightColor:
-    serializedVersion: 2
-    rgba: 0
-  fireColor:
-    serializedVersion: 2
-    rgba: 2915
-  iceColor:
-    serializedVersion: 2
-    rgba: 6585600
-  activeMaterial: {fileID: 2100000, guid: 88cb318a7b39ffc44b6551557bdbe0fd, type: 2}
-  absorbAudio: {fileID: 7844469957480538194}
-  chargeAudio: {fileID: 3194389325554779832}
 --- !u!82 &7844469957480538194
 AudioSource:
   m_ObjectHideFlags: 0

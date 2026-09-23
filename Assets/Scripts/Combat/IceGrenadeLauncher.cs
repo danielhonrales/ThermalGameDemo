@@ -11,16 +11,18 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     [SerializeField] private Vector3 localOriginOffset;
     [SerializeField] private float worldUpOriginOffset = 0.08f;
     [SerializeField, Range(0f, 1f)] private float headAimBlend = 0.65f;
+    [SerializeField] private bool useGazeTargeting = true;
 
     [Header("Throw")]
     [SerializeField] private Transform floorReference;
     [SerializeField] private float floorLocalHeight = -0.4f;
-    [SerializeField, Min(0.25f)] private float minThrowDistance = 0.75f;
+    [SerializeField, Min(0.25f)] private float minThrowDistance = 0.50f;
     [SerializeField, Min(0.5f)] private float maxThrowDistance = 4f;
-    [SerializeField] private float lowHandHeightOffsetFromHeadset = -0.45f;
-    [SerializeField] private float highHandHeightOffsetFromHeadset = 0.4f;
+    [SerializeField] private float lowHandHeightOffsetFromHeadset = -0.55f;
+    [SerializeField] private float highHandHeightOffsetFromHeadset = -0.20f;
     [SerializeField] private float lowHandHeightAboveFloor = 0.85f;
     [SerializeField] private float highHandHeightAboveFloor = 1.75f;
+    [SerializeField, Range(1f, 3f)] private float throwHeightExponent = 1.6f;
     [SerializeField, Min(0.1f)] private float gravityMultiplier = 1f;
     [SerializeField, Min(0.1f)] private float arcPeakHeight = 0.75f;
     [SerializeField, Min(0.05f)] private float minArcPeakHeight = 0.25f;
@@ -42,9 +44,9 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     [Header("Arc Preview")]
     [SerializeField] private bool showArcPreview = true;
-    [SerializeField] private int arcPreviewSteps = 24;
-    [SerializeField, Min(0.001f)] private float arcPreviewWidth = 0.018f;
-    [SerializeField] private Color arcPreviewColor = new Color(0.55f, 0.78f, 1f, 0.55f);
+    [SerializeField] private int arcPreviewSteps = 48;
+    [SerializeField, Min(0.001f)] private float arcPreviewWidth = 0.012f;
+    [SerializeField] private Color arcPreviewColor = new Color(0.31f, 0.79f, 0.9f, 0.42f);
 
     [Header("Debug")]
     [SerializeField] private bool logThrows = true;
@@ -53,10 +55,22 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private IceGrenadeEffects grenadeEffects;
     private IceGrenadeProjectile activeProjectile;
     private LineRenderer arcPreviewLine;
+    private LineRenderer arcPreviewPulse;
+    private LineRenderer landingMarker;
+    private LineRenderer landingCenter;
+    private readonly Vector3[] predictedPath = new Vector3[512];
     private NetworkPlayerGrenadeVisual localNetworkGrenade;
     private float poseChargeStartTime = -1f;
     private float nextThrowAllowedTime;
     private bool waitingForPoseReset;
+    private HandPoseRouter poseRouter;
+    private bool hasAimTarget;
+    private Vector3 smoothedAimTarget;
+    private bool hasWristReference;
+    private Quaternion wristReferenceHeading;
+    private Quaternion neutralWristRotation;
+    private float wristSteeringDegrees;
+    private IceGrenadeTrajectory.Contact predictedLanding;
 
     private void Reset()
     {
@@ -67,6 +81,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     {
         collisionMask = CombatLayers.CombatHitMask;
         grenadeEffects = GetComponent<IceGrenadeEffects>();
+        poseRouter = GetComponent<HandPoseRouter>();
         EnsureProjectile();
         EnsureArcPreview();
 
@@ -79,9 +94,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private void Update()
     {
+        // Re-arm even while the previous grenade is in flight.
+        if (poseRouter != null && !poseRouter.IsIcePose) waitingForPoseReset = false;
         if (activeProjectile != null && activeProjectile.IsAlive)
         {
-            HideArcPreview();
+            HideArcPath();
             return;
         }
 
@@ -94,7 +111,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             return;
         }
 
-        if (Time.time < nextThrowAllowedTime)
+        if (poseRouter == null && Time.time < nextThrowAllowedTime)
         {
             grenadeEffects?.HideCharge();
             HideArcPreview();
@@ -121,12 +138,18 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         Vector3 origin = GetThrowOrigin();
         Vector3 launchVelocity = GetLaunchVelocity(origin);
 
-        if (requireChargeBeforeThrow && !IsChargeComplete())
+        if ((requireChargeBeforeThrow && !IsChargeComplete()) || (poseRouter != null && !poseRouter.IsIcePose))
         {
+            CombatEventOutput.State("ice_charge", poseRouter == null || poseRouter.IsIcePose);
             float progress = GetChargeProgress();
-            grenadeEffects?.ShowCharge(origin, GetThrowRotation(launchVelocity), progress);
+            Vector3 chargePosition = origin;
+            Quaternion chargeRotation = GetThrowRotation(launchVelocity);
+            if (poseRouter != null && poseRouter.TryGetForearmPose(headset, out Vector3 wrist, out Quaternion armRotation))
+            { chargePosition = wrist; chargeRotation = armRotation; }
+            grenadeEffects?.ShowCharge(chargePosition, chargeRotation, progress, poseRouter == null || poseRouter.IsIcePose);
             UpdateArcPreview(origin, launchVelocity);
-            PublishCharge(origin, GetThrowRotation(launchVelocity), progress);
+            if (poseRouter == null || poseRouter.IsIcePose) PublishCharge(chargePosition, chargeRotation, progress);
+            else PublishHidden();
             return;
         }
 
@@ -153,6 +176,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         if (activeProjectile != null && activeProjectile.IsAlive)
         {
             activeProjectile.Cancel();
+            CombatEventOutput.State("ice_flight", false);
         }
 
         PublishHidden();
@@ -166,7 +190,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private void ThrowGrenade(Vector3 origin, Vector3 launchVelocity)
     {
         grenadeEffects?.HideCharge();
-        HideArcPreview();
+        UpdateArcPreview(origin, launchVelocity);
+        HideArcPath();
         PublishHidden();
 
         EnsureProjectile();
@@ -175,10 +200,14 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         activeProjectile.Launch(origin, launchVelocity, collisionMask, visual, OnGrenadeExploded, gravityMultiplier, floorY);
         grenadeEffects?.StartFlightTrail(activeProjectile.transform);
 
+        CombatEventOutput.Emit("ice_shot", "ice");
+        CombatEventOutput.State("ice_flight", true);
         PublishThrow(origin, launchVelocity, floorY);
         ResetCharge();
         waitingForPoseReset = true;
-        nextThrowAllowedTime = Time.time + throwCooldownSeconds;
+        if (landingMarker != null) landingMarker.startColor = landingMarker.endColor = Color.white;
+        if (landingCenter != null) landingCenter.startColor = landingCenter.endColor = Color.white;
+        nextThrowAllowedTime = poseRouter == null ? Time.time + throwCooldownSeconds : 0f;
 
         if (logThrows)
         {
@@ -188,10 +217,14 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private void OnGrenadeExploded(Vector3 position, Collider hitCollider)
     {
+        CombatEventOutput.State("ice_flight", false);
+        CombatEventOutput.Emit("ice_impact", hitCollider != null ? "collider" : "floor");
+        TraceLanding(position, hitCollider);
+        HideArcPreview();
         grenadeEffects?.StopFlightTrail();
-        grenadeEffects?.PlayExplosion(position);
-        ApplyExplosionDamage(position);
-        PublishExplosion(position);
+        int contactKind = ApplyExplosionDamage(position, out Vector3 contactPoint);
+        grenadeEffects?.PlayExplosion(position, contactKind, contactPoint);
+        PublishExplosion(position, contactKind, contactPoint);
 
         if (logThrows)
         {
@@ -200,11 +233,12 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         }
     }
 
-    private void ApplyExplosionDamage(Vector3 position)
+    private int ApplyExplosionDamage(Vector3 position, out Vector3 contactPoint)
     {
+        contactPoint = position;
         if (grenadeEffects == null)
         {
-            return;
+            return IceGrenadeEffects.NoPlayerContact;
         }
 
         float radius = grenadeEffects.ExplosionRadius;
@@ -229,8 +263,19 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
                 continue;
             }
 
-            health.RequestHeadshotDamage();
+            contactPoint = hit.bounds.center;
+            if (health.IsShieldActive)
+            {
+                if (FusionRoundDirector.Active()?.IsFighting == true) health.RequestHeadshotDamage("ice");
+                return IceGrenadeEffects.ShieldContact;
+            }
+
+            if (FusionRoundDirector.Active()?.IsFighting == true)
+                health.RequestHeadshotDamage("ice");
+            return IceGrenadeEffects.PlayerContact;
         }
+
+        return IceGrenadeEffects.NoPlayerContact;
     }
 
     private bool IsChargeComplete()
@@ -260,11 +305,16 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private void ResetCharge()
     {
+        CombatEventOutput.State("ice_charge", false);
         poseChargeStartTime = -1f;
+        hasAimTarget = false;
+        hasWristReference = false;
+        wristSteeringDegrees = 0f;
     }
 
     private bool IsIronManPoseActive()
     {
+        if (poseRouter != null) return poseRouter.FeedbackPose == HandPoseRouter.PoseKind.Ice;
         if (requireTrackedHand && handTrackingSource != null && !handTrackingSource.IsTracked)
         {
             return false;
@@ -319,8 +369,20 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private Vector3 GetLaunchVelocity(Vector3 origin)
     {
-        float throwDistance = GetThrowDistance();
-        Vector3 target = GetTargetPoint(origin, throwDistance);
+        Vector3 target = GetTargetPoint(origin);
+        if (useGazeTargeting && headset != null)
+        {
+            if (!hasAimTarget) smoothedAimTarget = target;
+            else if (Vector3.Distance(smoothedAimTarget, target) > 0.025f)
+                smoothedAimTarget = Vector3.MoveTowards(smoothedAimTarget,
+                    Vector3.Lerp(smoothedAimTarget, target, 1f - Mathf.Exp(-12f * Time.deltaTime)),
+                    10f * Time.deltaTime);
+            hasAimTarget = true;
+            target = smoothedAimTarget;
+        }
+
+        float throwDistance = Vector3.Distance(
+            new Vector3(origin.x, 0f, origin.z), new Vector3(target.x, 0f, target.z));
         float gravity = Mathf.Abs(Physics.gravity.y) * gravityMultiplier;
         float distanceT = Mathf.InverseLerp(minThrowDistance, maxThrowDistance, throwDistance);
         float peakHeight = Mathf.Lerp(minArcPeakHeight, arcPeakHeight, distanceT);
@@ -351,12 +413,69 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         }
 
         float heightT = Mathf.InverseLerp(lowHandY, highHandY, handY);
-        return Mathf.Lerp(minThrowDistance, maxThrowDistance, heightT);
+        float distanceT = Mathf.Pow(heightT, throwHeightExponent);
+        return Mathf.Lerp(minThrowDistance, maxThrowDistance, distanceT);
     }
 
     private Vector3 GetTargetPoint(Vector3 origin)
     {
+        if (useGazeTargeting && headset != null)
+        {
+            float floorY = GetFloorWorldY();
+            // Head heading gives coarse aim; a small wrist bank or turn supplies fine steering.
+            float distance = GetThrowDistance();
+            Vector3 heading = GetGazeHeading();
+            if (poseRouter != null && poseRouter.TryGetTrackedWristRotation(out Quaternion wrist))
+            {
+                if (!hasWristReference)
+                {
+                    wristReferenceHeading = Quaternion.LookRotation(heading, Vector3.up);
+                    neutralWristRotation = Quaternion.Inverse(wristReferenceHeading) * wrist;
+                    hasWristReference = true;
+                }
+                wristSteeringDegrees = WristSteeringAngle(neutralWristRotation,
+                    Quaternion.Inverse(wristReferenceHeading) * wrist);
+            }
+            Vector3 steeredHeading = Quaternion.AngleAxis(wristSteeringDegrees, Vector3.up) * heading;
+            Vector3 target = origin + steeredHeading * distance;
+            return ConstrainForwardTarget(origin, target, steeredHeading,
+                minThrowDistance, maxThrowDistance, floorY);
+        }
         return GetTargetPoint(origin, GetThrowDistance());
+    }
+
+    public static float WristSteeringAngle(Quaternion neutral, Quaternion current)
+    {
+        Quaternion delta = current * Quaternion.Inverse(neutral);
+        delta.ToAngleAxis(out float angle, out Vector3 axis);
+        if (angle > 180f) angle -= 360f;
+        if (Mathf.Abs(angle) < 0.001f) return 0f;
+        // Positive yaw or a rightward bank steers right; ignore pitch used for holding the palm.
+        float deflection = angle * (axis.y - axis.z);
+        float outsideDeadBand = Mathf.Max(0f, Mathf.Abs(deflection) - 2f);
+        return Mathf.Clamp(Mathf.Sign(deflection) * outsideDeadBand * 1.6f, -35f, 35f);
+    }
+
+    private Vector3 GetGazeHeading()
+    {
+        // Camera right remains useful when looking almost straight down at the palm.
+        Vector3 forward = Vector3.ProjectOnPlane(headset.forward, Vector3.up);
+        if (forward.sqrMagnitude < 0.04f) forward = Vector3.Cross(headset.right, Vector3.up);
+        return forward.normalized;
+    }
+
+    public static Vector3 ConstrainForwardTarget(Vector3 origin, Vector3 target, Vector3 gazeForward,
+        float minimum, float maximum, float floorY)
+    {
+        Vector3 forward = Vector3.ProjectOnPlane(gazeForward, Vector3.up);
+        if (forward.sqrMagnitude < 0.0001f) forward = Vector3.forward;
+        forward.Normalize();
+        Vector3 planar = Vector3.ProjectOnPlane(target - origin, Vector3.up);
+        // Looking at the hand or nearby floor must never send the grenade back towards the player.
+        float along = Vector3.Dot(planar, forward);
+        if (along < minimum) planar += forward * (minimum - along);
+        planar = Vector3.ClampMagnitude(planar, maximum);
+        return new Vector3(origin.x + planar.x, floorY, origin.z + planar.z);
     }
 
     private Vector3 GetTargetPoint(Vector3 origin, float throwDistance)
@@ -425,39 +544,64 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         EnsureArcPreview();
         arcPreviewLine.enabled = true;
 
-        Vector3 gravity = Physics.gravity * gravityMultiplier;
-        float floorY = GetFloorWorldY();
-        float timeStep = 0.06f;
-        Vector3 position = origin;
-        Vector3 velocity = launchVelocity;
-        int pointIndex = 0;
+        EnsureProjectile();
+        int count = IceGrenadeTrajectory.Predict(origin, launchVelocity, Physics.gravity * gravityMultiplier,
+            GetFloorWorldY(), activeProjectile.CollisionRadius, activeProjectile.MinimumFlightTime,
+            activeProjectile.MaximumFlightTime, collisionMask, predictedPath, out var landing);
+        predictedLanding = landing;
+        arcPreviewLine.positionCount = count;
+        for (int i = 0; i < count; i++) arcPreviewLine.SetPosition(i, predictedPath[i]);
 
-        for (int i = 0; i < arcPreviewSteps; i++)
+        float phase = Mathf.Repeat(Time.time * 0.72f, 1f);
+        const int pulseSteps = 10;
+        arcPreviewPulse.positionCount = pulseSteps + 1;
+        for (int i = 0; i <= pulseSteps; i++)
         {
-            arcPreviewLine.SetPosition(pointIndex++, position);
-
-            velocity += gravity * timeStep;
-            Vector3 nextPosition = position + velocity * timeStep;
-            if (nextPosition.y <= floorY)
-            {
-                Vector3 landingPoint = nextPosition;
-                landingPoint.y = floorY;
-                arcPreviewLine.SetPosition(pointIndex++, landingPoint);
-                break;
-            }
-
-            position = nextPosition;
+            float fraction = Mathf.Lerp(Mathf.Max(0f, phase - 0.13f), phase, i / (float)pulseSteps);
+            float sample = fraction * (count - 1);
+            int index = Mathf.Min(Mathf.FloorToInt(sample), count - 2);
+            arcPreviewPulse.SetPosition(i, Vector3.Lerp(predictedPath[index], predictedPath[index + 1], sample - index));
         }
+        arcPreviewPulse.enabled = true;
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, landing.Normal);
+        Vector3 center = landing.Point + landing.Normal * 0.035f;
+        CombatVfxStyle.SetRing(landingMarker, center, rotation, 0.26f, 48);
+        CombatVfxStyle.SetRing(landingCenter, center, rotation, 0.025f, 24);
+        Color markerColor = CombatVfxStyle.ColdCore;
+        landingMarker.startColor = landingMarker.endColor = markerColor;
+        landingCenter.startColor = landingCenter.endColor = markerColor;
+    }
 
-        arcPreviewLine.positionCount = pointIndex;
+    private void HideArcPath()
+    {
+        if (arcPreviewLine != null) arcPreviewLine.enabled = false;
+        if (arcPreviewPulse != null) arcPreviewPulse.enabled = false;
+    }
+
+    private void TraceLanding(Vector3 actual, Collider actualCollider)
+    {
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        if (!Application.isPlaying || !showArcPreview) return;
+        try
+        {
+            string path = System.IO.Path.Combine(Application.persistentDataPath, "ice-landing-trace.csv");
+            if (!System.IO.File.Exists(path))
+                System.IO.File.WriteAllText(path, "time,predictedX,predictedY,predictedZ,actualX,actualY,actualZ,error,sameCollider\n");
+            Vector3 predicted = predictedLanding.Point;
+            System.IO.File.AppendAllText(path, string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                "{0:F3},{1:F3},{2:F3},{3:F3},{4:F3},{5:F3},{6:F3},{7:F4},{8}\n", Time.time,
+                predicted.x, predicted.y, predicted.z, actual.x, actual.y, actual.z,
+                Vector3.Distance(predicted, actual), predictedLanding.Collider == actualCollider));
+        }
+        catch (System.IO.IOException) { }
+#endif
     }
 
     private void HideArcPreview()
     {
-        if (arcPreviewLine != null)
-        {
-            arcPreviewLine.enabled = false;
-        }
+        HideArcPath();
+        if (landingMarker != null) landingMarker.enabled = false;
+        if (landingCenter != null) landingCenter.enabled = false;
     }
 
     private void EnsureProjectile()
@@ -485,11 +629,31 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         arcPreviewLine = lineObject.AddComponent<LineRenderer>();
         arcPreviewLine.useWorldSpace = true;
         arcPreviewLine.widthMultiplier = arcPreviewWidth;
-        arcPreviewLine.numCapVertices = 6;
-        arcPreviewLine.material = new Material(Shader.Find("Sprites/Default"));
-        arcPreviewLine.startColor = arcPreviewColor;
-        arcPreviewLine.endColor = WithAlpha(arcPreviewColor, 0.08f);
+        arcPreviewLine.widthCurve = new AnimationCurve(
+            new Keyframe(0f, 0.08f), new Keyframe(0.08f, 1f),
+            new Keyframe(0.9f, 1f), new Keyframe(1f, 0.5f));
+        arcPreviewLine.numCapVertices = 4;
+        arcPreviewLine.material = CombatVfxStyle.CreateMaterial("Cold aim path", Color.white);
+        arcPreviewLine.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.72f);
+        arcPreviewLine.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore, 0.8f);
         arcPreviewLine.enabled = false;
+
+        GameObject pulseObject = new GameObject("IceArcTracer");
+        pulseObject.transform.SetParent(transform, false);
+        arcPreviewPulse = pulseObject.AddComponent<LineRenderer>();
+        arcPreviewPulse.useWorldSpace = true;
+        arcPreviewPulse.alignment = LineAlignment.View;
+        arcPreviewPulse.widthMultiplier = arcPreviewWidth * 1.4f;
+        arcPreviewPulse.numCapVertices = 4;
+        arcPreviewPulse.sharedMaterial = arcPreviewLine.sharedMaterial;
+        arcPreviewPulse.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore, 0f);
+        arcPreviewPulse.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore, 0.82f);
+        arcPreviewPulse.enabled = false;
+
+        landingMarker = CombatVfxStyle.CreateLine(transform, "Ice landing marker",
+            arcPreviewLine.sharedMaterial, true, 0.024f);
+        landingCenter = CombatVfxStyle.CreateLine(transform, "Ice landing center",
+            arcPreviewLine.sharedMaterial, true, 0.045f);
     }
 
     private void PublishCharge(Vector3 position, Quaternion rotation, float progress)
@@ -504,10 +668,10 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         grenadeVisual?.SubmitThrow(origin, launchVelocity, floorWorldY);
     }
 
-    private void PublishExplosion(Vector3 position)
+    private void PublishExplosion(Vector3 position, int contactKind, Vector3 contactPoint)
     {
         NetworkPlayerGrenadeVisual grenadeVisual = FindLocalNetworkGrenade();
-        grenadeVisual?.SubmitExplosion(position);
+        grenadeVisual?.SubmitExplosion(position, contactKind, contactPoint);
     }
 
     private void PublishHidden()

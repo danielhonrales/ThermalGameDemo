@@ -34,18 +34,29 @@ public sealed class ForearmShieldController : MonoBehaviour
     private bool lastPublishedShieldActive;
     private bool wasFistActive;
     private float shieldActiveUntilTime;
+    private HandPoseRouter poseRouter;
 
-    public bool IsShieldActive => Time.time < shieldActiveUntilTime;
+    public bool IsShieldActive => poseRouter != null
+        ? poseRouter.IsShieldPose : Time.time < shieldActiveUntilTime;
 
     public void CancelForAttack()
     {
         shieldActiveUntilTime = 0f;
     }
 
+    private void OnDisable()
+    {
+        shieldActiveUntilTime = 0f;
+        CombatEventOutput.State("shield", false);
+        shieldEffects?.HideShield();
+        PublishShield(false, Vector3.zero, Quaternion.identity);
+    }
+
     private void Awake()
     {
         shieldEffects = GetComponent<ForearmShieldEffects>();
         beamShooter = GetComponent<PalmBeamShooter>();
+        poseRouter = GetComponent<HandPoseRouter>();
         if (shieldEffects == null)
         {
             shieldEffects = gameObject.AddComponent<ForearmShieldEffects>();
@@ -88,17 +99,18 @@ public sealed class ForearmShieldController : MonoBehaviour
             {
                 beamShooter?.CancelForShield();
             }
-
             shieldActiveUntilTime = Time.time + shieldDurationSeconds;
         }
-        else if (beamShooter != null && beamShooter.IsAttackPoseActive())
+        else if (poseRouter != null
+            || (beamShooter != null && beamShooter.IsAttackPoseActive()))
         {
             shieldActiveUntilTime = 0f;
         }
 
         wasFistActive = fistActive;
 
-        bool shieldActive = Time.time < shieldActiveUntilTime;
+        bool shieldActive = IsShieldActive;
+        CombatEventOutput.State("shield", shieldActive);
 
         if (!TryGetShieldPose(out Vector3 worldPosition, out Quaternion worldRotation))
         {
@@ -108,6 +120,7 @@ public sealed class ForearmShieldController : MonoBehaviour
                 shieldActive = false;
             }
 
+            CombatEventOutput.State("shield", false);
             shieldEffects.HideShield();
             PublishShield(false, worldPosition, worldRotation);
             LogShieldIfChanged(false);
@@ -117,9 +130,9 @@ public sealed class ForearmShieldController : MonoBehaviour
         Vector3 localPosition = handOrigin.InverseTransformPoint(worldPosition);
         Quaternion localRotation = Quaternion.Inverse(handOrigin.rotation) * worldRotation;
 
-        if (shieldActive)
+        if (shieldActive || (poseRouter != null && poseRouter.FeedbackPose == HandPoseRouter.PoseKind.Shield))
         {
-            shieldEffects.ShowShieldLocal(localPosition, localRotation);
+            shieldEffects.ShowShieldLocal(localPosition, localRotation, shieldActive);
         }
         else
         {
@@ -220,6 +233,7 @@ public sealed class ForearmShieldController : MonoBehaviour
 
     private bool IsFistActive()
     {
+        if (poseRouter != null) return poseRouter.IsShieldPose;
         if (requireTrackedHand && (handTrackingSource == null || !handTrackingSource.IsTracked))
         {
             return false;
@@ -309,34 +323,8 @@ public sealed class ForearmShieldController : MonoBehaviour
             handTrackingSource = handOrigin.GetComponentInChildren<OVRHand>();
         }
 
-        if (handSkeleton != null)
-        {
-            return;
-        }
-
-        if (handTrackingSource != null)
-        {
-            handSkeleton = handTrackingSource.GetComponent<OVRSkeleton>();
-            if (handSkeleton == null)
-            {
-                handSkeleton = handTrackingSource.GetComponentInParent<OVRSkeleton>();
-            }
-
-            if (handSkeleton == null)
-            {
-                handSkeleton = handTrackingSource.GetComponentInChildren<OVRSkeleton>();
-            }
-
-            if (handSkeleton == null)
-            {
-                handSkeleton = handTrackingSource.gameObject.AddComponent<OVRSkeleton>();
-            }
-        }
-
-        if (handSkeleton == null && handOrigin != null)
-        {
-            handSkeleton = handOrigin.GetComponentInChildren<OVRSkeleton>();
-        }
+        if (handSkeleton != null && handSkeleton.GetSkeletonType() != OVRSkeleton.SkeletonType.None) return;
+        handSkeleton = CombatHandSkeleton.For(handTrackingSource);
     }
 
     private Transform FindBone(params OVRSkeleton.BoneId[] candidates)
@@ -346,15 +334,12 @@ public sealed class ForearmShieldController : MonoBehaviour
             return null;
         }
 
-        foreach (OVRSkeleton.BoneId candidate in candidates)
+        var type = handSkeleton.GetSkeletonType();
+        bool xr = type == OVRSkeleton.SkeletonType.XRHandRight || type == OVRSkeleton.SkeletonType.XRHandLeft;
+        OVRSkeleton.BoneId candidate = candidates[xr || candidates.Length == 1 ? 0 : 1];
+        foreach (OVRBone bone in handSkeleton.Bones)
         {
-            foreach (OVRBone bone in handSkeleton.Bones)
-            {
-                if (bone.Id == candidate && bone.Transform != null)
-                {
-                    return bone.Transform;
-                }
-            }
+            if (bone.Id == candidate && bone.Transform != null) return bone.Transform;
         }
 
         return null;
@@ -389,50 +374,21 @@ public sealed class ForearmShieldController : MonoBehaviour
         worldPosition = handOrigin.position;
         worldRotation = handOrigin.rotation;
 
-        Transform middleKnuckle = FindBone(
-            OVRSkeleton.BoneId.XRHand_MiddleProximal,
-            OVRSkeleton.BoneId.Hand_Middle1);
-        Transform indexKnuckle = FindBone(
-            OVRSkeleton.BoneId.XRHand_IndexProximal,
-            OVRSkeleton.BoneId.Hand_Index1);
-        Transform middleTip = FindBone(
-            OVRSkeleton.BoneId.XRHand_MiddleTip,
-            OVRSkeleton.BoneId.Hand_MiddleTip);
-        Transform indexTip = FindBone(
-            OVRSkeleton.BoneId.XRHand_IndexTip,
-            OVRSkeleton.BoneId.Hand_IndexTip);
-
-        if (middleKnuckle == null || middleTip == null)
-        {
-            return false;
-        }
-
-        Vector3 knuckleCenter = middleKnuckle.position;
-        if (indexKnuckle != null)
-        {
-            knuckleCenter = (middleKnuckle.position + indexKnuckle.position) * 0.5f;
-        }
-
-        Vector3 forward = middleTip.position - middleKnuckle.position;
-        if (forward.sqrMagnitude <= 0.0001f && indexTip != null && indexKnuckle != null)
-        {
-            forward = indexTip.position - indexKnuckle.position;
-        }
-
-        if (forward.sqrMagnitude <= 0.0001f)
-        {
-            forward = GetWorldAxisDirection(handOrigin, shieldFacingAxis);
-        }
-
-        forward.Normalize();
-        if (mountOnBackOfHand)
-        {
-            forward = -forward;
-        }
-
-        worldPosition = knuckleCenter + GetMountOffsetDirection() * shieldForwardDistance + handOrigin.TransformVector(shieldLocalOffset);
-        worldRotation = BuildShieldRotation(knuckleCenter, forward);
-        worldRotation = ApplyBackHandRotation(worldRotation);
+        Transform wrist = FindBone(OVRSkeleton.BoneId.XRHand_Wrist, OVRSkeleton.BoneId.Hand_WristRoot);
+        Transform index = FindBone(OVRSkeleton.BoneId.XRHand_IndexProximal, OVRSkeleton.BoneId.Hand_Index1);
+        Transform middle = FindBone(OVRSkeleton.BoneId.XRHand_MiddleProximal, OVRSkeleton.BoneId.Hand_Middle1);
+        Transform pinky = FindBone(OVRSkeleton.BoneId.XRHand_LittleProximal, OVRSkeleton.BoneId.Hand_Pinky1);
+        if (wrist == null || index == null || middle == null || pinky == null) return false;
+        // Stable palm plane: curled fingertips must not steer a fist-mounted shield.
+        Vector3 alongHand = middle.position - wrist.position;
+        Vector3 acrossHand = index.position - pinky.position;
+        Vector3 backOfHand = Vector3.Cross(acrossHand, alongHand);
+        if (alongHand.sqrMagnitude < 0.0001f || backOfHand.sqrMagnitude < 0.0000001f) return false;
+        backOfHand.Normalize();
+        Vector3 normal = mountOnBackOfHand ? backOfHand : alongHand.normalized;
+        worldPosition = Vector3.Lerp(wrist.position, middle.position, 0.65f)
+            + normal * shieldForwardDistance;
+        worldRotation = Quaternion.LookRotation(normal, mountOnBackOfHand ? alongHand.normalized : backOfHand);
         return true;
     }
 

@@ -1,8 +1,19 @@
 ﻿<Solution>
+  <Project Path="Mirror.csproj" />
+  <Project Path="Mirror.Components.csproj" />
   <Project Path="Fusion.Unity.csproj" />
+  <Project Path="Mirror.Editor.csproj" />
   <Project Path="Photon.Realtime.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Fusion.Unity.Editor.csproj" />
+  <Project Path="Unity.Mirror.CodeGen.csproj" />
+  <Project Path="SimpleWebTransport.csproj" />
+  <Project Path="Mirror.Authenticators.csproj" />
+  <Project Path="kcp2k.csproj" />
+  <Project Path="Mirror.Transports.csproj" />
+  <Project Path="Telepathy.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Mirror.CompilerSymbols.csproj" />
   <Project Path="Unity.Fusion.CodeGen.csproj" />
+  <Project Path="EncryptionTransportEditor.csproj" />
 </Solution>

@@ -16,9 +16,13 @@ public sealed class IceGrenadeProjectile : MonoBehaviour
     private Transform visualRoot;
     private Light flightLight;
     private Action<Vector3, Collider> onExploded;
+    private IceGrenadeTrajectory.State flight;
 
     public Vector3 Velocity => velocity;
     public bool IsAlive => enabled && gameObject.activeInHierarchy;
+    public float CollisionRadius => collisionRadius;
+    public float MinimumFlightTime => minFlightTime;
+    public float MaximumFlightTime => maxLifetime;
 
     public void Launch(
         Vector3 startPosition,
@@ -36,6 +40,7 @@ public sealed class IceGrenadeProjectile : MonoBehaviour
         floorWorldY = targetFloorWorldY;
         onExploded = explosionCallback;
         spawnTime = Time.time;
+        flight = new IceGrenadeTrajectory.State { Position = startPosition, Velocity = initialVelocity };
 
         transform.SetParent(null, true);
         transform.position = startPosition;
@@ -75,54 +80,29 @@ public sealed class IceGrenadeProjectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Update()
+    private void Update() => AdvanceTo(Time.time - spawnTime);
+
+    private void AdvanceTo(float elapsed)
     {
-        float deltaTime = Time.deltaTime;
-        float elapsed = Time.time - spawnTime;
         Vector3 gravity = Physics.gravity * gravityMultiplier;
-        Vector3 nextVelocity = velocity + gravity * deltaTime;
-        Vector3 displacement = (velocity + nextVelocity) * 0.5f * deltaTime;
-        Vector3 currentPosition = transform.position;
-        Vector3 nextPosition = currentPosition + displacement;
-        float distance = displacement.magnitude;
-
-        if (nextPosition.y <= floorWorldY)
+        while (flight.Elapsed + IceGrenadeTrajectory.StepSeconds <= elapsed)
         {
-            Vector3 landingPoint = nextPosition;
-            landingPoint.y = floorWorldY;
-            Explode(landingPoint, null);
-            return;
+            if (IceGrenadeTrajectory.Step(ref flight, gravity, floorWorldY, collisionRadius,
+                minFlightTime, collisionMask, out var contact))
+            {
+                Explode(contact.Point, contact.Collider);
+                return;
+            }
+            if (flight.Elapsed >= maxLifetime)
+            {
+                Explode(new Vector3(flight.Position.x, floorWorldY, flight.Position.z), null);
+                return;
+            }
         }
-
-        if (elapsed >= minFlightTime && distance > 0.0001f && Physics.SphereCast(
-                currentPosition,
-                collisionRadius,
-                displacement.normalized,
-                out RaycastHit hit,
-                distance,
-                collisionMask,
-                QueryTriggerInteraction.Ignore))
-        {
-            Vector3 impactPoint = hit.point;
-            impactPoint.y = Mathf.Max(impactPoint.y, floorWorldY);
-            Explode(impactPoint, hit.collider);
-            return;
-        }
-
-        transform.position = nextPosition;
-        velocity = nextVelocity;
-
+        transform.position = flight.Position;
+        velocity = flight.Velocity;
         if (visualRoot != null && velocity.sqrMagnitude > 0.01f)
-        {
             visualRoot.rotation = Quaternion.LookRotation(velocity.normalized, Vector3.up);
-        }
-
-        if (elapsed >= maxLifetime)
-        {
-            Vector3 timeoutPoint = transform.position;
-            timeoutPoint.y = floorWorldY;
-            Explode(timeoutPoint, null);
-        }
     }
 
     private void Explode(Vector3 position, Collider hitCollider)

@@ -1,27 +1,87 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [DisallowMultipleComponent]
 public sealed class ForearmShieldEffects : MonoBehaviour
 {
-    [Header("Shield VFX")]
-    [SerializeField] private string ledTubeResourcePath = "CustomAssets/PowerSleeve/ledTube";
-    [SerializeField] private string shieldEffectPath = "ColdHit/Magic shield blue";
-    [SerializeField] private float shieldLayerScale = 20f;
-    [SerializeField] private Color shieldColor = new Color(0.72f, 0.2f, 1f, 0.78f);
-    [SerializeField, Range(0f, 1f)] private float shieldParticleAlphaMultiplier = 0.55f;
-    [SerializeField, Range(0f, 1f)] private float shieldDiscAlphaMultiplier = 0.9f;
-    [SerializeField] private float shieldLightIntensity = 3f;
-
-    [Header("Shield Disc")]
-    [SerializeField] private float shieldDiscDiameter = 0.5f;
-    [SerializeField] private float shieldDiscThickness = 0.012f;
+    [Header("Shield field")]
+    [SerializeField, Min(0.2f)] private float shieldDiscDiameter = 0.5f;
+    [SerializeField] private Color shieldColor = new Color(0.65f, 0.43f, 0.85f, 1f);
+    [SerializeField, Min(0.05f)] private float deploySeconds = 0.18f;
 
     private Transform handMount;
     private Transform shieldRoot;
-    private Transform shieldDisc;
-    private ParticleSystem[] shieldParticles;
-    private Light shieldLight;
+    private MeshRenderer fieldRenderer;
+    private Mesh fieldMesh;
+    private Material fieldMaterial;
+    private Material lineMaterial;
+    private LineRenderer outline;
+    private LineRenderer innerArc;
+    private readonly LineRenderer[] rotatingCells = new LineRenderer[5];
+    private AudioSource shieldAudio;
+    private AudioClip deployClip;
+    private AudioClip impactClip;
     private bool isVisible;
+    private bool confirmed;
+    private float shownAt;
+    private float hitPulseAt = -1f;
+
+    public bool IsVisible => isVisible;
+
+    private void Awake()
+    {
+        EnsureShield();
+        HideShield();
+    }
+
+    private void Update()
+    {
+        if (!isVisible || shieldRoot == null)
+        {
+            return;
+        }
+
+        float deployed = Mathf.SmoothStep(0f, 1f,
+            Mathf.Clamp01(0.3f + (Time.time - shownAt) / deploySeconds));
+        shieldRoot.localScale = Vector3.one * Mathf.Lerp(0.82f, 1f, deployed);
+        float breathing = 0.96f + 0.04f * Mathf.Sin(Time.time * 2.8f);
+        float impact = hitPulseAt >= 0f
+            ? 1f - Mathf.Clamp01((Time.time - hitPulseAt) / 0.32f) : 0f;
+
+        if (fieldMaterial != null)
+        {
+            fieldMaterial.color = new Color(1f, 1f, 1f,
+                deployed * breathing * (confirmed ? 1f : 0.6f) * (1f + impact * 1.8f));
+        }
+
+        if (outline != null)
+        {
+            Color rim = CombatVfxStyle.WithAlpha(shieldColor,
+                Mathf.Min(1f, (0.7f + impact * 0.3f) * deployed));
+            outline.startColor = rim;
+            outline.endColor = rim;
+        }
+
+        if (innerArc != null)
+        {
+            CombatVfxStyle.SetRing(
+                innerArc, Vector3.zero, Quaternion.identity,
+                shieldDiscDiameter * 0.36f, 40, Time.time * 28f, 255f);
+            innerArc.startColor = CombatVfxStyle.WithAlpha(shieldColor, 0.65f * deployed);
+            innerArc.endColor = CombatVfxStyle.WithAlpha(shieldColor, 0.02f);
+        }
+
+        for (int i = 0; i < rotatingCells.Length; i++)
+        {
+            float angle = Time.time * (i == 1 ? -32f : 24f + i * 8f) + i * 20f;
+            CombatVfxStyle.SetRing(rotatingCells[i], Vector3.zero,
+                Quaternion.identity, shieldDiscDiameter * (0.23f + i * 0.105f),
+                6, angle, 300f);
+            rotatingCells[i].startColor = CombatVfxStyle.WithAlpha(shieldColor,
+                (0.48f + impact * 0.42f) * deployed);
+            rotatingCells[i].endColor = CombatVfxStyle.WithAlpha(shieldColor, 0.025f);
+        }
+    }
 
     public void ConfigureHandMount(Transform mount)
     {
@@ -32,91 +92,55 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         }
     }
 
-    public void ShowShieldLocal(Vector3 localPosition, Quaternion localRotation)
+    public void ShowShieldLocal(Vector3 localPosition, Quaternion localRotation, bool active = true)
     {
         EnsureShield();
-        if (shieldRoot == null)
-        {
-            return;
-        }
-
-        isVisible = true;
-        shieldRoot.gameObject.SetActive(true);
+        Show(active);
         shieldRoot.localPosition = localPosition;
         shieldRoot.localRotation = localRotation;
-
-        if (shieldDisc != null)
-        {
-            shieldDisc.gameObject.SetActive(true);
-        }
-
-        TintShield(shieldColor);
-        PlayShieldParticles();
-
-        if (shieldLight != null)
-        {
-            shieldLight.enabled = true;
-            shieldLight.color = shieldColor;
-            shieldLight.intensity = shieldLightIntensity;
-        }
+        if (shieldAudio != null) shieldAudio.transform.position = shieldRoot.position;
     }
 
     public void ShowShield(Vector3 worldPosition, Quaternion worldRotation)
     {
         EnsureShield();
-        if (shieldRoot == null)
-        {
-            return;
-        }
-
-        isVisible = true;
-        shieldRoot.gameObject.SetActive(true);
+        Show();
         shieldRoot.SetPositionAndRotation(worldPosition, worldRotation);
-
-        if (shieldDisc != null)
-        {
-            shieldDisc.gameObject.SetActive(true);
-        }
-
-        TintShield(shieldColor);
-        PlayShieldParticles();
-
-        if (shieldLight != null)
-        {
-            shieldLight.enabled = true;
-            shieldLight.color = shieldColor;
-            shieldLight.intensity = shieldLightIntensity;
-        }
+        if (shieldAudio != null) shieldAudio.transform.position = shieldRoot.position;
     }
 
     public void HideShield()
     {
         isVisible = false;
-
+        confirmed = false;
+        if (shieldAudio != null) shieldAudio.Stop();
         if (shieldRoot != null)
         {
             shieldRoot.gameObject.SetActive(false);
         }
+    }
 
-        if (shieldDisc != null)
+    public void PulseImpact()
+    {
+        if (Time.time - hitPulseAt > 0.2f)
         {
-            shieldDisc.gameObject.SetActive(false);
-        }
-
-        StopShieldParticles();
-
-        if (shieldLight != null)
-        {
-            shieldLight.enabled = false;
+            hitPulseAt = Time.time;
+            if (shieldAudio != null && impactClip != null)
+                CombatAudioVoice.Play(shieldAudio, impactClip, 0.9f, 0.3f, 5.4f);
         }
     }
 
-    public bool IsVisible => isVisible;
-
-    private void Awake()
+    private void Show(bool active = true)
     {
-        EnsureShield();
-        HideShield();
+        if (!isVisible)
+        {
+            isVisible = true;
+            shownAt = Time.time;
+            shieldRoot.gameObject.SetActive(true);
+        }
+        if (active && !confirmed && shieldAudio != null && deployClip != null)
+            CombatAudioVoice.Play(shieldAudio, deployClip, 0.65f, 0.4f);
+        confirmed = active;
     }
 
     private void EnsureShield()
@@ -126,322 +150,51 @@ public sealed class ForearmShieldEffects : MonoBehaviour
             return;
         }
 
-        Transform parent = handMount != null ? handMount : transform;
-        GameObject rootObject = new GameObject("ForearmShieldRoot");
-        rootObject.transform.SetParent(parent, false);
-        shieldRoot = rootObject.transform;
+        GameObject root = new GameObject("ForearmShieldField");
+        root.transform.SetParent(handMount != null ? handMount : transform, false);
+        shieldRoot = root.transform;
 
-        shieldDisc = BuildShieldDisc(shieldRoot);
-        shieldParticles = ExtractShieldParticles(shieldRoot);
+        GameObject field = new GameObject("TranslucentHexField");
+        field.transform.SetParent(shieldRoot, false);
+        MeshFilter filter = field.AddComponent<MeshFilter>();
+        fieldMesh = CombatVfxStyle.CreateHexField(shieldDiscDiameter * 0.5f);
+        filter.sharedMesh = fieldMesh;
+        fieldRenderer = field.AddComponent<MeshRenderer>();
+        fieldMaterial = CombatVfxStyle.CreateMaterial("Shield field", Color.white);
+        fieldRenderer.sharedMaterial = fieldMaterial;
+        fieldRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        fieldRenderer.receiveShadows = false;
 
-        GameObject lightObject = new GameObject("ForearmShieldLight");
-        lightObject.transform.SetParent(shieldRoot, false);
-        shieldLight = lightObject.AddComponent<Light>();
-        shieldLight.type = LightType.Point;
-        shieldLight.range = 2.2f;
-        shieldLight.shadows = LightShadows.None;
-        shieldLight.enabled = false;
+        lineMaterial = CombatVfxStyle.CreateMaterial("Shield outline", Color.white);
+        outline = CombatVfxStyle.CreateLine(shieldRoot, "Six-sided rim",
+            lineMaterial, false, 0.0045f);
+        outline.positionCount = 7;
+        for (int i = 0; i <= 6; i++)
+        {
+            float angle = (i / 6f + 1f / 12f) * Mathf.PI * 2f;
+            float radius = shieldDiscDiameter * 0.5f;
+            outline.SetPosition(i,
+                new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f));
+        }
+        outline.enabled = true;
+
+        innerArc = CombatVfxStyle.CreateLine(shieldRoot, "Quiet status sweep",
+            lineMaterial, false, 0.002f);
+        for (int i = 0; i < rotatingCells.Length; i++)
+            rotatingCells[i] = CombatVfxStyle.CreateLine(shieldRoot,
+                "ShieldCellArc", lineMaterial, false, 0.005f);
+        shieldAudio = CombatAudioVoice.Create(transform, "Shield audio", null, false);
+        deployClip = Resources.Load<AudioClip>("CustomAssets/Audio/AbsorbOrb");
+        impactClip = Resources.Load<AudioClip>("CustomAssets/Audio/ChargeBlast");
+        root.SetActive(false);
     }
 
-    private Transform BuildShieldDisc(Transform parent)
+    private void OnDisable() => HideShield();
+
+    private void OnDestroy()
     {
-        GameObject discObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        discObject.name = "ForearmShieldDisc";
-        Destroy(discObject.GetComponent<Collider>());
-        discObject.transform.SetParent(parent, false);
-        discObject.transform.localPosition = Vector3.zero;
-        discObject.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-        discObject.transform.localScale = new Vector3(shieldDiscDiameter, shieldDiscThickness, shieldDiscDiameter);
-
-        Renderer renderer = discObject.GetComponent<Renderer>();
-        renderer.material = CreateEmissiveMaterial("ForearmShieldDiscMaterial", shieldColor);
-        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        renderer.receiveShadows = false;
-
-        return discObject.transform;
-    }
-
-    private ParticleSystem[] ExtractShieldParticles(Transform parent)
-    {
-        GameObject sourcePrefab = Resources.Load<GameObject>(ledTubeResourcePath);
-        if (sourcePrefab == null)
-        {
-            return CreateFallbackShieldParticles(parent);
-        }
-
-        GameObject ledTubeInstance = Instantiate(sourcePrefab, parent);
-        System.Collections.Generic.List<ParticleSystem> particles = new System.Collections.Generic.List<ParticleSystem>();
-        Transform effects = ledTubeInstance.transform.Find("Effects");
-        if (effects != null)
-        {
-            Transform source = effects.Find(shieldEffectPath);
-            if (source == null)
-            {
-                source = effects.Find("HotHit/Magic shield blue");
-            }
-
-            if (source != null)
-            {
-                source.SetParent(parent, false);
-                NormalizeShieldHierarchy(source, shieldLayerScale);
-                particles.AddRange(source.GetComponentsInChildren<ParticleSystem>(true));
-            }
-        }
-
-        foreach (MeshRenderer meshRenderer in ledTubeInstance.GetComponentsInChildren<MeshRenderer>(true))
-        {
-            meshRenderer.enabled = false;
-        }
-
-        Destroy(ledTubeInstance);
-
-        if (particles.Count == 0)
-        {
-            return CreateFallbackShieldParticles(parent);
-        }
-
-        foreach (ParticleSystem particle in particles)
-        {
-            ParticleSystem.MainModule main = particle.main;
-            main.loop = true;
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
-
-            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
-            if (renderer != null)
-            {
-                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                renderer.receiveShadows = false;
-                Color particleTint = shieldColor;
-                particleTint.a *= shieldParticleAlphaMultiplier;
-                TintRendererMaterials(renderer, particleTint, 2990);
-            }
-        }
-
-        return particles.ToArray();
-    }
-
-    private static ParticleSystem[] CreateFallbackShieldParticles(Transform parent)
-    {
-        GameObject particleObject = new GameObject("ForearmShieldFallback");
-        particleObject.transform.SetParent(parent, false);
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = true;
-        main.startLifetime = 0.45f;
-        main.startSpeed = 0.04f;
-        main.startSize = 0.35f;
-        main.simulationSpace = ParticleSystemSimulationSpace.Local;
-
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = 36f;
-
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Circle;
-        shape.radius = 0.28f;
-        shape.arc = 360f;
-
-        ParticleSystemRenderer renderer = particles.GetComponent<ParticleSystemRenderer>();
-        renderer.renderMode = ParticleSystemRenderMode.Billboard;
-        Texture2D texture = Resources.Load<Texture2D>("CustomAssets/circle");
-        Shader shader = Shader.Find("Sprites/Default");
-        Material material = new Material(shader) { mainTexture = texture };
-        renderer.material = material;
-
-        return new[] { particles };
-    }
-
-    private static void NormalizeShieldHierarchy(Transform root, float layerScale)
-    {
-        root.localPosition = Vector3.zero;
-        root.localRotation = Quaternion.identity;
-        root.localScale = Vector3.one * layerScale;
-    }
-
-    private void TintShield(Color color)
-    {
-        if (shieldDisc != null)
-        {
-            Renderer renderer = shieldDisc.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                Color discColor = color;
-                discColor.a *= shieldDiscAlphaMultiplier;
-                ApplyEmissiveColor(renderer.material, discColor);
-            }
-        }
-
-        if (shieldParticles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in shieldParticles)
-        {
-            if (particle == null)
-            {
-                continue;
-            }
-
-            ParticleSystem.MainModule main = particle.main;
-            Color particleColor = color;
-            particleColor.a *= shieldParticleAlphaMultiplier;
-            main.startColor = particleColor;
-
-            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
-            if (renderer != null)
-            {
-                TintRendererMaterials(renderer, particleColor, 2990);
-            }
-        }
-    }
-
-    private void PlayShieldParticles()
-    {
-        if (shieldParticles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in shieldParticles)
-        {
-            if (particle == null)
-            {
-                continue;
-            }
-
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            particle.Play();
-        }
-    }
-
-    private void StopShieldParticles()
-    {
-        if (shieldParticles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in shieldParticles)
-        {
-            if (particle != null)
-            {
-                particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-            }
-        }
-    }
-
-    private static Material CreateEmissiveMaterial(string materialName, Color color)
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-        if (shader == null)
-        {
-            shader = Shader.Find("Standard");
-        }
-
-        Material material = new Material(shader)
-        {
-            name = materialName,
-            color = color
-        };
-
-        material.EnableKeyword("_EMISSION");
-        Color emission = new Color(color.r, color.g, color.b, 1f) * 1.6f;
-        material.SetColor("_EmissionColor", emission);
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", color);
-        }
-
-        if (material.HasProperty("_Surface"))
-        {
-            material.SetFloat("_Surface", 1f);
-            material.SetFloat("_Blend", 0f);
-            material.SetFloat("_AlphaClip", 0f);
-            material.SetOverrideTag("RenderType", "Transparent");
-            material.renderQueue = 3000;
-        }
-
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = 2990;
-
-        return material;
-    }
-
-    private static void ApplyEmissiveColor(Material material, Color color)
-    {
-        if (material == null)
-        {
-            return;
-        }
-
-        material.color = color;
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", color);
-        }
-
-        if (material.HasProperty("_EmissionColor"))
-        {
-            material.SetColor("_EmissionColor", new Color(color.r, color.g, color.b, 1f) * 1.6f);
-        }
-    }
-
-    private static void TintRendererMaterials(Renderer renderer, Color tint, int renderQueue)
-    {
-        if (renderer == null)
-        {
-            return;
-        }
-
-        Material[] materials = renderer.materials;
-        foreach (Material material in materials)
-        {
-            MakeMaterialTransparent(material, tint, renderQueue);
-        }
-    }
-
-    private static void MakeMaterialTransparent(Material material, Color tint, int renderQueue)
-    {
-        if (material == null)
-        {
-            return;
-        }
-
-        if (material.HasProperty("_Color"))
-        {
-            material.SetColor("_Color", tint);
-        }
-
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", tint);
-        }
-
-        if (material.HasProperty("_TintColor"))
-        {
-            material.SetColor("_TintColor", tint);
-        }
-
-        if (material.HasProperty("_Surface"))
-        {
-            material.SetFloat("_Surface", 1f);
-            material.SetFloat("_Blend", 0f);
-            material.SetFloat("_AlphaClip", 0f);
-        }
-
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.SetOverrideTag("RenderType", "Transparent");
-        material.renderQueue = renderQueue;
+        if (fieldMaterial != null) Destroy(fieldMaterial);
+        if (lineMaterial != null) Destroy(lineMaterial);
+        if (fieldMesh != null) Destroy(fieldMesh);
     }
 }

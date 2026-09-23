@@ -1,1004 +1,465 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
+/// <summary>Compact cyan charge, spline flight trail, and brief cold impact.</summary>
 [DisallowMultipleComponent]
 public sealed class IceGrenadeEffects : MonoBehaviour
 {
-    [Header("Colors")]
-    [SerializeField] private Color iceColor = new Color(0.25f, 0.82f, 1f, 1f);
-    [SerializeField] private Color sparkleColor = new Color(0.58f, 0.8f, 1f, 1f);
+    public const int NoPlayerContact = 0;
+    public const int PlayerContact = 1;
+    public const int ShieldContact = 2;
 
-    [Header("Charge")]
-    [SerializeField] private string beamChargeResourcePath = "CustomAssets/Beam/Beam";
-    [SerializeField] private string ledTubeResourcePath = "CustomAssets/PowerSleeve/ledTube";
-    [SerializeField] private Vector3 chargeLocalOffset = new Vector3(0f, 0f, 0.03f);
-    [SerializeField] private float chargeStartScale = 0.4f;
-    [SerializeField] private float chargeEndScale = 1.2f;
-    [SerializeField] private float chargePulseSpeed = 8f;
-    [SerializeField] private float chargePulseAmount = 0.16f;
-    [SerializeField] private float chargeLightIntensity = 4f;
-    [Tooltip("Large imported Magic Shield/Absorb aura layers. Disabled to keep the charge local to the hand.")]
-    [SerializeField] private bool showLargeChargeAuraLayers;
-    [SerializeField] private float chargeLayerScale = 14f;
-    [SerializeField] private float chargeParticleRate = 60f;
-    [SerializeField] private string chargeTextureResourcePath = "CustomAssets/circle";
-    [Tooltip("Compact smoke and sparkle layers around the throwing hand; separate from the disabled large arena aura.")]
-    [SerializeField] private bool showHandChargeAtmosphere = true;
-    [SerializeField, Min(0f)] private float handChargeSmokeRate = 38f;
-    [SerializeField, Min(0f)] private float handChargeSparkRate = 74f;
-    [SerializeField] private string chargeAudioResourcePath = "CustomAssets/Audio/iceBeam";
-    [SerializeField, Range(0f, 1f)] private float chargeVolume = 0.5f;
-
-    [Header("Grenade Body")]
+    [SerializeField, Min(0.1f)] private float explosionRadius = 1.65f;
     [SerializeField] private float grenadeVisualScale = 0.14f;
-    [SerializeField] private float grenadeLightIntensity = 2.5f;
-
-    [Header("Flight")]
-    [SerializeField] private string trailTextureResourcePath = "CustomAssets/spark";
-    [SerializeField] private float trailEmissionRate = 42f;
-
-    [Header("Explosion")]
-    [SerializeField, Min(0.1f)] private float explosionRadius = 0.8f;
+    [SerializeField] private string chargeAudioResourcePath = "CustomAssets/Audio/iceBeam";
+    [SerializeField, Range(0f, 1f)] private float chargeVolume = 0.45f;
     [SerializeField] private string explosionAudioResourcePath = "CustomAssets/Audio/IceBlast";
-    [SerializeField, Range(0f, 1f)] private float explosionVolume = 0.7f;
-    [SerializeField] private string impactSparkTextureResourcePath = "CustomAssets/spark";
-    [SerializeField] private string impactSmokeTextureResourcePath = "CustomAssets/smoke";
-    [SerializeField] private string explosionRangePrefabResourcePath = "CustomAssets/MagicShieldBlue";
-    [SerializeField, Range(0f, 1f)] private float explosionRangeAlpha = 0.9f;
-    [SerializeField, Min(0.1f)] private float explosionRangeVisibleSeconds = 1.5f;
-    [SerializeField, Min(0.1f)] private float explosionRangePrefabDiameterMeters = 2f;
-    [SerializeField] private float explosionRangeVerticalOffset = 0.03f;
-    [SerializeField, Min(8)] private int explosionRangeRingSegments = 56;
-    [SerializeField, Min(0.001f)] private float explosionRangeRingWidth = 0.065f;
+    [SerializeField, Range(0f, 1f)] private float explosionVolume = 0.65f;
 
+    private readonly Vector3[] history = new Vector3[9];
+    private readonly Transform[] fragments = new Transform[36];
+    private readonly Vector3[] fragmentDirections = new Vector3[36];
+    private readonly LineRenderer[] blizzard = new LineRenderer[32];
+    private readonly LineRenderer[] chargeHelices = new LineRenderer[3];
+    private readonly LineRenderer[] hitBrackets = new LineRenderer[4];
+    private Material lineMaterial;
+    private Material shardMaterial;
+    private Material radiusMaterial;
+    private Mesh shardMesh;
+    private Mesh radiusMesh;
     private Transform chargeRoot;
-    private Transform grenadeVisualRoot;
-    private ParticleSystem beamChargeParticles;
-    private ParticleSystem[] layeredChargeParticles;
-    private ParticleSystem fallbackChargeParticles;
-    private ParticleSystem handChargeSmokeParticles;
-    private ParticleSystem handChargeSparkParticles;
-    private ParticleSystem flightTrail;
-    private ParticleSystem explosionBurst;
-    private ParticleSystem explosionSmoke;
-    private GameObject explosionRangeVisual;
-    private ParticleSystem[] explosionRangeParticles;
-    private LineRenderer explosionRangeRing;
-    private Light chargeLight;
-    private Light explosionLight;
+    private Transform chargeShard;
+    private Transform grenadeTemplate;
+    private Transform impactRoot;
+    private Transform radiusField;
+    private Transform hitRoot;
+    private Transform trailTarget;
+    private Transform flyingVisual;
+    private LineRenderer chargeArc;
+    private LineRenderer chargeOrbit;
+    private LineRenderer trail;
+    private LineRenderer trailOrbit;
+    private LineRenderer radiusRing;
+    private LineRenderer innerRadiusRing;
+    private LineRenderer impactArc;
+    private LineRenderer domeArcA;
+    private LineRenderer domeArcB;
+    private LineRenderer hitRing;
     private AudioSource chargeAudio;
-    private AudioSource oneShotAudio;
-    private float hideExplosionRangeAtTime;
+    private AudioSource impactAudio;
+    private int historyCount;
+    private float lastSampleAt;
+    private float impactAt = -1f;
+    private float hitAt = -1f;
+    private Color hitColor;
+
+    public float ExplosionRadius => explosionRadius;
 
     private void Awake()
     {
         EnsureEffects();
         HideAll();
-        HideExplosionRange();
+        impactRoot.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (explosionRangeVisual != null
-            && explosionRangeVisual.activeSelf
-            && Time.time >= hideExplosionRangeAtTime)
-        {
-            HideExplosionRange();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (explosionRangeVisual != null)
-        {
-            Destroy(explosionRangeVisual);
-        }
+        UpdateTrail();
+        UpdateImpact();
+        UpdateHitCue();
     }
 
     public Transform CreateGrenadeVisual(Transform parent)
     {
         EnsureEffects();
-        if (grenadeVisualRoot == null)
-        {
-            return null;
-        }
-
-        Transform visual = Instantiate(grenadeVisualRoot, parent);
+        Transform visual = Instantiate(grenadeTemplate, parent, false);
+        visual.localPosition = Vector3.zero;
+        visual.localRotation = Quaternion.identity;
         visual.localScale = Vector3.one * grenadeVisualScale;
         visual.gameObject.SetActive(true);
-
-        Light flightLight = visual.GetComponentInChildren<Light>(true);
-        if (flightLight != null)
-        {
-            flightLight.enabled = true;
-            flightLight.color = iceColor;
-            flightLight.intensity = grenadeLightIntensity;
-        }
-
         return visual;
     }
 
-    public void ShowCharge(Vector3 palmPosition, Quaternion palmRotation, float progress)
+    public void ShowCharge(Vector3 palmPosition, Quaternion palmRotation, float progress, bool playAudio = true)
     {
         EnsureEffects();
         progress = Mathf.Clamp01(progress);
-
-        float pulse = 1f + Mathf.Sin(Time.time * chargePulseSpeed) * chargePulseAmount * progress;
-        float scale = Mathf.Lerp(chargeStartScale, chargeEndScale, progress) * pulse;
-        Vector3 chargePosition = palmPosition + palmRotation * chargeLocalOffset;
-
-        if (chargeRoot != null)
+        chargeRoot.gameObject.SetActive(true);
+        chargeRoot.SetPositionAndRotation(palmPosition + palmRotation * Vector3.forward * 0.03f,
+            palmRotation);
+        chargeShard.localScale = Vector3.one * Mathf.Lerp(0.09f, 0.16f, progress);
+        chargeShard.localRotation = Quaternion.Euler(Time.time * 65f, Time.time * 110f, 0f);
+        CombatVfxStyle.SetRing(chargeArc, Vector3.zero, Quaternion.identity,
+            Mathf.Lerp(0.075f, 0.15f, progress), 40,
+            90f - Time.time * 45f, Mathf.Lerp(90f, 285f, progress));
+        chargeArc.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold,
+            Mathf.Lerp(0.2f, 0.62f, progress));
+        chargeArc.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.03f);
+        CombatVfxStyle.SetRing(chargeOrbit, Vector3.zero, Quaternion.identity,
+            Mathf.Lerp(0.13f, 0.22f, progress), 48,
+            -70f + Time.time * 72f, Mathf.Lerp(80f, 240f, progress));
+        chargeOrbit.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore,
+            0.3f + 0.42f * progress);
+        chargeOrbit.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.02f);
+        for (int i = 0; i < chargeHelices.Length; i++)
         {
-            chargeRoot.gameObject.SetActive(true);
-            chargeRoot.SetPositionAndRotation(chargePosition, palmRotation);
-            chargeRoot.localScale = Vector3.one * scale;
+            LineRenderer helix = chargeHelices[i];
+            CombatVfxStyle.SetHelix(helix, 0.22f, 0.055f + progress * 0.035f,
+                2.8f, Time.time * (i == 1 ? -8f : 7f) + i * 2.094f);
+            Color tint = CombatVfxStyle.WithAlpha(i == 1 ? CombatVfxStyle.ColdCore : CombatVfxStyle.Cold,
+                0.5f + 0.45f * progress);
+            helix.startColor = tint;
+            helix.endColor = CombatVfxStyle.WithAlpha(tint, 0.18f);
         }
-
-        Color tint = WithAlpha(iceColor, Mathf.Lerp(0.4f, 1f, progress));
-        SetParticleColor(beamChargeParticles, tint);
-        PlayParticle(beamChargeParticles);
-        SetLayeredChargeIntensity(tint, progress);
-        PlayParticles(layeredChargeParticles);
-
-        if (chargeLight != null)
-        {
-            chargeLight.enabled = true;
-            chargeLight.color = iceColor;
-            chargeLight.intensity = chargeLightIntensity * progress * pulse;
-        }
-
-        if (fallbackChargeParticles != null)
-        {
-            fallbackChargeParticles.transform.position = chargePosition;
-            ParticleSystem.MainModule main = fallbackChargeParticles.main;
-            main.startColor = tint;
-            main.startSize = Mathf.Lerp(0.045f, 0.12f, progress);
-
-            ParticleSystem.EmissionModule emission = fallbackChargeParticles.emission;
-            emission.rateOverTime = chargeParticleRate * Mathf.Lerp(0.2f, 1f, progress);
-
-            if (!fallbackChargeParticles.isPlaying)
-            {
-                fallbackChargeParticles.Play();
-            }
-        }
-
-        UpdateHandChargeAtmosphere(chargePosition, tint, progress);
-
         if (chargeAudio != null)
         {
-            chargeAudio.volume = chargeVolume * Mathf.Lerp(0.3f, 1f, progress);
-            if (!chargeAudio.isPlaying)
-            {
-                chargeAudio.Play();
-            }
+            chargeAudio.transform.position = palmPosition;
+            chargeAudio.volume = chargeVolume * Mathf.Lerp(0.25f, 1f, progress);
+            if (playAudio && !chargeAudio.isPlaying) chargeAudio.Play();
+            if (!playAudio && chargeAudio.isPlaying) chargeAudio.Stop();
         }
     }
 
     public void HideCharge()
     {
-        if (chargeRoot != null)
-        {
-            chargeRoot.gameObject.SetActive(false);
-        }
-
-        StopParticle(beamChargeParticles);
-        StopParticles(layeredChargeParticles);
-        StopParticle(fallbackChargeParticles);
-        StopParticle(handChargeSmokeParticles);
-        StopParticle(handChargeSparkParticles);
-
-        if (chargeLight != null)
-        {
-            chargeLight.enabled = false;
-        }
-
-        if (chargeAudio != null && chargeAudio.isPlaying)
-        {
-            chargeAudio.Stop();
-        }
+        if (chargeRoot != null) chargeRoot.gameObject.SetActive(false);
+        if (chargeAudio != null && chargeAudio.isPlaying) chargeAudio.Stop();
     }
 
     public void StartFlightTrail(Transform grenadeTransform)
     {
         EnsureEffects();
-        if (flightTrail == null || grenadeTransform == null)
-        {
-            return;
-        }
-
-        flightTrail.transform.SetParent(grenadeTransform, false);
-        flightTrail.transform.localPosition = Vector3.zero;
-        flightTrail.gameObject.SetActive(true);
-
-        ParticleSystem.MainModule main = flightTrail.main;
-        main.startColor = WithAlpha(sparkleColor, 0.85f);
-
-        if (!flightTrail.isPlaying)
-        {
-            flightTrail.Play();
-        }
+        if (grenadeTransform == null) return;
+        trailTarget = grenadeTransform;
+        MeshRenderer visualRenderer = grenadeTransform.GetComponentInChildren<MeshRenderer>();
+        flyingVisual = visualRenderer != null ? visualRenderer.transform.parent : null;
+        historyCount = 1;
+        history[0] = grenadeTransform.position;
+        lastSampleAt = Time.time;
+        trail.enabled = true;
+        trailOrbit.enabled = true;
     }
 
     public void StopFlightTrail()
     {
-        if (flightTrail == null)
-        {
-            return;
-        }
-
-        flightTrail.transform.SetParent(transform, false);
-        flightTrail.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-        flightTrail.gameObject.SetActive(false);
+        trailTarget = null;
+        flyingVisual = null;
+        historyCount = 0;
+        if (trail != null) trail.enabled = false;
+        if (trailOrbit != null) trailOrbit.enabled = false;
     }
 
     public void PlayExplosion(Vector3 position)
     {
-        EnsureEffects();
-        HideCharge();
-        StopFlightTrail();
-
-        if (explosionBurst != null)
-        {
-            explosionBurst.transform.position = position;
-            ParticleSystem.MainModule main = explosionBurst.main;
-            main.startColor = sparkleColor;
-            explosionBurst.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            explosionBurst.Play();
-        }
-
-        if (explosionSmoke != null)
-        {
-            explosionSmoke.transform.position = position;
-            ParticleSystem.MainModule main = explosionSmoke.main;
-            main.startColor = WithAlpha(iceColor, 0.9f);
-            explosionSmoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            explosionSmoke.Play();
-        }
-
-        if (explosionLight != null)
-        {
-            explosionLight.transform.position = position;
-            explosionLight.color = iceColor;
-            explosionLight.intensity = 11f;
-            explosionLight.enabled = true;
-            CancelInvoke(nameof(DisableExplosionLight));
-            Invoke(nameof(DisableExplosionLight), 0.35f);
-        }
-
-        if (oneShotAudio != null)
-        {
-            AudioClip clip = Resources.Load<AudioClip>(explosionAudioResourcePath);
-            if (clip != null)
-            {
-                oneShotAudio.PlayOneShot(clip, explosionVolume);
-            }
-        }
-
-        ShowExplosionRange(position);
+        PlayExplosion(position, NoPlayerContact, position);
     }
 
-    private void DisableExplosionLight()
+    public void PlayExplosion(Vector3 position, int contactKind, Vector3 contactPoint)
     {
-        if (explosionLight != null)
+        EnsureEffects();
+        HideAll();
+        impactRoot.position = position;
+        impactRoot.gameObject.SetActive(true);
+        impactAt = Time.time;
+        if (contactKind != NoPlayerContact)
         {
-            explosionLight.enabled = false;
+            hitRoot.position = contactPoint;
+            hitRoot.gameObject.SetActive(true);
+            hitAt = Time.time;
+            hitColor = contactKind == ShieldContact
+                ? CombatVfxStyle.Shield : CombatVfxStyle.ColdCore;
+        }
+        else if (hitRoot != null)
+        {
+            hitRoot.gameObject.SetActive(false);
+            hitAt = -1f;
+        }
+        for (int i = 0; i < fragments.Length; i++)
+        {
+            float angle = i * Mathf.PI * 2f / fragments.Length;
+            fragmentDirections[i] = new Vector3(Mathf.Cos(angle),
+                0.25f + (i % 3) * 0.22f, Mathf.Sin(angle)).normalized;
+            fragments[i].localPosition = Vector3.zero;
+            fragments[i].localRotation = Quaternion.Euler(i * 31f, i * 67f, 0f);
+            fragments[i].gameObject.SetActive(true);
+        }
+        if (impactAudio != null)
+        {
+            impactAudio.transform.position = position;
+            CombatAudioVoice.Play(impactAudio, impactAudio.clip, explosionVolume, 1.3f);
         }
     }
-
-    public float ExplosionRadius => explosionRadius;
 
     public void HideAll()
     {
-        // This is called whenever the throwing pose ends. Explosion range feedback is
-        // world-space and must survive that routine charge/flight cleanup.
+        // The world-space impact survives routine pose cleanup.
         HideCharge();
         StopFlightTrail();
     }
 
-    /// <summary>Used for an immediate weapon-mode change, including active grenade VFX.</summary>
     public void CancelAllWeaponVisuals()
     {
         HideAll();
-        StopParticle(explosionBurst);
-        StopParticle(explosionSmoke);
-        HideExplosionRange();
+        impactAt = -1f;
+        if (impactAudio != null) impactAudio.Stop();
+        if (impactRoot != null) impactRoot.gameObject.SetActive(false);
+        hitAt = -1f;
+        if (hitRoot != null) hitRoot.gameObject.SetActive(false);
+    }
+
+    private void UpdateTrail()
+    {
+        if (trailTarget == null) return;
+        if (flyingVisual != null)
+            flyingVisual.Rotate(0f, 380f * Time.deltaTime, 0f, Space.Self);
+        if (Time.time - lastSampleAt >= 0.026f)
+        {
+            for (int i = Mathf.Min(historyCount, history.Length - 1); i > 0; i--)
+                history[i] = history[i - 1];
+            history[0] = trailTarget.position;
+            historyCount = Mathf.Min(historyCount + 1, history.Length);
+            lastSampleAt = Time.time;
+        }
+        else history[0] = trailTarget.position;
+
+        int count = (historyCount - 1) * 3 + 1;
+        trail.positionCount = count;
+        trailOrbit.positionCount = count;
+        for (int segment = 0; segment < historyCount - 1; segment++)
+        {
+            Vector3 before = history[Mathf.Max(0, segment - 1)];
+            Vector3 start = history[segment];
+            Vector3 end = history[segment + 1];
+            Vector3 after = history[Mathf.Min(historyCount - 1, segment + 2)];
+            for (int step = 0; step < 3; step++)
+            {
+                int index = segment * 3 + step;
+                Vector3 point = CombatVfxStyle.CatmullRom(before, start, end, after,
+                    step / 3f);
+                Vector3 tangent = (end - start).normalized;
+                Vector3 sideways = Vector3.Cross(tangent, Vector3.up);
+                if (sideways.sqrMagnitude < 0.01f)
+                    sideways = Vector3.Cross(tangent, Vector3.right);
+                sideways.Normalize();
+                trail.SetPosition(index, point);
+                trailOrbit.SetPosition(index, point + sideways
+                    * (0.025f * Mathf.Sin(index * 0.9f - Time.time * 13f)));
+            }
+        }
+        trail.SetPosition(count - 1, history[historyCount - 1]);
+        trailOrbit.SetPosition(count - 1, history[historyCount - 1]);
+    }
+
+    private void UpdateImpact()
+    {
+        if (impactAt < 0f) return;
+        float age = (Time.time - impactAt) / 1.55f;
+        if (age >= 1f)
+        {
+            impactRoot.gameObject.SetActive(false);
+            impactAt = -1f;
+            if (impactAudio != null) impactAudio.Stop();
+            return;
+        }
+        float eased = 1f - Mathf.Pow(1f - age, 2f);
+        radiusField.localScale = Vector3.one * Mathf.Max(0.01f, eased);
+        radiusMaterial.color = new Color(1f, 1f, 1f, 1f - age);
+        CombatVfxStyle.SetRing(radiusRing, Vector3.up * 0.018f,
+            Quaternion.Euler(90f, 0f, 0f), explosionRadius * eased, 48);
+        Color tint = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.85f * (1f - age));
+        radiusRing.startColor = radiusRing.endColor = tint;
+        CombatVfxStyle.SetRing(innerRadiusRing, Vector3.up * 0.035f,
+            Quaternion.Euler(90f, 0f, 0f),
+            explosionRadius * Mathf.Lerp(0.28f, 0.77f, eased), 48);
+        innerRadiusRing.startColor = CombatVfxStyle.WithAlpha(
+            CombatVfxStyle.ColdCore, 0.68f * (1f - age));
+        innerRadiusRing.endColor = innerRadiusRing.startColor;
+        CombatVfxStyle.SetRing(impactArc, Vector3.up * 0.1f,
+            Quaternion.Euler(90f, 0f, 0f),
+            Mathf.Lerp(0.06f, 0.4f, eased), 32, 0f, 280f);
+        impactArc.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore,
+            0.4f * (1f - age));
+        impactArc.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore, 0.02f);
+        float domeRadius = explosionRadius * Mathf.Lerp(0.2f, 1f, eased);
+        CombatVfxStyle.SetRing(domeArcA, Vector3.zero,
+            Quaternion.Euler(0f, 0f, 0f), domeRadius, 32, 0f, 180f);
+        CombatVfxStyle.SetRing(domeArcB, Vector3.zero,
+            Quaternion.Euler(0f, 90f, 0f), domeRadius, 32, 0f, 180f);
+        domeArcA.startColor = domeArcB.startColor = CombatVfxStyle.WithAlpha(
+            CombatVfxStyle.Cold, 0.45f * (1f - age));
+        domeArcA.endColor = domeArcB.endColor = CombatVfxStyle.WithAlpha(
+            CombatVfxStyle.Cold, 0.04f);
+        for (int i = 0; i < fragments.Length; i++)
+        {
+            fragments[i].localPosition = fragmentDirections[i] * (0.12f + age * explosionRadius * 0.86f);
+            fragments[i].localScale = Vector3.one * (0.04f + (i % 4) * 0.012f)
+                * (1f - age);
+        }
+        for (int i = 0; i < blizzard.Length; i++)
+        {
+            LineRenderer streak = blizzard[i];
+            float seed = i / (float)blizzard.Length;
+            float angle = seed * Mathf.PI * 14f + Time.time * (2.4f + i % 4 * 0.27f);
+            float orbit = explosionRadius * (0.22f + 0.7f * Mathf.Repeat(seed * 11.13f + age * 0.38f, 1f));
+            float height = 0.06f + 1.15f * Mathf.Repeat(seed * 7.27f + age * 1.3f, 1f);
+            streak.positionCount = 4;
+            for (int point = 0; point < 4; point++)
+            {
+                float step = point / 3f;
+                float a = angle + step * 0.38f;
+                streak.SetPosition(point, new Vector3(Mathf.Cos(a) * (orbit + step * 0.12f),
+                    height + step * 0.12f, Mathf.Sin(a) * (orbit + step * 0.12f)));
+            }
+            streak.startColor = CombatVfxStyle.WithAlpha(
+                i % 4 == 0 ? CombatVfxStyle.ColdCore : CombatVfxStyle.Cold,
+                (0.65f + 0.25f * Mathf.Sin(Time.time * 8f + i)) * (1f - age));
+            streak.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0f);
+            streak.enabled = true;
+        }
+    }
+
+    private void UpdateHitCue()
+    {
+        if (hitAt < 0f) return;
+        float age = (Time.time - hitAt) / 0.8f;
+        if (age >= 1f)
+        {
+            hitRoot.gameObject.SetActive(false);
+            hitAt = -1f;
+            return;
+        }
+        Camera camera = Camera.main;
+        if (camera != null)
+            hitRoot.rotation = Quaternion.LookRotation(camera.transform.position - hitRoot.position);
+        float radius = Mathf.Lerp(0.2f, 0.12f, age);
+        CombatVfxStyle.SetRing(hitRing, Vector3.zero, Quaternion.identity,
+            radius, 40);
+        hitRing.startColor = hitRing.endColor = CombatVfxStyle.WithAlpha(
+            hitColor, 0.85f * (1f - age));
+        for (int i = 0; i < hitBrackets.Length; i++)
+        {
+            float angle = i * Mathf.PI * 0.5f + Mathf.PI * 0.25f;
+            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f);
+            Vector3 tangent = new Vector3(-direction.y, direction.x, 0f);
+            LineRenderer bracket = hitBrackets[i];
+            bracket.positionCount = 3;
+            bracket.SetPosition(0, direction * (radius + 0.065f) - tangent * 0.035f);
+            bracket.SetPosition(1, direction * (radius + 0.02f));
+            bracket.SetPosition(2, direction * (radius + 0.065f) + tangent * 0.035f);
+            bracket.startColor = bracket.endColor = CombatVfxStyle.WithAlpha(
+                hitColor, 0.95f * (1f - age));
+            bracket.enabled = true;
+        }
     }
 
     private void EnsureEffects()
     {
-        if (chargeRoot != null)
-        {
-            return;
-        }
+        if (lineMaterial != null) return;
+        lineMaterial = CombatVfxStyle.CreateMaterial("Cold lines", Color.white);
+        shardMaterial = CombatVfxStyle.CreateMaterial("Cold fragments", CombatVfxStyle.ColdCore);
+        shardMesh = CombatVfxStyle.CreateShard();
+        chargeRoot = new GameObject("ColdCharge").transform;
+        chargeRoot.SetParent(transform, false);
+        chargeShard = MakeShard(chargeRoot, "ChargeShard");
+        chargeArc = CombatVfxStyle.CreateLine(chargeRoot, "ColdChargeArc",
+            lineMaterial, false, 0.006f);
+        chargeOrbit = CombatVfxStyle.CreateLine(chargeRoot, "ColdChargeOrbit",
+            lineMaterial, false, 0.007f);
+        for (int i = 0; i < chargeHelices.Length; i++)
+            chargeHelices[i] = CombatVfxStyle.CreateLine(chargeRoot,
+                "Cold forearm spiral", lineMaterial, false, i == 1 ? 0.013f : 0.009f);
+        chargeRoot.gameObject.SetActive(false);
 
-        GameObject rootObject = new GameObject("IceChargeRoot");
-        rootObject.transform.SetParent(transform, false);
-        chargeRoot = rootObject.transform;
+        grenadeTemplate = new GameObject("ColdGrenadeTemplate").transform;
+        grenadeTemplate.SetParent(transform, false);
+        MakeShard(grenadeTemplate, "GrenadeBody");
+        LineRenderer grenadeHalo = CombatVfxStyle.CreateLine(grenadeTemplate,
+            "GrenadeOrbit", lineMaterial, false, 0.04f);
+        CombatVfxStyle.SetRing(grenadeHalo, Vector3.zero, Quaternion.identity,
+            0.55f, 40, 0f, 300f);
+        grenadeHalo.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.64f);
+        grenadeHalo.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.03f);
+        grenadeTemplate.gameObject.SetActive(false);
+        trail = CombatVfxStyle.CreateLine(transform, "ColdFlightSpline",
+            lineMaterial, true, 0.06f);
+        trail.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore, 0.9f);
+        trail.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0f);
+        trailOrbit = CombatVfxStyle.CreateLine(transform, "ColdFlightOrbit",
+            lineMaterial, true, 0.025f);
+        trailOrbit.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.7f);
+        trailOrbit.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0f);
 
-        beamChargeParticles = ExtractBeamChargeParticles(chargeRoot);
-        layeredChargeParticles = showLargeChargeAuraLayers
-            ? ExtractColdChargeParticles(chargeRoot)
-            : System.Array.Empty<ParticleSystem>();
-        fallbackChargeParticles = CreateFallbackChargeParticles();
-        fallbackChargeParticles.transform.SetParent(transform, false);
-        if (showHandChargeAtmosphere)
-        {
-            handChargeSmokeParticles = CreateHandChargeSmokeParticles();
-            handChargeSmokeParticles.transform.SetParent(transform, false);
-            handChargeSparkParticles = CreateHandChargeSparkParticles();
-            handChargeSparkParticles.transform.SetParent(transform, false);
-        }
-        grenadeVisualRoot = BuildGrenadeVisualTemplate();
-        flightTrail = CreateFlightTrail();
-        explosionBurst = CreateExplosionBurst();
-        explosionSmoke = CreateExplosionSmoke();
-        explosionRangeVisual = CreateExplosionRangeVisual();
-        explosionRangeRing = CreateExplosionRangeRing();
+        impactRoot = new GameObject("ColdImpact").transform;
+        radiusField = new GameObject("ColdRadiusField").transform;
+        radiusField.SetParent(impactRoot, false);
+        radiusField.localPosition = Vector3.up * 0.012f;
+        radiusField.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+        radiusMesh = CombatVfxStyle.CreateRadialField(explosionRadius,
+            CombatVfxStyle.Cold);
+        radiusField.gameObject.AddComponent<MeshFilter>().sharedMesh = radiusMesh;
+        MeshRenderer radiusRenderer = radiusField.gameObject.AddComponent<MeshRenderer>();
+        radiusMaterial = CombatVfxStyle.CreateMaterial("Cold radius field", Color.white);
+        radiusRenderer.sharedMaterial = radiusMaterial;
+        radiusRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        radiusRenderer.receiveShadows = false;
+        radiusRing = CombatVfxStyle.CreateLine(impactRoot, "DamageRadius",
+            lineMaterial, false, 0.022f);
+        innerRadiusRing = CombatVfxStyle.CreateLine(impactRoot, "InnerShock",
+            lineMaterial, false, 0.012f);
+        impactArc = CombatVfxStyle.CreateLine(impactRoot, "ImpactArc",
+            lineMaterial, false, 0.009f);
+        domeArcA = CombatVfxStyle.CreateLine(impactRoot, "BlastDomeA",
+            lineMaterial, false, 0.009f);
+        domeArcB = CombatVfxStyle.CreateLine(impactRoot, "BlastDomeB",
+            lineMaterial, false, 0.009f);
+        for (int i = 0; i < fragments.Length; i++)
+            fragments[i] = MakeShard(impactRoot, "ColdFragment");
+        for (int i = 0; i < blizzard.Length; i++)
+            blizzard[i] = CombatVfxStyle.CreateLine(impactRoot, "Blizzard spiral",
+                lineMaterial, false, i % 4 == 0 ? 0.025f : 0.014f);
+        impactRoot.gameObject.SetActive(false);
 
-        GameObject lightObject = new GameObject("IceChargeLight");
-        lightObject.transform.SetParent(chargeRoot, false);
-        chargeLight = lightObject.AddComponent<Light>();
-        chargeLight.type = LightType.Point;
-        chargeLight.range = 1.1f;
-        chargeLight.shadows = LightShadows.None;
-        chargeLight.enabled = false;
+        hitRoot = new GameObject("ColdPlayerContact").transform;
+        hitRing = CombatVfxStyle.CreateLine(hitRoot, "PlayerContactRing",
+            lineMaterial, false, 0.012f);
+        for (int i = 0; i < hitBrackets.Length; i++)
+            hitBrackets[i] = CombatVfxStyle.CreateLine(hitRoot, "ContactBracket",
+                lineMaterial, false, 0.012f);
+        hitRoot.gameObject.SetActive(false);
 
-        GameObject explosionLightObject = new GameObject("IceExplosionLight");
-        explosionLightObject.transform.SetParent(transform, false);
-        explosionLight = explosionLightObject.AddComponent<Light>();
-        explosionLight.type = LightType.Point;
-        explosionLight.range = 4f;
-        explosionLight.shadows = LightShadows.None;
-        explosionLight.enabled = false;
-
-        chargeAudio = gameObject.AddComponent<AudioSource>();
-        chargeAudio.clip = Resources.Load<AudioClip>(chargeAudioResourcePath);
-        chargeAudio.loop = true;
-        chargeAudio.playOnAwake = false;
-        chargeAudio.spatialBlend = 1f;
-        chargeAudio.volume = chargeVolume;
-        chargeAudio.minDistance = 0.15f;
-        chargeAudio.maxDistance = 6f;
-
-        oneShotAudio = gameObject.AddComponent<AudioSource>();
-        oneShotAudio.playOnAwake = false;
-        oneShotAudio.spatialBlend = 1f;
-        oneShotAudio.minDistance = 0.2f;
-        oneShotAudio.maxDistance = 12f;
-
-        HideAll();
-        HideExplosionRange();
+        chargeAudio = MakeAudio(chargeAudioResourcePath, true);
+        impactAudio = MakeAudio(explosionAudioResourcePath, false);
     }
 
-    private Transform BuildGrenadeVisualTemplate()
+    private Transform MakeShard(Transform parent, string name)
     {
-        GameObject grenadeObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        grenadeObject.name = "IceGrenadeBody";
-        Destroy(grenadeObject.GetComponent<Collider>());
-
-        Renderer renderer = grenadeObject.GetComponent<Renderer>();
-        Material bodyMaterial = CreateEmissiveMaterial("IceGrenadeBodyMaterial", iceColor);
-        renderer.material = bodyMaterial;
-        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-
-        GameObject lightObject = new GameObject("IceGrenadeFlightLight");
-        lightObject.transform.SetParent(grenadeObject.transform, false);
-        Light flightLight = lightObject.AddComponent<Light>();
-        flightLight.type = LightType.Point;
-        flightLight.color = iceColor;
-        flightLight.intensity = grenadeLightIntensity;
-        flightLight.range = 1.4f;
-        flightLight.shadows = LightShadows.None;
-        flightLight.enabled = false;
-
-        grenadeObject.transform.SetParent(transform, false);
-        grenadeObject.SetActive(false);
-        return grenadeObject.transform;
+        GameObject shard = new GameObject(name);
+        shard.transform.SetParent(parent, false);
+        shard.AddComponent<MeshFilter>().sharedMesh = shardMesh;
+        MeshRenderer renderer = shard.AddComponent<MeshRenderer>();
+        renderer.sharedMaterial = shardMaterial;
+        renderer.shadowCastingMode = ShadowCastingMode.Off;
+        renderer.receiveShadows = false;
+        return shard.transform;
     }
 
-    private ParticleSystem ExtractBeamChargeParticles(Transform parent)
+    private AudioSource MakeAudio(string path, bool loop)
     {
-        GameObject sourcePrefab = Resources.Load<GameObject>(beamChargeResourcePath);
-        if (sourcePrefab == null)
-        {
-            return null;
-        }
-
-        GameObject beamInstance = Instantiate(sourcePrefab, parent);
-        Transform chargeTransform = beamInstance.transform.Find("Charge");
-        ParticleSystem particles = chargeTransform != null ? chargeTransform.GetComponent<ParticleSystem>() : null;
-        if (chargeTransform != null)
-        {
-            chargeTransform.SetParent(parent, false);
-            chargeTransform.localPosition = Vector3.zero;
-            chargeTransform.localRotation = Quaternion.identity;
-            chargeTransform.localScale = Vector3.one;
-        }
-
-        Destroy(beamInstance);
-        return particles;
+        AudioClip clip = Resources.Load<AudioClip>(path);
+        if (clip == null) return null;
+        return CombatAudioVoice.Create(transform, "Ice audio", clip, loop);
     }
 
-    private ParticleSystem[] ExtractColdChargeParticles(Transform parent)
+    private void OnDisable() => CancelAllWeaponVisuals();
+
+    private void OnDestroy()
     {
-        GameObject sourcePrefab = Resources.Load<GameObject>(ledTubeResourcePath);
-        if (sourcePrefab == null)
-        {
-            return System.Array.Empty<ParticleSystem>();
-        }
-
-        GameObject ledTubeInstance = Instantiate(sourcePrefab, parent);
-        System.Collections.Generic.List<ParticleSystem> particles = new System.Collections.Generic.List<ParticleSystem>();
-        Transform effects = ledTubeInstance.transform.Find("Effects");
-        if (effects != null)
-        {
-            ReparentChargeLayer(effects, "ColdHit/Magic shield blue", parent, particles, chargeLayerScale);
-            ReparentChargeLayer(effects, "Absorb", parent, particles, chargeLayerScale * 0.7f);
-        }
-
-        foreach (MeshRenderer meshRenderer in ledTubeInstance.GetComponentsInChildren<MeshRenderer>(true))
-        {
-            meshRenderer.enabled = false;
-        }
-
-        Destroy(ledTubeInstance);
-        return particles.ToArray();
-    }
-
-    private static void ReparentChargeLayer(Transform effectsRoot, string relativePath, Transform parent, System.Collections.Generic.List<ParticleSystem> particles, float layerScale)
-    {
-        Transform source = effectsRoot.Find(relativePath);
-        if (source == null)
-        {
-            return;
-        }
-
-        source.SetParent(parent, false);
-        NormalizeChargeHierarchy(source, layerScale);
-        particles.AddRange(source.GetComponentsInChildren<ParticleSystem>(true));
-    }
-
-    private static void NormalizeChargeHierarchy(Transform root, float layerScale)
-    {
-        root.localPosition = Vector3.zero;
-        root.localRotation = Quaternion.identity;
-        root.localScale = Vector3.one * layerScale;
-
-        foreach (Transform child in root.GetComponentsInChildren<Transform>(true))
-        {
-            if (child == root)
-            {
-                continue;
-            }
-
-            child.localPosition = Vector3.zero;
-        }
-    }
-
-    private ParticleSystem CreateFallbackChargeParticles()
-    {
-        GameObject particleObject = new GameObject("IceFallbackChargeParticles");
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = true;
-        main.startLifetime = 0.3f;
-        main.startSpeed = -0.4f;
-        main.startSize = 0.065f;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = chargeParticleRate;
-
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.075f;
-
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(chargeTextureResourcePath));
-        return particles;
-    }
-
-    private void UpdateHandChargeAtmosphere(Vector3 position, Color tint, float progress)
-    {
-        progress = Mathf.Clamp01(progress);
-        if (handChargeSmokeParticles != null)
-        {
-            handChargeSmokeParticles.transform.position = position;
-            ParticleSystem.MainModule main = handChargeSmokeParticles.main;
-            main.startColor = WithAlpha(tint, Mathf.Lerp(0.26f, 0.72f, progress));
-            main.startSize = Mathf.Lerp(0.11f, 0.23f, progress);
-            ParticleSystem.EmissionModule emission = handChargeSmokeParticles.emission;
-            emission.rateOverTime = handChargeSmokeRate * Mathf.Lerp(0.35f, 1f, progress);
-            PlayParticle(handChargeSmokeParticles);
-        }
-
-        if (handChargeSparkParticles != null)
-        {
-            handChargeSparkParticles.transform.position = position;
-            ParticleSystem.MainModule main = handChargeSparkParticles.main;
-            main.startColor = WithAlpha(sparkleColor, Mathf.Lerp(0.5f, 1f, progress));
-            main.startSize = Mathf.Lerp(0.05f, 0.1f, progress);
-            ParticleSystem.EmissionModule emission = handChargeSparkParticles.emission;
-            emission.rateOverTime = handChargeSparkRate * Mathf.Lerp(0.3f, 1f, progress);
-            PlayParticle(handChargeSparkParticles);
-        }
-    }
-
-    private ParticleSystem CreateHandChargeSmokeParticles()
-    {
-        GameObject particleObject = new GameObject("IceHandChargeSmoke");
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = true;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(0.42f, 0.74f);
-        main.startSpeed = new ParticleSystem.MinMaxCurve(0.03f, 0.15f);
-        main.startSize = new ParticleSystem.MinMaxCurve(0.11f, 0.23f);
-        main.maxParticles = 180;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = handChargeSmokeRate;
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.08f;
-        ParticleSystem.NoiseModule noise = particles.noise;
-        noise.enabled = true;
-        noise.strength = 0.1f;
-        noise.frequency = 1.25f;
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
-        return particles;
-    }
-
-    private ParticleSystem CreateHandChargeSparkParticles()
-    {
-        GameObject particleObject = new GameObject("IceHandChargeSparks");
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = true;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(0.18f, 0.34f);
-        main.startSpeed = new ParticleSystem.MinMaxCurve(0.3f, 0.8f);
-        main.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
-        main.maxParticles = 220;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = handChargeSparkRate;
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.06f;
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSparkTextureResourcePath));
-        return particles;
-    }
-
-    private ParticleSystem CreateFlightTrail()
-    {
-        GameObject particleObject = new GameObject("IceFlightTrail");
-        particleObject.transform.SetParent(transform, false);
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = true;
-        main.startLifetime = 0.28f;
-        main.startSpeed = 0.12f;
-        main.startSize = 0.12f;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = trailEmissionRate;
-
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.05f;
-
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(trailTextureResourcePath));
-        particleObject.SetActive(false);
-        return particles;
-    }
-
-    private ParticleSystem CreateExplosionBurst()
-    {
-        GameObject particleObject = new GameObject("IceExplosionBurst");
-        particleObject.transform.SetParent(transform, false);
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = false;
-        main.startLifetime = 0.36f;
-        main.startSpeed = Mathf.Max(1.15f, explosionRadius * 1.7f);
-        main.startSize = 0.22f;
-        main.maxParticles = 128;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = 0f;
-        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 72) });
-
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.07f;
-
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSparkTextureResourcePath));
-        return particles;
-    }
-
-    private ParticleSystem CreateExplosionSmoke()
-    {
-        GameObject particleObject = new GameObject("IceExplosionSmoke");
-        particleObject.transform.SetParent(transform, false);
-        ParticleSystem particles = particleObject.AddComponent<ParticleSystem>();
-
-        ParticleSystem.MainModule main = particles.main;
-        main.loop = false;
-        main.startLifetime = 0.55f;
-        main.startSpeed = Mathf.Max(0.35f, explosionRadius * 0.65f);
-        main.startSize = 0.28f;
-        main.maxParticles = 32;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-
-        ParticleSystem.EmissionModule emission = particles.emission;
-        emission.rateOverTime = 0f;
-        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 12) });
-
-        ParticleSystem.ShapeModule shape = particles.shape;
-        shape.shapeType = ParticleSystemShapeType.Sphere;
-        shape.radius = 0.09f;
-
-        ConfigureParticleRenderer(particles, Resources.Load<Texture2D>(impactSmokeTextureResourcePath));
-        return particles;
-    }
-
-    private GameObject CreateExplosionRangeVisual()
-    {
-        GameObject sourcePrefab = Resources.Load<GameObject>(explosionRangePrefabResourcePath);
-        if (sourcePrefab == null)
-        {
-            Debug.LogWarning($"Explosion range prefab was not found in Resources at '{explosionRangePrefabResourcePath}'.", this);
-            return null;
-        }
-
-        GameObject rangeVisual = Instantiate(sourcePrefab);
-        rangeVisual.name = "IceExplosionRangeShield";
-        rangeVisual.SetActive(false);
-
-        foreach (Collider rangeCollider in rangeVisual.GetComponentsInChildren<Collider>(true))
-        {
-            rangeCollider.enabled = false;
-        }
-
-        explosionRangeParticles = rangeVisual.GetComponentsInChildren<ParticleSystem>(true);
-        foreach (ParticleSystem particle in explosionRangeParticles)
-        {
-            ParticleSystem.MainModule main = particle.main;
-            main.loop = true;
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
-            SetParticleColor(particle, WithAlpha(iceColor, explosionRangeAlpha));
-
-            ParticleSystemRenderer renderer = particle.GetComponent<ParticleSystemRenderer>();
-            if (renderer != null)
-            {
-                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                renderer.receiveShadows = false;
-                MakeRendererMaterialsTransparent(renderer, explosionRangeAlpha, 2990);
-            }
-        }
-
-        foreach (Renderer renderer in rangeVisual.GetComponentsInChildren<Renderer>(true))
-        {
-            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            renderer.receiveShadows = false;
-            if (renderer is ParticleSystemRenderer)
-            {
-                MakeRendererMaterialsTransparent(renderer, explosionRangeAlpha, 2990);
-            }
-            else
-            {
-                MakeRendererMaterialsOpaque(renderer);
-            }
-        }
-
-        return rangeVisual;
-    }
-
-    private LineRenderer CreateExplosionRangeRing()
-    {
-        GameObject ringObject = new GameObject("IceExplosionRangeRing");
-        ringObject.transform.SetParent(transform, false);
-
-        LineRenderer ring = ringObject.AddComponent<LineRenderer>();
-        ring.useWorldSpace = true;
-        ring.loop = true;
-        ring.positionCount = explosionRangeRingSegments;
-        ring.startWidth = explosionRangeRingWidth;
-        ring.endWidth = explosionRangeRingWidth;
-        ring.numCapVertices = 4;
-        ring.numCornerVertices = 2;
-        ring.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        ring.receiveShadows = false;
-        ring.material = CreateEmissiveMaterial("IceExplosionRangeRingMaterial", iceColor);
-        ring.enabled = false;
-        return ring;
-    }
-
-    private void ShowExplosionRange(Vector3 position)
-    {
-        Vector3 rangePosition = position + Vector3.up * explosionRangeVerticalOffset;
-        float diameter = explosionRadius * 2f;
-
-        if (explosionRangeVisual != null)
-        {
-            explosionRangeVisual.transform.position = rangePosition;
-            explosionRangeVisual.transform.rotation = Quaternion.identity;
-            explosionRangeVisual.transform.localScale = Vector3.one * (diameter / Mathf.Max(0.01f, explosionRangePrefabDiameterMeters));
-            explosionRangeVisual.SetActive(true);
-
-            if (explosionRangeParticles != null)
-            {
-                foreach (ParticleSystem particle in explosionRangeParticles)
-                {
-                    if (particle == null)
-                    {
-                        continue;
-                    }
-
-                    SetParticleColor(particle, WithAlpha(iceColor, explosionRangeAlpha));
-                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-                    particle.Play();
-                }
-            }
-        }
-
-        if (explosionRangeRing != null)
-        {
-            explosionRangeRing.enabled = true;
-            explosionRangeRing.startColor = iceColor;
-            explosionRangeRing.endColor = sparkleColor;
-            explosionRangeRing.startWidth = explosionRangeRingWidth;
-            explosionRangeRing.endWidth = explosionRangeRingWidth;
-            explosionRangeRing.positionCount = Mathf.Max(8, explosionRangeRingSegments);
-
-            for (int i = 0; i < explosionRangeRing.positionCount; i++)
-            {
-                float angle = i / (float)explosionRangeRing.positionCount * Mathf.PI * 2f;
-                Vector3 offset = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * explosionRadius;
-                explosionRangeRing.SetPosition(i, rangePosition + offset);
-            }
-        }
-
-        hideExplosionRangeAtTime = Time.time + explosionRangeVisibleSeconds;
-    }
-
-    private void HideExplosionRange()
-    {
-        if (explosionRangeVisual != null)
-        {
-            explosionRangeVisual.SetActive(false);
-        }
-
-        if (explosionRangeRing != null)
-        {
-            explosionRangeRing.enabled = false;
-        }
-
-        StopParticles(explosionRangeParticles);
-    }
-
-    private void ConfigureParticleRenderer(ParticleSystem particles, Texture2D texture)
-    {
-        ParticleSystemRenderer renderer = particles.GetComponent<ParticleSystemRenderer>();
-        renderer.renderMode = ParticleSystemRenderMode.Billboard;
-        renderer.material = CreateTintedMaterial($"{particles.name}Material", Color.white, texture);
-    }
-
-    private static Material CreateEmissiveMaterial(string materialName, Color color)
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-        if (shader == null)
-        {
-            shader = Shader.Find("Standard");
-        }
-
-        Material material = new Material(shader)
-        {
-            name = materialName,
-            color = color
-        };
-
-        material.EnableKeyword("_EMISSION");
-        material.SetColor("_EmissionColor", color * 2.8f);
-        if (material.HasProperty("_BaseColor"))
-        {
-            material.SetColor("_BaseColor", color);
-        }
-
-        return material;
-    }
-
-    private static Material CreateTintedMaterial(string materialName, Color color, Texture2D texture = null)
-    {
-        Shader shader = Shader.Find("Sprites/Default");
-        if (shader == null)
-        {
-            shader = Shader.Find("Particles/Standard Unlit");
-        }
-
-        Material material = new Material(shader)
-        {
-            name = materialName,
-            color = color,
-            mainTexture = texture
-        };
-
-        return material;
-    }
-
-    private static void MakeRendererMaterialsTransparent(Renderer renderer, float alpha, int renderQueue)
-    {
-        if (renderer == null)
-        {
-            return;
-        }
-
-        Material[] materials = renderer.materials;
-        foreach (Material material in materials)
-        {
-            MakeMaterialTransparent(material, alpha, renderQueue);
-        }
-    }
-
-    private static void MakeRendererMaterialsOpaque(Renderer renderer)
-    {
-        if (renderer == null)
-        {
-            return;
-        }
-
-        foreach (Material material in renderer.materials)
-        {
-            if (material == null)
-            {
-                continue;
-            }
-
-            if (material.HasProperty("_Color"))
-            {
-                Color color = material.GetColor("_Color");
-                color.a = 1f;
-                material.SetColor("_Color", color);
-            }
-
-            if (material.HasProperty("_BaseColor"))
-            {
-                Color color = material.GetColor("_BaseColor");
-                color.a = 1f;
-                material.SetColor("_BaseColor", color);
-            }
-
-            if (material.HasProperty("_Surface"))
-            {
-                material.SetFloat("_Surface", 0f);
-            }
-
-            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-            material.SetInt("_ZWrite", 1);
-            material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
-            material.DisableKeyword("_ALPHABLEND_ON");
-            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
-        }
-    }
-
-    private static void MakeMaterialTransparent(Material material, float alpha, int renderQueue)
-    {
-        if (material == null)
-        {
-            return;
-        }
-
-        if (material.HasProperty("_Color"))
-        {
-            Color color = material.GetColor("_Color");
-            color.a = alpha;
-            material.SetColor("_Color", color);
-        }
-
-        if (material.HasProperty("_BaseColor"))
-        {
-            Color color = material.GetColor("_BaseColor");
-            color.a = alpha;
-            material.SetColor("_BaseColor", color);
-        }
-
-        if (material.HasProperty("_TintColor"))
-        {
-            Color color = material.GetColor("_TintColor");
-            color.a = alpha;
-            material.SetColor("_TintColor", color);
-        }
-
-        if (material.HasProperty("_Surface"))
-        {
-            material.SetFloat("_Surface", 1f);
-            material.SetFloat("_Blend", 0f);
-            material.SetFloat("_AlphaClip", 0f);
-        }
-
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.SetOverrideTag("RenderType", "Transparent");
-        material.renderQueue = renderQueue;
-    }
-
-    private void SetLayeredChargeIntensity(Color tint, float progress)
-    {
-        if (layeredChargeParticles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in layeredChargeParticles)
-        {
-            SetParticleColor(particle, WithAlpha(tint, Mathf.Lerp(0.35f, 0.95f, progress)));
-        }
-    }
-
-    private static void SetParticleColor(ParticleSystem particles, Color color)
-    {
-        if (particles == null)
-        {
-            return;
-        }
-
-        ParticleSystem.MainModule main = particles.main;
-        main.startColor = color;
-    }
-
-    private static void PlayParticle(ParticleSystem particle)
-    {
-        if (particle != null && !particle.isPlaying)
-        {
-            particle.Play();
-        }
-    }
-
-    private static void PlayParticles(ParticleSystem[] particles)
-    {
-        if (particles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in particles)
-        {
-            PlayParticle(particle);
-        }
-    }
-
-    private static void StopParticle(ParticleSystem particle)
-    {
-        if (particle != null)
-        {
-            particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-        }
-    }
-
-    private static void StopParticles(ParticleSystem[] particles)
-    {
-        if (particles == null)
-        {
-            return;
-        }
-
-        foreach (ParticleSystem particle in particles)
-        {
-            StopParticle(particle);
-        }
-    }
-
-    private static Color WithAlpha(Color color, float alpha)
-    {
-        return new Color(color.r, color.g, color.b, alpha);
+        if (impactRoot != null) Destroy(impactRoot.gameObject);
+        if (hitRoot != null) Destroy(hitRoot.gameObject);
+        if (lineMaterial != null) Destroy(lineMaterial);
+        if (shardMaterial != null) Destroy(shardMaterial);
+        if (radiusMaterial != null) Destroy(radiusMaterial);
+        if (shardMesh != null) Destroy(shardMesh);
+        if (radiusMesh != null) Destroy(radiusMesh);
     }
 }

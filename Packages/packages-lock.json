@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.meta.xr.mrutilitykit": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "203.0.0",
+        "com.meta.xr.sdk.core": "205.0.0",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.ai.navigation": "1.1.4",
         "com.unity.nuget.newtonsoft-json": "3.0.2"
@@ -13,18 +13,18 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.all": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "203.0.0",
+        "com.meta.xr.sdk.core": "205.0.0",
         "com.meta.xr.sdk.audio": "85.0.0",
-        "com.meta.xr.sdk.voice": "85.0.0",
-        "com.meta.xr.sdk.haptics": "203.0.0",
-        "com.meta.xr.mrutilitykit": "203.0.0",
-        "com.meta.xr.sdk.platform": "203.0.0",
-        "com.meta.xr.sdk.interaction": "203.0.0",
-        "com.meta.xr.sdk.interaction.ovr": "203.0.0"
+        "com.meta.xr.sdk.voice": "85.0.1",
+        "com.meta.xr.sdk.haptics": "205.0.0",
+        "com.meta.xr.mrutilitykit": "205.0.0",
+        "com.meta.xr.sdk.platform": "205.0.0",
+        "com.meta.xr.sdk.interaction": "205.0.0",
+        "com.meta.xr.sdk.interaction.ovr": "205.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -36,7 +36,7 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.core": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -51,16 +51,16 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.haptics": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "203.0.0"
+        "com.meta.xr.sdk.core": "205.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -70,17 +70,17 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction.ovr": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "203.0.0",
-        "com.meta.xr.sdk.interaction": "203.0.0"
+        "com.meta.xr.sdk.core": "205.0.0",
+        "com.meta.xr.sdk.interaction": "205.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.platform": {
-      "version": "203.0.0",
+      "version": "205.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -91,7 +91,7 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.voice": {
-      "version": "85.0.0",
+      "version": "85.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -193,16 +193,30 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
-      "depth": 3,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.2",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.pipeline": {
+      "version": "0.7.0-exp.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.33",
+        "com.unity.nuget.mono-cecil": "1.11.6",
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.screencapture": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
