@@ -145,10 +145,15 @@ public static class DemoRegressionChecks
                 SetRouter("evaluatedFrame", Time.frameCount);
                 SetRouter("candidate", pose);
                 SetRouter("current", HandPoseRouter.PoseKind.Neutral);
+                SetRouter("candidateSince", Time.unscaledTime);
+                if (router.FeedbackPose != HandPoseRouter.PoseKind.Neutral)
+                    throw new Exception("A pose glimpsed for one frame (resting hand) must not show weapon feedback.");
+                SetRouter("candidateSince", Time.unscaledTime - HandPoseRouter.FeedbackIntentSeconds - 0.01f);
                 if (router.FeedbackPose != pose || router.Current != HandPoseRouter.PoseKind.Neutral)
-                    throw new Exception("First-frame feedback must appear without prematurely confirming gameplay.");
+                    throw new Exception("Intended-pose feedback must appear without prematurely confirming gameplay.");
             }
             SetRouter("candidate", HandPoseRouter.PoseKind.Fire);
+            SetRouter("candidateSince", Time.unscaledTime - 1f);
             SetRouter("hasFireRay", true);
             SetRouter("fireRay", new Ray(Vector3.zero, Vector3.forward));
             var effects = root.AddComponent<ThermalBeamEffects>();

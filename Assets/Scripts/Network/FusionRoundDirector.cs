@@ -37,7 +37,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(0.1f)] private float healPickupRadius = 0.6f;
     [SerializeField] private float healHeight = 1.55f;
     [Tooltip("Arena-space point the heal floats above (centre of the 1v1 layout, over the coolant stack).")]
-    [SerializeField] private Vector3 healArenaPoint = new Vector3(0.275f, 0f, 0.3f);
+    [SerializeField] private Vector3 healArenaPoint = new Vector3(0.275f, 0f, 0.71f);
 
     [SyncVar] public bool IsDirector;
     [SyncVar] public bool IsCalibrated;

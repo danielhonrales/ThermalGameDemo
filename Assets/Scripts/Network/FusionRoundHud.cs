@@ -75,17 +75,17 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (root != null) return;
         root = HudKit.Canvas("Arena HUD", transform, new Vector2(2800f, 1700f), 20);
 
-        localCard = new HealthCard(root, "YOU", Friendly, new Vector2(-1000f, 600f), true);
-        opponentCard = new HealthCard(root, "OPPONENT", Enemy, new Vector2(-1022f, 478f), false);
+        localCard = new HealthCard(root, "YOU", Friendly, new Vector2(-400f, 300f), true);
+        opponentCard = new HealthCard(root, "OPPONENT", Enemy, new Vector2(-420f, 196f), false);
 
         // Round clock with a match timeline underneath (heal at 30 s, sudden death at 60 s).
-        clock = HudKit.Rect(root, "Clock", new Vector2(0f, 600f), new Vector2(260f, 100f));
+        clock = HudKit.Rect(root, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
         clockGlow = HudKit.Image(clock, "Bloom", HudSprites.Dot(), HudKit.A(Friendly, 0.1f), Vector2.zero, new Vector2(420f, 170f));
         timer = HudKit.Text(clock, "Time", HudKit.Heavy, 76f, Color.white, new Vector2(0f, 2f), new Vector2(260f, 100f), TextAlignmentOptions.Center);
-        phaseLabel = HudKit.Text(root, "Phase", HudKit.Display, 26f, Soft, new Vector2(0f, 528f), new Vector2(600f, 40f), TextAlignmentOptions.Center);
+        phaseLabel = HudKit.Text(root, "Phase", HudKit.Display, 26f, Soft, new Vector2(0f, 262f), new Vector2(600f, 40f), TextAlignmentOptions.Center);
         phaseLabel.characterSpacing = 18f;
 
-        timelineRoot = HudKit.Rect(root, "Timeline", new Vector2(0f, 488f), new Vector2(440f, 30f));
+        timelineRoot = HudKit.Rect(root, "Timeline", new Vector2(0f, 222f), new Vector2(440f, 30f));
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
@@ -94,7 +94,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         timelineHead = HudKit.Image(timelineRoot, "Head", HudSprites.Dot(), Color.white, new Vector2(-220f, 0f), new Vector2(26f, 26f));
 
         // Centre banner.
-        banner = HudKit.Rect(root, "Banner", new Vector2(0f, 70f), new Vector2(1500f, 260f));
+        banner = HudKit.Rect(root, "Banner", new Vector2(0f, 0f), new Vector2(1500f, 260f));
         bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
         bannerBand = HudKit.Image(banner, "Bloom", HudSprites.Dot(), HudKit.A(Color.black, 0f), Vector2.zero, new Vector2(1500f, 420f));
         var stripesMask = HudKit.Rect(banner, "Stripes mask", new Vector2(0f, -108f), new Vector2(700f, 6f));
@@ -110,7 +110,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         bannerGroup.alpha = 0f;
 
         // Toast under the clock.
-        toast = HudKit.Rect(root, "Toast", new Vector2(0f, 400f), new Vector2(620f, 64f));
+        toast = HudKit.Rect(root, "Toast", new Vector2(0f, 150f), new Vector2(620f, 64f));
         toastGroup = toast.gameObject.AddComponent<CanvasGroup>();
         toastAccent = HudKit.Image(toast, "Underline", HudSprites.FadeBand(), Friendly, new Vector2(0f, -30f), new Vector2(420f, 4f));
         toastText = HudKit.Text(toast, "Text", HudKit.Display, 32f, Color.white, new Vector2(8f, 0f), new Vector2(580f, 60f), TextAlignmentOptions.Center);
@@ -358,7 +358,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         bannerText.rectTransform.localScale = Vector3.one * slam;
         bannerFlash.color = new Color(1f, 1f, 1f, 0.5f * Mathf.Exp(-age * 7f) * bannerGroup.alpha);
         float shake = bannerKey == "suddendeath" ? 14f * Mathf.Exp(-age * 3f) : 0f;
-        banner.anchoredPosition = new Vector2(Random.Range(-shake, shake), 70f + Random.Range(-shake, shake));
+        banner.anchoredPosition = new Vector2(Random.Range(-shake, shake), Random.Range(-shake, shake));
         bannerStripes.anchoredPosition = new Vector2(Mathf.Repeat(Time.time * 60f, 64f) - 32f, 0f);
     }
 
@@ -380,7 +380,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         bool visible = Time.time < toastUntil;
         toastGroup.alpha = Mathf.MoveTowards(toastGroup.alpha, visible ? 1f : 0f, Time.deltaTime * (visible ? 8f : 3f));
         float slide = 1f - Mathf.Exp(-age * 12f);
-        toast.anchoredPosition = new Vector2(0f, 400f + 30f * (1f - slide));
+        toast.anchoredPosition = new Vector2(0f, 150f + 30f * (1f - slide));
     }
 
     // ---------- Vignette ----------
@@ -464,7 +464,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         public HealthCard(RectTransform parent, string label, Color accentColor, Vector2 position, bool large)
         {
             accent = accentColor;
-            Vector2 size = large ? new Vector2(500f, 124f) : new Vector2(456f, 90f);
+            Vector2 size = large ? new Vector2(400f, 110f) : new Vector2(360f, 84f);
             barWidth = size.x - 56f;
             float barHeight;
             home = position;
@@ -480,7 +480,7 @@ public sealed class FusionRoundHud : MonoBehaviour
             barHeight = large ? 12f : 8f;
             HudKit.Image(rect, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.1f), new Vector2(left + barWidth / 2f, barY), new Vector2(barWidth, 3f), true, 1f);
             // Amorphous bloom that follows the fill, osu!lazer style.
-            glow = HudKit.Image(rect, "Bloom", HudSprites.Glow(8), HudKit.A(accent, 0.3f), new Vector2(left - 40f, barY), new Vector2(barWidth + 80f, barHeight + 80f), true, 1f);
+            glow = HudKit.Image(rect, "Bloom", HudSprites.Dot(), HudKit.A(accent, 0.3f), new Vector2(left - 30f, barY), new Vector2(barWidth + 60f, barHeight + 46f));
             glow.rectTransform.pivot = new Vector2(0f, 0.5f);
             chip = Bar(rect, "Chip", new Color(1f, 0.93f, 0.8f, 0.9f), left, barY, barHeight);
             fill = Bar(rect, "Fill", accent, left, barY, barHeight);
@@ -533,8 +533,8 @@ public sealed class FusionRoundHud : MonoBehaviour
             heal.color = HudKit.A(HealPickupView.Green, 0.8f * healGlow * (0.6f + 0.4f * Mathf.Sin(Time.time * 20f)));
             float lowPulse = target < 0.25f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 10f) : 0f;
             glow.color = HudKit.A(Color.Lerp(barColor, HealPickupView.Green, healGlow),
-                0.28f + 0.4f * healGlow + 0.45f * Mathf.Exp(-(Time.time - lastDropAt) * 5f) + 0.25f * lowPulse);
-            glow.rectTransform.sizeDelta = new Vector2(barWidth * shownFraction + 80f, glow.rectTransform.sizeDelta.y);
+                0.16f + 0.3f * healGlow + 0.35f * Mathf.Exp(-(Time.time - lastDropAt) * 5f) + 0.15f * lowPulse);
+            glow.rectTransform.sizeDelta = new Vector2(barWidth * shownFraction + 60f, glow.rectTransform.sizeDelta.y);
             tip.rectTransform.anchoredPosition = new Vector2(barLeft + barWidth * shownFraction, fill.rectTransform.anchoredPosition.y);
             tip.color = HudKit.A(Color.Lerp(Color.white, barColor, 0.4f), shownFraction > 0.001f ? 0.9f : 0f);
             tip.rectTransform.localScale = Vector3.one * (1f + 0.25f * Mathf.Sin(Time.time * 6f) + 0.8f * Mathf.Exp(-(Time.time - lastDropAt) * 8f));

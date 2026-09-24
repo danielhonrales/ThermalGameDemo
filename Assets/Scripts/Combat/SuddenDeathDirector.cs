@@ -26,16 +26,17 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     // Scattered sudden-death cover, mirror-symmetric about the plane between the start pads.
     private static readonly Slot[] Layout =
     {
-        new Slot { position = new Vector3(MirrorX, 0f, 0.3f), yaw = 0f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-0.55f, 0f, 1.55f), yaw = 25f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(1.1f, 0f, 1.55f), yaw = -25f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(-0.85f, 0f, -1.15f), yaw = -30f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(1.4f, 0f, -1.15f), yaw = 30f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(MirrorX, 0f, -2.55f), yaw = 90f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(-1.65f, 0f, -2.45f), yaw = 60f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(2.2f, 0f, -2.45f), yaw = -60f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-1.55f, 0f, 1.75f), yaw = 10f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(2.1f, 0f, 1.75f), yaw = -10f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(MirrorX, 0f, 0.71f), yaw = 0f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(-0.65f, 0f, 2.25f), yaw = 20f, kind = CoverKind.Metal },
+        new Slot { position = new Vector3(1.2f, 0f, 2.25f), yaw = -20f, kind = CoverKind.Metal },
+        new Slot { position = new Vector3(-0.8f, 0f, -0.8f), yaw = -30f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(1.35f, 0f, -0.8f), yaw = 30f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(MirrorX, 0f, 3.0f), yaw = 90f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(MirrorX, 0f, -1.6f), yaw = 90f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(-1.75f, 0f, -1.45f), yaw = 60f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(2.3f, 0f, -1.45f), yaw = -60f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(-1.75f, 0f, 2.8f), yaw = 10f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(2.3f, 0f, 2.8f), yaw = -10f, kind = CoverKind.BurningCrate },
     };
 
     private sealed class Cluster
@@ -111,8 +112,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 
         // Calibration places the floor at the arena root height.
         floorY = arena != null ? arena.position.y : 0f;
-        centre = new Vector3(MirrorX, floorY, -0.4f);
-        arenaBounds = new Bounds(centre, new Vector3(6.2f, 0.1f, 6.6f));
+        // Centred under the 5 x 5 m virtual ceiling.
+        centre = new Vector3(MirrorX, floorY, 0.71f);
+        arenaBounds = new Bounds(centre, new Vector3(5.4f, 0.1f, 5.4f));
 
         // Legacy built-in particle shaders don't render in URP (they show as white domes).
         if (arena != null)
@@ -319,11 +321,10 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             new Vector3(minX + 0.4f, floorY, centre.z), new Vector3(maxX - 0.4f, floorY, centre.z),
             new Vector3(centre.x, floorY, minZ + 0.4f), new Vector3(centre.x, floorY, maxZ - 0.4f),
         });
-        float ceilingY = floorY + 2.6f;
+        float ceilingY = floorY + 3.3f;
         sparkPoints.AddRange(new[]
         {
             new Vector3(minX + 1.1f, ceilingY, minZ + 1.2f), new Vector3(maxX - 1.1f, ceilingY, maxZ - 1.2f),
-            new Vector3(maxX - 1.3f, ceilingY, minZ + 1.6f), new Vector3(minX + 1.3f, ceilingY, maxZ - 1.6f),
         });
 
         // Rotating siren beacons hang from the virtual ceiling corners.
@@ -333,7 +334,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             new Vector3(maxX - 0.5f, ceilingY, maxZ - 0.5f), new Vector3(minX + 0.5f, ceilingY, maxZ - 0.5f)
         })
         {
-            LineRenderer sweep = CombatVfxStyle.CreateLine(transform, "Beacon sweep", lineMaterial, true, 0.7f);
+            LineRenderer sweep = CombatVfxStyle.CreateLine(transform, "Beacon sweep", lineMaterial, true, 0.4f);
             sweep.positionCount = 2;
             sweep.widthCurve = new AnimationCurve(new Keyframe(0f, 0.04f), new Keyframe(1f, 1f));
             beacons.Add(sweep);
@@ -352,7 +353,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         main.startSpeed = new ParticleSystem.MinMaxCurve(0.1f, 0.45f);
         main.startSize = new ParticleSystem.MinMaxCurve(0.006f, 0.03f);
         main.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.55f, 0.15f, 1f), new Color(1f, 0.12f, 0.04f, 1f));
-        main.maxParticles = 500;
+        main.maxParticles = 280;
         main.gravityModifier = -0.03f;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         var emission = embers.emission;
@@ -534,8 +535,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (fx == null) return;
         foreach (Vector3 point in firePoints)
         {
-            ThermalFxLibrary.Spawn(fx.bigExplosion, point + Vector3.up * 0.2f, 0.25f, 4f);
-            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.45f, transform));
+            ThermalFxLibrary.Spawn(fx.bigExplosion, point + Vector3.up * 0.2f, 0.2f, 3f);
+            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.36f, transform));
         }
         foreach (Vector3 point in smokePoints)
             hellFx.Add(GroundHaze(point));
@@ -712,14 +713,14 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             Vector3 dir = Quaternion.Euler(0f, angle, 0f) * new Vector3(0f, -0.6f, 1f).normalized;
             sweep.SetPosition(0, beaconPositions[i]);
             sweep.SetPosition(1, beaconPositions[i] + dir * 2.2f);
-            sweep.startColor = CombatVfxStyle.WithAlpha(Color.Lerp(Red, Color.white, 0.3f), 0.4f * amount);
+            sweep.startColor = CombatVfxStyle.WithAlpha(Color.Lerp(Red, Color.white, 0.3f), 0.22f * amount);
             sweep.endColor = CombatVfxStyle.WithAlpha(Red, 0f);
         }
 
         if (active && !embers.isPlaying) embers.Play();
         else if (!active && embers.isPlaying) embers.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         var emission = embers.emission;
-        emission.rateOverTime = 25f * amount + 90f * hell;
+        emission.rateOverTime = 20f * amount + 55f * hell;
         if (motes != null)
         {
             var calm = motes.emission;

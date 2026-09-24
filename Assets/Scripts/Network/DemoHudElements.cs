@@ -69,7 +69,7 @@ public sealed class DemoHealthBar
     public DemoHealthBar(Transform parent, string name)
     {
         Root = DemoHudElements.Canvas(name, parent, new Vector2(320f, 76f));
-        glow = HudKit.Image(Root, "Bloom", HudSprites.Glow(8), HudKit.A(FusionRoundHud.Enemy, 0.25f), new Vector2(0f, -8f), new Vector2(Width + 70f, 80f), true, 1f);
+        glow = HudKit.Image(Root, "Bloom", HudSprites.Dot(), HudKit.A(FusionRoundHud.Enemy, 0.2f), new Vector2(0f, -8f), new Vector2(Width + 60f, 56f));
         HudKit.Image(Root, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), new Vector2(0f, -8f), new Vector2(Width, 3f), true, 1f);
         chip = Bar("Chip", new Color(1f, 0.93f, 0.8f, 0.9f));
         fill = Bar("Fill", FusionRoundHud.Enemy);
@@ -97,6 +97,6 @@ public sealed class DemoHealthBar
         fill.rectTransform.sizeDelta = new Vector2(Width * shown, 10f);
         chip.rectTransform.sizeDelta = new Vector2(Width * trail, 10f);
         float low = fraction < 0.3f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 9f) : 0f;
-        glow.color = HudKit.A(FusionRoundHud.Enemy, 0.15f + 0.5f * flash + 0.25f * low);
+        glow.color = HudKit.A(FusionRoundHud.Enemy, 0.1f + 0.4f * flash + 0.15f * low);
     }
 }

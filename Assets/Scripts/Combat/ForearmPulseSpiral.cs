@@ -12,7 +12,8 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
     [SerializeField] private Transform headset;
     [SerializeField, Min(0.1f)] private float forearmLength = 0.25f;
     [SerializeField, Min(0.01f)] private float armRadius = 0.048f;
-    [SerializeField, Range(0f, 1f)] private float idleOpacity = 0.28f;
+    [Tooltip("Opacity with nothing active. Zero keeps the arm completely clean at rest.")]
+    [SerializeField, Range(0f, 1f)] private float idleOpacity = 0f;
     [SerializeField, Min(1f)] private float turns = 4.5f;
 
     private const int Segments = 72;
@@ -82,6 +83,8 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
 
         ArmActivationSignal.Reading signal = ArmActivationSignal.Sample(Time.time);
         float energy = Mathf.Clamp01(signal.Intensity);
+        // Completely clean arm at rest: nothing drawn until a weapon, shield or hit is active.
+        if (idleOpacity <= 0f && energy < 0.01f && signal.Anticipation <= 0f) { SetEnabled(false); return; }
         float breathing = 0.5f + 0.5f * Mathf.Sin(Time.time * 1.7f);
         // Build-up spins faster and cinches the helix; the peak releases it outward.
         float spin = 1.4f + energy * 9f + signal.Anticipation * 14f;
@@ -154,7 +157,7 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
             * Mathf.Lerp(idleOpacity * (0.75f + 0.25f * breathing), 0.85f, energy);
         float band = FlowPosition(signal);
         float bandAlpha = Mathf.Clamp01(baseAlpha + visible * strandAlpha
-            * (0.2f + energy * 0.8f + signal.Anticipation * 0.5f));
+            * (energy + signal.Anticipation * 0.5f));
         colorKeys[0] = new GradientColorKey(signal.Color, 0f);
         colorKeys[1] = new GradientColorKey(Color.Lerp(signal.Color, Color.white, 0.3f * energy), 1f);
         alphaKeys[0] = new GradientAlphaKey(baseAlpha * 0.25f, 0f);

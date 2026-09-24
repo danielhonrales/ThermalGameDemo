@@ -21,8 +21,19 @@ public sealed class HandPoseRouter : MonoBehaviour
     private bool hasFireRay;
 
     public PoseKind Current { get { Evaluate(); return current; } }
-    // Visual acknowledgement is immediate; gameplay still requires the stable pose.
-    public PoseKind FeedbackPose { get { Evaluate(); return current != PoseKind.Neutral ? current : candidate; } }
+    // Visual acknowledgement once a pose has been intended briefly (so a resting hand stays clean);
+    // gameplay still requires the full stable-pose confirmation.
+    public const float FeedbackIntentSeconds = 0.12f;
+    public PoseKind FeedbackPose
+    {
+        get
+        {
+            Evaluate();
+            if (current != PoseKind.Neutral) return current;
+            return candidate != PoseKind.Neutral && Time.unscaledTime - candidateSince >= FeedbackIntentSeconds
+                ? candidate : PoseKind.Neutral;
+        }
+    }
     public bool IsFirePose => Current == PoseKind.Fire;
     public bool IsIcePose => Current == PoseKind.Ice;
     public bool IsShieldPose => Current == PoseKind.Shield;

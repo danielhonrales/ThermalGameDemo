@@ -36,26 +36,27 @@ public static class ArenaLayoutBuilder
                 Undo.DestroyObjectImmediate(child.gameObject);
         }
 
+        // Spread across the 5 x 5 m ceiling footprint, centred at z = 0.71 (ceiling centre).
         Piece[] layout =
         {
-            // Centre: a round reactor pillar breaks the direct line between the players.
-            new Piece { name = "Coolant stack", prefab = "Stuff/Pipes_02", position = new Vector3(MirrorX, 0f, 0.3f), yaw = 45f, scale = 0.34f },
-            // Near each player: stacked crates to duck behind.
-            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-0.9f, 0f, 1.25f), yaw = 18f, scale = 0.5f, mirror = true,
+            // Centre: coolant stack breaks the direct line between the players.
+            new Piece { name = "Coolant stack", prefab = "Stuff/Pipes_02", position = new Vector3(MirrorX, 0f, 0.71f), yaw = 45f, scale = 0.34f },
+            // Forward crate stacks to duck behind.
+            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-0.7f, 0f, 2.2f), yaw = 18f, scale = 0.5f, mirror = true,
                 stack = new[]
                 {
                     new Piece { prefab = "Props/Crate_01", position = new Vector3(0.05f, 0.375f, -0.08f), yaw = -12f, scale = 0.5f },
                     new Piece { prefab = "Props/Crate_01", position = new Vector3(-0.02f, 0.75f, 0.1f), yaw = 7f, scale = 0.5f },
                 } },
-            // Low pipe bundles you crouch behind.
-            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-0.75f, 0f, -0.85f), yaw = 8f, scale = 0.42f, mirror = true },
-            // See-through railings on the long flanks.
-            new Piece { name = "Railing", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX - 0.9f, 0f, 1.95f), yaw = 90f, scale = 0.65f, mirror = true },
-            // Consoles at the far side, angled to create peeking lanes.
-            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-0.55f, 0f, -2.35f), yaw = 35f, scale = 0.36f, mirror = true },
-            // Raised deck plates add height variety at the far corners.
-            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.55f, 0f, -3.1f), yaw = 0f, scale = 0.2f, mirror = true },
-            new Piece { name = "Supply crate", prefab = "Props/Crate_01", position = new Vector3(MirrorX, 0f, -3.05f), yaw = 90f, scale = 0.5f },
+            // Low pipe runs you crouch behind.
+            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-0.75f, 0f, -0.9f), yaw = 10f, scale = 0.34f, mirror = true },
+            // See-through railings on the north and south edges of the lane.
+            new Piece { name = "Railing north", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, 3.0f), yaw = 90f, scale = 0.65f },
+            new Piece { name = "Railing south", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, -1.6f), yaw = 90f, scale = 0.65f },
+            // Consoles behind each start pad, angled to open peeking lanes.
+            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-1.7f, 0f, -1.3f), yaw = 35f, scale = 0.36f, mirror = true },
+            // Raised deck plates in the far corners for height variety.
+            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.7f, 0f, 2.75f), yaw = 0f, scale = 0.2f, mirror = true },
         };
 
         int count = 0;

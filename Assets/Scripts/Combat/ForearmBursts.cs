@@ -67,10 +67,9 @@ public sealed class ForearmBursts : MonoBehaviour
         switch (burst.name)
         {
             case "hit_received":
-                bool cold = burst.source == "ice";
-                Color hit = cold ? CombatVfxStyle.Cold : CombatVfxStyle.Critical;
-                ThermalFxLibrary.Spawn(fx?.electroHit, mid, 0.35f, 2f);
-                ThermalFxLibrary.Spawn(cold ? fx?.coldSparks : fx?.hitSparks, mid, 0.45f, 2f);
+                // Stay in the weapon palette with a red flash, so the arm never "changes weapon".
+                Color hit = Color.Lerp(ArmActivationSignal.WeaponColor, CombatVfxStyle.Critical, 0.35f);
+                ThermalFxLibrary.Spawn(fx?.electroHit, mid, 0.3f, 2f);
                 for (int i = 0; i < 3; i++) AddRing(hit, false, i * 0.07f, 0.016f);
                 break;
             case "shield_block":
@@ -88,7 +87,8 @@ public sealed class ForearmBursts : MonoBehaviour
                 break;
             case "heal_received":
                 ThermalFxLibrary.Spawn(fx?.healSparks, mid, 0.5f, 2.5f);
-                for (int i = 0; i < 4; i++) AddRing(HealPickupView.Green, false, i * 0.09f, 0.012f);
+                for (int i = 0; i < 3; i++)
+                    AddRing(Color.Lerp(ArmActivationSignal.WeaponColor, HealPickupView.Green, 0.4f), false, i * 0.09f, 0.012f);
                 break;
         }
     }

@@ -130,8 +130,8 @@ public sealed class CoverDrone : MonoBehaviour
         smokeObject.transform.localPosition = new Vector3(0f, 0f, -0.25f);
         smokeTrail = smokeObject.AddComponent<TrailRenderer>();
         smokeTrail.sharedMaterial = smokeMaterial;
-        smokeTrail.time = 0.9f;
-        smokeTrail.widthCurve = new AnimationCurve(new Keyframe(0f, 0.05f), new Keyframe(1f, 0.4f));
+        smokeTrail.time = 0.6f;
+        smokeTrail.widthCurve = new AnimationCurve(new Keyframe(0f, 0.04f), new Keyframe(1f, 0.22f));
         smokeTrail.startColor = new Color(0.25f, 0.22f, 0.22f, 0.35f);
         smokeTrail.endColor = new Color(0.1f, 0.1f, 0.1f, 0f);
         smokeTrail.shadowCastingMode = ShadowCastingMode.Off;
@@ -270,7 +270,8 @@ public sealed class CoverDrone : MonoBehaviour
         Vector3 scanDir = (transform.forward * 0.6f - Vector3.up + transform.right * Mathf.Sin(Time.time * 2.4f + seed) * 0.5f).normalized;
         searchlight.SetPosition(0, transform.position + transform.forward * 0.2f);
         searchlight.SetPosition(1, transform.position + scanDir * 1.6f);
-        searchlight.startColor = CombatVfxStyle.WithAlpha(Red, 0.16f * scan);
+        searchlight.startColor = CombatVfxStyle.WithAlpha(Red, 0f * scan);
+        searchlight.enabled = false; // removed for clarity: too much visual noise with many drones
         searchlight.endColor = CombatVfxStyle.WithAlpha(Red, 0f);
 
         float open = job == Job.Pickup ? (t < GrabMid ? 1f : 0f) : (t < GrabMid ? 0f : 1f);

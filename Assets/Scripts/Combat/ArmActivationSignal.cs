@@ -36,10 +36,15 @@ public static class ArmActivationSignal
     private static void Subscribe()
     {
         pulses.Clear();
+        weapon = Kind.Heat;
         CombatEventOutput.Signaled -= OnSignal;
         CombatEventOutput.Signaled += OnSignal;
         subscribed = true;
     }
+
+    /// <summary>The player's current weapon colour; the arm always stays in this palette.</summary>
+    public static Color WeaponColor => weapon == Kind.Cold ? CombatVfxStyle.Cold : CombatVfxStyle.Heat;
+    private static Kind weapon = Kind.Heat;
 
     public static Color ColorFor(Kind kind)
     {
@@ -47,8 +52,9 @@ public static class ArmActivationSignal
         {
             case Kind.Cold: return CombatVfxStyle.Cold;
             case Kind.Shield: return CombatVfxStyle.Shield;
-            case Kind.Hit: return CombatVfxStyle.Critical;
-            case Kind.Heal: return HealPickupView.Green;
+            // Hits and heals keep the weapon colour with only a light tint; the flash does the talking.
+            case Kind.Hit: return Color.Lerp(WeaponColor, CombatVfxStyle.Critical, 0.3f);
+            case Kind.Heal: return Color.Lerp(WeaponColor, HealPickupView.Green, 0.3f);
             default: return CombatVfxStyle.Heat;
         }
     }
@@ -56,6 +62,8 @@ public static class ArmActivationSignal
     private static void OnSignal(string name, string source)
     {
         float now = Time.time;
+        if (name.StartsWith("fire")) weapon = Kind.Heat;
+        else if (name.StartsWith("ice")) weapon = Kind.Cold;
         switch (name)
         {
             // Sustained states: build up, hold while active, fade on _stop.
