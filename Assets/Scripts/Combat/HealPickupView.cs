@@ -29,7 +29,17 @@ public sealed class HealPickupView : MonoBehaviour
 
     private void Awake()
     {
-        coreMaterial = CombatVfxStyle.CreateMaterial("Heal core", GreenCore);
+        // Lit, emissive, depth-occluded core so the cross reads as a solid glowing object.
+        Shader lit = Shader.Find("ThermalGame/OcclusionLitPlus");
+        if (lit != null)
+        {
+            coreMaterial = new Material(lit) { name = "Heal core" };
+            coreMaterial.SetColor("_BaseColor", new Color(0.3f, 0.9f, 0.45f));
+            coreMaterial.SetFloat("_Metallic", 0.2f);
+            coreMaterial.SetFloat("_Smoothness", 0.9f);
+            coreMaterial.SetColor("_EmissionColor", new Color(0.4f, 2.6f, 0.9f));
+        }
+        else coreMaterial = CombatVfxStyle.CreateMaterial("Heal core", GreenCore);
         glowMaterial = CombatVfxStyle.CreateMaterial("Heal glow", CombatVfxStyle.WithAlpha(Green, 0.35f));
         lineMaterial = CombatVfxStyle.CreateMaterial("Heal lines", Color.white);
         cubeMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");

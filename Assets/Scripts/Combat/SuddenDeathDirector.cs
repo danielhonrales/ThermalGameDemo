@@ -82,7 +82,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private readonly List<Vector3> firePoints = new List<Vector3>();
     private readonly List<Vector3> smokePoints = new List<Vector3>();
     private readonly List<Vector3> sparkPoints = new List<Vector3>();
-    private ParticleSystem embers;
+    private ParticleSystem embers, motes;
+    private LineRenderer boundary;
     private Material lineMaterial, emberMaterial;
     private AudioSource siren, heartbeat, fireLoop;
 
@@ -376,6 +377,30 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         emberRenderer.renderMode = ParticleSystemRenderMode.Stretch;
         emberRenderer.velocityScale = 0.08f;
         emberRenderer.shadowCastingMode = ShadowCastingMode.Off;
+
+        // Minute-one ambience: cool drifting motes and a faint holographic arena boundary.
+        motes = Object.Instantiate(embers, embers.transform.parent);
+        motes.name = "Calm motes";
+        var moteMain = motes.main;
+        moteMain.startColor = new ParticleSystem.MinMaxGradient(new Color(0.4f, 0.9f, 1f, 0.5f), new Color(0.7f, 0.95f, 1f, 0.25f));
+        moteMain.startSpeed = new ParticleSystem.MinMaxCurve(0.01f, 0.05f);
+        moteMain.startSize = new ParticleSystem.MinMaxCurve(0.004f, 0.012f);
+        moteMain.gravityModifier = -0.002f;
+        var moteShape = motes.shape;
+        moteShape.scale = new Vector3(arenaBounds.size.x, 2.2f, arenaBounds.size.z);
+        moteShape.position = new Vector3(0f, 1.1f, 0f);
+        motes.GetComponent<ParticleSystemRenderer>().renderMode = ParticleSystemRenderMode.Billboard;
+        var moteEmission = motes.emission;
+        moteEmission.rateOverTime = 14f;
+        motes.Play();
+        boundary = CombatVfxStyle.CreateLine(transform, "Arena boundary", lineMaterial, true, 0.012f);
+        boundary.positionCount = 5;
+        boundary.SetPositions(new[]
+        {
+            new Vector3(minX, floorY + 0.01f, minZ), new Vector3(maxX, floorY + 0.01f, minZ),
+            new Vector3(maxX, floorY + 0.01f, maxZ), new Vector3(minX, floorY + 0.01f, maxZ),
+            new Vector3(minX, floorY + 0.01f, minZ)
+        });
 
         siren = Loop(SynthAudio.Siren());
         heartbeat = Loop(SynthAudio.Heartbeat());
@@ -695,6 +720,15 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         else if (!active && embers.isPlaying) embers.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         var emission = embers.emission;
         emission.rateOverTime = 25f * amount + 90f * hell;
+        if (motes != null)
+        {
+            var calm = motes.emission;
+            calm.rateOverTime = 14f * (1f - amount);
+            float scan = 0.5f + 0.5f * Mathf.Sin(Time.time * 1.3f);
+            boundary.enabled = amount < 0.99f;
+            Color edge = Color.Lerp(new Color(0.3f, 0.85f, 1f), Red, amount);
+            boundary.startColor = boundary.endColor = CombatVfxStyle.WithAlpha(edge, (0.18f + 0.12f * scan) * (1f - amount));
+        }
 
         siren.volume = clock < 0f ? Mathf.Clamp01(amount * 2f) * 0.3f : Mathf.MoveTowards(siren.volume, 0.04f, Time.deltaTime * 0.15f);
         Toggle(siren, active);

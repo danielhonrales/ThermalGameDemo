@@ -30,8 +30,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [Header("Heal pickup")]
     [SerializeField, Min(0f)] private float healSpawnSeconds = 30f;
     [SerializeField, Min(1)] private int healAmount = 90;
-    [SerializeField, Min(0.1f)] private float healPickupRadius = 0.5f;
-    [SerializeField] private float healHeight = 1.15f;
+    [SerializeField, Min(0.1f)] private float healPickupRadius = 0.6f;
+    [SerializeField] private float healHeight = 1.55f;
+    [Tooltip("Arena-space point the heal floats above (centre of the 1v1 layout, over the coolant stack).")]
+    [SerializeField] private Vector3 healArenaPoint = new Vector3(0.275f, 0f, 0.3f);
 
     [SyncVar] public bool IsDirector;
     [SyncVar] public bool IsCalibrated;
@@ -228,8 +230,12 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         if (a == null || b == null) return;
         if (HealState == 0 && FightElapsed >= healSpawnSeconds)
         {
-            HealCenter = Flatten((a.CanonicalHeadPosition + b.CanonicalHeadPosition) * 0.5f)
-                + Vector3.up * healHeight;
+            // Float above the arena centre (in the shared canonical frame) so it never spawns in cover.
+            Transform arena = GameObject.Find("ArenaRoot")?.transform;
+            Vector3 arenaPoint = arena != null ? arena.TransformPoint(healArenaPoint) : healArenaPoint;
+            HealCenter = NetworkPlayerAlignment.HasCalibration
+                ? Flatten(NetworkPlayerAlignment.InverseTransformPoint(arenaPoint)) + Vector3.up * healHeight
+                : Flatten((a.CanonicalHeadPosition + b.CanonicalHeadPosition) * 0.5f) + Vector3.up * healHeight;
             HealState = 1;
             return;
         }

@@ -26,12 +26,23 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
     private Vector3 smoothedWrist;
     private Quaternion smoothedRotation = Quaternion.identity;
 
+    /// <summary>Smoothed forearm pose shared with other arm effects.</summary>
+    public bool HasPose => visible > 0.5f;
+    public Vector3 Wrist => smoothedWrist;
+    public Quaternion ArmRotation => smoothedRotation;
+    public Vector3 Elbow => smoothedWrist - smoothedRotation * Vector3.forward * forearmLength;
+    public float ArmRadius => armRadius;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AttachToLocalRig()
     {
         foreach (HandPoseRouter router in Object.FindObjectsByType<HandPoseRouter>(FindObjectsSortMode.None))
+        {
             if (router.GetComponent<ForearmPulseSpiral>() == null)
                 router.gameObject.AddComponent<ForearmPulseSpiral>();
+            if (router.GetComponent<ForearmBursts>() == null)
+                router.gameObject.AddComponent<ForearmBursts>();
+        }
     }
 
     private void Awake()
