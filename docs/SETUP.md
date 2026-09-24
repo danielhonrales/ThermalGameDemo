@@ -2,6 +2,8 @@
 
 This guide describes the current router-only build. Quest A is the Mirror host and sends its own events to the Pi at `192.168.1.5`. Quest B, when added, installs the **same APK**, runs as the Mirror client, and can send its own events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match.
 
+If you have the compiled APK install bundle and only want to run the demo, read [RUN_WITHOUT_UNITY.md](RUN_WITHOUT_UNITY.md) and skip section 2 below.
+
 ## 1. Prepare the router and devices
 
 1. Put the Pi and each Quest on the same router LAN. Keep the router powered even when its WAN/Internet cable is disconnected. Disable guest-network/client/AP isolation so Wi-Fi devices can contact each other.
