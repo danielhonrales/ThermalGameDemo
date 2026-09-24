@@ -1,6 +1,6 @@
 # Quest and Raspberry Pi setup
 
-This guide describes the current router-only build. Quest A is the Mirror host and sends its own events to the Pi at `192.168.1.5`. Quest B, when added, installs the **same APK**, runs as the Mirror client, and can send its own events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match.
+This guide describes the current router-only build. Both Quests install the **same APK** and select host/client automatically: the first one running on an empty LAN hosts after three seconds, and the other joins. Quest A sends its own events to the Pi at `192.168.1.5`; Quest B can send its events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match.
 
 If you have the compiled APK install bundle and only want to run the demo, read [RUN_WITHOUT_UNITY.md](RUN_WITHOUT_UNITY.md) and skip section 2 below.
 
@@ -9,7 +9,7 @@ If you have the compiled APK install bundle and only want to run the demo, read 
 1. Put the Pi and each Quest on the same router LAN. Keep the router powered even when its WAN/Internet cable is disconnected. Disable guest-network/client/AP isolation so Wi-Fi devices can contact each other.
 2. Reserve `192.168.1.5` for the current Pi in the router's DHCP settings, or assign that address statically. If its address changes, update `combat-output.json` on the headset and restart the app.
 3. Use Quest Developer Mode, connect each headset to the build computer by USB, put it on, and accept its USB debugging prompt. Run `adb devices`; every headset being configured must show `device`, not `unauthorized`. With two attached, use `adb -s SERIAL` for **every** headset command.
-4. Allow local UDP traffic: Mirror match port `7777` on Quest A, discovery port `47777` between Quests, and combat output port `7779` on each Pi. No Internet, Photon login, Quest Link, or router port forwarding is needed at runtime.
+4. Allow local UDP traffic: Mirror match port `7777` on whichever Quest hosts, discovery port `47777` and host election port `47778` between Quests, and combat output port `7779` on each Pi. No Internet, Photon login, Quest Link, or router port forwarding is needed at runtime.
 
 The Pi service listens on all Pi network interfaces. A firewall on the Pi, if enabled, must allow incoming UDP `7779` from the Quest LAN.
 
@@ -61,7 +61,7 @@ The receiver prints JSON signals only; it does **not** control GPIO, heat, motor
 
 ## 4. Install and configure Quest A
 
-The Android package ID is `com.UnityTechnologies.com.unity.template.urpblank`. The app reads its two JSON config files **at launch** from `/sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/`. APK updates with `install -r` retain these files; uninstalling the app removes them.
+The Android package ID is `com.UnityTechnologies.com.unity.template.urpblank`. The app reads optional JSON config files **at launch** from `/sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/`. APK updates with `install -r` retain these files; uninstalling the app removes them. No host/client role file is needed, including on older installations with an old `role` setting.
 
 Replace `QUEST_A_SERIAL` with the value shown by `adb devices`. First install and launch the app once so Android creates its app data directory. Confirm that directory exists before pushing configs:
 
@@ -73,16 +73,15 @@ adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urp
 adb -s "$QUEST_A" shell ls "$APP_FILES"
 ```
 
-If the `ls` command says the directory does not exist yet, wait for the first launch to finish and run it again. Then set Quest A as host and point its output to the Pi:
+If the `ls` command says the directory does not exist yet, wait for the first launch to finish and run it again. To give Quest A a readable Pi output label, push its output config:
 
 ```bash
 adb -s "$QUEST_A" shell am force-stop com.UnityTechnologies.com.unity.template.urpblank
-adb -s "$QUEST_A" push tools/pi/quest-a-lan-match.json "$APP_FILES/lan-match.json"
 adb -s "$QUEST_A" push tools/pi/quest-a-combat-output.json "$APP_FILES/combat-output.json"
 adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 ```
 
-Quest A's files select Mirror `host`, Pi `192.168.1.5:7779`, and device label `quest-a`. To change the Pi IP or label, edit the local JSON, push it again, and restart the app. Check startup with:
+The Quest automatically hosts if it finds no other host. Its Pi output file selects `192.168.1.5:7779` and device label `quest-a`. To change the Pi IP or label, edit the local JSON, push it again, and restart the app. Check startup with:
 
 ```bash
 adb -s "$QUEST_A" logcat -d -s Unity:D | grep -E 'LAN: hosting|CombatOutput|Exception'
@@ -92,7 +91,7 @@ Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event.
 
 ## 5. Add Quest B later
 
-Give Quest B the **same APK**. Its `lan-match.json` must have role `client`; `tools/pi/quest-b-lan-match.json` is ready for that. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app and push the client config into Quest B's app data directory.
+Give Quest B the **same APK**. There is no host/client choice to make. If Quest A is already running, Quest B finds it and joins. If both start together, host beacons break the tie. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app only if you need to push its separate Pi output config.
 
 For Quest B's Pi output, create a separate `combat-output.json` with its own label and the **second Pi's actual LAN IP**:
 
@@ -108,12 +107,11 @@ adb -s "$QUEST_B" install -r /tmp/ThermalGameDemo-2min-LAN.apk
 adb -s "$QUEST_B" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 adb -s "$QUEST_B" shell ls "$APP_FILES"
 adb -s "$QUEST_B" shell am force-stop com.UnityTechnologies.com.unity.template.urpblank
-adb -s "$QUEST_B" push tools/pi/quest-b-lan-match.json "$APP_FILES/lan-match.json"
 adb -s "$QUEST_B" push /path/to/quest-b-combat-output.json "$APP_FILES/combat-output.json"
 adb -s "$QUEST_B" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 ```
 
-Start Quest A first or leave it running. Quest B searches by LAN discovery and retries. If discovery fails because the router blocks broadcast, reserve Quest A's address on the router and put it in Quest B's `fallbackHost` field, then push the edited file and restart Quest B. See [LAN_MATCH.md](LAN_MATCH.md).
+Either headset can start first. The other searches by LAN discovery and retries. Automatic selection needs Wi-Fi peer broadcasts. If the router blocks broadcast and cannot be changed, start one headset first, reserve its address on the router, and put that address in the second headset's optional `lan-match.json` `fallbackHost` field before restarting it. See [LAN_MATCH.md](LAN_MATCH.md).
 
 ## 6. Run and verify the demo
 
@@ -121,7 +119,7 @@ Stand at the same real-world reference point one headset at a time, face the sam
 
 Watch the Pi journal while playing. The receiver prints `ice_shot` when the bomb is thrown, `fire_start`/`fire_stop` as the beam turns on/off, `hit_received` when this headset's player actually loses health, and `shield_block` when this player's active shield actually blocks a hit. It may also print `output_timeout` when the app closes, pauses, or stops sending. The defender's Pi gets hit/block events; a shield pose alone is not a block.
 
-For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi running, start both Quests, calibrate, exercise all four signals, and finish a round. The current single-Quest check has confirmed APK launch, host startup, Pi service startup, Quest-to-Pi UDP delivery, and an app-session timeout on the Pi. A live four-signal, two-Quest match and a WAN-disconnected round remain to be checked.
+For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi running, start both Quests, calibrate, exercise all four signals, and finish a round. The current single-Quest check has confirmed APK launch, automatic host startup, host beacon transmission, Pi service startup, Quest-to-Pi UDP delivery, and an app-session timeout on the Pi. A test beacon from a laptop also made the Quest yield, try to join, then recover as host when the beacon stopped. A live four-signal, two-Quest match and a WAN-disconnected round remain to be checked.
 
 ## Troubleshooting
 
@@ -129,7 +127,7 @@ For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi r
 |---|---|
 | `adb devices` shows `unauthorized` | Put on that headset and accept the USB debugging prompt. |
 | APK installs but config push fails | Launch the app once, then check the package-specific `files/` directory exists. |
-| Quest B does not join | Same Wi-Fi/subnet, no client isolation, Quest A running as host, UDP `7777`/`47777`; set client `fallbackHost` if broadcast discovery fails. |
+| Second Quest does not join | Same Wi-Fi/subnet, no client isolation, UDP `7777`/`47777`/`47778`; set its `fallbackHost` if broadcast discovery fails. |
 | Pi journal shows no attack signals | Check Pi service is `active`, Quest output JSON has `udpEnabled:true` and the Pi's current IP, restart the app after edits, then perform an attack. |
 | No `hit_received` or `shield_block` | These are confirmed defender events; use two players in a fighting round or a damage hazard. Firing at empty space and merely raising a shield do not count. |
 | Build from a fresh clone has missing assets | Run `git lfs pull` and restore the excluded licensed folders in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md). |

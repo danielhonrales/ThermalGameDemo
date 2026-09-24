@@ -36,7 +36,7 @@ Push the configuration to each headset and restart the app:
 adb -s QUEST_SERIAL push tools/pi/quest-a-combat-output.json /sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/combat-output.json
 ```
 
-For the current single-Quest setup, configure that Quest as the Mirror host with `tools/pi/quest-a-lan-match.json` (same app data directory, file name `lan-match.json`). When the second Quest is added, configure it as a client per [LAN_MATCH.md](LAN_MATCH.md). The Pi output does not depend on the second Quest being present, but receiving a hit or shield block does require another player or a game hazard.
+The Quests select their Mirror host/client roles automatically; no role file is needed. When a second Quest is added, give it a different `deviceLabel` and its own Pi IP in `combat-output.json` if it should send to a second Pi. The Pi output does not depend on the second Quest being present, but receiving a hit or shield block does require another player or a game hazard.
 
 Keep the Pi at `192.168.1.5` with a router DHCP reservation or static address. The router must allow traffic between Wi-Fi clients; guest/client isolation can prevent delivery. Allow UDP port 7779 on the Pi. No discovery or Internet service is needed for this output.
 

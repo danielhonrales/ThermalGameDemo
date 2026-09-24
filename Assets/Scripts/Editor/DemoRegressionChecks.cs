@@ -7,6 +7,7 @@ public static class DemoRegressionChecks
 {
     public static void RunAll()
     {
+        RunLanElectionCheck();
         RunBoneLookup();
         RunSkeletonProvider();
         RunPoseFixtures();
@@ -16,6 +17,15 @@ public static class DemoRegressionChecks
         RunFeedbackChecks();
         RunOutputCheck();
         CaptureHud();
+    }
+
+    public static void RunLanElectionCheck()
+    {
+        if (!LanMatchManager.ShouldYieldTo("b", "a", 1)
+            || LanMatchManager.ShouldYieldTo("a", "b", 1)
+            || LanMatchManager.ShouldYieldTo("b", "a", 2))
+            throw new Exception("LAN host collision must keep the smaller ID and preserve a full match.");
+        Debug.Log("LAN ELECTION PASSED: host ID tie-break preserves a full match.");
     }
 
     public static void RunSkeletonProvider()

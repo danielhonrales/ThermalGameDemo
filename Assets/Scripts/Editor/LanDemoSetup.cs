@@ -101,6 +101,7 @@ public static class LanDemoSetup
 
     public static void BuildLanApk()
     {
+        DemoRegressionChecks.RunLanElectionCheck();
         DemoRegressionChecks.RunBoneLookup();
         DemoRegressionChecks.RunSkeletonProvider();
         DemoRegressionChecks.RunPoseFixtures();

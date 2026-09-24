@@ -1,5 +1,9 @@
 # Demo validation
 
+## 2026-09-23 automatic LAN role selection
+
+The updated Mirror APK passed `RunLanElectionCheck`, was installed on Quest A, and logged a search followed by automatic host startup and `player_ready` despite an old `lan-match.json` containing `"role":"host"`. A laptop listening on UDP `47778` received the Quest's host beacon from `192.168.1.208`. A temporary lower-priority test beacon sent from the laptop made the Quest yield its host role, attempt to connect to `192.168.1.27`, and automatically host again after that beacon stopped. This verifies the single-Quest and collision-recovery paths. Two real Quests joining, combat signals, and an Internet-disconnected round remain untested.
+
 For the current deployment procedure and latest verification limits, see [SETUP.md](SETUP.md). The notes below preserve earlier iteration results.
 
 ## 2026-09-23 Mirror LAN and Pi deployment

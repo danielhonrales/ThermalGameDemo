@@ -1,6 +1,6 @@
 # Two-minute Quest 3 duel
 
-The current build uses Mirror over a private LAN. Both Quests must join the same router Wi-Fi, but the router does not need Internet. One Quest hosts; the other discovers it and joins. See [LAN_MATCH.md](LAN_MATCH.md) for setup and validation. The Photon version remains a backup.
+The current build uses Mirror over a private LAN. Both Quests install the same APK and join the same router Wi-Fi, but the router does not need Internet. They automatically choose one host and one client; no role selection is needed. See [LAN_MATCH.md](LAN_MATCH.md) for setup and validation. The Photon version remains a backup.
 
 ## Participant flow
 
