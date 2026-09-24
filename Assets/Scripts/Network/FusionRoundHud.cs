@@ -235,6 +235,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 phaseLabel.text = sd >= 0f ? "SUDDEN DEATH"
                     : round.HazardStage == 1 ? "FIRE STRIKE INCOMING"
                     : round.HazardStage == 2 ? "FIRE ZONE ACTIVE" : "DUEL";
+                if (round.IsSoloTest) phaseLabel.text += "  ·  SOLO TEST";
                 phaseLabel.color = sd >= 0f || round.HazardStage > 0
                     ? Color.Lerp(Warn, Color.white, 0.25f * beat) : Soft;
                 if (sd >= 0f)

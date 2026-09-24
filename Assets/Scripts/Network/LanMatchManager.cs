@@ -21,7 +21,10 @@ public sealed class LanMatchManager : NetworkManager
     }
 
     private const int ElectionPort = 47778;
-    private const string BeaconPrefix = "THERMAL-LAN-1:";
+    // Bump whenever networked state changes so headsets on different builds never pair up.
+    public const int ProtocolVersion = 2;
+    public const long DiscoveryHandshake = 0x544845524D414C00L + ProtocolVersion;
+    private const string BeaconPrefix = "THERMAL-LAN-2:";
 
     private Settings settings;
     private NetworkDiscovery discovery;
@@ -44,7 +47,7 @@ public sealed class LanMatchManager : NetworkManager
         transport = kcp;
         discovery = GetComponent<NetworkDiscovery>();
         discovery.transport = kcp;
-        discovery.secretHandshake = 0x544845524D414C01L;
+        discovery.secretHandshake = DiscoveryHandshake;
         discovery.OnServerFound.AddListener(OnServerFound);
         byte[] bytes = Encoding.ASCII.GetBytes(BeaconPrefix + electionId);
         Array.Copy(bytes, beacon, bytes.Length);

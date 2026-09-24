@@ -68,7 +68,7 @@ public static class LanDemoSetup
         manager.playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(PlayerPath);
         var discovery = manager.GetComponent<NetworkDiscovery>();
         discovery.transport = transport;
-        discovery.secretHandshake = 0x544845524D414C01L;
+        discovery.secretHandshake = LanMatchManager.DiscoveryHandshake;
         if (manager.playerPrefab == null) throw new InvalidOperationException("LAN player prefab missing.");
         EditorUtility.SetDirty(manager);
         EditorUtility.SetDirty(discovery);

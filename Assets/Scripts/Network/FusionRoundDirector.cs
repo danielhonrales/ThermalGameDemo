@@ -21,6 +21,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(0f)] private float finalWavePause = 4f;
     [SerializeField, Min(1)] private int hazardDamagePerTick = 12;
     [SerializeField, Min(0.1f)] private float hazardDamageInterval = 0.7f;
+    [Header("Testing")]
+    [Tooltip("Bypass: with only one headset connected, run the full match solo (no calibration needed). " +
+             "A second player joining restores normal two-player rules.")]
+    [SerializeField] private bool soloTestMode = true;
     [Header("Sudden death")]
     [Tooltip("The final seconds of the round are sudden death.")]
     [SerializeField, Min(5f)] private float suddenDeathSeconds = 30f;
@@ -55,6 +59,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int HealTakerId = -1;
     /// <summary>Bit per sudden-death drone that has been shot down this round.</summary>
     [SyncVar] public int DroneDownMask;
+    [SyncVar] public bool IsSoloTest;
 
     private float nextHazardDamageAt;
     private FusionRoundHud hud;
@@ -105,7 +110,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         }
         if (!isServer || !IsDirector) return;
         List<NetworkPlayerHealth> players = Players();
-        if (players.Count != 2 || !BothCalibrated(players))
+        IsSoloTest = soloTestMode && players.Count == 1;
+        // Solo bypass: the lone player fills both slots so every two-player rule still runs.
+        if (IsSoloTest) players.Add(players[0]);
+        else if (players.Count != 2 || !BothCalibrated(players))
         {
             PhaseCode = (int)RoundPhase.Waiting;
             HazardStage = 0;
@@ -235,7 +243,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             Vector3 arenaPoint = arena != null ? arena.TransformPoint(healArenaPoint) : healArenaPoint;
             HealCenter = NetworkPlayerAlignment.HasCalibration
                 ? Flatten(NetworkPlayerAlignment.InverseTransformPoint(arenaPoint)) + Vector3.up * healHeight
-                : Flatten((a.CanonicalHeadPosition + b.CanonicalHeadPosition) * 0.5f) + Vector3.up * healHeight;
+                : Flatten(arenaPoint) + Vector3.up * healHeight;
             HealState = 1;
             return;
         }
