@@ -75,6 +75,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private float poseChargeStartTime = -1f;
     private float beamBurstStartTime = -1f;
     private bool hardwareLeadSent;
+    private float lastBlockFxAt = -1f;
     private float nextAllowedFireTime;
     private ForearmShieldController shieldController;
     private bool wasAttackPoseActive;
@@ -204,6 +205,9 @@ public sealed class PalmBeamShooter : MonoBehaviour
         {
             beamBurstStartTime = Time.time;
             if (!hardwareLeadSent) SendFireLead();
+            Vector3 muzzle = GetBeamOrigin();
+            ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.muzzleFlash, muzzle,
+                Quaternion.LookRotation(direction), 0.35f, 1.5f);
         }
 
         if (Time.time - beamBurstStartTime >= maxBeamDurationSeconds)
@@ -285,11 +289,25 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     private void ApplyCombatResult(Collider hitCollider, string result)
     {
+        CoverDrone drone = hitCollider.GetComponentInParent<CoverDrone>();
+        if (drone != null)
+        {
+            drone.ReportShot(hitCollider.ClosestPoint(GetBeamOrigin()));
+            return;
+        }
+
         if (result == "Shield")
         {
             if (FusionRoundDirector.Active()?.IsFighting == true)
                 hitCollider.GetComponentInParent<NetworkPlayerHealth>()?.RequestHeadshotDamage("fire");
             hitCollider.GetComponentInParent<ForearmShieldEffects>()?.PulseImpact();
+            if (Time.time - lastBlockFxAt > 0.25f)
+            {
+                lastBlockFxAt = Time.time;
+                Vector3 point = hitCollider.bounds.center;
+                ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.shieldSparks, point, 0.5f, 2f);
+                FusionRoundHud.Current?.HitConfirmed(point + Vector3.up * 0.15f, 0, true);
+            }
             return;
         }
 

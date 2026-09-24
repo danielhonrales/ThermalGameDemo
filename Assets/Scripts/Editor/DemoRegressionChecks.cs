@@ -114,12 +114,12 @@ public static class DemoRegressionChecks
             var camera = cameraRoot.AddComponent<Camera>();
             var hud = root.AddComponent<FusionRoundHud>();
             hud.Preview(camera);
-            var field = typeof(FusionRoundHud).GetField("healthBar", BindingFlags.Instance | BindingFlags.NonPublic);
-            var bar = (DemoHealthBar)field.GetValue(hud);
-            Vector3 expectedLocal = camera.transform.InverseTransformPoint(bar.Root.position);
+            var field = typeof(FusionRoundHud).GetField("root", BindingFlags.Instance | BindingFlags.NonPublic);
+            var hudRoot = (RectTransform)field.GetValue(hud);
+            Vector3 expectedLocal = camera.transform.InverseTransformPoint(hudRoot.position);
             // Calibration/network updates can stop while tracking keeps moving.
             camera.transform.SetPositionAndRotation(new Vector3(3f, 1.6f, -2f), Quaternion.Euler(10f, 85f, 0f));
-            if (Vector3.Distance(bar.Root.position, camera.transform.TransformPoint(expectedLocal)) > 0.001f)
+            if (Vector3.Distance(hudRoot.position, camera.transform.TransformPoint(expectedLocal)) > 0.001f)
                 throw new Exception("Local HP bar freezes in world space between round updates/calibration.");
             Debug.Log("HUD FOLLOW PASSED: health remains eye-relative without a network HUD refresh.");
         }

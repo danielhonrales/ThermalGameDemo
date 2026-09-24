@@ -18,6 +18,8 @@ public sealed class VisualOnlyEnvironment : MonoBehaviour
     [SerializeField, Range(-0.2f, 0.2f)] private float environmentDepthBias = 0f;
     [Tooltip("Meta's official Environment Depth shader. Assigned explicitly so it cannot be stripped from Quest builds.")]
     [SerializeField] private Shader environmentOcclusionShader;
+    [Tooltip("Lit, depth-occluded shader used for opaque PBR materials so the arena keeps normal, metal and emission detail.")]
+    [SerializeField] private Shader litOcclusionShader;
     [Tooltip("Extra roots that should receive depth-occlusion materials without changing their layers, colliders, or transforms.")]
     [SerializeField] private Transform[] additionalOcclusionRoots;
 
@@ -125,7 +127,9 @@ public sealed class VisualOnlyEnvironment : MonoBehaviour
 
                 if (!replacements.TryGetValue(source, out Material replacement))
                 {
-                    replacement = CreateMixedRealityMaterial(source, mixedRealityShader);
+                    replacement = UsesLitConversion(source)
+                        ? CreateLitMixedRealityMaterial(source)
+                        : CreateMixedRealityMaterial(source, mixedRealityShader);
                     replacements.Add(source, replacement);
                     runtimeMaterials.Add(replacement);
                 }
@@ -146,6 +150,41 @@ public sealed class VisualOnlyEnvironment : MonoBehaviour
             $"MR environment setup replaced {replacedRendererCount}/{renderers.Length} renderers and {replacements.Count} unique materials. " +
             $"Shader supported: {mixedRealityShader.isSupported}.",
             this);
+    }
+
+    private bool UsesLitConversion(Material source)
+    {
+        if (litOcclusionShader == null) litOcclusionShader = Shader.Find("ThermalGame/OcclusionLitPlus");
+        return litOcclusionShader != null && litOcclusionShader.isSupported
+            && source.shader != null && source.shader.name == "Universal Render Pipeline/Lit"
+            && source.renderQueue < 2450;
+    }
+
+    private Material CreateLitMixedRealityMaterial(Material source)
+    {
+        var material = new Material(litOcclusionShader) { name = $"{source.name} (MR Lit Occlusion)" };
+        void CopyTexture(string from, string to)
+        {
+            if (source.HasProperty(from) && source.GetTexture(from) != null)
+            {
+                material.SetTexture(to, source.GetTexture(from));
+                material.SetTextureScale(to, source.GetTextureScale(from));
+                material.SetTextureOffset(to, source.GetTextureOffset(from));
+            }
+        }
+        CopyTexture("_BaseMap", "_BaseMap");
+        CopyTexture("_BumpMap", "_BumpMap");
+        CopyTexture("_MetallicGlossMap", "_MetallicGlossMap");
+        CopyTexture("_EmissionMap", "_EmissionMap");
+        material.SetColor("_BaseColor", source.HasProperty("_BaseColor") ? source.GetColor("_BaseColor") : Color.white);
+        material.SetFloat("_BumpScale", source.HasProperty("_BumpScale") ? source.GetFloat("_BumpScale") : 1f);
+        bool hasMetalMap = source.HasProperty("_MetallicGlossMap") && source.GetTexture("_MetallicGlossMap") != null;
+        material.SetFloat("_Metallic", hasMetalMap ? 1f : source.GetFloat("_Metallic"));
+        material.SetFloat("_Smoothness", source.HasProperty("_Smoothness") ? source.GetFloat("_Smoothness") : 0.5f);
+        bool emissive = source.IsKeywordEnabled("_EMISSION") && source.HasProperty("_EmissionColor");
+        material.SetColor("_EmissionColor", emissive ? source.GetColor("_EmissionColor") : Color.black);
+        material.SetFloat("_EnvironmentDepthBias", environmentDepthBias);
+        return material;
     }
 
     private Material CreateMixedRealityMaterial(Material source, Shader shader)

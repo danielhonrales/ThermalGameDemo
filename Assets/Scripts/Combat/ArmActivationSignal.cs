@@ -129,6 +129,32 @@ public static class ArmActivationSignal
         return level;
     }
 
+    /// <summary>Summed post-peak level of one kind (0 during the build-up).</summary>
+    public static float Level(Kind kind, float now, bool burstsOnly = false)
+    {
+        float total = 0f;
+        foreach (Pulse pulse in pulses)
+        {
+            if (pulse.Kind != kind || (burstsOnly && pulse.State != null)) continue;
+            float level = Envelope(pulse, now, out float anticipation, out _);
+            if (anticipation <= 0f) total += level;
+        }
+        return total;
+    }
+
+    /// <summary>0..1 build-up progress of the newest pending pulse of one kind.</summary>
+    public static float Anticipation(Kind kind, float now)
+    {
+        float best = 0f;
+        foreach (Pulse pulse in pulses)
+            if (pulse.Kind == kind)
+            {
+                Envelope(pulse, now, out float anticipation, out _);
+                best = Mathf.Max(best, anticipation);
+            }
+        return best;
+    }
+
     public static Reading Sample(float now)
     {
         if (!subscribed) Subscribe();

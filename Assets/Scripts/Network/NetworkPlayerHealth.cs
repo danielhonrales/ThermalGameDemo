@@ -71,7 +71,14 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         EnsureHealthBar();
         if (lastObservedHealth >= 0 && CurrentHealth < lastObservedHealth
             && !IsLocalPlayer && damageFeedback != null)
-            damageFeedback.Play(headTracker != null ? headTracker.HeadWorldPosition : transform.position + Vector3.up * 1.5f);
+        {
+            Vector3 head = headTracker != null ? headTracker.HeadWorldPosition : transform.position + Vector3.up * 1.5f;
+            damageFeedback.Play(head);
+            // Attacker-side confirmation: hit marker, damage number and a punchy burst on the opponent.
+            ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.hitExplosion, head, 0.22f, 3f);
+            ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.hitSparks, head, 0.6f, 2f);
+            FusionRoundHud.Current?.HitConfirmed(head + Vector3.up * 0.2f, lastObservedHealth - CurrentHealth, false);
+        }
         lastObservedHealth = CurrentHealth;
         UpdateHealthBar();
     }
@@ -188,6 +195,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         FusionRoundDirector round = FusionRoundDirector.Active();
         if (round != null && round.IsFighting && round.FightElapsed < 20f)
             damage = Mathf.CeilToInt(damage * 0.5f);
+        if (round != null) damage = Mathf.CeilToInt(damage * round.DamageMultiplier);
         damage = Mathf.Clamp(damage, 1, maxHealth);
         damage = Mathf.Min(damage, CurrentHealth);
         currentHealth = Mathf.Max(0, currentHealth - damage);

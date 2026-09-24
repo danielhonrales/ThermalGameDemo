@@ -56,46 +56,47 @@ public static class DemoHudElements
     }
 }
 
+/// <summary>Compact floating health bar shown over the opponent: chip trail, hit flash and low-health pulse.</summary>
 public sealed class DemoHealthBar
 {
     public RectTransform Root { get; }
-    private readonly UnityEngine.UI.Image[] cells = new UnityEngine.UI.Image[12];
+    private readonly UnityEngine.UI.Image fill, chip, glow;
     private readonly TextMeshProUGUI number;
+    private float shown = 1f, trail = 1f, droppedAt = -10f;
+    private int lastHp = -1;
+    private const float Width = 300f;
 
     public DemoHealthBar(Transform parent, string name)
     {
         Root = DemoHudElements.Canvas(name, parent, new Vector2(320f, 76f));
-        DemoHudElements.Strip(Root, "Health backing", new Vector2(0f, 18f),
-            new Vector2(344f, 70f), new Color(0.012f, 0.025f, 0.035f, 0.72f));
-        DemoHudElements.Strip(Root, "Health accent", new Vector2(-171f, 18f),
-            new Vector2(3f, 70f), DemoHudElements.Green);
-        var label = DemoHudElements.Text(Root, "HP BAR", new Vector2(-75f, 22f),
-            new Vector2(170f, 42f), 26f, TextAlignmentOptions.Left, DemoHudElements.Green);
-        label.text = "HP BAR";
-        label.characterSpacing = 1f;
-        number = DemoHudElements.Text(Root, "Health value", new Vector2(106f, 22f),
-            new Vector2(108f, 46f), 30f, TextAlignmentOptions.Right, DemoHudElements.Green);
-        for (int i = 0; i < cells.Length; i++)
-        {
-            float x = -160f + 12f + i * (320f / cells.Length);
-            DemoHudElements.Strip(Root, "Empty health segment", new Vector2(x, 0f),
-                new Vector2(23f, 11f), new Color(0.025f, 0.12f, 0.065f, 0.65f));
-            cells[i] = DemoHudElements.Strip(Root, "Health segment", new Vector2(x, 0f),
-                new Vector2(23f, 11f), DemoHudElements.Green);
-            cells[i].rectTransform.localPosition += Vector3.back * 0.3f;
-        }
+        glow = HudKit.Image(Root, "Bloom", HudSprites.Glow(8), HudKit.A(FusionRoundHud.Enemy, 0.25f), new Vector2(0f, -8f), new Vector2(Width + 70f, 80f), true, 1f);
+        HudKit.Image(Root, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), new Vector2(0f, -8f), new Vector2(Width, 3f), true, 1f);
+        chip = Bar("Chip", new Color(1f, 0.93f, 0.8f, 0.9f));
+        fill = Bar("Fill", FusionRoundHud.Enemy);
+        number = HudKit.Text(Root, "Health value", HudKit.Heavy, 30f, Color.white, new Vector2(0f, 20f), new Vector2(300f, 40f), TextAlignmentOptions.Center);
+    }
+
+    private UnityEngine.UI.Image Bar(string name, Color color)
+    {
+        var image = HudKit.Image(Root, name, HudSprites.Panel(6), color, new Vector2(-Width / 2f, -8f), new Vector2(Width, 10f), true, 1f);
+        image.rectTransform.pivot = new Vector2(0f, 0.5f);
+        return image;
     }
 
     public void SetHealth(int hp, float fraction)
     {
+        if (lastHp >= 0 && hp < lastHp) droppedAt = Time.time;
+        lastHp = hp;
+        shown = Mathf.MoveTowards(shown, fraction, Time.deltaTime * 6f);
+        if (Time.time - droppedAt > 0.45f) trail = Mathf.MoveTowards(trail, shown, Time.deltaTime * 0.9f);
+        trail = Mathf.Max(trail, shown);
+        float flash = Mathf.Exp(-(Time.time - droppedAt) * 10f);
         number.text = Mathf.Max(0, hp).ToString();
-        for (int i = 0; i < cells.Length; i++)
-        {
-            float amount = Mathf.Clamp01(fraction * cells.Length - i);
-            var rect = cells[i].rectTransform;
-            rect.sizeDelta = new Vector2(23f * amount, 11f);
-            rect.anchoredPosition = new Vector2(-160f + 12f + i * (320f / cells.Length) - 11.5f * (1f - amount), 0f);
-            cells[i].enabled = amount > 0f;
-        }
+        number.rectTransform.localScale = Vector3.one * (1f + 0.25f * flash);
+        fill.color = Color.Lerp(FusionRoundHud.Enemy, Color.white, 0.7f * flash);
+        fill.rectTransform.sizeDelta = new Vector2(Width * shown, 10f);
+        chip.rectTransform.sizeDelta = new Vector2(Width * trail, 10f);
+        float low = fraction < 0.3f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 9f) : 0f;
+        glow.color = HudKit.A(FusionRoundHud.Enemy, 0.15f + 0.5f * flash + 0.25f * low);
     }
 }

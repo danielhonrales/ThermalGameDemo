@@ -254,6 +254,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(position, radius, collisionMask, QueryTriggerInteraction.Ignore);
         foreach (Collider hit in hits)
         {
+            CoverDrone drone = hit != null ? hit.GetComponentInParent<CoverDrone>() : null;
+            if (drone != null) drone.ReportShot(hit.ClosestPoint(position));
+        }
+        foreach (Collider hit in hits)
+        {
             if (hit == null)
             {
                 continue;

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681880b566eff24bb9f6983c8ac47220, type: 3}
+  m_Name: ThermalFxLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::ThermalFxLibrary
+  hitExplosion: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+  hitSparks: {fileID: 5435998012328932994, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
+  shieldSparks: {fileID: 4386588507499592971, guid: 48e196c36363e814bad43a44c92dc11b, type: 3}
+  coldSparks: {fileID: 952961124639765284, guid: 1095a5c9f65bfbe4383f63d5d1886c65, type: 3}
+  healSparks: {fileID: 2300369305902588757, guid: 4e273c58acd2b614084a98035db3ba7c, type: 3}
+  electroHit: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+  muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  droneExplosion: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+  dustPuff: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
+  smokeTrail: {fileID: 1273915125232972, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
+  metalSparks: {fileID: 1892351807075712, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
+  bigExplosion: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  fireLarge: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
+  fireMedium: {fileID: 1478314613700728, guid: be6847dd39ab95f4daa2ed98e4f90564, type: 3}
+  groundSmoke: {fileID: 1269120730060968, guid: 1a365141225c22e49a7bb976869b22a8, type: 3}
+  ceilingSparks: {fileID: 1000011396044746, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
+  floorTileMesh: {fileID: 4300000, guid: 4bfcd1a97e17840b7aa90ded2438e482, type: 3}
+  hellFloor: {fileID: 2100000, guid: b445c56aedc46dfc39240eced0a9e210, type: 2}
+  droneHullMesh: {fileID: 4300000, guid: 2e70299eae7fff74a9cfef859bc18b5a, type: 3}
+  droneHull: {fileID: 2100000, guid: 00132e79b85fffd799928d7ecfe03e33, type: 2}
+  droneBody: {fileID: 2100000, guid: 111c6c57c5e1b09259b9e0ca03c4f204, type: 2}
+  droneShell: {fileID: 2100000, guid: 8e4b252ba8b809f5abb53cd7e4ded1af, type: 2}
+  droneEmissive: {fileID: 2100000, guid: 8b7011f5fad7ddf1eb06cc774663521f, type: 2}
+  barrier: {fileID: 2100000, guid: eeaf20d569bde3d348d92a2d3c5ba29c, type: 2}
+  coverEmissive: {fileID: 2100000, guid: 52ecc3cf22a94dd9c9f6ef8a47e61506, type: 2}
+  displayFont: {fileID: 11400000, guid: e9c6d2ed02e7b0b65876eb19639e3164, type: 2}
+  heavyFont: {fileID: 11400000, guid: 1faaeac214aa27e8bad522499904576a, type: 2}
+  bodyFont: {fileID: 11400000, guid: 720dfa932ee3fcd65bec1d187bf4aec4, type: 2}

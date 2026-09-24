@@ -29,6 +29,27 @@ public sealed class ForearmShieldEffects : MonoBehaviour
 
     public bool IsVisible => isVisible;
 
+    private float pendingBlockAt = -1f;
+
+    private void OnEnable() => CombatEventOutput.Signaled += OnSignal;
+
+    // A confirmed block peaks one hardware lead after the Pi is told, like every arm effect.
+    private void OnSignal(string name, string source)
+    {
+        if (name == "shield_block") pendingBlockAt = Time.time + CombatEventOutput.HardwareLeadSeconds;
+    }
+
+    private void PlayBlockBurst()
+    {
+        pendingBlockAt = -1f;
+        PulseImpact();
+        if (shieldRoot != null && isVisible)
+        {
+            ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.shieldSparks, shieldRoot.position, 0.45f, 2f);
+            ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.electroHit, shieldRoot.position, 0.25f, 2f);
+        }
+    }
+
     private void Awake()
     {
         EnsureShield();
@@ -37,6 +58,7 @@ public sealed class ForearmShieldEffects : MonoBehaviour
 
     private void Update()
     {
+        if (pendingBlockAt >= 0f && Time.time >= pendingBlockAt) PlayBlockBurst();
         if (!isVisible || shieldRoot == null)
         {
             return;
@@ -190,7 +212,11 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         root.SetActive(false);
     }
 
-    private void OnDisable() => HideShield();
+    private void OnDisable()
+    {
+        CombatEventOutput.Signaled -= OnSignal;
+        HideShield();
+    }
 
     private void OnDestroy()
     {

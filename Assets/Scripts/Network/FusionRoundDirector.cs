@@ -21,6 +21,12 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(0f)] private float finalWavePause = 4f;
     [SerializeField, Min(1)] private int hazardDamagePerTick = 12;
     [SerializeField, Min(0.1f)] private float hazardDamageInterval = 0.7f;
+    [Header("Sudden death")]
+    [Tooltip("The final seconds of the round are sudden death.")]
+    [SerializeField, Min(5f)] private float suddenDeathSeconds = 30f;
+    [SerializeField, Min(1f)] private float suddenDeathDamageMultiplier = 1.5f;
+    [Tooltip("No new fire strikes this long before and after sudden death begins, while drones swap cover.")]
+    [SerializeField, Min(0f)] private float swapHazardQuiet = 9f;
     [Header("Heal pickup")]
     [SerializeField, Min(0f)] private float healSpawnSeconds = 30f;
     [SerializeField, Min(1)] private int healAmount = 90;
@@ -45,11 +51,14 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int HealState;
     [SyncVar] public Vector3 HealCenter;
     [SyncVar] public int HealTakerId = -1;
+    /// <summary>Bit per sudden-death drone that has been shot down this round.</summary>
+    [SyncVar] public int DroneDownMask;
 
     private float nextHazardDamageAt;
     private FusionRoundHud hud;
     private FusionHazardView[] hazardViews;
     private HealPickupView healView;
+    private SuddenDeathDirector suddenDeath;
     private int lastSeenHazardSequence = -1;
     private int lastSeenPhase = -1;
     private static FusionRoundDirector cachedDirector;
@@ -62,6 +71,12 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     public float HazardRadius => hazardRadius;
     public float FightElapsed => Mathf.Max(0f, roundSeconds - PhaseRemaining);
     public bool IsFighting => IsDirector && Phase == RoundPhase.Fighting;
+    public float RoundLength => roundSeconds;
+    public float SuddenDeathStartsAt => roundSeconds - suddenDeathSeconds;
+    /// <summary>Seconds since sudden death began (negative before it). Only meaningful while fighting.</summary>
+    public float SuddenDeathClock => Phase == RoundPhase.Fighting ? FightElapsed - SuddenDeathStartsAt : -999f;
+    public bool IsSuddenDeath => IsFighting && SuddenDeathClock >= 0f;
+    public float DamageMultiplier => IsSuddenDeath ? suddenDeathDamageMultiplier : 1f;
 
     public override void OnStartServer()
     {
@@ -150,7 +165,9 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 
         UpdateHeal(players);
 
-        if (HazardStage == 0 && NetworkTime.time >= nextHazardAt)
+        float sinceSuddenDeath = FightElapsed - SuddenDeathStartsAt;
+        bool swapWindow = sinceSuddenDeath > -swapHazardQuiet * 0.5f && sinceSuddenDeath < swapHazardQuiet;
+        if (HazardStage == 0 && NetworkTime.time >= nextHazardAt && !swapWindow)
         {
             StartHazard(players);
         }
@@ -170,7 +187,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             if (NetworkTime.time >= hazardEndsAt)
             {
                 HazardStage = 0;
-                float pause = PhaseRemaining <= 20f ? finalWavePause : earlyWavePause;
+                float pause = PhaseRemaining <= suddenDeathSeconds ? finalWavePause : earlyWavePause;
                 nextHazardAt = NetworkTime.time + pause;
             }
         }
@@ -180,6 +197,27 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     {
         HealState = 0;
         HealTakerId = -1;
+        DroneDownMask = 0;
+    }
+
+    /// <summary>Called on the local player's own director object; forwarded to the match director.</summary>
+    public void RequestDroneDown(int index)
+    {
+        if (index < 0 || index > 30) return;
+        if (isServer) Active()?.MarkDroneDown(index);
+        else if (isOwned) CmdDroneDown(index);
+    }
+
+    [Command]
+    private void CmdDroneDown(int index)
+    {
+        if (index >= 0 && index <= 30) Active()?.MarkDroneDown(index);
+    }
+
+    [Server]
+    private void MarkDroneDown(int index)
+    {
+        if (Phase == RoundPhase.Fighting) DroneDownMask |= 1 << index;
     }
 
     // One heal per round, spawned in the open midway between both players.
@@ -277,6 +315,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                 if (HazardCount == 2) hazardViews[1].Begin(HazardCenterB, hazardRadius);
             }
         }
+        if (suddenDeath == null) suddenDeath = SuddenDeathDirector.Ensure();
+        suddenDeath.Show(this);
         if (healView == null) healView = new GameObject("Heal Pickup").AddComponent<HealPickupView>();
         healView.Show(HealState, HealCenter, HealTakerId,
             NetworkClient.localPlayer != null && HealTakerId == (int)NetworkClient.localPlayer.netId);
@@ -340,6 +380,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             CombatEventOutput.Emit("round_disconnected", "network");
         }
         if (healView != null) Destroy(healView.gameObject);
+        if (cachedDirector == null && suddenDeath != null) suddenDeath.ResetArena();
         if (hazardViews != null)
             foreach (FusionHazardView view in hazardViews)
                 if (view != null) Destroy(view.gameObject);
