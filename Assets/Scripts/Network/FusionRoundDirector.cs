@@ -30,7 +30,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(5f)] private float suddenDeathSeconds = 30f;
     [SerializeField, Min(1f)] private float suddenDeathDamageMultiplier = 1.5f;
     [Tooltip("No new fire strikes this long before and after sudden death begins, while drones swap cover.")]
-    [SerializeField, Min(0f)] private float swapHazardQuiet = 9f;
+    [SerializeField, Min(0f)] private float swapHazardQuiet = 12f;
     [Header("Heal pickup")]
     [SerializeField, Min(0f)] private float healSpawnSeconds = 30f;
     [SerializeField, Min(1)] private int healAmount = 90;
@@ -84,6 +84,19 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     public float SuddenDeathClock => Phase == RoundPhase.Fighting ? FightElapsed - SuddenDeathStartsAt : -999f;
     public bool IsSuddenDeath => IsFighting && SuddenDeathClock >= 0f;
     public float DamageMultiplier => IsSuddenDeath ? suddenDeathDamageMultiplier : 1f;
+
+    public bool LocalPlayerInHazard
+    {
+        get
+        {
+            if (HazardStage == 0 || NetworkClient.localPlayer == null) return false;
+            NetworkHeadTracker head = NetworkClient.localPlayer.GetComponent<NetworkHeadTracker>();
+            if (head == null) return false;
+            Vector3 position = Flatten(head.CanonicalHeadPosition);
+            return Vector3.Distance(position, HazardCenterA) <= hazardRadius
+                || (HazardCount == 2 && Vector3.Distance(position, HazardCenterB) <= hazardRadius);
+        }
+    }
 
     public override void OnStartServer()
     {
@@ -307,11 +320,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             if (hud == null) hud = new GameObject("Round HUD").AddComponent<FusionRoundHud>();
         }
         hud.Show(this);
-        NetworkHeadTracker localHead = NetworkClient.localPlayer != null
-            ? NetworkClient.localPlayer.GetComponent<NetworkHeadTracker>() : null;
-        bool insideHazard = localHead != null && HazardStage > 0 &&
-            (Vector3.Distance(Flatten(localHead.CanonicalHeadPosition), HazardCenterA) <= hazardRadius ||
-            (HazardCount == 2 && Vector3.Distance(Flatten(localHead.CanonicalHeadPosition), HazardCenterB) <= hazardRadius));
+        bool insideHazard = LocalPlayerInHazard;
         CombatEventOutput.State("hazard_warning", insideHazard && HazardStage == 1);
         CombatEventOutput.State("hazard", insideHazard && HazardStage == 2);
 

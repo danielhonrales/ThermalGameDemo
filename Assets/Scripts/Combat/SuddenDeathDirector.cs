@@ -13,8 +13,8 @@ using UnityEngine.Rendering;
 public sealed class SuddenDeathDirector : MonoBehaviour
 {
     private const float WarningLead = 5f;
-    private const float PickupStart = -1.3f, PickupStagger = 0.12f;
-    private const float DeliveryStart = 0.8f, DeliveryStagger = 0.13f;
+    private const float PickupStart = 0.8f, PickupStagger = 0.45f;
+    private const float DeliveryStart = 4.5f, DeliveryStagger = 0.45f;
     private const float MirrorX = 0.275f;
 
     private static readonly Color Red = new Color(1f, 0.1f, 0.06f, 1f);

@@ -42,21 +42,21 @@ public static class ArenaLayoutBuilder
             // Centre: coolant stack breaks the direct line between the players.
             new Piece { name = "Coolant stack", prefab = "Stuff/Pipes_02", position = new Vector3(MirrorX, 0f, 0.71f), yaw = 45f, scale = 0.34f },
             // Forward crate stacks to duck behind.
-            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-0.7f, 0f, 2.2f), yaw = 18f, scale = 0.5f, mirror = true,
+            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-0.7f, 0f, 2.2f), yaw = 18f, scale = 0.57f, mirror = true,
                 stack = new[]
                 {
-                    new Piece { prefab = "Props/Crate_01", position = new Vector3(0.05f, 0.375f, -0.08f), yaw = -12f, scale = 0.5f },
-                    new Piece { prefab = "Props/Crate_01", position = new Vector3(-0.02f, 0.75f, 0.1f), yaw = 7f, scale = 0.5f },
+                    new Piece { prefab = "Props/Crate_01", position = new Vector3(0.05f, 0.43f, -0.08f), yaw = -12f, scale = 0.57f },
+                    new Piece { prefab = "Props/Crate_01", position = new Vector3(-0.02f, 0.86f, 0.1f), yaw = 7f, scale = 0.57f },
                 } },
             // Low pipe runs you crouch behind.
-            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-0.75f, 0f, -0.9f), yaw = 10f, scale = 0.34f, mirror = true },
+            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-0.75f, 0f, -0.9f), yaw = 10f, scale = 0.40f, mirror = true },
             // See-through railings on the north and south edges of the lane.
             new Piece { name = "Railing north", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, 3.0f), yaw = 90f, scale = 0.65f },
             new Piece { name = "Railing south", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, -1.6f), yaw = 90f, scale = 0.65f },
             // Consoles behind each start pad, angled to open peeking lanes.
-            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-1.7f, 0f, -1.3f), yaw = 35f, scale = 0.36f, mirror = true },
+            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-1.7f, 0f, -1.3f), yaw = 35f, scale = 0.42f, mirror = true },
             // Raised deck plates in the far corners for height variety.
-            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.7f, 0f, 2.75f), yaw = 0f, scale = 0.2f, mirror = true },
+            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.7f, 0f, 2.75f), yaw = 0f, scale = 0.23f, mirror = true },
         };
 
         int count = 0;

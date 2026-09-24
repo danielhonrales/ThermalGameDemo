@@ -35,6 +35,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private RectTransform bannerStripes;
     private CanvasGroup bannerGroup;
     private TextMeshProUGUI bannerText, bannerCaption;
+    private Material bannerTitleOverlay, bannerCaptionOverlay;
     private RectTransform toast;
     private CanvasGroup toastGroup;
     private Image toastAccent;
@@ -63,9 +64,11 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (Current == this) Current = null;
         if (root != null) DestroyHudObject(root.gameObject);
         if (vignetteRoot != null) DestroyHudObject(vignetteRoot.gameObject);
+        if (bannerTitleOverlay != null) DestroyHudObject(bannerTitleOverlay);
+        if (bannerCaptionOverlay != null) DestroyHudObject(bannerCaptionOverlay);
     }
 
-    private static void DestroyHudObject(GameObject value)
+    private static void DestroyHudObject(Object value)
     {
         if (Application.isPlaying) Destroy(value); else DestroyImmediate(value);
     }
@@ -107,6 +110,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         bannerText.characterSpacing = 4f;
         bannerCaption = HudKit.Text(banner, "Caption", HudKit.Display, 34f, Soft, new Vector2(0f, -70f), new Vector2(1200f, 50f), TextAlignmentOptions.Center);
         bannerCaption.characterSpacing = 16f;
+        // Urgent text must remain readable even when the player stands next to cover.
+        bannerTitleOverlay = OverlayMaterial(bannerText);
+        bannerCaptionOverlay = OverlayMaterial(bannerCaption);
         bannerGroup.alpha = 0f;
 
         // Toast under the clock.
@@ -120,6 +126,15 @@ public sealed class FusionRoundHud : MonoBehaviour
         // Feedback vignette sits closer than the HUD and covers the whole view.
         vignetteRoot = HudKit.Canvas("Feedback vignette", transform, new Vector2(2000f, 1700f), 10);
         vignette = HudKit.Image(vignetteRoot, "Vignette", HudSprites.Vignette(), new Color(1f, 0f, 0f, 0f), Vector2.zero, new Vector2(2000f, 1700f));
+    }
+
+    private static Material OverlayMaterial(TextMeshProUGUI label)
+    {
+        Shader shader = Shader.Find("TextMeshPro/Distance Field Overlay");
+        if (shader == null || label.fontSharedMaterial == null) return null;
+        Material material = new Material(label.fontSharedMaterial) { name = label.name + " overlay", shader = shader };
+        label.fontSharedMaterial = material;
+        return material;
     }
 
     private static void Marker(RectTransform parent, float at, Color color, string label)
@@ -223,18 +238,23 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
+                else if (round.HazardStage == 1 && round.LocalPlayerInHazard)
+                    ShowBanner("firemove", "MOVE", "FIRE STRIKE ON YOU", Warn, 1f);
+                else if (round.HazardStage == 2 && round.LocalPlayerInHazard)
+                    ShowBanner("fireactive", "MOVE", "FIRE UNDERFOOT", Warn, 1f);
                 else if (sd >= -5f && sd < 0f)
                 {
                     int left = Mathf.CeilToInt(-sd);
-                    ShowBanner("sdwarn" + left, left.ToString(), "SUDDEN DEATH INCOMING", Warn, 1f);
+                    ShowBanner("sdwarn" + left, left.ToString(), "ARENA CHANGE · DRONES INBOUND", Warn, 1f);
                 }
                 else if (sd >= 0f && sd < 2.6f)
-                    ShowBanner("suddendeath", "SUDDEN DEATH", "DAMAGE ×1.5 · NO RETREAT", Warn, 1f);
+                    ShowBanner("suddendeath", "SUDDEN DEATH", "DRONES MOVING COVER · DAMAGE ×1.5", Warn, 1f);
                 else ShowBanner("none", "", "", Color.white, 0f);
 
-                phaseLabel.text = sd >= 0f ? "SUDDEN DEATH"
-                    : round.HazardStage == 1 ? "FIRE STRIKE INCOMING"
-                    : round.HazardStage == 2 ? "FIRE ZONE ACTIVE" : "DUEL";
+                phaseLabel.text = round.HazardStage == 1 ? "FIRE STRIKE INCOMING"
+                    : round.HazardStage == 2 ? "FIRE ZONE ACTIVE"
+                    : sd >= 0f && sd < 12f ? "DRONES MOVING COVER"
+                    : sd >= 0f ? "SUDDEN DEATH" : "DUEL";
                 if (round.IsSoloTest) phaseLabel.text += "  ·  SOLO TEST";
                 phaseLabel.color = sd >= 0f || round.HazardStage > 0
                     ? Color.Lerp(Warn, Color.white, 0.25f * beat) : Soft;
@@ -352,7 +372,14 @@ public sealed class FusionRoundHud : MonoBehaviour
     private void AnimateBanner()
     {
         float age = Time.time - bannerShownAt;
-        bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, bannerTarget, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
+        float targetAlpha = bannerTarget;
+        if (bannerKey == "firemove" || bannerKey == "fireactive")
+        {
+            float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 11f);
+            targetAlpha *= 0.78f + 0.22f * pulse;
+            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.65f);
+        }
+        bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, targetAlpha, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
         // Slam in: overshoot scale, then settle; digits punch once per second.
         float slam = 1f + 0.6f * Mathf.Exp(-age * 9f) * Mathf.Cos(age * 18f);
         bannerText.rectTransform.localScale = Vector3.one * slam;

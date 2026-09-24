@@ -95,6 +95,13 @@ public sealed class ThermalFxLibrary : ScriptableObject
         {
             Material source = renderer.sharedMaterial;
             if (source == null || source.shader == null) continue;
+            // These imported explosion smoke sheets contain dark RGB that appears as a black
+            // rectangle on Quest. Keep the fire and sparks; omit only the two smoke materials.
+            if (source.name == "SmokeDark" || source.name == "Smoke26")
+            {
+                renderer.enabled = false;
+                continue;
+            }
             string name = source.shader.name;
             bool lit = name.Contains("Lit") && !name.Contains("Unlit");
             // Soft particles and camera fading need a depth texture that Quest doesn't render: they vanish.
