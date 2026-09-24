@@ -147,25 +147,32 @@ public sealed class HandPoseRouter : MonoBehaviour
         Trace(true, index, middle, ring, pinky, palmUp, observed);
     }
 
+    // Entry thresholds are stricter than hold thresholds so a relaxed, resting hand stays Neutral.
     public static PoseKind Classify(float index, float middle, float ring, float pinky,
         bool palmUp, PoseKind previous)
     {
-        float straight = previous == PoseKind.Fire || previous == PoseKind.Ice ? 0.67f : 0.78f;
+        float straight = previous == PoseKind.Fire || previous == PoseKind.Ice ? 0.67f : 0.82f;
         bool indexOut = index >= straight;
         bool middleOut = middle >= straight;
-        float open = previous == PoseKind.Ice ? 0.56f : 0.70f;
+        float open = previous == PoseKind.Ice ? 0.56f : 0.74f;
         bool outerOpen = (ring >= open && (pinky >= open || pinky < 0f))
             || (pinky >= open && ring < 0f);
         if (indexOut && middleOut && outerOpen) return PoseKind.Ice;
-        float tucked = previous == PoseKind.Fire ? 0.62f : 0.48f;
+        float tucked = previous == PoseKind.Fire ? 0.62f : 0.42f;
         bool outerTucked = (ring < 0f || ring <= tucked) && (pinky < 0f || pinky <= tucked)
             && (ring >= 0f || pinky >= 0f);
         if ((indexOut || middleOut) && outerTucked) return PoseKind.Fire;
-        float curled = previous == PoseKind.Shield ? 0.43f : 0.30f;
+        // A shield needs a real fist: all tracked fingers curled, not just a loose resting hand.
+        bool holding = previous == PoseKind.Shield;
+        float curled = holding ? 0.40f : 0.26f;
+        float outerCurled = holding ? 0.62f : 0.45f;
         if (index >= 0f && middle >= 0f && index <= curled && middle <= curled
-            && ring < 0.70f && pinky < 0.70f) return PoseKind.Shield;
+            && ring <= outerCurled && pinky <= outerCurled) return PoseKind.Shield;
         return PoseKind.Neutral;
     }
+
+    public const float ShieldConfirmSeconds = 0.18f;
+    public const float AttackConfirmSeconds = 0.28f;
 
     public static void AdvancePose(PoseKind observed, float now, float releaseSeconds,
         ref PoseKind active, ref PoseKind pending, ref float pendingSince, ref float departure)
@@ -181,7 +188,7 @@ public sealed class HandPoseRouter : MonoBehaviour
         if (departure < 0f) departure = now;
         // Release promptly, but never fire the next weapon while merely passing through its pose.
         if (active != PoseKind.Neutral && now - departure >= releaseSeconds) active = PoseKind.Neutral;
-        if (observed != PoseKind.Neutral && now - pendingSince >= (observed == PoseKind.Shield ? 0.12f : 0.24f))
+        if (observed != PoseKind.Neutral && now - pendingSince >= (observed == PoseKind.Shield ? ShieldConfirmSeconds : AttackConfirmSeconds))
         {
             active = observed;
             departure = -1f;

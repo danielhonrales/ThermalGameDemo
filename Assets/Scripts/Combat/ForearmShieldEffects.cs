@@ -7,7 +7,8 @@ public sealed class ForearmShieldEffects : MonoBehaviour
     [Header("Shield field")]
     [SerializeField, Min(0.2f)] private float shieldDiscDiameter = 0.5f;
     [SerializeField] private Color shieldColor = new Color(0.65f, 0.43f, 0.85f, 1f);
-    [SerializeField, Min(0.05f)] private float deploySeconds = 0.18f;
+    [Tooltip("Build-up before the field is fully up; matches the Pi hardware lead.")]
+    [SerializeField, Min(0.05f)] private float deploySeconds = CombatEventOutput.HardwareLeadSeconds;
 
     private Transform handMount;
     private Transform shieldRoot;
@@ -42,7 +43,7 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         }
 
         float deployed = Mathf.SmoothStep(0f, 1f,
-            Mathf.Clamp01(0.3f + (Time.time - shownAt) / deploySeconds));
+            Mathf.Clamp01((Time.time - shownAt) / deploySeconds));
         shieldRoot.localScale = Vector3.one * Mathf.Lerp(0.82f, 1f, deployed);
         float breathing = 0.96f + 0.04f * Mathf.Sin(Time.time * 2.8f);
         float impact = hitPulseAt >= 0f

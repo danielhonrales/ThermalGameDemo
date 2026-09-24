@@ -3,14 +3,14 @@ using System.Linq;
 using Mirror;
 using UnityEngine;
 
-/// <summary>Shared-mode authority for one two-minute duel and its fire-zone waves.</summary>
+/// <summary>Shared-mode authority for one 90-second duel, its fire-zone waves and the mid-round heal.</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NetworkIdentity))]
 public sealed class FusionRoundDirector : NetworkBehaviour
 {
     public enum RoundPhase { Waiting, Countdown, Fighting, Result }
 
-    [SerializeField, Min(30f)] private float roundSeconds = 120f;
+    [SerializeField, Min(30f)] private float roundSeconds = 90f;
     [SerializeField, Min(1f)] private float countdownSeconds = 5f;
     [SerializeField, Min(1f)] private float resultSeconds = 7f;
     [SerializeField, Min(0f)] private float firstHazardDelay = 20f;
@@ -21,6 +21,11 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(0f)] private float finalWavePause = 4f;
     [SerializeField, Min(1)] private int hazardDamagePerTick = 12;
     [SerializeField, Min(0.1f)] private float hazardDamageInterval = 0.7f;
+    [Header("Heal pickup")]
+    [SerializeField, Min(0f)] private float healSpawnSeconds = 30f;
+    [SerializeField, Min(1)] private int healAmount = 90;
+    [SerializeField, Min(0.1f)] private float healPickupRadius = 0.5f;
+    [SerializeField] private float healHeight = 1.15f;
 
     [SyncVar] public bool IsDirector;
     [SyncVar] public bool IsCalibrated;
@@ -36,10 +41,15 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public Vector3 HazardCenterB;
     [SyncVar] private double hazardEndsAt;
     [SyncVar] private double nextHazardAt;
+    /// <summary>0 = not yet spawned this round, 1 = available, 2 = taken.</summary>
+    [SyncVar] public int HealState;
+    [SyncVar] public Vector3 HealCenter;
+    [SyncVar] public int HealTakerId = -1;
 
     private float nextHazardDamageAt;
     private FusionRoundHud hud;
     private FusionHazardView[] hazardViews;
+    private HealPickupView healView;
     private int lastSeenHazardSequence = -1;
     private int lastSeenPhase = -1;
     private static FusionRoundDirector cachedDirector;
@@ -91,6 +101,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                 PhaseCode = (int)RoundPhase.Countdown;
                 phaseEndsAt = NetworkTime.time + countdownSeconds;
                 WinnerPlayerId = -1;
+                ResetHeal();
                 ResetPlayers(players);
                 break;
             case RoundPhase.Countdown:
@@ -111,6 +122,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                     PhaseCode = (int)RoundPhase.Countdown;
                     phaseEndsAt = NetworkTime.time + countdownSeconds;
                     WinnerPlayerId = -1;
+                    ResetHeal();
                     ResetPlayers(players);
                 }
                 break;
@@ -136,6 +148,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             return;
         }
 
+        UpdateHeal(players);
+
         if (HazardStage == 0 && NetworkTime.time >= nextHazardAt)
         {
             StartHazard(players);
@@ -160,6 +174,42 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                 nextHazardAt = NetworkTime.time + pause;
             }
         }
+    }
+
+    private void ResetHeal()
+    {
+        HealState = 0;
+        HealTakerId = -1;
+    }
+
+    // One heal per round, spawned in the open midway between both players.
+    private void UpdateHeal(List<NetworkPlayerHealth> players)
+    {
+        NetworkHeadTracker a = players[0].GetComponent<NetworkHeadTracker>();
+        NetworkHeadTracker b = players[1].GetComponent<NetworkHeadTracker>();
+        if (a == null || b == null) return;
+        if (HealState == 0 && FightElapsed >= healSpawnSeconds)
+        {
+            HealCenter = Flatten((a.CanonicalHeadPosition + b.CanonicalHeadPosition) * 0.5f)
+                + Vector3.up * healHeight;
+            HealState = 1;
+            return;
+        }
+        if (HealState != 1) return;
+        Vector3 pickup = Flatten(HealCenter);
+        NetworkPlayerHealth taker = null;
+        float best = healPickupRadius;
+        foreach (NetworkPlayerHealth player in players)
+        {
+            NetworkHeadTracker head = player.GetComponent<NetworkHeadTracker>();
+            if (head == null || !player.IsAlive) continue;
+            float distance = Vector3.Distance(Flatten(head.CanonicalHeadPosition), pickup);
+            if (distance <= best) { best = distance; taker = player; }
+        }
+        if (taker == null) return;
+        taker.Heal(healAmount);
+        HealTakerId = (int)taker.netId;
+        HealState = 2;
     }
 
     private void StartHazard(List<NetworkPlayerHealth> players)
@@ -227,6 +277,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                 if (HazardCount == 2) hazardViews[1].Begin(HazardCenterB, hazardRadius);
             }
         }
+        if (healView == null) healView = new GameObject("Heal Pickup").AddComponent<HealPickupView>();
+        healView.Show(HealState, HealCenter, HealTakerId,
+            NetworkClient.localPlayer != null && HealTakerId == (int)NetworkClient.localPlayer.netId);
+
         for (int i = 0; i < hazardViews.Length; i++)
             hazardViews[i].Show(i < HazardCount && HazardStage > 0,
                 HazardStage, HazardRemaining, warningSeconds, burnSeconds);
@@ -285,6 +339,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             CombatEventOutput.State("hazard", false);
             CombatEventOutput.Emit("round_disconnected", "network");
         }
+        if (healView != null) Destroy(healView.gameObject);
         if (hazardViews != null)
             foreach (FusionHazardView view in hazardViews)
                 if (view != null) Destroy(view.gameObject);

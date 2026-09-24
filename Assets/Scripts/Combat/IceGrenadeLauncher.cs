@@ -61,6 +61,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private readonly Vector3[] predictedPath = new Vector3[512];
     private NetworkPlayerGrenadeVisual localNetworkGrenade;
     private float poseChargeStartTime = -1f;
+    private bool hardwareLeadSent;
     private float nextThrowAllowedTime;
     private bool waitingForPoseReset;
     private HandPoseRouter poseRouter;
@@ -141,6 +142,13 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         if ((requireChargeBeforeThrow && !IsChargeComplete()) || (poseRouter != null && !poseRouter.IsIcePose))
         {
             CombatEventOutput.State("ice_charge", poseRouter == null || poseRouter.IsIcePose);
+            // Signal the Pi one hardware lead before release so the cold pulse peaks with the throw.
+            if ((poseRouter == null || poseRouter.IsIcePose) && poseChargeStartTime >= 0f && !hardwareLeadSent
+                && Time.time - poseChargeStartTime >= chargeSeconds - CombatEventOutput.HardwareLeadSeconds)
+            {
+                hardwareLeadSent = true;
+                CombatEventOutput.Emit("ice_shot", "ice");
+            }
             float progress = GetChargeProgress();
             Vector3 chargePosition = origin;
             Quaternion chargeRotation = GetThrowRotation(launchVelocity);
@@ -200,7 +208,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         activeProjectile.Launch(origin, launchVelocity, collisionMask, visual, OnGrenadeExploded, gravityMultiplier, floorY);
         grenadeEffects?.StartFlightTrail(activeProjectile.transform);
 
-        CombatEventOutput.Emit("ice_shot", "ice");
+        if (!hardwareLeadSent) CombatEventOutput.Emit("ice_shot", "ice");
+        hardwareLeadSent = false;
         CombatEventOutput.State("ice_flight", true);
         PublishThrow(origin, launchVelocity, floorY);
         ResetCharge();
@@ -306,6 +315,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private void ResetCharge()
     {
         CombatEventOutput.State("ice_charge", false);
+        if (hardwareLeadSent) CombatEventOutput.Emit("ice_cancel", "ice");
+        hardwareLeadSent = false;
         poseChargeStartTime = -1f;
         hasAimTarget = false;
         hasWristReference = false;

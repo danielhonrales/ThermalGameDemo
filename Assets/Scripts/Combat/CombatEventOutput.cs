@@ -6,7 +6,9 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-/// <summary>Local dummy event log plus optional, nonblocking LAN UDP snapshots. No hardware control.</summary>
+/// <summary>Local event log plus optional, nonblocking LAN UDP snapshots for the Pi hardware.
+/// Every event is sent <see cref="HardwareLeadSeconds"/> before its visual peak so the
+/// Peltiers and vibros have time to respond; the game plays a build-up during that window.</summary>
 public sealed class CombatEventOutput : MonoBehaviour
 {
     [Serializable] public sealed class Config { public bool udpEnabled = true; public string host = "192.168.1.5"; public int port = 7779; public string deviceLabel = ""; }
@@ -21,7 +23,11 @@ public sealed class CombatEventOutput : MonoBehaviour
         public int amount, health = -1;
         public string[] active;
         public int hits, blocks, fireBursts, iceThrows, deaths;
+        public int leadMs = Mathf.RoundToInt(HardwareLeadSeconds * 1000f);
     }
+    public const float HardwareLeadSeconds = 0.3f;
+    /// <summary>Raised for every non-snapshot event (name, source) as it is sent to the Pi.</summary>
+    public static event Action<string, string> Signaled;
     private static CombatEventOutput instance;
     private readonly HashSet<string> active = new HashSet<string>();
     private readonly Message message = new Message();
@@ -33,7 +39,7 @@ public sealed class CombatEventOutput : MonoBehaviour
     private bool suspended;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetStatics() => instance = null;
+    private static void ResetStatics() { instance = null; Signaled = null; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Boot()
@@ -118,6 +124,7 @@ public sealed class CombatEventOutput : MonoBehaviour
         string json = JsonUtility.ToJson(message);
         if (name != "snapshot")
         {
+            Signaled?.Invoke(name, source);
             Debug.Log("[CombatOutput] " + json);
             try { log?.WriteLine(json); }
             catch (IOException e) { Warn(e); log?.Dispose(); log = null; }

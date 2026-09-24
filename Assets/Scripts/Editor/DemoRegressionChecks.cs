@@ -71,7 +71,7 @@ public static class DemoRegressionChecks
     {
         Vector3 Direction(float degrees) => Quaternion.Euler(degrees, 0f, 0f) * Vector3.forward * 0.035f;
         float straight = HandPoseRouter.MeasureExtension(Direction(0), Direction(8), Direction(12), Direction(15));
-        float curled = HandPoseRouter.MeasureExtension(Direction(0), Direction(45), Direction(110), Direction(145));
+        float curled = HandPoseRouter.MeasureExtension(Direction(0), Direction(50), Direction(120), Direction(160));
         if (straight < 0.85f || curled > 0.35f) throw new Exception("Finger bend fixture failed.");
         var cases = new[] {
             (straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Fire),
@@ -85,7 +85,11 @@ public static class DemoRegressionChecks
             (-1f, -1f, -1f, -1f, false, HandPoseRouter.PoseKind.Neutral),
             (0.57f, 0.57f, 0.2f, 0.2f, false, HandPoseRouter.PoseKind.Neutral),
             (0.4f, 0.4f, 0.2f, 0.2f, false, HandPoseRouter.PoseKind.Neutral),
-            (straight, straight, 0.75f, 0.35f, false, HandPoseRouter.PoseKind.Neutral)
+            (straight, straight, 0.75f, 0.35f, false, HandPoseRouter.PoseKind.Neutral),
+            // Relaxed resting hand: loosely curled everywhere must not raise a shield or fire.
+            (0.45f, 0.40f, 0.50f, 0.55f, false, HandPoseRouter.PoseKind.Neutral),
+            (0.30f, 0.30f, 0.60f, 0.60f, false, HandPoseRouter.PoseKind.Neutral),
+            (0.80f, 0.30f, 0.45f, 0.45f, false, HandPoseRouter.PoseKind.Neutral)
         };
         foreach (var c in cases)
         {
@@ -246,21 +250,22 @@ public static class DemoRegressionChecks
         Step(HandPoseRouter.PoseKind.Fire, 0.08f, HandPoseRouter.PoseKind.Neutral);
         Step(HandPoseRouter.PoseKind.Ice, 0.16f, HandPoseRouter.PoseKind.Neutral);
         Step(HandPoseRouter.PoseKind.Fire, 0.30f, HandPoseRouter.PoseKind.Neutral);
-        Step(HandPoseRouter.PoseKind.Fire, 0.56f, HandPoseRouter.PoseKind.Fire);
-        Step(HandPoseRouter.PoseKind.Neutral, 0.58f, HandPoseRouter.PoseKind.Fire);
-        Step(HandPoseRouter.PoseKind.Fire, 0.61f, HandPoseRouter.PoseKind.Fire);
-        Step(HandPoseRouter.PoseKind.Shield, 0.70f, HandPoseRouter.PoseKind.Fire);
-        Step(HandPoseRouter.PoseKind.Shield, 0.81f, HandPoseRouter.PoseKind.Neutral);
-        Step(HandPoseRouter.PoseKind.Ice, 0.84f, HandPoseRouter.PoseKind.Neutral);
-        Step(HandPoseRouter.PoseKind.Ice, 1.10f, HandPoseRouter.PoseKind.Ice);
-        Step(HandPoseRouter.PoseKind.Neutral, 1.12f, HandPoseRouter.PoseKind.Ice);
-        Step(HandPoseRouter.PoseKind.Neutral, 1.23f, HandPoseRouter.PoseKind.Neutral);
+        Step(HandPoseRouter.PoseKind.Fire, 0.55f, HandPoseRouter.PoseKind.Neutral);
+        Step(HandPoseRouter.PoseKind.Fire, 0.60f, HandPoseRouter.PoseKind.Fire);
+        Step(HandPoseRouter.PoseKind.Neutral, 0.62f, HandPoseRouter.PoseKind.Fire);
+        Step(HandPoseRouter.PoseKind.Fire, 0.65f, HandPoseRouter.PoseKind.Fire);
+        Step(HandPoseRouter.PoseKind.Shield, 0.74f, HandPoseRouter.PoseKind.Fire);
+        Step(HandPoseRouter.PoseKind.Shield, 0.85f, HandPoseRouter.PoseKind.Neutral);
+        Step(HandPoseRouter.PoseKind.Ice, 0.88f, HandPoseRouter.PoseKind.Neutral);
+        Step(HandPoseRouter.PoseKind.Ice, 1.17f, HandPoseRouter.PoseKind.Ice);
+        Step(HandPoseRouter.PoseKind.Neutral, 1.19f, HandPoseRouter.PoseKind.Ice);
+        Step(HandPoseRouter.PoseKind.Neutral, 1.30f, HandPoseRouter.PoseKind.Neutral);
 
         active = pending = HandPoseRouter.PoseKind.Neutral;
         since = 0f; departure = -1f;
         Step(HandPoseRouter.PoseKind.Shield, 2f, HandPoseRouter.PoseKind.Neutral);
-        Step(HandPoseRouter.PoseKind.Shield, 2.08f, HandPoseRouter.PoseKind.Neutral);
-        Step(HandPoseRouter.PoseKind.Shield, 2.13f, HandPoseRouter.PoseKind.Shield);
+        Step(HandPoseRouter.PoseKind.Shield, 2.12f, HandPoseRouter.PoseKind.Neutral);
+        Step(HandPoseRouter.PoseKind.Shield, 2.19f, HandPoseRouter.PoseKind.Shield);
 
         Vector3 origin = new Vector3(0.3f, 1f, 0.6f);
         foreach (float yaw in new[] { 0f, 90f, 180f, 270f })

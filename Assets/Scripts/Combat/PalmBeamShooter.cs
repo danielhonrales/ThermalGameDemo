@@ -74,6 +74,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private ThermalBeamEffects beamEffects;
     private float poseChargeStartTime = -1f;
     private float beamBurstStartTime = -1f;
+    private bool hardwareLeadSent;
     private float nextAllowedFireTime;
     private ForearmShieldController shieldController;
     private bool wasAttackPoseActive;
@@ -173,6 +174,10 @@ public sealed class PalmBeamShooter : MonoBehaviour
         if ((requireChargeBeforeFire && !IsChargeComplete()) || (poseRouter != null && !poseRouter.IsFirePose))
         {
             CombatEventOutput.State("fire_charge", poseRouter == null || poseRouter.IsFirePose);
+            // Signal the Pi one hardware lead before the beam releases so heat peaks with it.
+            if ((poseRouter == null || poseRouter.IsFirePose) && poseChargeStartTime >= 0f && !hardwareLeadSent
+                && Time.time - poseChargeStartTime >= chargeSeconds - CombatEventOutput.HardwareLeadSeconds)
+                SendFireLead();
             SetRayVisualOnly(false);
             PublishNetworkBeamHidden();
             if (showAimGuideWhileCharging)
@@ -198,9 +203,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
         if (beamBurstStartTime < 0f)
         {
             beamBurstStartTime = Time.time;
-            CombatEventOutput.State("fire_charge", false);
-            CombatEventOutput.State("fire", true);
-            CombatEventOutput.Emit("fire_shot", "fire");
+            if (!hardwareLeadSent) SendFireLead();
         }
 
         if (Time.time - beamBurstStartTime >= maxBeamDurationSeconds)
@@ -428,8 +431,22 @@ public sealed class PalmBeamShooter : MonoBehaviour
         return Mathf.Clamp01((Time.time - poseChargeStartTime) / chargeSeconds);
     }
 
+    private void SendFireLead()
+    {
+        hardwareLeadSent = true;
+        CombatEventOutput.State("fire_charge", false);
+        CombatEventOutput.State("fire", true);
+        CombatEventOutput.Emit("fire_shot", "fire");
+    }
+
     private void ResetCharge()
     {
+        if (hardwareLeadSent && beamBurstStartTime < 0f)
+        {
+            CombatEventOutput.State("fire", false);
+            CombatEventOutput.Emit("fire_cancel", "fire");
+        }
+        hardwareLeadSent = false;
         poseChargeStartTime = -1f;
     }
 

@@ -52,6 +52,7 @@ Every datagram is one UTF-8 JSON object under 1400 bytes. Fields:
 | `health` | Latest local health (-1 before player initialization) |
 | `active` | Complete set of currently active states |
 | `hits`, `blocks`, `fireBursts`, `iceThrows`, `deaths` | Cumulative event counters for this app run |
+| `leadMs` | Time from this packet until the in-game visual peak (see Hardware lead) |
 
 States emit `_start` / `_stop` transitions: `fire_charge`, `fire`, `ice_charge`, `ice_flight`, `shield`, `hazard_warning`, `hazard`, `dead`.
 
@@ -61,6 +62,12 @@ Discrete events:
 - `player_ready`, `calibrated`, `round_phase`, `round_disconnected`
 - `fire_shot`, `fire_contact` (miss/hit/blocked/shield/headshot), `ice_shot`, `ice_impact` (collider/floor)
 - `hit_received` (fire/ice/hazard), `shield_block` (fire/ice), `death`, `health_reset`
+- `heal_received` (pickup, `amount` = HP restored)
+- `fire_cancel`, `ice_cancel`: the early `fire_shot` / `ice_shot` was sent but the player released before the attack happened
+
+## Hardware lead
+
+Every message carries `leadMs` (300). The game plays a build-up for that long after sending an event and shows the full effect at the end of it, so hardware should start ramping as soon as the packet arrives. `fire_shot` / `fire_start` and `ice_shot` are sent 300 ms before the beam fires or the grenade leaves the hand, during the last part of the charge. If the pose is released inside that window, `fire_stop` + `fire_cancel` or `ice_cancel` follows and the attack never happens. Hits, blocks and heals happen before they can be predicted, so they are sent immediately and the headset delays its peak visuals by the lead.
 
 Only the local player's confirmed damage/block events are emitted. Shield visibility alone does not emit a block. A sustained beam produces at most four block notifications per second. Actual damage still uses the existing health/invulnerability rules. `fire_contact` reports aiming contact while firing, not proof that health changed. `hit_received` is the authoritative health change on the defender.
 

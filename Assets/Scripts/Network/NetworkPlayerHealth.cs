@@ -135,6 +135,22 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         }
     }
 
+    [Server]
+    public void Heal(int amount)
+    {
+        if (CurrentHealth <= 0 || amount <= 0) return;
+        int healed = Mathf.Min(maxHealth, currentHealth + amount) - currentHealth;
+        currentHealth += healed;
+        if (isOwned) ReportHeal(healed, currentHealth);
+        else if (connectionToClient != null) TargetHeal(connectionToClient, healed, currentHealth);
+        UpdateHealthBar();
+    }
+
+    [TargetRpc]
+    private void TargetHeal(NetworkConnectionToClient owner, int amount, int health) => ReportHeal(amount, health);
+
+    private static void ReportHeal(int amount, int health) => CombatEventOutput.Emit("heal_received", "pickup", amount, health);
+
     private void ReportToOwner(string source, int amount, bool blocked)
     {
         if (isOwned) ReportDamage(source, amount, currentHealth, blocked);
