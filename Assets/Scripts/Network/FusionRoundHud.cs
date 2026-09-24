@@ -78,8 +78,8 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (root != null) return;
         root = HudKit.Canvas("Arena HUD", transform, new Vector2(2800f, 1700f), 20);
 
-        localCard = new HealthCard(root, "YOU", Friendly, new Vector2(-400f, 300f), true);
-        opponentCard = new HealthCard(root, "OPPONENT", Enemy, new Vector2(-420f, 196f), false);
+        localCard = new HealthCard(root, "YOU", Friendly, new Vector2(-740f, 300f), true);
+        opponentCard = new HealthCard(root, "OPPONENT", Enemy, new Vector2(-760f, 196f), false);
 
         // Round clock with a match timeline underneath (heal at 30 s, sudden death at 60 s).
         clock = HudKit.Rect(root, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
@@ -238,14 +238,12 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
-                else if (round.HazardStage == 1 && round.LocalPlayerInHazard)
+                else if (round.HazardStage > 0 && round.LocalPlayerInHazard)
                     ShowBanner("firemove", "MOVE", "FIRE STRIKE ON YOU", Warn, 1f);
-                else if (round.HazardStage == 2 && round.LocalPlayerInHazard)
-                    ShowBanner("fireactive", "MOVE", "FIRE UNDERFOOT", Warn, 1f);
                 else if (sd >= -5f && sd < 0f)
                 {
                     int left = Mathf.CeilToInt(-sd);
-                    ShowBanner("sdwarn" + left, left.ToString(), "ARENA CHANGE · DRONES INBOUND", Warn, 1f);
+                    ShowBanner("sdwarn" + left, left.ToString(), "ARENA CHANGE", Warn, 1f);
                 }
                 else if (sd >= 0f && sd < 2.6f)
                     ShowBanner("suddendeath", "SUDDEN DEATH", "DRONES MOVING COVER · DAMAGE ×1.5", Warn, 1f);

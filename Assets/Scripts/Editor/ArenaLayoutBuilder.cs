@@ -3,8 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Builds the default 1v1 cover layout under ArenaRoot/GameplayRoot/GameplayCover from the
-/// sci-fi kit. Mirror-symmetric about the plane between the two start pads, all cover low
-/// enough (≤ ~1.3 m) to keep the room and the opponent visible. Each "Obstacle" child is one
+/// sci-fi kit. Mirror-symmetric about the plane between the two start pads. Each "Obstacle" child is one
 /// unit the sudden-death drones can lift away.
 /// </summary>
 public static class ArenaLayoutBuilder
@@ -16,7 +15,7 @@ public static class ArenaLayoutBuilder
     {
         public string name, prefab;
         public Vector3 position; // floor contact point (x, 0, z); y is extra lift
-        public float yaw, scale;
+        public float yaw, scale, heightMultiplier;
         public bool mirror;
         public Piece[] stack;
     }
@@ -42,21 +41,21 @@ public static class ArenaLayoutBuilder
             // Centre: coolant stack breaks the direct line between the players.
             new Piece { name = "Coolant stack", prefab = "Stuff/Pipes_02", position = new Vector3(MirrorX, 0f, 0.71f), yaw = 45f, scale = 0.34f },
             // Forward crate stacks to duck behind.
-            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-0.7f, 0f, 2.2f), yaw = 18f, scale = 0.57f, mirror = true,
+            new Piece { name = "Crate stack", prefab = "Props/Crate_01", position = new Vector3(-1.25f, 0f, 2.3f), yaw = 18f, scale = 0.67f, mirror = true,
                 stack = new[]
                 {
-                    new Piece { prefab = "Props/Crate_01", position = new Vector3(0.05f, 0.43f, -0.08f), yaw = -12f, scale = 0.57f },
-                    new Piece { prefab = "Props/Crate_01", position = new Vector3(-0.02f, 0.86f, 0.1f), yaw = 7f, scale = 0.57f },
+                    new Piece { prefab = "Props/Crate_01", position = new Vector3(0.05f, 0.5f, -0.08f), yaw = -12f, scale = 0.67f },
+                    new Piece { prefab = "Props/Crate_01", position = new Vector3(-0.02f, 1.0f, 0.1f), yaw = 7f, scale = 0.67f },
                 } },
             // Low pipe runs you crouch behind.
-            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-0.75f, 0f, -0.9f), yaw = 10f, scale = 0.40f, mirror = true },
+            new Piece { name = "Pipe bundle", prefab = "Stuff/Pipes_01", position = new Vector3(-1.2f, 0f, -0.8f), yaw = 10f, scale = 0.44f, heightMultiplier = 2f, mirror = true },
             // See-through railings on the north and south edges of the lane.
             new Piece { name = "Railing north", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, 3.0f), yaw = 90f, scale = 0.65f },
             new Piece { name = "Railing south", prefab = "Fences/Fence_Short_01", position = new Vector3(MirrorX, 0f, -1.6f), yaw = 90f, scale = 0.65f },
             // Consoles behind each start pad, angled to open peeking lanes.
-            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-1.7f, 0f, -1.3f), yaw = 35f, scale = 0.42f, mirror = true },
+            new Piece { name = "Console", prefab = "Walls/Wall_Table_01", position = new Vector3(-1.9f, 0f, -1.45f), yaw = 35f, scale = 0.47f, heightMultiplier = 1.6f, mirror = true },
             // Raised deck plates in the far corners for height variety.
-            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.7f, 0f, 2.75f), yaw = 0f, scale = 0.23f, mirror = true },
+            new Piece { name = "Deck plate", prefab = "Stairways/Stairway_Plateform_01", position = new Vector3(-1.8f, 0.28f, 2.8f), yaw = 0f, scale = 0.26f, mirror = true },
         };
 
         int count = 0;
@@ -78,7 +77,7 @@ public static class ArenaLayoutBuilder
         var root = new GameObject("Obstacle " + piece.name + (mirrored ? " B" : piece.mirror ? " A" : ""));
         Undo.RegisterCreatedObjectUndo(root, "Obstacle");
         root.transform.SetParent(cover, false);
-        root.transform.position = new Vector3(position.x, cover.parent.position.y, position.z);
+        root.transform.position = new Vector3(position.x, cover.parent.position.y + position.y, position.z);
         root.transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         root.transform.localScale = Vector3.one;
         // Cover parent is non-uniformly scaled; keep obstacles at true world scale.
@@ -108,7 +107,7 @@ public static class ArenaLayoutBuilder
         if (prefab == null) { Debug.LogWarning("Missing kit prefab " + piece.prefab); return; }
         var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, root);
         instance.transform.localRotation = Quaternion.Euler(0f, yaw, 0f);
-        instance.transform.localScale = Vector3.one * piece.scale;
+        instance.transform.localScale = new Vector3(piece.scale, piece.scale * Mathf.Max(1f, piece.heightMultiplier), piece.scale);
         foreach (Collider collider in instance.GetComponentsInChildren<Collider>()) Object.DestroyImmediate(collider);
         // Sit the part on the floor (plus offset) centred on the obstacle root.
         instance.transform.localPosition = Vector3.zero;

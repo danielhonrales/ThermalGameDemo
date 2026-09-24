@@ -63,6 +63,12 @@ public sealed class LeftHandCalibratePose : MonoBehaviour
     [ContextMenu("Calibrate Arena And Player")]
     public void CalibrateArenaAndPlayer()
     {
+        FusionRoundDirector round = FusionRoundDirector.Active();
+        if (round != null && round.IsFighting)
+        {
+            Debug.Log("Arena calibration is available between rounds.", this);
+            return;
+        }
         if (arenaPlacementManager == null)
         {
             arenaPlacementManager = FindFirstObjectByType<NetworkArenaPlacementManager>();

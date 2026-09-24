@@ -181,6 +181,16 @@ public static class DemoRegressionChecks
             Vector3 rotatedElbow = HandPoseRouter.EstimateElbow(yaw * head + translated, yaw, yaw * wrist + translated);
             if (Vector3.Distance(rotatedElbow, yaw * elbow + translated) > 0.001f)
                 throw new Exception("Arm estimate changes under arena yaw/translation.");
+            Vector3 cuffAtLimit = HandPoseRouter.ForearmDirection(head, Quaternion.identity,
+                new Vector3(0.1f, 1.1f, 0.35f)).normalized;
+            Vector3 cuffAcrossChest = HandPoseRouter.ForearmDirection(head, Quaternion.identity,
+                new Vector3(-0.2f, 1.1f, 0.35f)).normalized;
+            if (Vector3.Dot(cuffAtLimit, cuffAcrossChest) < 0.999f)
+                throw new Exception("Forearm cuff swivels further inward after the wrist crosses the chest.");
+            Vector3 outwardWrist = new Vector3(0.3f, 1.1f, 0.35f);
+            Vector3 normalCuff = HandPoseRouter.ForearmDirection(head, Quaternion.identity, outwardWrist);
+            if (Vector3.Distance(normalCuff, outwardWrist - elbow) > 0.001f)
+                throw new Exception("Forearm cuff changed the normal right-hand pose.");
             Mesh shield = (Mesh)typeof(ForearmShieldEffects).Assembly.GetType("CombatVfxStyle")
                 .GetMethod("CreateHexField", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { 0.31f });
             foreach (Color color in shield.colors)

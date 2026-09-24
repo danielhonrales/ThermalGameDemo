@@ -27,16 +27,12 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private static readonly Slot[] Layout =
     {
         new Slot { position = new Vector3(MirrorX, 0f, 0.71f), yaw = 0f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-0.65f, 0f, 2.25f), yaw = 20f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(1.2f, 0f, 2.25f), yaw = -20f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(-0.8f, 0f, -0.8f), yaw = -30f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(1.35f, 0f, -0.8f), yaw = 30f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(MirrorX, 0f, 3.0f), yaw = 90f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(MirrorX, 0f, -1.6f), yaw = 90f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(-1.75f, 0f, -1.45f), yaw = 60f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(2.3f, 0f, -1.45f), yaw = -60f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-1.75f, 0f, 2.8f), yaw = 10f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(2.3f, 0f, 2.8f), yaw = -10f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(-1.25f, 0f, 2.35f), yaw = 25f, kind = CoverKind.Metal },
+        new Slot { position = new Vector3(1.8f, 0f, 2.35f), yaw = -25f, kind = CoverKind.Metal },
+        new Slot { position = new Vector3(-1.2f, 0f, -0.95f), yaw = -25f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(1.75f, 0f, -0.95f), yaw = 25f, kind = CoverKind.Concrete },
+        new Slot { position = new Vector3(-1.9f, 0f, 0.7f), yaw = 65f, kind = CoverKind.BurningCrate },
+        new Slot { position = new Vector3(2.45f, 0f, 0.7f), yaw = -65f, kind = CoverKind.BurningCrate },
     };
 
     private sealed class Cluster
@@ -56,6 +52,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private readonly List<float> coverLandedAt = new List<float>();
     private readonly List<GameObject> coverFires = new List<GameObject>();
     private Transform gameplayRoot;
+    private Transform arenaFrame;
     private float floorY;
     private Vector3 centre;
     private Bounds arenaBounds;
@@ -105,20 +102,20 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         built = true;
         block = new MaterialPropertyBlock();
         lineMaterial = CombatVfxStyle.CreateMaterial("Sudden death lines", Color.white);
-        Transform arena = GameObject.Find("ArenaRoot")?.transform;
+        arenaFrame = GameObject.Find("ArenaRoot")?.transform;
         gameplayRoot = GameObject.Find("ArenaRoot/GameplayRoot")?.transform;
         Transform cover = GameObject.Find("ArenaRoot/GameplayRoot/GameplayCover")?.transform;
         Transform ceiling = GameObject.Find("ArenaRoot/Environment/VirtualCeiloingAlwaysVisible")?.transform;
 
         // Calibration places the floor at the arena root height.
-        floorY = arena != null ? arena.position.y : 0f;
+        floorY = arenaFrame != null ? arenaFrame.position.y : 0f;
         // Centred under the 5 x 5 m virtual ceiling.
-        centre = new Vector3(MirrorX, floorY, 0.71f);
-        arenaBounds = new Bounds(centre, new Vector3(5.4f, 0.1f, 5.4f));
+        centre = ArenaPoint(new Vector3(MirrorX, 0f, 0.71f));
+        arenaBounds = new Bounds(new Vector3(MirrorX, 0f, 0.71f), new Vector3(5.4f, 0.1f, 5.4f));
 
         // Legacy built-in particle shaders don't render in URP (they show as white domes).
-        if (arena != null)
-            foreach (ParticleSystemRenderer legacy in arena.GetComponentsInChildren<ParticleSystemRenderer>(true))
+        if (arenaFrame != null)
+            foreach (ParticleSystemRenderer legacy in arenaFrame.GetComponentsInChildren<ParticleSystemRenderer>(true))
                 if (legacy.sharedMaterial != null && legacy.sharedMaterial.shader.name.StartsWith("Legacy"))
                     legacy.enabled = false;
 
@@ -137,6 +134,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         ambient = RenderSettings.ambientLight;
         passthrough = FindFirstObjectByType<OVRPassthroughLayer>();
     }
+
+    private Vector3 ArenaPoint(Vector3 local) => arenaFrame != null ? arenaFrame.TransformPoint(local) : local;
 
     private void AddGraded(Transform root)
     {
@@ -205,7 +204,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     {
         var floor = new GameObject("Sudden death floor collider");
         floor.transform.SetParent(transform, false);
-        floor.transform.position = new Vector3(centre.x, floorY - 0.05f, centre.z);
+        floor.transform.position = centre - Vector3.up * 0.05f;
+        floor.transform.rotation = arenaFrame != null ? arenaFrame.rotation : Quaternion.identity;
         floor.AddComponent<BoxCollider>().size = new Vector3(16f, 0.1f, 16f);
     }
 
@@ -225,9 +225,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             Vector3 topLocal = piece.transform.InverseTransformPoint(new Vector3(upright.center.x, upright.max.y, upright.center.z));
             bool alongZ = upright.size.z >= upright.size.x;
             float length = Mathf.Max(upright.size.x, upright.size.z) * 0.9f;
-            piece.transform.rotation = Quaternion.Euler(0f, slot.yaw, 0f);
+            piece.transform.rotation = (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(0f, slot.yaw, 0f);
             Bounds b = RenderBounds(piece);
-            Vector3 target = new Vector3(slot.position.x, floorY, slot.position.z);
+            Vector3 target = ArenaPoint(slot.position) + Vector3.up * 0.03f;
             piece.transform.position += target - new Vector3(b.center.x, b.min.y, b.center.z);
             b = RenderBounds(piece);
             if (piece.GetComponentInChildren<Collider>() == null)
@@ -270,9 +270,16 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         GameObject piece = prefab != null ? Instantiate(prefab) : GameObject.CreatePrimitive(PrimitiveType.Cube);
         if (kind != CoverKind.BurningCrate && fx != null && fx.barrier != null)
             foreach (Renderer r in piece.GetComponentsInChildren<Renderer>()) r.sharedMaterial = fx.barrier;
-        // Concrete stays crouch-high (~1 m) so it never reads as a wall.
+        // Wide, shoulder-height surfaces make the new cover useful for hiding.
         if (kind == CoverKind.Concrete) piece.transform.localScale *= 0.78f;
         if (kind == CoverKind.BurningCrate) piece.transform.localScale *= 0.5f;
+        if (kind != CoverKind.BurningCrate)
+        {
+            piece.transform.localScale = Vector3.Scale(piece.transform.localScale, new Vector3(1.15f, 1f, 1.15f));
+            float height = RenderBounds(piece).size.y;
+            if (height > 0.01f) piece.transform.localScale = Vector3.Scale(piece.transform.localScale,
+                new Vector3(1f, Mathf.Max(1f, 1.15f / height), 1f));
+        }
         return piece;
     }
 
@@ -294,7 +301,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         // VR floor overlay: charred sci-fi deck plating with molten seams. Erupts at sudden death.
         hellFloor = new GameObject("Hell floor");
         hellFloor.transform.SetParent(transform, false);
-        hellFloor.transform.position = new Vector3(centre.x, floorY + 0.004f, centre.z);
+        hellFloor.transform.position = centre + Vector3.up * 0.004f;
         if (fx != null && fx.floorTileMesh != null)
         {
             hellFloor.AddComponent<MeshFilter>().sharedMesh = fx.floorTileMesh;
@@ -304,7 +311,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             Bounds mb = fx.floorTileMesh.bounds;
             // The kit tile lies in its XY plane facing +Z with a corner pivot; lay it face-up.
             bool flatXY = mb.size.z < mb.size.y;
-            hellFloor.transform.rotation = flatXY ? Quaternion.Euler(-90f, 0f, 0f) : Quaternion.identity;
+            hellFloor.transform.rotation = (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity)
+                * (flatXY ? Quaternion.Euler(-90f, 0f, 0f) : Quaternion.identity);
         }
         hellFloor.SetActive(false);
         eruptionRing = CombatVfxStyle.CreateLine(transform, "Eruption ring", lineMaterial, true, 0.12f);
@@ -313,25 +321,29 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         // Fires line the arena edge (outside the play lanes), smoke rolls in from the sides.
         firePoints.AddRange(new[]
         {
-            new Vector3(minX, floorY, minZ), new Vector3(maxX, floorY, minZ), new Vector3(maxX, floorY, maxZ), new Vector3(minX, floorY, maxZ),
-            new Vector3(centre.x, floorY, minZ - 0.1f), new Vector3(centre.x, floorY, maxZ + 0.1f),
+            ArenaPoint(new Vector3(minX, 0f, minZ)), ArenaPoint(new Vector3(maxX, 0f, minZ)),
+            ArenaPoint(new Vector3(maxX, 0f, maxZ)), ArenaPoint(new Vector3(minX, 0f, maxZ)),
+            ArenaPoint(new Vector3(MirrorX, 0f, minZ - 0.1f)), ArenaPoint(new Vector3(MirrorX, 0f, maxZ + 0.1f)),
         });
         smokePoints.AddRange(new[]
         {
-            new Vector3(minX + 0.4f, floorY, centre.z), new Vector3(maxX - 0.4f, floorY, centre.z),
-            new Vector3(centre.x, floorY, minZ + 0.4f), new Vector3(centre.x, floorY, maxZ - 0.4f),
+            ArenaPoint(new Vector3(minX + 0.4f, 0f, 0.71f)), ArenaPoint(new Vector3(maxX - 0.4f, 0f, 0.71f)),
+            ArenaPoint(new Vector3(MirrorX, 0f, minZ + 0.4f)), ArenaPoint(new Vector3(MirrorX, 0f, maxZ - 0.4f)),
         });
-        float ceilingY = floorY + 3.3f;
+        const float ceilingHeight = 3.3f;
         sparkPoints.AddRange(new[]
         {
-            new Vector3(minX + 1.1f, ceilingY, minZ + 1.2f), new Vector3(maxX - 1.1f, ceilingY, maxZ - 1.2f),
+            ArenaPoint(new Vector3(minX + 1.1f, ceilingHeight, minZ + 1.2f)),
+            ArenaPoint(new Vector3(maxX - 1.1f, ceilingHeight, maxZ - 1.2f)),
         });
 
         // Rotating siren beacons hang from the virtual ceiling corners.
         foreach (Vector3 corner in new[]
         {
-            new Vector3(minX + 0.5f, ceilingY, minZ + 0.5f), new Vector3(maxX - 0.5f, ceilingY, minZ + 0.5f),
-            new Vector3(maxX - 0.5f, ceilingY, maxZ - 0.5f), new Vector3(minX + 0.5f, ceilingY, maxZ - 0.5f)
+            ArenaPoint(new Vector3(minX + 0.5f, ceilingHeight, minZ + 0.5f)),
+            ArenaPoint(new Vector3(maxX - 0.5f, ceilingHeight, minZ + 0.5f)),
+            ArenaPoint(new Vector3(maxX - 0.5f, ceilingHeight, maxZ - 0.5f)),
+            ArenaPoint(new Vector3(minX + 0.5f, ceilingHeight, maxZ - 0.5f))
         })
         {
             LineRenderer sweep = CombatVfxStyle.CreateLine(transform, "Beacon sweep", lineMaterial, true, 0.4f);
@@ -344,7 +356,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         // Dense rising embers and ash across the whole arena.
         var emberObject = new GameObject("Embers");
         emberObject.transform.SetParent(transform, false);
-        emberObject.transform.position = new Vector3(centre.x, floorY + 0.1f, centre.z);
+        emberObject.transform.position = centre + Vector3.up * 0.1f;
+        emberObject.transform.rotation = arenaFrame != null ? arenaFrame.rotation : Quaternion.identity;
         embers = emberObject.AddComponent<ParticleSystem>();
         embers.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         var main = embers.main;
@@ -398,9 +411,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         boundary.positionCount = 5;
         boundary.SetPositions(new[]
         {
-            new Vector3(minX, floorY + 0.01f, minZ), new Vector3(maxX, floorY + 0.01f, minZ),
-            new Vector3(maxX, floorY + 0.01f, maxZ), new Vector3(minX, floorY + 0.01f, maxZ),
-            new Vector3(minX, floorY + 0.01f, minZ)
+            ArenaPoint(new Vector3(minX, 0.01f, minZ)), ArenaPoint(new Vector3(maxX, 0.01f, minZ)),
+            ArenaPoint(new Vector3(maxX, 0.01f, maxZ)), ArenaPoint(new Vector3(minX, 0.01f, maxZ)),
+            ArenaPoint(new Vector3(minX, 0.01f, minZ))
         });
 
         siren = Loop(SynthAudio.Siren());
@@ -494,13 +507,18 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     /// <summary>Advances the presentation from the shared match clock (also used by the editor preview).</summary>
     public void Drive(FusionRoundDirector.RoundPhase phase, float clock, int droneDownMask)
     {
-        Build();
         bool fighting = phase == FusionRoundDirector.RoundPhase.Fighting;
+        if (!built && !fighting) return;
+        Build();
         if (!fighting)
         {
             // Keep the sudden-death look through the result screen, reset for the next round.
             if (phase == FusionRoundDirector.RoundPhase.Result) { Atmosphere(intensity, 0f); return; }
-            if (swapping || intensity > 0f) ResetArena();
+            if (swapping || intensity > 0f)
+            {
+                ResetArena();
+                Destroy(gameObject); // A new round captures the arena's next calibrated world pose.
+            }
             return;
         }
 
@@ -686,7 +704,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
                 hellFloor.transform.localScale = Vector3.one * scale;
                 // Keep the tile centred on the arena as it grows (mesh pivot is at a corner).
                 Vector3 meshCentre = hellFloor.GetComponent<MeshFilter>().sharedMesh.bounds.center;
-                hellFloor.transform.position = new Vector3(centre.x, floorY + 0.004f, centre.z)
+                hellFloor.transform.position = centre + Vector3.up * 0.004f
                     - hellFloor.transform.rotation * (meshCentre * scale);
                 hellFloorRenderer.GetPropertyBlock(block);
                 float surge = Mathf.Exp(-(Time.time - eruptedAt) * 2.5f);
@@ -830,6 +848,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private void OnDestroy()
     {
         if (built) Atmosphere(0f, -999f);
+        foreach (GameObject piece in newCover) if (piece != null) Destroy(piece);
         if (lineMaterial != null) Destroy(lineMaterial);
         if (emberMaterial != null) Destroy(emberMaterial);
         redLut?.Dispose();

@@ -25,12 +25,14 @@ public sealed class CoverDrone : MonoBehaviour
     private Job job;
     private float startAt;
     private Vector3 entry, hover, low, exit;
+    private Quaternion flightRotation;
     private Transform cargo;
     private Vector3 cargoOffset;
     private bool cargoAttached, cargoReleased;
     private System.Action<CoverDrone> onRelease;
     private Vector3 deliveryRest;
     private Quaternion deliveryRotation = Quaternion.identity;
+    private Quaternion cargoRotation = Quaternion.identity;
 
     private Transform model;
     private Transform clawLeft, clawRight;
@@ -63,16 +65,25 @@ public sealed class CoverDrone : MonoBehaviour
         drone.low = low;
         drone.exit = exit;
         drone.cargo = cargo;
+        drone.cargoRotation = cargo != null ? cargo.rotation : Quaternion.identity;
+        Vector3 heading = Vector3.ProjectOnPlane(hover - entry, Vector3.up);
+        drone.flightRotation = Quaternion.LookRotation(heading.sqrMagnitude > 0.0001f ? heading : Vector3.forward);
         drone.onRelease = onRelease;
         drone.seed = index * 1.618f;
         drone.Build();
         drone.transform.position = entry;
+        drone.transform.rotation = drone.flightRotation;
         drone.lastPosition = entry;
         go.SetActive(false);
         return drone;
     }
 
-    public void SetDeliveryPose(Vector3 rest, Quaternion rotation) { deliveryRest = rest; deliveryRotation = rotation; }
+    public void SetDeliveryPose(Vector3 rest, Quaternion rotation)
+    {
+        deliveryRest = rest;
+        deliveryRotation = rotation;
+        cargoRotation = rotation;
+    }
 
     // ---------------- Model ----------------
 
@@ -211,19 +222,13 @@ public sealed class CoverDrone : MonoBehaviour
         if (!whooshedOut && t > GrabEnd) { whooshedOut = true; SynthAudio.PlayAt(SynthAudio.Whoosh(), transform.position, 0.7f, 1.35f); }
 
         Vector3 position = Pose(t);
-        float dt = Mathf.Max(Time.deltaTime, 0.0001f);
-        velocity = (position - lastPosition) / dt;
+        velocity = (position - lastPosition) / Mathf.Max(Time.deltaTime, 0.0001f);
         lastPosition = position;
         body.MovePosition(position);
         transform.position = position;
 
-        // Face travel when moving fast, face inward while working; nose dips and banks with speed.
-        Vector3 flat = new Vector3(velocity.x, 0f, velocity.z);
-        Vector3 look = flat.sqrMagnitude > 0.5f ? flat : new Vector3(hover.x - entry.x, 0f, hover.z - entry.z);
-        Quaternion yaw = Quaternion.LookRotation(look.sqrMagnitude > 0.0001f ? look : Vector3.forward);
-        Quaternion pitch = Quaternion.Euler(Mathf.Clamp(flat.magnitude * 2.5f, 0f, 18f), 0f, 0f);
-        Quaternion wobble = Quaternion.Euler(Mathf.Sin(Time.time * 3.1f + seed) * 2f, 0f, Mathf.Sin(Time.time * 2.3f + seed) * 3f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, yaw * pitch * wobble, 1f - Mathf.Exp(-dt * 10f));
+        // Hold the nose at its world-space approach bearing throughout the flight.
+        transform.rotation = flightRotation;
 
         AnimateParts(t);
         UpdateCargo(t);
@@ -312,9 +317,6 @@ public sealed class CoverDrone : MonoBehaviour
             }
             if (!cargoAttached)
             {
-                // Magnetic rattle while the claw locks on.
-                float shake = Mathf.Clamp01((t - Arrive + 0.2f) / 0.2f) * 0.015f;
-                cargo.localPosition += Random.insideUnitSphere * shake * 0.3f;
                 return;
             }
         }
@@ -329,14 +331,8 @@ public sealed class CoverDrone : MonoBehaviour
             Release(false);
             return;
         }
-        // Cargo swings with the drone's motion and shakes with the engines.
-        Vector3 lag = -Vector3.ClampMagnitude(velocity, 6f) * 0.012f;
-        Vector3 jitter = Random.insideUnitSphere * 0.008f;
         Vector3 anchor = job == Job.Pickup ? transform.position + cargoOffset : transform.position + (deliveryRest - low);
-        Quaternion baseRotation = job == Job.Delivery ? deliveryRotation : cargo.rotation;
-        cargo.position = anchor + lag + jitter;
-        cargo.rotation = Quaternion.Slerp(cargo.rotation,
-            baseRotation * Quaternion.Euler(lag.z * 300f, 0f, -lag.x * 300f), 0.4f);
+        cargo.SetPositionAndRotation(anchor, cargoRotation);
     }
 
     private void Release(bool falling)

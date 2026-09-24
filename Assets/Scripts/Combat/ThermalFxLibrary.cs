@@ -95,6 +95,19 @@ public sealed class ThermalFxLibrary : ScriptableObject
         {
             Material source = renderer.sharedMaterial;
             if (source == null || source.shader == null) continue;
+            if (source.name == "MuzzleFlash")
+            {
+                // The imported flash is an RGB image with a black background, not real alpha.
+                // Use the existing soft RGBA dot so the burst blends over passthrough on Quest.
+                if (!unlitCache.TryGetValue(source, out Material flash) || flash == null)
+                {
+                    flash = CombatVfxStyle.CreateMaterial("Muzzle flash alpha", new Color(1f, 0.55f, 0.2f, 1f));
+                    flash.mainTexture = HudSprites.Dot().texture;
+                    unlitCache[source] = flash;
+                }
+                renderer.sharedMaterial = flash;
+                continue;
+            }
             // These imported explosion smoke sheets contain dark RGB that appears as a black
             // rectangle on Quest. Keep the fire and sparks; omit only the two smoke materials.
             if (source.name == "SmokeDark" || source.name == "Smoke26")

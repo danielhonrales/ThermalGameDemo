@@ -71,9 +71,8 @@ public sealed class HandPoseRouter : MonoBehaviour
         Vector3 normal = Vector3.Cross(index.position - pinky.position, along).normalized;
         // Hand tracking supplies no OpenXR elbow. Use a short wrist cuff aligned toward
         // a two-bone arm estimate, independent of projectile elevation or wrist flexion.
-        Vector3 elbow = head != null ? EstimateElbow(head.position, head.rotation, position)
-            : position - along.normalized * 0.24f;
-        Vector3 forward = position - elbow;
+        Vector3 forward = head != null ? ForearmDirection(head.position, head.rotation, position)
+            : along.normalized * 0.24f;
         if (forward.sqrMagnitude < 0.0001f) forward = along;
         if (Vector3.Cross(forward, normal).sqrMagnitude < 0.0001f) normal = Vector3.up;
         rotation = Quaternion.LookRotation(forward, normal);
@@ -95,6 +94,18 @@ public sealed class HandPoseRouter : MonoBehaviour
         float bend = Mathf.Sqrt(Mathf.Max(0f, upper * upper - along * along));
         Vector3 pole = Vector3.ProjectOnPlane(-Vector3.up + right * 0.35f, axis).normalized;
         return shoulder + axis * along + pole * bend;
+    }
+
+    public static Vector3 ForearmDirection(Vector3 head, Quaternion headRotation, Vector3 wrist)
+    {
+        Vector3 forward = Vector3.ProjectOnPlane(headRotation * Vector3.forward, Vector3.up).normalized;
+        if (forward.sqrMagnitude < 0.1f) forward = Vector3.forward;
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 shoulder = head + right * 0.18f - Vector3.up * 0.22f;
+        float inward = Vector3.Dot(wrist - shoulder, right);
+        // When the right hand crosses the chest, limit the visual cuff's inward swivel.
+        Vector3 solveWrist = wrist + right * Mathf.Max(0f, -0.08f - inward);
+        return solveWrist - EstimateElbow(head, headRotation, solveWrist);
     }
 
     private void Awake() => FindReferences();
