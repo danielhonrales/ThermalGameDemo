@@ -7,7 +7,7 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
 {
     public const int Count = 4;
     public const float FirstSeconds = 10f;
-    private const float AddEverySeconds = 15f;
+    private static readonly float[] StartSeconds = { FirstSeconds, 32f, 45f, 55f };
     private const float HalfArena = 2.7f;
     private const float SweepSpeed = 0.52f;
     private const float HitWidth = 0.15f;
@@ -18,7 +18,7 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
     private Material material;
     private AudioSource proximityHum;
 
-    public static float StartsAt(int index) => FirstSeconds + index * AddEverySeconds;
+    public static float StartsAt(int index) => StartSeconds[index];
 
     public static bool TryGetBeam(int index, float elapsed, out Vector3 from, out Vector3 to)
     {
@@ -87,9 +87,11 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
         for (int i = 0; i < Count; i++)
         {
             Vector3 from = Vector3.zero, to = Vector3.zero;
-            bool visible = fighting && TryGetBeam(i, elapsed, out from, out to);
-            glows[i].enabled = cores[i].enabled = visible;
-            if (!visible) continue;
+            bool active = fighting && TryGetBeam(i, elapsed, out from, out to);
+            bool preview = fighting && !active && StartsAt(i) - elapsed <= 2f
+                && TryGetBeam(i, StartsAt(i), out from, out to);
+            glows[i].enabled = cores[i].enabled = active || preview;
+            if (!active && !preview) continue;
             Vector3 worldFrom = NetworkPlayerAlignment.HasCalibration
                 ? NetworkPlayerAlignment.TransformPoint(from) : from;
             Vector3 worldTo = NetworkPlayerAlignment.HasCalibration
@@ -99,11 +101,13 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
             cores[i].SetPosition(0, worldFrom);
             cores[i].SetPosition(1, worldTo);
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 15f + i * 1.7f);
-            glows[i].widthMultiplier = 0.09f * (0.9f + 0.1f * pulse);
-            cores[i].widthMultiplier = 0.024f * (0.94f + 0.06f * pulse);
-            glows[i].startColor = glows[i].endColor = new Color(1f, 0.08f, 0.02f, 0.23f + 0.13f * pulse);
-            cores[i].startColor = cores[i].endColor = new Color(1f, 0.74f + 0.16f * pulse, 0.57f, 1f);
-            if (hasHead)
+            glows[i].widthMultiplier = preview ? 0.045f : 0.09f * (0.9f + 0.1f * pulse);
+            cores[i].widthMultiplier = preview ? 0.012f : 0.024f * (0.94f + 0.06f * pulse);
+            glows[i].startColor = glows[i].endColor = preview
+                ? new Color(1f, 0.45f, 0.08f, 0.12f) : new Color(1f, 0.08f, 0.02f, 0.23f + 0.13f * pulse);
+            cores[i].startColor = cores[i].endColor = preview
+                ? new Color(1f, 0.65f, 0.2f, 0.35f) : new Color(1f, 0.74f + 0.16f * pulse, 0.57f, 1f);
+            if (hasHead && active)
             {
                 Vector2 a = new Vector2(from.x, from.z);
                 Vector2 b = new Vector2(to.x, to.z);

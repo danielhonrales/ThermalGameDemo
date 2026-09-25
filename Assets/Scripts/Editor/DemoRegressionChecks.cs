@@ -33,19 +33,23 @@ public static class DemoRegressionChecks
     public static void RunLaserCheck()
     {
         if (ArenaLaserSweepView.TryGetBeam(0, 9.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(1, 24.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(1, 31.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(2, 44.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(3, 54.99f, out _, out _)
             || !ArenaLaserSweepView.TryGetBeam(0, 10f, out Vector3 highFrom, out Vector3 highTo)
-            || !ArenaLaserSweepView.TryGetBeam(1, 25f, out Vector3 crossFrom, out Vector3 crossTo))
+            || !ArenaLaserSweepView.TryGetBeam(1, 32f, out Vector3 crossFrom, out Vector3 crossTo)
+            || !ArenaLaserSweepView.TryGetBeam(2, 45f, out _, out _)
+            || !ArenaLaserSweepView.TryGetBeam(3, 55f, out _, out _))
             throw new Exception("Laser activation times are wrong.");
         if (Mathf.Abs(highFrom.x - highTo.x) > 0.001f || Mathf.Abs(crossFrom.z - crossTo.z) > 0.001f
             || highFrom.y < 1.3f || crossFrom.y < 1.3f)
             throw new Exception("Laser axes or heights are wrong.");
         if (!ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.65f, 0.71f))
             || ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.1f, 0.71f))
-            || !ArenaLaserSweepView.Hits(1, 25f, new Vector3(0.275f, 1.65f, crossFrom.z))
-            || ArenaLaserSweepView.Hits(1, 25f, new Vector3(0.275f, 1.1f, crossFrom.z)))
+            || !ArenaLaserSweepView.Hits(1, 32f, new Vector3(0.275f, 1.65f, crossFrom.z))
+            || ArenaLaserSweepView.Hits(1, 32f, new Vector3(0.275f, 1.1f, crossFrom.z)))
             throw new Exception("Head-height duck laser checks are wrong.");
-        Debug.Log("LASER PASSED: 10/25 second arrivals, alternating axes, duckable head-height beams.");
+        Debug.Log("LASER PASSED: 10/32/45/55 second arrivals, alternating axes, duckable head-height beams.");
     }
 
     public static void RunSoloCheck()
