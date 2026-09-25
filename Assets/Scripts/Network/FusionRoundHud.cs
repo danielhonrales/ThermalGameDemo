@@ -43,7 +43,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private string bannerKey = "";
     private float bannerShownAt;
     private float fightStartedAt = -10f;
-    private int lastCountdownNumber = -1, lastFinalSecond = -1, lastHealState = -1, lastPhase = -1;
+    private int lastCountdownNumber = -1, lastHealState = -1, lastPhase = -1;
     private NetworkPlayerHealth localHealth, opponentHealth;
     private Quaternion smoothedRotation = Quaternion.identity;
     private float roundLength = 60f, suddenDeathAt = 40f;
@@ -213,7 +213,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                     : "WAITING FOR OPPONENT TO ALIGN";
                 SetTimeline(0f);
                 ShowBanner("waiting", "", "", Color.white, 0f);
-                lastCountdownNumber = lastFinalSecond = lastHealState = -1;
+                lastCountdownNumber = lastHealState = -1;
                 break;
 
             case FusionRoundDirector.RoundPhase.Countdown:
@@ -234,11 +234,13 @@ public sealed class FusionRoundHud : MonoBehaviour
             case FusionRoundDirector.RoundPhase.Fighting:
             {
                 float elapsed = round.FightElapsed;
-                int seconds = Mathf.CeilToInt(remaining);
                 timer.text = Clock(remaining);
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
+                else if (elapsed >= ArenaLaserSweepView.FirstSeconds - 2.5f
+                    && elapsed < ArenaLaserSweepView.FirstSeconds + 1.5f)
+                    ShowBanner("laserwarning", "WATCH OUT FOR LASERS", "DUCK UNDER THE BEAM", Warn, 1f);
                 else if (arena >= -5f && arena < 0f)
                 {
                     int left = Mathf.CeilToInt(-arena);
@@ -254,14 +256,9 @@ public sealed class FusionRoundHud : MonoBehaviour
                     ? Color.Lerp(Warn, Color.white, 0.25f * beat) : Soft;
                 if (arena >= -5f && arena < 4f || sd >= 0f)
                 {
-                    float pulse = arena < 0f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 10f) : beat;
+                    float pulse = arena < 0f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 5f) : beat;
                     timer.color = Color.Lerp(Color.white, Warn, 0.35f + 0.65f * pulse);
-                    clock.localScale = Vector3.one * (1f + 0.06f * pulse);
-                }
-                if (seconds <= 10 && seconds != lastFinalSecond)
-                {
-                    lastFinalSecond = seconds;
-                    SynthAudio.Play2D(SynthAudio.CountBeat(), 0.9f, seconds <= 3 ? 1.25f : 1f);
+                    clock.localScale = Vector3.one * (1f + 0.03f * pulse);
                 }
                 UpdateHealToasts(round);
                 break;
@@ -279,7 +276,6 @@ public sealed class FusionRoundHud : MonoBehaviour
                 ShowBanner(round.SoloOverride ? "soloresult" : draw ? "draw" : won ? "win" : "lose",
                     round.SoloOverride ? won ? "SURVIVED" : "TRY AGAIN" : draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
                     "NEXT ROUND IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, 1f);
-                lastFinalSecond = -1;
                 break;
             }
         }
@@ -351,13 +347,11 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerText.text = title;
                 bannerCaption.text = caption;
                 bannerText.color = color;
-                bannerText.fontSize = title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
+                bannerText.fontSize = key == "laserwarning" ? 110f : title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
                 bool danger = color == Warn || color == Enemy;
                 bannerStripes.parent.gameObject.SetActive(danger);
                 bannerBand.color = HudKit.A(color, danger ? 0.22f : 0.12f);
-                if (key == "suddendeath") SynthAudio.Play2D(SynthAudio.Stinger(), 1f);
                 if (key == "fight") SynthAudio.Play2D(SynthAudio.Clunk(), 0.9f, 0.8f);
-                if (key.StartsWith("arenawarn")) SynthAudio.Play2D(SynthAudio.CountBeat(), 0.8f, 0.9f);
             }
         }
         bannerTarget = targetAlpha;
@@ -369,20 +363,19 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         float age = Time.time - bannerShownAt;
         float targetAlpha = bannerTarget;
-        if (bannerKey.StartsWith("arenawarn") || bannerKey == "arenachange")
+        if (bannerKey.StartsWith("arenawarn") || bannerKey == "arenachange" || bannerKey == "laserwarning")
         {
-            float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 11f);
-            targetAlpha *= 0.65f + 0.35f * pulse;
-            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.4f);
-            bannerBand.color = HudKit.A(Warn, 0.12f + 0.2f * pulse);
+            float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 5f);
+            targetAlpha *= 0.8f + 0.2f * pulse;
+            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.2f);
+            bannerBand.color = HudKit.A(Warn, 0.1f + 0.12f * pulse);
         }
         bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, targetAlpha, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
         // Slam in: overshoot scale, then settle; digits punch once per second.
         float slam = 1f + 0.6f * Mathf.Exp(-age * 9f) * Mathf.Cos(age * 18f);
         bannerText.rectTransform.localScale = Vector3.one * slam;
         bannerFlash.color = new Color(1f, 1f, 1f, 0.5f * Mathf.Exp(-age * 7f) * bannerGroup.alpha);
-        float shake = bannerKey == "suddendeath" ? 14f * Mathf.Exp(-age * 3f) : 0f;
-        banner.anchoredPosition = new Vector2(Random.Range(-shake, shake), Random.Range(-shake, shake));
+        banner.anchoredPosition = Vector2.zero;
         bannerStripes.anchoredPosition = new Vector2(Mathf.Repeat(Time.time * 60f, 64f) - 32f, 0f);
     }
 

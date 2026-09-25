@@ -14,7 +14,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 {
     private const float WarningLead = 5f;
     public const float PickupStart = -15f;
-    public const float DeliveryStart = PickupStart + CoverDrone.GrabMid + 1f;
+    public const float DeliveryStart = PickupStart + CoverDrone.GrabMid / CoverDrone.PickupSpeed + 1f;
     private const float FloorOffset = -0.045f;
     private const float MirrorX = 0.275f;
 
@@ -75,15 +75,13 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private GameObject hellFloor;
     private Renderer hellFloorRenderer;
     private LineRenderer eruptionRing;
-    private readonly List<LineRenderer> beacons = new List<LineRenderer>();
-    private readonly List<Vector3> beaconPositions = new List<Vector3>();
     private readonly List<GameObject> hellFx = new List<GameObject>();
     private readonly List<Vector3> firePoints = new List<Vector3>();
     private readonly List<Vector3> sparkPoints = new List<Vector3>();
     private ParticleSystem embers, motes;
     private LineRenderer boundary;
     private Material lineMaterial, emberMaterial;
-    private AudioSource siren, heartbeat, fireLoop;
+    private AudioSource fireLoop;
 
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly int EmissionId = Shader.PropertyToID("_EmissionColor");
@@ -332,22 +330,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             ArenaPoint(new Vector3(maxX - 1.1f, ceilingHeight, maxZ - 1.2f)),
         });
 
-        // Rotating siren beacons hang from the virtual ceiling corners.
-        foreach (Vector3 corner in new[]
-        {
-            ArenaPoint(new Vector3(minX + 0.5f, ceilingHeight, minZ + 0.5f)),
-            ArenaPoint(new Vector3(maxX - 0.5f, ceilingHeight, minZ + 0.5f)),
-            ArenaPoint(new Vector3(maxX - 0.5f, ceilingHeight, maxZ - 0.5f)),
-            ArenaPoint(new Vector3(minX + 0.5f, ceilingHeight, maxZ - 0.5f))
-        })
-        {
-            LineRenderer sweep = CombatVfxStyle.CreateLine(transform, "Beacon sweep", lineMaterial, true, 0.4f);
-            sweep.positionCount = 2;
-            sweep.widthCurve = new AnimationCurve(new Keyframe(0f, 0.04f), new Keyframe(1f, 1f));
-            beacons.Add(sweep);
-            beaconPositions.Add(corner);
-        }
-
         // Dense rising embers and ash across the whole arena.
         var emberObject = new GameObject("Embers");
         emberObject.transform.SetParent(transform, false);
@@ -411,8 +393,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             ArenaPoint(new Vector3(minX, 0.01f, minZ))
         });
 
-        siren = Loop(SynthAudio.Siren());
-        heartbeat = Loop(SynthAudio.Heartbeat());
         fireLoop = Loop(SynthAudio.FireRoar());
     }
 
@@ -564,7 +544,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (!drone.IsDown)
         {
             ThermalFxLibrary.Spawn(fx?.metalSparks, foot + Vector3.up * 0.1f, 1f, 2f);
-            SynthAudio.PlayAt(SynthAudio.Clunk(), foot, 1f, 0.7f);
+            SynthAudio.PlayAt(SynthAudio.Clunk(), foot, 0.25f, 0.7f);
         }
         if (Layout[slot].kind == CoverKind.BurningCrate && fx != null)
         {
@@ -606,20 +586,20 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         bool active = amount > 0.001f;
         float hell = erupted ? Mathf.Clamp01((Time.time - eruptedAt) / 0.8f) * amount : 0f;
 
-        // Real world takes a red grade that breathes with the heartbeat.
-        ApplyPassthroughGrade(active ? amount * (0.6f + 0.12f * beat) : 0f);
+        // A light warm grade keeps the real room and players' colours legible.
+        ApplyPassthroughGrade(active ? amount * 0.22f : 0f);
         if (passthrough != null)
         {
             passthrough.edgeRenderingEnabled = hell > 0.3f;
-            passthrough.edgeColor = new Color(1f, 0.15f, 0.05f, 0.3f * hell * (0.6f + 0.4f * beat));
+            passthrough.edgeColor = new Color(1f, 0.35f, 0.1f, 0.12f * hell);
         }
 
         if (sun != null)
         {
-            sun.color = Color.Lerp(sunColor, new Color(1f, 0.28f, 0.12f), amount);
-            sun.intensity = Mathf.Lerp(sunIntensity, sunIntensity * (0.7f + 0.25f * beat), amount);
+            sun.color = Color.Lerp(sunColor, new Color(1f, 0.65f, 0.38f), amount * 0.5f);
+            sun.intensity = Mathf.Lerp(sunIntensity, sunIntensity * 0.9f, amount);
         }
-        RenderSettings.ambientLight = Color.Lerp(ambient, new Color(0.35f, 0.04f, 0.03f), amount);
+        RenderSettings.ambientLight = Color.Lerp(ambient, new Color(0.35f, 0.17f, 0.12f), amount * 0.45f);
 
         // Roof and existing cover scorch: darker, redder, with every light strip burning red.
         for (int i = 0; i < gradedRenderers.Count; i++)
@@ -629,10 +609,10 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             r.GetPropertyBlock(block);
             if (active)
             {
-                block.SetColor(BaseColorId, Color.Lerp(Color.white, new Color(0.5f, 0.2f, 0.17f), amount * 0.5f + hell * 0.5f));
+                block.SetColor(BaseColorId, Color.Lerp(Color.white, new Color(0.65f, 0.42f, 0.34f), amount * 0.35f + hell * 0.25f));
                 Color original = gradedEmission[i];
                 if (original.maxColorComponent > 0.01f)
-                    block.SetColor(EmissionId, Color.Lerp(original, Red * (3f + 2.5f * beat), amount));
+                    block.SetColor(EmissionId, Color.Lerp(original, Ember * (2f + beat), amount * 0.4f));
             }
             else block.Clear();
             r.SetPropertyBlock(block);
@@ -667,19 +647,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             eruptionRing.startColor = eruptionRing.endColor = CombatVfxStyle.WithAlpha(Color.Lerp(Color.white, Ember, ringAge * 2f), 1f - ringAge / 1.2f);
         }
 
-        for (int i = 0; i < beacons.Count; i++)
-        {
-            LineRenderer sweep = beacons[i];
-            sweep.enabled = active;
-            if (!active) continue;
-            float angle = Time.time * 240f + i * 90f;
-            Vector3 dir = Quaternion.Euler(0f, angle, 0f) * new Vector3(0f, -0.6f, 1f).normalized;
-            sweep.SetPosition(0, beaconPositions[i]);
-            sweep.SetPosition(1, beaconPositions[i] + dir * 2.2f);
-            sweep.startColor = CombatVfxStyle.WithAlpha(Color.Lerp(Red, Color.white, 0.3f), 0.22f * amount);
-            sweep.endColor = CombatVfxStyle.WithAlpha(Red, 0f);
-        }
-
         if (active && !embers.isPlaying) embers.Play();
         else if (!active && embers.isPlaying) embers.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         var emission = embers.emission;
@@ -694,12 +661,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             boundary.startColor = boundary.endColor = CombatVfxStyle.WithAlpha(edge, (0.18f + 0.12f * scan) * (1f - amount));
         }
 
-        siren.volume = clock < 0f ? Mathf.Clamp01(amount * 2f) * 0.3f : Mathf.MoveTowards(siren.volume, 0.04f, Time.deltaTime * 0.15f);
-        Toggle(siren, active);
-        heartbeat.volume = clock >= 0f ? 0.5f * amount : 0f;
-        heartbeat.pitch = 1.6f;
-        Toggle(heartbeat, clock >= 0f && active);
-        fireLoop.volume = 0.3f * hell;
+        fireLoop.volume = 0.15f * hell;
         Toggle(fireLoop, hell > 0f);
     }
 

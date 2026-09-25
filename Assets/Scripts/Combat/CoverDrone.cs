@@ -15,6 +15,7 @@ public sealed class CoverDrone : MonoBehaviour
     // Timeline (seconds from this drone's start): fast swoop in, quick grab, fast exit.
     public const float Arrive = 0.82f, GrabEnd = 1.24f, Gone = 2.03f;
     public const float GrabMid = (Arrive + GrabEnd) * 0.5f;
+    public const float PickupSpeed = 1.08f, DeliverySpeed = 1.35f;
 
     public int Index { get; private set; }
     public bool IsDown { get; private set; }
@@ -164,7 +165,7 @@ public sealed class CoverDrone : MonoBehaviour
         hum.maxDistance = 12f;
         hum.rolloffMode = AudioRolloffMode.Linear;
         hum.dopplerLevel = 0.8f;
-        hum.volume = 0.6f;
+        hum.volume = 0.2f;
         hum.pitch = 0.9f + (Index % 4) * 0.05f;
     }
 
@@ -202,7 +203,7 @@ public sealed class CoverDrone : MonoBehaviour
     public void Tick(float clock)
     {
         if (IsDown) { TickDown(); return; }
-        float t = clock - startAt;
+        float t = (clock - startAt) * (job == Job.Delivery ? DeliverySpeed : PickupSpeed);
         if (t < 0f) { if (gameObject.activeSelf) gameObject.SetActive(false); return; }
         if (t > Gone)
         {
@@ -218,8 +219,8 @@ public sealed class CoverDrone : MonoBehaviour
             smokeTrail.Clear();
             hum.Play();
         }
-        if (!whooshedIn && t > Arrive - 0.45f) { whooshedIn = true; SynthAudio.PlayAt(SynthAudio.Whoosh(), hover, 0.8f, 1.1f); }
-        if (!whooshedOut && t > GrabEnd) { whooshedOut = true; SynthAudio.PlayAt(SynthAudio.Whoosh(), transform.position, 0.7f, 1.35f); }
+        if (!whooshedIn && t > Arrive - 0.45f) { whooshedIn = true; SynthAudio.PlayAt(SynthAudio.Whoosh(), hover, 0.22f, 1.1f); }
+        if (!whooshedOut && t > GrabEnd) { whooshedOut = true; SynthAudio.PlayAt(SynthAudio.Whoosh(), transform.position, 0.18f, 1.35f); }
 
         Vector3 position = Pose(t);
         velocity = (position - lastPosition) / Mathf.Max(Time.deltaTime, 0.0001f);
@@ -312,7 +313,7 @@ public sealed class CoverDrone : MonoBehaviour
             {
                 cargoAttached = true;
                 cargoOffset = cargo.position - transform.position;
-                SynthAudio.PlayAt(SynthAudio.Clunk(), cargo.position, 0.8f, 1.3f);
+                SynthAudio.PlayAt(SynthAudio.Clunk(), cargo.position, 0.25f, 1.3f);
             }
             if (!cargoAttached)
             {

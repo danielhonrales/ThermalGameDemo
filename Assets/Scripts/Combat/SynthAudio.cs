@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Small procedural sound bank for match feedback (sirens, heartbeat, drone rotors, impacts).
+/// Small procedural sound bank for match feedback (drones, attacks, impacts).
 /// Clips are synthesised once on first use, so there are no extra audio assets to ship.
 /// </summary>
 public static class SynthAudio
@@ -46,28 +46,6 @@ public static class SynthAudio
     private static float Sine(float hz, float t) => Mathf.Sin(2f * Mathf.PI * hz * t);
     private static float Saw(float hz, float t) => 2f * (t * hz - Mathf.Floor(0.5f + t * hz));
     private static float Tri(float hz, float t) => 2f * Mathf.Abs(Saw(hz, t)) - 1f;
-
-    /// <summary>Two-tone alarm sweep, loops seamlessly (2 s).</summary>
-    public static AudioClip Siren() => Build("siren", 2f, (t, d) =>
-    {
-        float sweep = 0.5f - 0.5f * Mathf.Cos(2f * Mathf.PI * t / d);
-        float phase = 2f * Mathf.PI * (520f * t + 480f * (t / 2f - d / (4f * Mathf.PI) * Mathf.Sin(2f * Mathf.PI * t / d)));
-        float tone = Mathf.Sin(phase) + 0.45f * Mathf.Sin(phase * 2f) + 0.2f * Mathf.Sin(phase * 3f);
-        return Mathf.Clamp(tone * 0.8f, -1f, 1f) * (0.75f + 0.25f * sweep);
-    }, 0.8f);
-
-    /// <summary>Lub-dub heartbeat (1 s loop at 60 bpm).</summary>
-    public static AudioClip Heartbeat() => Build("heartbeat", 1f, (t, d) =>
-    {
-        float Thump(float start, float amp)
-        {
-            float x = t - start;
-            if (x < 0f) return 0f;
-            float pitch = 48f + 40f * Mathf.Exp(-x * 30f);
-            return amp * Mathf.Sin(2f * Mathf.PI * pitch * x) * Mathf.Exp(-x * 14f) * Mathf.Min(1f, x * 400f);
-        }
-        return Thump(0f, 1f) + Thump(0.26f, 0.7f);
-    });
 
     /// <summary>Rotor hum with blade chop (1 s loop).</summary>
     public static AudioClip DroneHum() => Build("drone-hum", 1f, (t, d) =>
@@ -141,14 +119,13 @@ public static class SynthAudio
         return roar + crackle;
     }, 0.8f);
 
-    /// <summary>Hot, driven beam tone with a soft burning edge; seamless one-second loop.</summary>
+    /// <summary>Filtered flame rush with a faint low heat tone, without campfire pops.</summary>
     public static AudioClip HeatBeamLoop() => Build("heat-beam-loop", 1f, (t, d) =>
     {
-        float phase = 2f * Mathf.PI * (108f * t + 0.7f * Mathf.Sin(2f * Mathf.PI * 5f * t));
-        float drive = Mathf.Sin(phase) * 0.55f + Mathf.Sin(phase * 2f) * 0.22f
-            + Mathf.Sin(phase * 3f) * 0.08f;
-        float heat = LowNoise(0.035f) * 0.1f * Mathf.Sin(Mathf.PI * t / d);
-        return drive * (0.82f + 0.18f * Mathf.Sin(2f * Mathf.PI * 6f * t)) + heat;
+        float flame = LowNoise(0.08f) * Mathf.Sin(Mathf.PI * t / d)
+            * (0.75f + 0.25f * Sine(7f, t));
+        float heat = Sine(84f, t) * 0.13f + Sine(168f, t) * 0.04f;
+        return flame * 0.75f + heat;
     }, 0.7f);
 
     /// <summary>Subtle warning hum heard only near an arena sweep.</summary>

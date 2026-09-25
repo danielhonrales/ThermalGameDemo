@@ -27,7 +27,7 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
         float travel = Mathf.PingPong((elapsed - StartsAt(index)) * SweepSpeed, HalfArena * 2f);
         if (index >= 2) travel = HalfArena * 2f - travel;
         float lane = travel - HalfArena;
-        float height = (index & 1) == 0 ? 1.48f : 0.14f;
+        const float height = 1.48f;
         if ((index & 1) == 0)
         {
             float x = Centre.x + lane;
@@ -43,7 +43,7 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
         return true;
     }
 
-    public static bool Hits(int index, float elapsed, Vector3 head, float standingEyeHeight)
+    public static bool Hits(int index, float elapsed, Vector3 head)
     {
         if (!TryGetBeam(index, elapsed, out Vector3 from, out Vector3 to)) return false;
         bool alongZ = (index & 1) == 0;
@@ -51,9 +51,8 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
         float along = alongZ ? head.z : head.x;
         float middle = alongZ ? Centre.y : Centre.x;
         if (lateral > HitWidth || Mathf.Abs(along - middle) > HalfArena) return false;
-        // Head tracking detects a duck directly. A small rise in headset height is the
-        // available proxy for stepping over a shin-high beam; Quest has no foot tracking.
-        return alongZ ? head.y >= 1.28f : head.y <= standingEyeHeight + 0.07f;
+        // Every sweep is at head height, so lowering the tracked headset avoids it.
+        return head.y >= 1.28f;
     }
 
     private void Awake()

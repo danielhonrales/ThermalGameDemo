@@ -43,7 +43,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     /// <summary>Bit per sudden-death drone that has been shot down this round.</summary>
     [SyncVar] public int DroneDownMask;
 
-    private readonly Dictionary<uint, float> standingEyeHeights = new Dictionary<uint, float>();
     private FusionRoundHud hud;
     private ArenaLaserSweepView laserView;
     private HealPickupView healView;
@@ -108,7 +107,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             PhaseCode = (int)RoundPhase.Waiting;
             WinsA = WinsB = 0;
             ResetHeal();
-            standingEyeHeights.Clear();
         }
         if (!CanStartRound(players.Count, BothCalibrated(players), SoloOverride))
         {
@@ -130,7 +128,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
                 {
                     PhaseCode = (int)RoundPhase.Fighting;
                     phaseEndsAt = NetworkTime.time + roundSeconds;
-                    standingEyeHeights.Clear();
                 }
                 break;
             case RoundPhase.Fighting:
@@ -249,7 +246,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         phaseEndsAt = NetworkTime.time + (Phase == RoundPhase.Countdown ? countdownSeconds : 0f);
         WinnerPlayerId = -1;
         WinsA = WinsB = 0;
-        standingEyeHeights.Clear();
         ResetHeal();
         ResetPlayers(players);
         RpcMatchReset();
@@ -317,11 +313,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             NetworkHeadTracker head = player.GetComponent<NetworkHeadTracker>();
             if (head == null || !player.IsAlive) continue;
             Vector3 position = head.CanonicalHeadPosition;
-            if (!standingEyeHeights.TryGetValue(player.netId, out float standing)) standing = position.y;
-            if (FightElapsed < ArenaLaserSweepView.FirstSeconds) standing = Mathf.Max(standing, position.y);
-            standingEyeHeights[player.netId] = standing;
             for (int i = 0; i < ArenaLaserSweepView.Count; i++)
-                if (ArenaLaserSweepView.Hits(i, FightElapsed, position, standing))
+                if (ArenaLaserSweepView.Hits(i, FightElapsed, position))
                 {
                     player.RequestDamage(laserDamage, true, "laser");
                     break;
