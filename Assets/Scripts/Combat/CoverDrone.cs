@@ -313,7 +313,6 @@ public sealed class CoverDrone : MonoBehaviour
                 cargoAttached = true;
                 cargoOffset = cargo.position - transform.position;
                 SynthAudio.PlayAt(SynthAudio.Clunk(), cargo.position, 0.8f, 1.3f);
-                ThermalFxLibrary.DustBurst(cargo.position, 0.8f);
             }
             if (!cargoAttached)
             {

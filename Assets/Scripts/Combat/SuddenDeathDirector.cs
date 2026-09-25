@@ -5,8 +5,8 @@ using UnityEngine.Rendering;
 /// <summary>
 /// Client-side sudden-death presentation, driven entirely by the shared match clock.
 /// The arena turns hellish: red passthrough grade, a charred metal floor with glowing seams
-/// erupting underfoot, a scorched red roof, perimeter fires, rolling ground smoke, falling
-/// sparks and embers — while drones rip out the old cover and drop new, scattered cover.
+/// erupting underfoot, a scorched red roof, perimeter fires, falling sparks and embers —
+/// while drones rip out the old cover and drop new, scattered cover.
 /// The real room and the opponent stay visible throughout.
 /// </summary>
 [DisallowMultipleComponent]
@@ -78,7 +78,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private readonly List<Vector3> beaconPositions = new List<Vector3>();
     private readonly List<GameObject> hellFx = new List<GameObject>();
     private readonly List<Vector3> firePoints = new List<Vector3>();
-    private readonly List<Vector3> smokePoints = new List<Vector3>();
     private readonly List<Vector3> sparkPoints = new List<Vector3>();
     private ParticleSystem embers, motes;
     private LineRenderer boundary;
@@ -318,17 +317,12 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         eruptionRing = CombatVfxStyle.CreateLine(transform, "Eruption ring", lineMaterial, true, 0.12f);
 
         float minX = arenaBounds.min.x, maxX = arenaBounds.max.x, minZ = arenaBounds.min.z, maxZ = arenaBounds.max.z;
-        // Fires line the arena edge (outside the play lanes), smoke rolls in from the sides.
+        // Fires line the arena edge (outside the play lanes).
         firePoints.AddRange(new[]
         {
             ArenaPoint(new Vector3(minX, 0f, minZ)), ArenaPoint(new Vector3(maxX, 0f, minZ)),
             ArenaPoint(new Vector3(maxX, 0f, maxZ)), ArenaPoint(new Vector3(minX, 0f, maxZ)),
             ArenaPoint(new Vector3(MirrorX, 0f, minZ - 0.1f)), ArenaPoint(new Vector3(MirrorX, 0f, maxZ + 0.1f)),
-        });
-        smokePoints.AddRange(new[]
-        {
-            ArenaPoint(new Vector3(minX + 0.4f, 0f, 0.71f)), ArenaPoint(new Vector3(maxX - 0.4f, 0f, 0.71f)),
-            ArenaPoint(new Vector3(MirrorX, 0f, minZ + 0.4f)), ArenaPoint(new Vector3(MirrorX, 0f, maxZ - 0.4f)),
         });
         const float ceilingHeight = 3.3f;
         sparkPoints.AddRange(new[]
@@ -431,52 +425,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         return source;
     }
 
-    /// <summary>Thin, low-lying smoke that drifts across the floor without hiding the room.</summary>
-    private GameObject GroundHaze(Vector3 position)
-    {
-        var go = new GameObject("Ground haze");
-        go.transform.SetParent(transform, false);
-        go.transform.position = position + Vector3.up * 0.05f;
-        var system = go.AddComponent<ParticleSystem>();
-        system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        var main = system.main;
-        main.loop = true;
-        main.startLifetime = new ParticleSystem.MinMaxCurve(5f, 8f);
-        main.startSpeed = new ParticleSystem.MinMaxCurve(0.05f, 0.2f);
-        main.startSize = new ParticleSystem.MinMaxCurve(0.8f, 1.6f);
-        main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
-        main.startColor = new ParticleSystem.MinMaxGradient(new Color(0.35f, 0.1f, 0.08f, 0.09f), new Color(0.18f, 0.08f, 0.07f, 0.14f));
-        main.maxParticles = 40;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-        var emission = system.emission;
-        emission.rateOverTime = 6f;
-        var shape = system.shape;
-        shape.shapeType = ParticleSystemShapeType.Box;
-        shape.scale = new Vector3(1.6f, 0.05f, 1.6f);
-        var velocity = system.velocityOverLifetime;
-        velocity.enabled = true;
-        velocity.space = ParticleSystemSimulationSpace.World;
-        Vector3 inward = Flat(centre - position).normalized * 0.12f;
-        velocity.x = new ParticleSystem.MinMaxCurve(inward.x);
-        velocity.y = new ParticleSystem.MinMaxCurve(0.01f);
-        velocity.z = new ParticleSystem.MinMaxCurve(inward.z);
-        var colour = system.colorOverLifetime;
-        colour.enabled = true;
-        var fade = new Gradient();
-        fade.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-            new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.3f), new GradientAlphaKey(0f, 1f) });
-        colour.color = fade;
-        var size = system.sizeOverLifetime;
-        size.enabled = true;
-        size.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.Linear(0f, 0.7f, 1f, 1.4f));
-        var renderer = go.GetComponent<ParticleSystemRenderer>();
-        renderer.sharedMaterial = emberMaterial;
-        renderer.renderMode = ParticleSystemRenderMode.HorizontalBillboard;
-        renderer.shadowCastingMode = ShadowCastingMode.Off;
-        system.Play();
-        return go;
-    }
-
     private static GameObject SpawnLoop(GameObject prefab, Vector3 position, Quaternion rotation, float scale, Transform parent)
     {
         if (prefab == null) return null;
@@ -553,11 +501,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (fx == null) return;
         foreach (Vector3 point in firePoints)
         {
-            ThermalFxLibrary.Spawn(fx.bigExplosion, point + Vector3.up * 0.2f, 0.2f, 3f);
             hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.36f, transform));
         }
-        foreach (Vector3 point in smokePoints)
-            hellFx.Add(GroundHaze(point));
         foreach (Vector3 point in sparkPoints)
             hellFx.Add(SpawnLoop(fx.ceilingSparks, point, Quaternion.Euler(90f, 0f, 0f), 0.45f, transform));
         SynthAudio.Play2D(SynthAudio.Explosion(), 0.8f, 0.6f);
@@ -617,7 +562,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         ThermalFxLibrary fx = ThermalFxLibrary.Instance;
         if (!drone.IsDown)
         {
-            ThermalFxLibrary.DustBurst(foot, 1.3f);
             ThermalFxLibrary.Spawn(fx?.metalSparks, foot + Vector3.up * 0.1f, 1f, 2f);
             SynthAudio.PlayAt(SynthAudio.Clunk(), foot, 1f, 0.7f);
         }
