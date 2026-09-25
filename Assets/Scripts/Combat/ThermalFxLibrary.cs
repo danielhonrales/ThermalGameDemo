@@ -69,6 +69,12 @@ public sealed class ThermalFxLibrary : ScriptableObject
         // Many particle prefabs rely on their authored root rotation (e.g. -90° X to emit upward).
         GameObject fx = Object.Instantiate(prefab, position, rotation * prefab.transform.localRotation);
         fx.transform.localScale = prefab.transform.localScale * scale;
+        // MetalImpacts includes a 1.5 m showcase sphere on its root, alongside the actual particles.
+        if (prefab == Instance?.metalSparks)
+        {
+            if (fx.TryGetComponent(out MeshRenderer preview)) preview.enabled = false;
+            if (fx.TryGetComponent(out Collider previewCollider)) previewCollider.enabled = false;
+        }
         FixParticleMaterials(fx);
         foreach (ParticleSystem system in fx.GetComponentsInChildren<ParticleSystem>())
         {

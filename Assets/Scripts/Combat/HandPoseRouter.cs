@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// <summary>Reads the active right-hand skeleton once per frame and routes one pose to combat.</summary>
+/// <summary>Reads a tracked hand skeleton once per frame and classifies its pose.</summary>
 [DisallowMultipleComponent]
 public sealed class HandPoseRouter : MonoBehaviour
 {
@@ -19,6 +19,8 @@ public sealed class HandPoseRouter : MonoBehaviour
     private float nextReferenceSearch;
     private Ray fireRay;
     private bool hasFireRay;
+    private bool thumbsUp;
+    private OVRPlugin.Hand handSide = OVRPlugin.Hand.HandRight;
 
     public PoseKind Current { get { Evaluate(); return current; } }
     // Visual acknowledgement once a pose has been intended briefly (so a resting hand stays clean);
@@ -37,6 +39,7 @@ public sealed class HandPoseRouter : MonoBehaviour
     public bool IsFirePose => Current == PoseKind.Fire;
     public bool IsIcePose => Current == PoseKind.Ice;
     public bool IsShieldPose => Current == PoseKind.Shield;
+    public bool IsThumbsUp { get { Evaluate(); return thumbsUp; } }
     public bool TryGetFireRay(out Ray ray)
     {
         Evaluate();
@@ -110,15 +113,28 @@ public sealed class HandPoseRouter : MonoBehaviour
 
     private void Awake() => FindReferences();
 
+    public void UseLeftHand()
+    {
+        handSide = OVRPlugin.Hand.HandLeft;
+        hand = null;
+        skeleton = null;
+        handAnchor = null;
+        evaluatedFrame = -1;
+        current = candidate = PoseKind.Neutral;
+        thumbsUp = false;
+        FindReferences();
+    }
+
     public void FindReferences()
     {
         nextReferenceSearch = Time.unscaledTime + 0.75f;
-        if (handAnchor == null) handAnchor = GameObject.Find("RightHandAnchor")?.transform;
+        if (handAnchor == null) handAnchor = GameObject.Find(handSide == OVRPlugin.Hand.HandLeft
+            ? "LeftHandAnchor" : "RightHandAnchor")?.transform;
         OVRHand best = null;
         int bestScore = -1;
         foreach (OVRHand found in FindObjectsByType<OVRHand>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
-            if (found.GetHand() != OVRPlugin.Hand.HandRight) continue;
+            if (found.GetHand() != handSide) continue;
             int score = (found.isActiveAndEnabled ? 4 : 0) + (found.IsTracked ? 8 : 0)
                 + (handAnchor != null && found.transform.IsChildOf(handAnchor) ? 2 : 0);
             if (score > bestScore) { best = found; bestScore = score; }
@@ -144,6 +160,7 @@ public sealed class HandPoseRouter : MonoBehaviour
             {
                 current = candidate = PoseKind.Neutral;
                 hasFireRay = false;
+                thumbsUp = false;
                 departureSince = -1f;
             }
             Trace(false, -1f, -1f, -1f, -1f, false, PoseKind.Neutral);
@@ -154,6 +171,16 @@ public sealed class HandPoseRouter : MonoBehaviour
         float middle = Finger(1, out Vector3 middleBase, out Vector3 middleTip);
         float ring = Finger(2, out _, out _);
         float pinky = Finger(3, out _, out _);
+        Transform thumbBase = Bone(OVRSkeleton.BoneId.XRHand_ThumbProximal, OVRSkeleton.BoneId.Hand_Thumb1);
+        Transform thumbJoint = Bone(OVRSkeleton.BoneId.XRHand_ThumbDistal, OVRSkeleton.BoneId.Hand_Thumb3);
+        Transform thumbTip = Bone(OVRSkeleton.BoneId.XRHand_ThumbTip, OVRSkeleton.BoneId.Hand_ThumbTip);
+        Vector3 baseToJoint = thumbBase != null && thumbJoint != null ? thumbJoint.position - thumbBase.position : Vector3.zero;
+        Vector3 jointToTip = thumbJoint != null && thumbTip != null ? thumbTip.position - thumbJoint.position : Vector3.zero;
+        float straightness = baseToJoint.sqrMagnitude > 0.00001f && jointToTip.sqrMagnitude > 0.00001f
+            ? 1f - Mathf.Clamp01(Vector3.Angle(baseToJoint, jointToTip) / 90f) : -1f;
+        float upward = thumbBase != null && thumbTip != null
+            ? Vector3.Dot((thumbTip.position - thumbBase.position).normalized, Vector3.up) : -1f;
+        thumbsUp = ClassifyThumbsUp(straightness, upward, index, middle, ring, pinky);
         if (index >= 0f || middle >= 0f) lastValidAt = Time.unscaledTime;
         bool palmUp = handAnchor != null && Vector3.Dot(-handAnchor.up, Vector3.up) > 0.35f;
         PoseKind observed = Classify(index, middle, ring, pinky, palmUp, current);
@@ -192,6 +219,12 @@ public sealed class HandPoseRouter : MonoBehaviour
             && ring <= outerCurled && pinky <= outerCurled) return PoseKind.Shield;
         return PoseKind.Neutral;
     }
+
+    public static bool ClassifyThumbsUp(float straightness, float upward,
+        float index, float middle, float ring, float pinky)
+        => straightness >= 0.45f && upward >= 0.55f
+            && index >= 0f && index <= 0.4f && middle >= 0f && middle <= 0.4f
+            && ring >= 0f && ring <= 0.5f && pinky >= 0f && pinky <= 0.5f;
 
     public const float ShieldConfirmSeconds = 0.18f;
     public const float AttackConfirmSeconds = 0.28f;

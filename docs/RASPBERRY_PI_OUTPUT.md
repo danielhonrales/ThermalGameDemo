@@ -61,7 +61,7 @@ Discrete events:
 - `session_start`, `session_pause`, `session_resume`, `session_stop`
 - `player_ready`, `calibrated`, `round_phase`, `round_disconnected`
 - `fire_shot`, `fire_contact` (miss/hit/blocked/shield/headshot), `ice_shot`, `ice_impact` (collider/floor)
-- `hit_received` (fire/ice/hazard), `shield_block` (fire/ice), `death`, `health_reset`
+- `hit_received` (fire/ice/laser), `shield_block` (fire/ice), `death`, `health_reset`
 - `heal_received` (pickup, `amount` = HP restored)
 - `fire_cancel`, `ice_cancel`: the early `fire_shot` / `ice_shot` was sent but the player released before the attack happened
 

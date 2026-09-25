@@ -2478,7 +2478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cfd3e9ae7173821915e541a4b40f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThermalBeamEffects
-  beamLoopResourcePath: CustomAssets/Audio/fireBeam
   beamVolume: 0.25
   chargeAudioResourcePath: CustomAssets/Audio/beamCharge
   chargeVolume: 0.45
@@ -51298,7 +51297,7 @@ MonoBehaviour:
   OnServerFound:
     m_PersistentCalls:
       m_Calls: []
-  secretHandshake: 6073180317294873602
+  secretHandshake: 6073180317294873606
 --- !u!114 &603367879
 MonoBehaviour:
   m_ObjectHideFlags: 0

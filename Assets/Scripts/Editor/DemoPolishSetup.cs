@@ -25,7 +25,7 @@ public static class DemoPolishSetup
             health.FindProperty("maxHealth").intValue = 300;
             health.FindProperty("invulnerabilitySeconds").floatValue = 0.72f;
             health.FindProperty("resetToFullHealthOnZero").boolValue = false;
-            health.FindProperty("barWidth").floatValue = 0.55f;
+            health.FindProperty("barWidth").floatValue = 0.64f;
             health.FindProperty("barHeight").floatValue = 0.06f;
             health.FindProperty("healthyColor").colorValue = new Color(0.16f, 0.95f, 0.43f, 1f);
             health.FindProperty("lowHealthColor").colorValue = new Color(0.16f, 0.95f, 0.43f, 1f);

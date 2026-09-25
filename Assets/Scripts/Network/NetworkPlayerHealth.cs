@@ -112,7 +112,9 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     public void ResetHealth()
     {
         currentHealth = maxHealth;
+        shieldActive = false;
         nextDamageAllowedTime = 0f;
+        nextBlockEventTime = 0f;
         if (isOwned) ReportReset(currentHealth);
         else if (connectionToClient != null) TargetReset(connectionToClient, currentHealth);
         UpdateHealthBar();

@@ -13,8 +13,9 @@ using UnityEngine.Rendering;
 public sealed class SuddenDeathDirector : MonoBehaviour
 {
     private const float WarningLead = 5f;
-    private const float PickupStart = 0.8f, PickupStagger = 0.45f;
-    private const float DeliveryStart = 4.5f, DeliveryStagger = 0.45f;
+    public const float PickupStart = -15f;
+    public const float DeliveryStart = PickupStart + CoverDrone.GrabMid + 1f;
+    private const float FloorOffset = -0.045f;
     private const float MirrorX = 0.275f;
 
     private static readonly Color Red = new Color(1f, 0.1f, 0.06f, 1f);
@@ -300,7 +301,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         // VR floor overlay: charred sci-fi deck plating with molten seams. Erupts at sudden death.
         hellFloor = new GameObject("Hell floor");
         hellFloor.transform.SetParent(transform, false);
-        hellFloor.transform.position = centre + Vector3.up * 0.004f;
+        hellFloor.transform.position = centre + Vector3.up * FloorOffset;
         if (fx != null && fx.floorTileMesh != null)
         {
             hellFloor.AddComponent<MeshFilter>().sharedMesh = fx.floorTileMesh;
@@ -522,7 +523,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             foreach (Transform item in cluster.items) item.SetParent(cluster.carrier, true);
             Vector3 top = cluster.carrier.position;
             FlightPath(top, 0.55f, 0.16f, index, out Vector3 entry, out Vector3 hover, out Vector3 low, out Vector3 exit);
-            drones.Add(CoverDrone.Create(transform, index++, CoverDrone.Job.Pickup, PickupStart + i * PickupStagger,
+            drones.Add(CoverDrone.Create(transform, index++, CoverDrone.Job.Pickup, PickupStart,
                 entry, hover, low, exit, cluster.carrier, null));
         }
         for (int i = 0; i < newCover.Count; i++)
@@ -532,7 +533,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             Vector3 top = new Vector3(b.center.x, b.max.y, b.center.z);
             FlightPath(top, 0.6f, 0.14f, index, out Vector3 entry, out Vector3 hover, out Vector3 low, out Vector3 exit);
             int slot = i;
-            var drone = CoverDrone.Create(transform, index++, CoverDrone.Job.Delivery, DeliveryStart + i * DeliveryStagger,
+            var drone = CoverDrone.Create(transform, index++, CoverDrone.Job.Delivery, DeliveryStart,
                 entry, hover, low, exit, piece.transform, d => OnCoverLanded(slot, d));
             drone.SetDeliveryPose(piece.transform.position, piece.transform.rotation);
             piece.transform.position += Vector3.up * 6f;
@@ -648,7 +649,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
                 hellFloor.transform.localScale = Vector3.one * scale;
                 // Keep the tile centred on the arena as it grows (mesh pivot is at a corner).
                 Vector3 meshCentre = hellFloor.GetComponent<MeshFilter>().sharedMesh.bounds.center;
-                hellFloor.transform.position = centre + Vector3.up * 0.004f
+                hellFloor.transform.position = centre + Vector3.up * FloorOffset
                     - hellFloor.transform.rotation * (meshCentre * scale);
                 hellFloorRenderer.GetPropertyBlock(block);
                 float surge = Mathf.Exp(-(Time.time - eruptedAt) * 2.5f);

@@ -90,7 +90,7 @@ MonoBehaviour:
   resetToFullHealthOnZero: 0
   headTarget: {fileID: 0}
   worldOffset: {x: 0, y: 0.32, z: 0}
-  barWidth: 0.55
+  barWidth: 0.64
   barHeight: 0.06
   showLocalHealthBar: 0
   backgroundColor: {r: 0.03, g: 0.03, b: 0.03, a: 0.85}
@@ -167,28 +167,28 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  roundSeconds: 90
+  roundSeconds: 60
   countdownSeconds: 5
   resultSeconds: 7
-  firstHazardDelay: 20
-  warningSeconds: 2.5
-  burnSeconds: 3
-  hazardRadius: 1.12
-  earlyWavePause: 8
-  finalWavePause: 4
-  hazardDamagePerTick: 12
-  hazardDamageInterval: 0.7
+  laserDamage: 20
+  suddenDeathSeconds: 20
+  suddenDeathDamageMultiplier: 1.5
+  healSpawnSeconds: 20
+  healAmount: 90
+  healPickupRadius: 0.6
+  healHeight: 1.55
+  healArenaPoint: {x: 0.275, y: 0, z: 0.3}
   IsDirector: 0
   IsCalibrated: 0
   PhaseCode: 0
   WinnerPlayerId: 0
   WinsA: 0
   WinsB: 0
-  HazardSequence: 0
-  HazardStage: 0
-  HazardCount: 0
-  HazardCenterA: {x: 0, y: 0, z: 0}
-  HazardCenterB: {x: 0, y: 0, z: 0}
+  SoloOverride: 0
+  HealState: 0
+  HealCenter: {x: 0, y: 0, z: 0}
+  HealTakerId: -1
+  DroneDownMask: 0
 --- !u!114 &6407936541156345680
 MonoBehaviour:
   m_ObjectHideFlags: 0

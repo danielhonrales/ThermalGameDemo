@@ -110,6 +110,8 @@ public static class LanDemoSetup
         DemoRegressionChecks.RunHudFollowCheck();
         DemoRegressionChecks.RunFeedbackChecks();
         DemoRegressionChecks.RunOutputCheck();
+        DemoRegressionChecks.RunLaserCheck();
+        DemoRegressionChecks.RunSoloCheck();
         Apply();
         BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {

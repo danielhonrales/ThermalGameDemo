@@ -13,8 +13,8 @@ public sealed class CoverDrone : MonoBehaviour
     public enum Job { Pickup, Delivery }
 
     // Timeline (seconds from this drone's start): fast swoop in, quick grab, fast exit.
-    public const float Arrive = 0.95f, GrabEnd = 1.45f, Gone = 2.35f;
-    private const float GrabMid = (Arrive + GrabEnd) * 0.5f;
+    public const float Arrive = 0.82f, GrabEnd = 1.24f, Gone = 2.03f;
+    public const float GrabMid = (Arrive + GrabEnd) * 0.5f;
 
     public int Index { get; private set; }
     public bool IsDown { get; private set; }

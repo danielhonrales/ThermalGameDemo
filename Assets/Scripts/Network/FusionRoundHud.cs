@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Head-locked match HUD: player health cards (top left), round clock with a match timeline,
+/// Head-locked match HUD: local health (top left), round clock with a match timeline,
 /// centre banners (countdown, FIGHT, SUDDEN DEATH, result), toasts and a full-view feedback vignette.
 /// </summary>
 [DisallowMultipleComponent]
@@ -24,7 +24,6 @@ public sealed class FusionRoundHud : MonoBehaviour
     private RectTransform vignetteRoot;
     private Image vignette;
     private HealthCard localCard;
-    private HealthCard opponentCard;
     private RectTransform clock;
     private Image clockGlow;
     private TextMeshProUGUI timer, phaseLabel;
@@ -47,7 +46,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private int lastCountdownNumber = -1, lastFinalSecond = -1, lastHealState = -1, lastPhase = -1;
     private NetworkPlayerHealth localHealth, opponentHealth;
     private Quaternion smoothedRotation = Quaternion.identity;
-    private float roundLength = 90f, suddenDeathAt = 60f;
+    private float roundLength = 60f, suddenDeathAt = 40f;
     private float suddenDeathAmount;
     private float previousHit;
 
@@ -78,10 +77,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (root != null) return;
         root = HudKit.Canvas("Arena HUD", transform, new Vector2(2800f, 1700f), 20);
 
-        localCard = new HealthCard(root, "YOU", Friendly, new Vector2(-740f, 300f), true);
-        opponentCard = new HealthCard(root, "OPPONENT", Enemy, new Vector2(-760f, 196f), false);
+        localCard = new HealthCard(root, "YOU", HealPickupView.Green, new Vector2(-760f, 285f), true);
 
-        // Round clock with a match timeline underneath (heal at 30 s, sudden death at 60 s).
+        // Round clock with a match timeline underneath (heal at 20 s, arena change at 25 s).
         clock = HudKit.Rect(root, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
         clockGlow = HudKit.Image(clock, "Bloom", HudSprites.Dot(), HudKit.A(Friendly, 0.1f), Vector2.zero, new Vector2(420f, 170f));
         timer = HudKit.Text(clock, "Time", HudKit.Heavy, 76f, Color.white, new Vector2(0f, 2f), new Vector2(260f, 100f), TextAlignmentOptions.Center);
@@ -92,8 +90,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
-        Marker(timelineRoot, 30f / 90f, HealPickupView.Green, "HEAL");
-        Marker(timelineRoot, 60f / 90f, Warn, "SUDDEN DEATH");
+        Marker(timelineRoot, 20f / 60f, HealPickupView.Green, "HEAL", -38f);
+        Marker(timelineRoot, 25f / 60f, Warn, "ARENA", 46f);
+        Marker(timelineRoot, 40f / 60f, Warn, "SUDDEN DEATH");
         timelineHead = HudKit.Image(timelineRoot, "Head", HudSprites.Dot(), Color.white, new Vector2(-220f, 0f), new Vector2(26f, 26f));
 
         // Centre banner.
@@ -137,12 +136,12 @@ public sealed class FusionRoundHud : MonoBehaviour
         return material;
     }
 
-    private static void Marker(RectTransform parent, float at, Color color, string label)
+    private static void Marker(RectTransform parent, float at, Color color, string label, float labelOffset = 0f)
     {
         float x = -220f + 440f * at;
         var diamond = HudKit.Image(parent, label + " marker", HudSprites.Panel(3), color, new Vector2(x, 0f), new Vector2(12f, 12f), true, 1f);
         diamond.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 45f);
-        var text = HudKit.Text(parent, label + " label", HudKit.Display, 15f, HudKit.A(color, 0.9f), new Vector2(x, -22f), new Vector2(300f, 26f), TextAlignmentOptions.Center);
+        var text = HudKit.Text(parent, label + " label", HudKit.Display, 15f, HudKit.A(color, 0.9f), new Vector2(x + labelOffset, -22f), new Vector2(300f, 26f), TextAlignmentOptions.Center);
         text.text = label;
         text.characterSpacing = 6f;
     }
@@ -186,7 +185,6 @@ public sealed class FusionRoundHud : MonoBehaviour
         suddenDeathAt = round.SuddenDeathStartsAt;
         FindPlayers();
         localCard.Update(localHealth);
-        opponentCard.Update(opponentHealth);
 
         float remaining = round.PhaseRemaining;
         var phase = round.Phase;
@@ -197,6 +195,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         }
 
         float sd = round.SuddenDeathClock;
+        float arena = round.FightElapsed - (round.SuddenDeathStartsAt + SuddenDeathDirector.PickupStart);
         suddenDeathAmount = Mathf.MoveTowards(suddenDeathAmount,
             round.IsFighting && sd >= 0f ? 1f : 0f, Time.deltaTime * 2f);
         Color accent = Color.Lerp(Friendly, Warn, suddenDeathAmount);
@@ -209,7 +208,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         {
             case FusionRoundDirector.RoundPhase.Waiting:
                 timer.text = Clock(roundLength);
-                phaseLabel.text = NetworkPlayerAlignment.HasCalibration ? "WAITING FOR OPPONENT" : "ALIGN AT START";
+                phaseLabel.text = !NetworkPlayerAlignment.HasCalibration ? "ALIGN AT START"
+                    : opponentHealth == null ? "THUMBS UP 3S FOR SOLO"
+                    : "WAITING FOR OPPONENT TO ALIGN";
                 SetTimeline(0f);
                 ShowBanner("waiting", "", "", Color.white, 0f);
                 lastCountdownNumber = lastFinalSecond = lastHealState = -1;
@@ -238,28 +239,24 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
-                else if (round.HazardStage > 0 && round.LocalPlayerInHazard)
-                    ShowBanner("firemove", "MOVE", "FIRE STRIKE ON YOU", Warn, 1f);
-                else if (sd >= -5f && sd < 0f)
+                else if (arena >= -5f && arena < 0f)
                 {
-                    int left = Mathf.CeilToInt(-sd);
-                    ShowBanner("sdwarn" + left, left.ToString(), "ARENA CHANGE", Warn, 1f);
+                    int left = Mathf.CeilToInt(-arena);
+                    ShowBanner("arenawarn" + left, left.ToString(), "ARENA CHANGE", Warn, 1f);
                 }
-                else if (sd >= 0f && sd < 2.6f)
-                    ShowBanner("suddendeath", "SUDDEN DEATH", "DRONES MOVING COVER · DAMAGE ×1.5", Warn, 1f);
+                else if (arena >= 0f && arena < 2.6f)
+                    ShowBanner("arenachange", "ARENA CHANGE", "", Warn, 1f);
                 else ShowBanner("none", "", "", Color.white, 0f);
 
-                phaseLabel.text = round.HazardStage == 1 ? "FIRE STRIKE INCOMING"
-                    : round.HazardStage == 2 ? "FIRE ZONE ACTIVE"
-                    : sd >= 0f && sd < 12f ? "DRONES MOVING COVER"
-                    : sd >= 0f ? "SUDDEN DEATH" : "DUEL";
-                if (round.IsSoloTest) phaseLabel.text += "  ·  SOLO TEST";
-                phaseLabel.color = sd >= 0f || round.HazardStage > 0
+                phaseLabel.text = arena >= 0f && arena < 4f ? "ARENA CHANGING"
+                    : sd >= 0f ? "SUDDEN DEATH" : round.SoloOverride ? "SOLO RUN" : "DUEL";
+                phaseLabel.color = arena >= -5f && arena < 4f || sd >= 0f
                     ? Color.Lerp(Warn, Color.white, 0.25f * beat) : Soft;
-                if (sd >= 0f)
+                if (arena >= -5f && arena < 4f || sd >= 0f)
                 {
-                    timer.color = Color.Lerp(Color.white, Warn, 0.35f + 0.65f * beat);
-                    clock.localScale = Vector3.one * (1f + 0.06f * beat);
+                    float pulse = arena < 0f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 10f) : beat;
+                    timer.color = Color.Lerp(Color.white, Warn, 0.35f + 0.65f * pulse);
+                    clock.localScale = Vector3.one * (1f + 0.06f * pulse);
                 }
                 if (seconds <= 10 && seconds != lastFinalSecond)
                 {
@@ -279,7 +276,8 @@ public sealed class FusionRoundHud : MonoBehaviour
                 phaseLabel.text = "ROUND OVER";
                 phaseLabel.color = Soft;
                 SetTimeline(1f);
-                ShowBanner(draw ? "draw" : won ? "win" : "lose", draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
+                ShowBanner(round.SoloOverride ? "soloresult" : draw ? "draw" : won ? "win" : "lose",
+                    round.SoloOverride ? won ? "SURVIVED" : "TRY AGAIN" : draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
                     "NEXT ROUND IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, 1f);
                 lastFinalSecond = -1;
                 break;
@@ -304,7 +302,6 @@ public sealed class FusionRoundHud : MonoBehaviour
             bool mine = NetworkClient.localPlayer != null && round.HealTakerId == (int)NetworkClient.localPlayer.netId;
             Toast(mine ? "+ HEALTH RESTORED" : "OPPONENT HEALED", mine ? HealPickupView.Green : Enemy, 2.4f);
             if (mine) localCard.FlashHeal();
-            else opponentCard.FlashHeal();
         }
     }
 
@@ -360,6 +357,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerBand.color = HudKit.A(color, danger ? 0.22f : 0.12f);
                 if (key == "suddendeath") SynthAudio.Play2D(SynthAudio.Stinger(), 1f);
                 if (key == "fight") SynthAudio.Play2D(SynthAudio.Clunk(), 0.9f, 0.8f);
+                if (key.StartsWith("arenawarn")) SynthAudio.Play2D(SynthAudio.CountBeat(), 0.8f, 0.9f);
             }
         }
         bannerTarget = targetAlpha;
@@ -371,11 +369,12 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         float age = Time.time - bannerShownAt;
         float targetAlpha = bannerTarget;
-        if (bannerKey == "firemove" || bannerKey == "fireactive")
+        if (bannerKey.StartsWith("arenawarn") || bannerKey == "arenachange")
         {
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 11f);
-            targetAlpha *= 0.78f + 0.22f * pulse;
-            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.65f);
+            targetAlpha *= 0.65f + 0.35f * pulse;
+            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.4f);
+            bannerBand.color = HudKit.A(Warn, 0.12f + 0.2f * pulse);
         }
         bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, targetAlpha, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
         // Slam in: overshoot scale, then settle; digits punch once per second.
@@ -450,7 +449,6 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         SynthAudio.Play2D(SynthAudio.HitConfirm(), shielded ? 0.4f : 0.8f, shielded ? 0.7f : 1f);
         HitMarkerFx.Spawn(worldPosition, damage, shielded ? CombatVfxStyle.Shield : Enemy);
-        if (!shielded) opponentCard.Punch();
     }
 
 #if UNITY_EDITOR
@@ -461,7 +459,6 @@ public sealed class FusionRoundHud : MonoBehaviour
         timer.text = "1:12";
         phaseLabel.text = "DUEL";
         localCard.Preview(240, 0.8f);
-        opponentCard.Preview(110, 0.37f);
         SetTimeline(0.2f);
         Canvas.ForceUpdateCanvases();
     }
@@ -489,20 +486,20 @@ public sealed class FusionRoundHud : MonoBehaviour
         public HealthCard(RectTransform parent, string label, Color accentColor, Vector2 position, bool large)
         {
             accent = accentColor;
-            Vector2 size = large ? new Vector2(400f, 110f) : new Vector2(360f, 84f);
+            Vector2 size = large ? new Vector2(500f, 140f) : new Vector2(360f, 84f);
             barWidth = size.x - 56f;
             float barHeight;
             home = position;
             rect = HudKit.Rect(parent, label + " card", position, size);
-            var name = HudKit.Text(rect, "Label", HudKit.Display, large ? 26f : 21f, accent,
-                new Vector2(-size.x / 2f + 28f + 110f, large ? 30f : 20f), new Vector2(220f, 36f), TextAlignmentOptions.Left);
+            var name = HudKit.Text(rect, "Label", HudKit.Display, large ? 34f : 21f, accent,
+                new Vector2(-size.x / 2f + 28f + 110f, large ? 39f : 20f), new Vector2(220f, 50f), TextAlignmentOptions.Left);
             name.text = label;
             name.characterSpacing = 14f;
-            number = HudKit.Text(rect, "HP", HudKit.Heavy, large ? 58f : 38f, Color.white,
-                new Vector2(size.x / 2f - 28f - 100f, large ? 24f : 17f), new Vector2(200f, 90f), TextAlignmentOptions.Right);
-            float barY = large ? -26f : -20f;
+            number = HudKit.Text(rect, "HP", HudKit.Heavy, large ? 72f : 38f, Color.white,
+                new Vector2(size.x / 2f - 28f - 100f, large ? 32f : 17f), new Vector2(200f, 110f), TextAlignmentOptions.Right);
+            float barY = large ? -36f : -20f;
             float left = -size.x / 2f + 28f;
-            barHeight = large ? 12f : 8f;
+            barHeight = large ? 18f : 8f;
             HudKit.Image(rect, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.1f), new Vector2(left + barWidth / 2f, barY), new Vector2(barWidth, 3f), true, 1f);
             // Amorphous bloom that follows the fill, osu!lazer style.
             glow = HudKit.Image(rect, "Bloom", HudSprites.Dot(), HudKit.A(accent, 0.3f), new Vector2(left - 30f, barY), new Vector2(barWidth + 60f, barHeight + 46f));

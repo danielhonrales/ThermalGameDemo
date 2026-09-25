@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 public sealed class ThermalBeamEffects : MonoBehaviour
 {
     [Header("Audio")]
-    [SerializeField] private string beamLoopResourcePath = "CustomAssets/Audio/fireBeam";
     [SerializeField, Range(0f, 1f)] private float beamVolume = 0.5f;
     [SerializeField] private string chargeAudioResourcePath = "CustomAssets/Audio/beamCharge";
     [SerializeField, Range(0f, 1f)] private float chargeVolume = 0.45f;
@@ -325,7 +324,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
                 "Heat forearm spiral", lineMaterial, false, i == 1 ? 0.012f : 0.008f);
         chargeRoot.gameObject.SetActive(false);
 
-        beamAudio = CreateAudio(beamLoopResourcePath, beamVolume);
+        beamAudio = CombatAudioVoice.Create(transform, "Heat beam audio", SynthAudio.HeatBeamLoop(), true, beamVolume);
         chargeAudio = CreateAudio(chargeAudioResourcePath, chargeVolume);
         impactAudio = CreateAudio("CustomAssets/Audio/FireBlast", 0.7f);
         if (impactAudio != null) impactAudio.loop = false;

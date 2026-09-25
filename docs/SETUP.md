@@ -87,7 +87,7 @@ The Quest automatically hosts if it finds no other host. Its Pi output file sele
 adb -s "$QUEST_A" logcat -d -s Unity:D | grep -E 'LAN: hosting|CombatOutput|Exception'
 ```
 
-Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event. A single headset can host and send attack events, but a two-player duel cannot start until Quest B joins and both players calibrate.
+Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event. With one headset, calibrate, then hold a thumbs-up on either hand for three seconds while waiting to start a solo round. A two-player duel starts automatically after Quest B joins and both players calibrate.
 
 ## 5. Add Quest B later
 
@@ -115,7 +115,7 @@ Either headset can start first. The other searches by LAN discovery and retries.
 
 ## 6. Run and verify the demo
 
-Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. After both players calibrate, the synchronized countdown starts. The right hand uses a pointing index or middle finger for the fire beam, an open palm for the ice grenade, and a relaxed fist for the shield. See [the participant flow](TWO_MINUTE_DEMO.md).
+Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. After both players calibrate, the synchronized countdown starts. For a solo round, calibrate one headset and hold a thumbs-up on either hand for three seconds while waiting. The right hand uses a pointing index or middle finger for the fire beam, an open palm for the ice grenade, and a relaxed fist for the shield. See [the participant flow](TWO_MINUTE_DEMO.md).
 
 Watch the Pi journal while playing. The receiver prints `ice_shot` when the bomb is thrown, `fire_start`/`fire_stop` as the beam turns on/off, `hit_received` when this headset's player actually loses health, and `shield_block` when this player's active shield actually blocks a hit. It may also print `output_timeout` when the app closes, pauses, or stops sending. The defender's Pi gets hit/block events; a shield pose alone is not a block.
 
@@ -126,10 +126,11 @@ For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi r
 | Symptom | Check |
 |---|---|
 | `adb devices` shows `unauthorized` | Put on that headset and accept the USB debugging prompt. |
+| Quest says the app is not responding on its first launch just after an APK install | Close the app and launch it again. This occurred during the 2026-09-25 sideload; the next launch reached the LAN host and logged `player_ready`. |
 | APK installs but config push fails | Launch the app once, then check the package-specific `files/` directory exists. |
 | Second Quest does not join | Same Wi-Fi/subnet, no client isolation, UDP `7777`/`47777`/`47778`; set its `fallbackHost` if broadcast discovery fails. |
 | Pi journal shows no attack signals | Check Pi service is `active`, Quest output JSON has `udpEnabled:true` and the Pi's current IP, restart the app after edits, then perform an attack. |
-| No `hit_received` or `shield_block` | These are confirmed defender events; use two players in a fighting round or a damage hazard. Firing at empty space and merely raising a shield do not count. |
+| No `hit_received` or `shield_block` | These are confirmed defender events. Lasers can cause `hit_received` in solo mode; `shield_block` requires an opponent. Firing at empty space and merely raising a shield do not count. |
 | Build from a fresh clone has missing assets | Run `git lfs pull` and restore the excluded licensed folders in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md). |
 
 The headset's local event history is `combat-events.jsonl` in its app data directory. Pull it with `adb -s "$QUEST_A" pull "$APP_FILES/combat-events.jsonl" .` for diagnosis.

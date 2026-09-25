@@ -16,6 +16,8 @@ public static class DemoRegressionChecks
         RunHudFollowCheck();
         RunFeedbackChecks();
         RunOutputCheck();
+        RunLaserCheck();
+        RunSoloCheck();
         CaptureHud();
     }
 
@@ -26,6 +28,37 @@ public static class DemoRegressionChecks
             || LanMatchManager.ShouldYieldTo("b", "a", 2))
             throw new Exception("LAN host collision must keep the smaller ID and preserve a full match.");
         Debug.Log("LAN ELECTION PASSED: host ID tie-break preserves a full match.");
+    }
+
+    public static void RunLaserCheck()
+    {
+        if (ArenaLaserSweepView.TryGetBeam(0, 9.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(1, 24.99f, out _, out _)
+            || !ArenaLaserSweepView.TryGetBeam(0, 10f, out Vector3 highFrom, out Vector3 highTo)
+            || !ArenaLaserSweepView.TryGetBeam(1, 25f, out Vector3 lowFrom, out Vector3 lowTo))
+            throw new Exception("Laser activation times are wrong.");
+        if (Mathf.Abs(highFrom.x - highTo.x) > 0.001f || Mathf.Abs(lowFrom.z - lowTo.z) > 0.001f
+            || highFrom.y < 1.3f || lowFrom.y > 0.2f)
+            throw new Exception("Laser axes or heights are wrong.");
+        if (!ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.65f, 0.71f), 1.65f)
+            || ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.1f, 0.71f), 1.65f)
+            || !ArenaLaserSweepView.Hits(1, 25f, new Vector3(0.275f, 1.65f, lowFrom.z), 1.65f)
+            || ArenaLaserSweepView.Hits(1, 25f, new Vector3(0.275f, 1.75f, lowFrom.z), 1.65f))
+            throw new Exception("Duck and step laser checks are wrong.");
+        Debug.Log("LASER PASSED: 10/25 second arrivals, alternating axes, duck and step checks.");
+    }
+
+    public static void RunSoloCheck()
+    {
+        if (!HandPoseRouter.ClassifyThumbsUp(0.8f, 0.8f, 0.2f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsUp(0.8f, -0.8f, 0.2f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsUp(0.8f, 0.8f, 0.9f, 0.2f, 0.3f, 0.3f)
+            || FusionRoundDirector.CanStartRound(1, true, false)
+            || !FusionRoundDirector.CanStartRound(1, true, true)
+            || FusionRoundDirector.CanStartRound(1, false, true)
+            || !FusionRoundDirector.CanStartRound(2, true, false))
+            throw new Exception("Solo gesture or round admission failed.");
+        Debug.Log("SOLO PASSED: thumbs up requires raised thumb and curled fingers; solo requires calibration and override.");
     }
 
     public static void RunSkeletonProvider()

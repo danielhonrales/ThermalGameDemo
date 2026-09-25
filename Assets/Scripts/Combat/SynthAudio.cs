@@ -141,6 +141,23 @@ public static class SynthAudio
         return roar + crackle;
     }, 0.8f);
 
+    /// <summary>Hot, driven beam tone with a soft burning edge; seamless one-second loop.</summary>
+    public static AudioClip HeatBeamLoop() => Build("heat-beam-loop", 1f, (t, d) =>
+    {
+        float phase = 2f * Mathf.PI * (108f * t + 0.7f * Mathf.Sin(2f * Mathf.PI * 5f * t));
+        float drive = Mathf.Sin(phase) * 0.55f + Mathf.Sin(phase * 2f) * 0.22f
+            + Mathf.Sin(phase * 3f) * 0.08f;
+        float heat = LowNoise(0.035f) * 0.1f * Mathf.Sin(Mathf.PI * t / d);
+        return drive * (0.82f + 0.18f * Mathf.Sin(2f * Mathf.PI * 6f * t)) + heat;
+    }, 0.7f);
+
+    /// <summary>Subtle warning hum heard only near an arena sweep.</summary>
+    public static AudioClip LaserProximityHum() => Build("laser-proximity-hum", 1f, (t, d) =>
+    {
+        float pulse = 0.78f + 0.22f * Mathf.Sin(2f * Mathf.PI * 3f * t);
+        return (Sine(72f, t) * 0.7f + Sine(144f, t) * 0.2f + Sine(216f, t) * 0.06f) * pulse;
+    }, 0.6f);
+
     public static AudioClip PowerDown() => Build("power-down", 1.1f, (t, d) =>
         Saw(Mathf.Lerp(240f, 30f, t / d), t) * Mathf.Exp(-t * 2.2f) * 0.8f + LowNoise(0.2f) * Mathf.Exp(-t * 5f) * 0.3f);
 
