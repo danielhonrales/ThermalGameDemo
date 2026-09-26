@@ -63,7 +63,6 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private float poseChargeStartTime = -1f;
     private bool hardwareLeadSent;
     private float nextThrowAllowedTime;
-    private bool waitingForPoseReset;
     private HandPoseRouter poseRouter;
     private bool hasAimTarget;
     private Vector3 smoothedAimTarget;
@@ -95,13 +94,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private void Update()
     {
-        // Re-arm even while the previous grenade is in flight.
-        if (poseRouter != null && !poseRouter.IsIcePose) waitingForPoseReset = false;
-        if (activeProjectile != null && activeProjectile.IsAlive)
-        {
-            HideArcPath();
-            return;
-        }
+        // A held palm begins another visible charge after the short throw gap.
+        bool projectileInFlight = activeProjectile != null && activeProjectile.IsAlive;
 
         if (palmOrigin == null)
         {
@@ -112,7 +106,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             return;
         }
 
-        if (poseRouter == null && Time.time < nextThrowAllowedTime)
+        if (Time.time < nextThrowAllowedTime)
         {
             grenadeEffects?.HideCharge();
             HideArcPreview();
@@ -121,7 +115,6 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
         if (requireIronManPose && !IsIronManPoseActive())
         {
-            waitingForPoseReset = false;
             ResetCharge();
             grenadeEffects?.HideAll();
             HideArcPreview();
@@ -129,17 +122,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             return;
         }
 
-        if (waitingForPoseReset)
-        {
-            grenadeEffects?.HideCharge();
-            HideArcPreview();
-            return;
-        }
-
         Vector3 origin = GetThrowOrigin();
         Vector3 launchVelocity = GetLaunchVelocity(origin);
 
-        if ((requireChargeBeforeThrow && !IsChargeComplete()) || (poseRouter != null && !poseRouter.IsIcePose))
+        if ((requireChargeBeforeThrow && !IsChargeComplete()) || projectileInFlight
+            || (poseRouter != null && !poseRouter.IsIcePose))
         {
             CombatEventOutput.State("ice_charge", poseRouter == null || poseRouter.IsIcePose);
             // Signal the Pi one hardware lead before release so the cold pulse peaks with the throw.
@@ -178,7 +165,6 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     public void CancelWeaponVisuals()
     {
         ResetCharge();
-        waitingForPoseReset = false;
         HideArcPreview();
         grenadeEffects?.CancelAllWeaponVisuals();
         if (activeProjectile != null && activeProjectile.IsAlive)
@@ -213,10 +199,9 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         CombatEventOutput.State("ice_flight", true);
         PublishThrow(origin, launchVelocity, floorY);
         ResetCharge();
-        waitingForPoseReset = true;
         if (landingMarker != null) landingMarker.startColor = landingMarker.endColor = Color.white;
         if (landingCenter != null) landingCenter.startColor = landingCenter.endColor = Color.white;
-        nextThrowAllowedTime = poseRouter == null ? Time.time + throwCooldownSeconds : 0f;
+        nextThrowAllowedTime = Time.time + Mathf.Max(0.55f, throwCooldownSeconds);
 
         if (logThrows)
         {
@@ -280,11 +265,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             contactPoint = hit.bounds.center;
             if (health.IsShieldActive)
             {
-                if (FusionRoundDirector.Active()?.IsFighting == true) health.RequestHeadshotDamage("ice");
+                if (FusionRoundDirector.Active()?.AllowsCombat == true) health.RequestHeadshotDamage("ice");
                 return IceGrenadeEffects.ShieldContact;
             }
 
-            if (FusionRoundDirector.Active()?.IsFighting == true)
+            if (FusionRoundDirector.Active()?.AllowsCombat == true)
                 health.RequestHeadshotDamage("ice");
             return IceGrenadeEffects.PlayerContact;
         }

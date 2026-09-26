@@ -98,7 +98,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     private void CmdRequestDamage(int damage, bool ignoreShield, string source, NetworkConnectionToClient sender = null)
     {
         if (sender == null || sender.identity == null || sender.identity == netIdentity) return;
-        if (FusionRoundDirector.Active()?.IsFighting != true) return;
+        if (FusionRoundDirector.Active()?.AllowsCombat != true) return;
         ApplyDamage(damage, ignoreShield, source);
     }
 
@@ -137,6 +137,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     {
         if (blocked) { CombatEventOutput.Emit("shield_block", source, amount, health); return; }
         CombatEventOutput.Emit("hit_received", source, amount, health);
+        FusionRoundHud.Current?.PulseDamage();
         if (health <= 0)
         {
             CombatEventOutput.State("dead", true);
@@ -195,6 +196,14 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         }
 
         FusionRoundDirector round = FusionRoundDirector.Active();
+        if (round != null && round.IsSandbox)
+        {
+            int practiceDamage = Mathf.Clamp(damage, 1, maxHealth);
+            nextDamageAllowedTime = Time.time + 0.4f;
+            ReportToOwner(source, practiceDamage, false);
+            RpcPracticeImpact(practiceDamage);
+            return;
+        }
         if (round != null && round.IsFighting && round.FightElapsed < 20f)
             damage = Mathf.CeilToInt(damage * 0.5f);
         if (round != null) damage = Mathf.CeilToInt(damage * round.DamageMultiplier);
@@ -219,6 +228,18 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
                 Debug.Log($"NetworkPlayerHealth: {name} reached 0 health and reset to {maxHealth}.", this);
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcPracticeImpact(int damage)
+    {
+        if (isOwned) return;
+        if (damageFeedback == null) damageFeedback = GetComponent<CombatDamageFeedback>() ?? gameObject.AddComponent<CombatDamageFeedback>();
+        if (headTracker == null) headTracker = GetComponent<NetworkHeadTracker>();
+        Vector3 head = headTracker != null ? headTracker.HeadWorldPosition : transform.position + Vector3.up * 1.5f;
+        damageFeedback.Play(head);
+        ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.hitExplosion, head, 0.22f, 3f);
+        FusionRoundHud.Current?.HitConfirmed(head + Vector3.up * 0.2f, damage, false);
     }
 
     private void FindHeadTarget()

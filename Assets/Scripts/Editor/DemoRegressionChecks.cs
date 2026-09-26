@@ -16,10 +16,12 @@ public static class DemoRegressionChecks
         RunHudFollowCheck();
         RunFeedbackChecks();
         RunOutputCheck();
-        RunLaserCheck();
+        RunSafeZoneCheck();
         RunArenaSequenceCheck();
         RunSoloCheck();
+        RunRepeatedIceVisualCheck();
         CaptureHud();
+        CaptureSandboxGuide();
     }
 
     public static void RunLanElectionCheck()
@@ -31,32 +33,26 @@ public static class DemoRegressionChecks
         Debug.Log("LAN ELECTION PASSED: host ID tie-break preserves a full match.");
     }
 
-    public static void RunLaserCheck()
+    public static void RunSafeZoneCheck()
     {
-        if (ArenaLaserSweepView.TryGetBeam(0, 9.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(0, 35f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(1, 43.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(1, 60f, out _, out _)
-            || !ArenaLaserSweepView.TryGetBeam(0, 10f, out Vector3 highFrom, out Vector3 highTo)
-            || !ArenaLaserSweepView.TryGetBeam(0, 34.99f, out _, out _)
-            || !ArenaLaserSweepView.TryGetBeam(1, 44f, out Vector3 crossFrom, out Vector3 crossTo)
-            || !ArenaLaserSweepView.TryGetBeam(1, 59.99f, out _, out _))
-            throw new Exception("Laser activation times are wrong.");
-        if (Mathf.Abs(highFrom.x - highTo.x) > 0.001f || Mathf.Abs(crossFrom.z - crossTo.z) > 0.001f
-            || highFrom.y < 1.3f || crossFrom.y < 1.3f)
-            throw new Exception("Laser axes or heights are wrong.");
-        if (ArenaLaserSweepView.ShouldPreview(0, 35f)
-            || ArenaLaserSweepView.ShouldPreview(0, 40f)
-            || ArenaLaserSweepView.ShouldPreview(1, 45f)
-            || !ArenaLaserSweepView.ShouldPreview(0, 8f)
-            || !ArenaLaserSweepView.ShouldPreview(1, 42f))
-            throw new Exception("Laser previews must appear only before their own sweep.");
-        if (!ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.65f, 0.71f))
-            || ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.1f, 0.71f))
-            || !ArenaLaserSweepView.Hits(1, 44f, new Vector3(0.275f, 1.65f, crossFrom.z))
-            || ArenaLaserSweepView.Hits(1, 44f, new Vector3(0.275f, 1.1f, crossFrom.z)))
-            throw new Exception("Head-height duck laser checks are wrong.");
-        Debug.Log("LASER PASSED: one sweep at a time, 35-44 second pause, perpendicular sudden-death return.");
+        if (SafeZoneHazardView.WarningAt != 20f
+            || SafeZoneHazardView.BlastAt - SafeZoneHazardView.WarningAt != 5f
+            || SafeZoneHazardView.HealAt <= SafeZoneHazardView.BlastEndsAt
+            || SafeZoneHazardView.IsExploding(24.99f)
+            || !SafeZoneHazardView.IsExploding(25f)
+            || SafeZoneHazardView.IsExploding(28f))
+            throw new Exception("Safe-zone warning, blast, or heal timing is wrong.");
+        for (int seed = 0; seed < SafeZoneHazardView.LayoutCount; seed++)
+        {
+            Vector2 first = SafeZoneHazardView.Center(seed, 0);
+            Vector2 second = SafeZoneHazardView.Center(seed, 1);
+            if (Vector2.Distance(first, second) < 1.5f
+                || !SafeZoneHazardView.Contains(seed, new Vector3(first.x, 1.6f, first.y))
+                || !SafeZoneHazardView.Contains(seed, new Vector3(second.x, 1.6f, second.y))
+                || SafeZoneHazardView.Contains(seed, new Vector3(0.275f, 1.6f, 0.71f)))
+                throw new Exception("Safe zones must be distinct and include only their marked floor space.");
+        }
+        Debug.Log("SAFE ZONE PASSED: two distinct refuges, five-second warning, repeated blast window, heal afterward.");
     }
 
     public static void RunArenaSequenceCheck()
@@ -65,10 +61,9 @@ public static class DemoRegressionChecks
         float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.Gone / CoverDrone.DeliverySpeed;
         if (SuddenDeathDirector.PickupStart >= SuddenDeathDirector.DeliveryStart
             || coverDeliveredAt >= 0f || dronesGoneAt >= 0f
-            || ArenaLaserSweepView.EndsAt(0) > 40f + SuddenDeathDirector.PickupStart
-            || ArenaLaserSweepView.StartsAt(1) <= 40f)
-            throw new Exception("Sudden-death cover must settle before 40 seconds while lasers pause.");
-        Debug.Log("ARENA SEQUENCE PASSED: cover lands and drones leave before 40 seconds; laser pauses for the rebuild.");
+            || SafeZoneHazardView.BlastEndsAt >= 40f + SuddenDeathDirector.PickupStart)
+            throw new Exception("Sudden-death cover must settle before 40 seconds after the safe-zone blast.");
+        Debug.Log("ARENA SEQUENCE PASSED: safe-zone blast ends before cover moves; drones leave before 40 seconds.");
     }
 
     public static void RunSoloCheck()
@@ -81,7 +76,36 @@ public static class DemoRegressionChecks
             || FusionRoundDirector.CanStartRound(1, false, true)
             || !FusionRoundDirector.CanStartRound(2, true, false))
             throw new Exception("Solo gesture or round admission failed.");
-        Debug.Log("SOLO PASSED: thumbs up requires raised thumb and curled fingers; solo requires calibration and override.");
+        if (FusionRoundDirector.CanEnterSandbox(2, false)
+            || !FusionRoundDirector.CanEnterSandbox(2, true)
+            || !FusionRoundDirector.CanEnterSandbox(1, true)
+            || FusionRoundDirector.CanEnterSandbox(0, true))
+            throw new Exception("Practice sandbox admission failed.");
+        Debug.Log("SANDBOX PASSED: calibrated players practice until a valid thumbs-up starts the round.");
+    }
+
+    public static void RunRepeatedIceVisualCheck()
+    {
+        var root = new GameObject("Repeated ice visual regression");
+        try
+        {
+            var visual = root.AddComponent<NetworkPlayerGrenadeVisual>();
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var type = typeof(NetworkPlayerGrenadeVisual);
+            type.GetMethod("SetThrow", flags).Invoke(visual,
+                new object[] { Vector3.zero, Vector3.forward, 0f, true });
+            type.GetMethod("SetCharge", flags).Invoke(visual,
+                new object[] { Vector3.zero, Quaternion.identity, 0.25f, true });
+            if (!(bool)type.GetField("GrenadeVisible", flags).GetValue(visual)
+                || !(bool)type.GetField("ChargeVisible", flags).GetValue(visual))
+                throw new Exception("Starting the next ice charge hid the previous bomb in flight.");
+            type.GetMethod("SetExplosion", flags).Invoke(visual,
+                new object[] { Vector3.zero, 0, Vector3.zero, true });
+            if (!(bool)type.GetField("ChargeVisible", flags).GetValue(visual))
+                throw new Exception("The previous ice explosion hid the next charge.");
+        }
+        finally { UnityEngine.Object.DestroyImmediate(root); }
+        Debug.Log("REPEATED ICE PASSED: new charge stays visible during previous flight and explosion.");
     }
 
     public static void RunSkeletonProvider()
@@ -501,6 +525,74 @@ public static class DemoRegressionChecks
             UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline = originalPipeline;
             QualitySettings.renderPipeline = originalQuality;
         }
+    }
+
+    public static void CaptureSandboxGuide()
+    {
+        if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null) return;
+        UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene);
+        var originalPipeline = UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline;
+        var originalQuality = QualitySettings.renderPipeline;
+        RenderTexture target = null;
+        Texture2D image = null;
+        try
+        {
+            UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline = null;
+            QualitySettings.renderPipeline = null;
+            var camera = new GameObject("Practice guide preview camera").AddComponent<Camera>();
+            camera.tag = "MainCamera";
+            camera.transform.position = new Vector3(0.275f, 1.75f, -1.25f);
+            camera.transform.LookAt(new Vector3(0.275f, 2.12f, 0.71f));
+            camera.fieldOfView = 64f;
+            camera.nearClipPlane = 0.05f;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(0.045f, 0.065f, 0.085f);
+            var guide = new GameObject("Practice guide preview").AddComponent<SandboxGuideView>();
+            guide.Preview(camera);
+            foreach (var text in UnityEngine.Object.FindObjectsByType<TMPro.TextMeshProUGUI>(FindObjectsSortMode.None))
+            {
+                text.ForceMeshUpdate(true);
+                if (text.isTextOverflowing) throw new Exception("Practice guide text overflows: " + text.name);
+            }
+            Canvas.ForceUpdateCanvases();
+            target = new RenderTexture(1600, 1000, 24);
+            camera.targetTexture = target;
+            camera.Render();
+            RenderTexture.active = target;
+            image = new Texture2D(1600, 1000, TextureFormat.RGB24, false);
+            image.ReadPixels(new Rect(0, 0, 1600, 1000), 0, 0);
+            image.Apply();
+            System.IO.File.WriteAllBytes("/tmp/thermal-sandbox-preview.png", image.EncodeToPNG());
+            Debug.Log("SANDBOX GUIDE PREVIEW PASSED: no text overflow; /tmp/thermal-sandbox-preview.png");
+        }
+        finally
+        {
+            RenderTexture.active = null;
+            if (image != null) UnityEngine.Object.DestroyImmediate(image);
+            if (target != null) UnityEngine.Object.DestroyImmediate(target);
+            UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline = originalPipeline;
+            QualitySettings.renderPipeline = originalQuality;
+        }
+    }
+
+    public static void InspectSafeZoneClearance()
+    {
+        UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
+        Transform arena = GameObject.Find("ArenaRoot")?.transform;
+        Transform cover = GameObject.Find("ArenaRoot/GameplayRoot/GameplayCover")?.transform;
+        if (arena == null || cover == null) throw new Exception("Arena or starting cover missing.");
+        Collider[] obstacles = cover.GetComponentsInChildren<Collider>(true);
+        for (int seed = 0; seed < SafeZoneHazardView.LayoutCount; seed++)
+            for (int index = 0; index < 2; index++)
+            {
+                Vector2 center = SafeZoneHazardView.Center(seed, index);
+                Vector3 point = arena.TransformPoint(new Vector3(center.x, 0f, center.y));
+                Bounds standingSpace = new Bounds(point + Vector3.up * 1.075f, new Vector3(1.1f, 2.15f, 1.1f));
+                foreach (Collider obstacle in obstacles)
+                    if (obstacle.enabled && obstacle.bounds.Intersects(standingSpace))
+                        throw new Exception($"Safe-zone layout {seed} zone {index} intersects {obstacle.name}.");
+            }
+        Debug.Log($"SAFE ZONE CLEARANCE PASSED: all layouts fit between {obstacles.Length} starting-cover colliders.");
     }
 
     public static void RunBoneLookup()

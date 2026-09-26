@@ -3,23 +3,22 @@ using System.Linq;
 using Mirror;
 using UnityEngine;
 
-/// <summary>Shared authority for a 60-second duel, moving laser sweeps, and the heal.</summary>
+/// <summary>Shared authority for practice, the 60-second duel, safe zones, and the heal.</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NetworkIdentity))]
 public sealed class FusionRoundDirector : NetworkBehaviour
 {
-    public enum RoundPhase { Waiting, Countdown, Fighting, Result }
+    public enum RoundPhase { Waiting, Sandbox, Countdown, Fighting, Result }
 
     [SerializeField, Min(30f)] private float roundSeconds = 60f;
     [SerializeField, Min(1f)] private float countdownSeconds = 5f;
     [SerializeField, Min(1f)] private float resultSeconds = 7f;
-    [SerializeField, Min(1)] private int laserDamage = 20;
+    [SerializeField, Min(1)] private int safeZoneDamage = 80;
     [Header("Sudden death")]
     [Tooltip("The final seconds of the round are sudden death.")]
     [SerializeField, Min(5f)] private float suddenDeathSeconds = 20f;
     [SerializeField, Min(1f)] private float suddenDeathDamageMultiplier = 1.5f;
     [Header("Heal pickup")]
-    [SerializeField, Min(0f)] private float healSpawnSeconds = 20f;
     [SerializeField, Min(1)] private int healAmount = 90;
     [SerializeField, Min(0.1f)] private float healPickupRadius = 0.6f;
     [SerializeField] private float healHeight = 1.55f;
@@ -36,6 +35,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int WinsA;
     [SyncVar] public int WinsB;
     [SyncVar] public bool SoloOverride;
+    [SyncVar] public int HazardSeed;
     /// <summary>0 = not yet spawned this round, 1 = available, 2 = taken.</summary>
     [SyncVar] public int HealState;
     [SyncVar] public Vector3 HealCenter;
@@ -44,7 +44,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int DroneDownMask;
 
     private FusionRoundHud hud;
-    private ArenaLaserSweepView laserView;
+    private SafeZoneHazardView safeZoneView;
+    private SandboxGuideView sandboxGuide;
     private HealPickupView healView;
     private SuddenDeathDirector suddenDeath;
     private int lastSeenPhase = -1;
@@ -53,15 +54,17 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     private HandPoseRouter rightSoloPose;
     private float resetPoseSince = -1f;
     private bool resetRequested;
-    private float soloPoseSince = -1f;
-    private bool soloPoseWasLeft;
-    private bool soloRequested;
+    private float startPoseSince = -1f;
+    private bool startPoseWasLeft;
+    private bool startRequested;
     private double nextResetAllowedAt;
 
     public RoundPhase Phase => (RoundPhase)PhaseCode;
     public float PhaseRemaining => Mathf.Max(0f, (float)(phaseEndsAt - NetworkTime.time));
     public float FightElapsed => Mathf.Max(0f, roundSeconds - PhaseRemaining);
     public bool IsFighting => IsDirector && Phase == RoundPhase.Fighting;
+    public bool IsSandbox => IsDirector && Phase == RoundPhase.Sandbox;
+    public bool AllowsCombat => IsFighting || IsSandbox;
     public float RoundLength => roundSeconds;
     public float SuddenDeathStartsAt => roundSeconds - suddenDeathSeconds;
     /// <summary>Seconds since sudden death began (negative before it). Only meaningful while fighting.</summary>
@@ -108,20 +111,31 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             WinsA = WinsB = 0;
             ResetHeal();
         }
-        if (!CanStartRound(players.Count, BothCalibrated(players), SoloOverride))
+        if (!CanEnterSandbox(players.Count, BothCalibrated(players)))
         {
             PhaseCode = (int)RoundPhase.Waiting;
+            return;
+        }
+        if (Phase != RoundPhase.Waiting && Phase != RoundPhase.Sandbox
+            && !CanStartRound(players.Count, true, SoloOverride))
+        {
+            PhaseCode = (int)RoundPhase.Sandbox;
+            phaseEndsAt = 0;
+            ResetHeal();
+            ResetPlayers(players);
             return;
         }
 
         switch (Phase)
         {
             case RoundPhase.Waiting:
-                PhaseCode = (int)RoundPhase.Countdown;
-                phaseEndsAt = NetworkTime.time + countdownSeconds;
+                PhaseCode = (int)RoundPhase.Sandbox;
+                phaseEndsAt = 0;
                 WinnerPlayerId = -1;
                 ResetHeal();
                 ResetPlayers(players);
+                break;
+            case RoundPhase.Sandbox:
                 break;
             case RoundPhase.Countdown:
                 if (NetworkTime.time >= phaseEndsAt)
@@ -136,8 +150,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             case RoundPhase.Result:
                 if (NetworkTime.time >= phaseEndsAt)
                 {
-                    PhaseCode = (int)RoundPhase.Countdown;
-                    phaseEndsAt = NetworkTime.time + countdownSeconds;
+                    PhaseCode = (int)RoundPhase.Sandbox;
+                    phaseEndsAt = 0;
                     WinnerPlayerId = -1;
                     ResetHeal();
                     ResetPlayers(players);
@@ -168,7 +182,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 
         UpdateHeal(players);
 
-        DamagePlayersInsideLasers(players);
+        DamagePlayersOutsideSafeZones(players);
     }
 
     private void ResetHeal()
@@ -200,39 +214,51 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [Command]
     private void CmdResetMatch() => Active()?.ResetMatch();
 
-    private void UpdateSoloGesture()
+    private void UpdateStartGesture()
     {
-        bool waiting = Active()?.Phase == RoundPhase.Waiting && NetworkClient.localPlayer != null;
-        bool left = waiting && leftResetPose != null && leftResetPose.IsThumbsUp;
-        bool right = waiting && rightSoloPose != null && rightSoloPose.IsThumbsUp;
+        bool practicing = Active()?.Phase == RoundPhase.Sandbox && NetworkClient.localPlayer != null;
+        bool left = practicing && leftResetPose != null && leftResetPose.IsThumbsUp;
+        bool right = practicing && rightSoloPose != null && rightSoloPose.IsThumbsUp;
         if (!left && !right)
         {
-            soloPoseSince = -1f;
-            soloRequested = false;
+            startPoseSince = -1f;
+            startRequested = false;
             return;
         }
-        if (soloPoseSince < 0f || (soloPoseWasLeft ? !left : !right))
+        if (startPoseSince < 0f || (startPoseWasLeft ? !left : !right))
         {
-            soloPoseSince = Time.time;
-            soloPoseWasLeft = left;
-            FusionRoundHud.Current?.Toast("HOLD THUMBS UP TO START SOLO", FusionRoundHud.Friendly, SoloHoldSeconds);
+            startPoseSince = Time.time;
+            startPoseWasLeft = left;
+            FusionRoundHud.Current?.Toast("HOLD THUMBS UP TO START", FusionRoundHud.Friendly, SoloHoldSeconds);
         }
-        if (soloRequested || Time.time - soloPoseSince < SoloHoldSeconds) return;
-        soloRequested = true;
-        if (isServer) Active()?.TryStartSolo(netIdentity);
-        else CmdStartSolo();
+        if (startRequested || Time.time - startPoseSince < SoloHoldSeconds) return;
+        startRequested = true;
+        if (isServer) Active()?.TryStartRound(netIdentity);
+        else CmdStartRound();
     }
 
     [Command]
-    private void CmdStartSolo() => Active()?.TryStartSolo(netIdentity);
+    private void CmdStartRound() => Active()?.TryStartRound(netIdentity);
 
     [Server]
-    private void TryStartSolo(NetworkIdentity requester)
+    private void TryStartRound(NetworkIdentity requester)
     {
         List<NetworkPlayerHealth> players = Players();
-        if (Phase != RoundPhase.Waiting || players.Count != 1
-            || players[0].netIdentity != requester || !BothCalibrated(players)) return;
-        SoloOverride = true;
+        if (Phase != RoundPhase.Sandbox || !CanEnterSandbox(players.Count, BothCalibrated(players))
+            || !players.Any(player => player.netIdentity == requester)) return;
+        SoloOverride = players.Count == 1;
+        StartCountdown(players);
+    }
+
+    [Server]
+    private void StartCountdown(List<NetworkPlayerHealth> players)
+    {
+        PhaseCode = (int)RoundPhase.Countdown;
+        phaseEndsAt = NetworkTime.time + countdownSeconds;
+        WinnerPlayerId = -1;
+        HazardSeed = Random.Range(0, SafeZoneHazardView.LayoutCount);
+        ResetHeal();
+        ResetPlayers(players);
     }
 
     [Server]
@@ -241,9 +267,9 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         if (NetworkTime.time < nextResetAllowedAt) return;
         nextResetAllowedAt = NetworkTime.time + 5f;
         List<NetworkPlayerHealth> players = Players();
-        PhaseCode = CanStartRound(players.Count, BothCalibrated(players), SoloOverride)
-            ? (int)RoundPhase.Countdown : (int)RoundPhase.Waiting;
-        phaseEndsAt = NetworkTime.time + (Phase == RoundPhase.Countdown ? countdownSeconds : 0f);
+        PhaseCode = CanEnterSandbox(players.Count, BothCalibrated(players))
+            ? (int)RoundPhase.Sandbox : (int)RoundPhase.Waiting;
+        phaseEndsAt = 0;
         WinnerPlayerId = -1;
         WinsA = WinsB = 0;
         ResetHeal();
@@ -278,7 +304,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     private void UpdateHeal(List<NetworkPlayerHealth> players)
     {
         if (players.Count == 0) return;
-        if (HealState == 0 && FightElapsed >= healSpawnSeconds)
+        if (HealState == 0 && FightElapsed >= SafeZoneHazardView.HealAt)
         {
             // Float above the arena centre (in the shared canonical frame) so it never spawns in cover.
             Transform arena = GameObject.Find("ArenaRoot")?.transform;
@@ -306,19 +332,15 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         HealState = 2;
     }
 
-    private void DamagePlayersInsideLasers(List<NetworkPlayerHealth> players)
+    private void DamagePlayersOutsideSafeZones(List<NetworkPlayerHealth> players)
     {
+        if (!SafeZoneHazardView.IsExploding(FightElapsed)) return;
         foreach (NetworkPlayerHealth player in players)
         {
             NetworkHeadTracker head = player.GetComponent<NetworkHeadTracker>();
             if (head == null || !player.IsAlive) continue;
-            Vector3 position = head.CanonicalHeadPosition;
-            for (int i = 0; i < ArenaLaserSweepView.Count; i++)
-                if (ArenaLaserSweepView.Hits(i, FightElapsed, position))
-                {
-                    player.RequestDamage(laserDamage, true, "laser");
-                    break;
-                }
+            if (!SafeZoneHazardView.Contains(HazardSeed, head.CanonicalHeadPosition))
+                player.RequestDamage(safeZoneDamage, true, "safe_zone");
         }
     }
 
@@ -327,7 +349,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         if (isOwned)
         {
             UpdateResetGesture();
-            UpdateSoloGesture();
+            UpdateStartGesture();
         }
         if (!isClient || !IsDirector) return;
         cachedDirector = this;
@@ -337,8 +359,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             if (hud == null) hud = new GameObject("Round HUD").AddComponent<FusionRoundHud>();
         }
         hud.Show(this);
-        if (laserView == null) laserView = new GameObject("Arena laser sweeps").AddComponent<ArenaLaserSweepView>();
-        laserView.Show(IsFighting, FightElapsed);
+        if (safeZoneView == null) safeZoneView = new GameObject("Safe zone hazard").AddComponent<SafeZoneHazardView>();
+        safeZoneView.Show(this);
+        if (sandboxGuide == null) sandboxGuide = new GameObject("Sandbox ability guide").AddComponent<SandboxGuideView>();
+        sandboxGuide.Show(IsSandbox);
         if (suddenDeath == null) suddenDeath = SuddenDeathDirector.Ensure();
         suddenDeath.Show(this);
         if (healView == null) healView = new GameObject("Heal Pickup").AddComponent<HealPickupView>();
@@ -378,6 +402,9 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     public static bool CanStartRound(int playerCount, bool calibrated, bool soloOverride)
         => calibrated && (playerCount == 2 || (playerCount == 1 && soloOverride));
 
+    public static bool CanEnterSandbox(int playerCount, bool calibrated)
+        => calibrated && (playerCount == 1 || playerCount == 2);
+
     private static void ResetPlayers(List<NetworkPlayerHealth> players)
     {
         foreach (NetworkPlayerHealth player in players) player.RequestResetHealth();
@@ -402,11 +429,12 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         }
         if (healView != null) Destroy(healView.gameObject);
         if (cachedDirector == null && suddenDeath != null) suddenDeath.ResetArena();
-        if (laserView != null) Destroy(laserView.gameObject);
+        if (safeZoneView != null) Destroy(safeZoneView.gameObject);
+        if (sandboxGuide != null) Destroy(sandboxGuide.gameObject);
     }
 
     private void OnApplicationPause(bool paused)
     {
-        if (paused) { resetPoseSince = -1f; soloPoseSince = -1f; }
+        if (paused) { resetPoseSince = -1f; startPoseSince = -1f; }
     }
 }

@@ -110,10 +110,12 @@ public static class LanDemoSetup
         DemoRegressionChecks.RunHudFollowCheck();
         DemoRegressionChecks.RunFeedbackChecks();
         DemoRegressionChecks.RunOutputCheck();
-        DemoRegressionChecks.RunLaserCheck();
+        DemoRegressionChecks.RunSafeZoneCheck();
         DemoRegressionChecks.RunArenaSequenceCheck();
         DemoRegressionChecks.RunSoloCheck();
+        DemoRegressionChecks.RunRepeatedIceVisualCheck();
         Apply();
+        DemoRegressionChecks.InspectSafeZoneClearance();
         BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {
             scenes = new[] { ScenePath },

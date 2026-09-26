@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Head-locked match HUD: local health (top left), round clock with a match timeline,
-/// centre banners (countdown, FIGHT, SUDDEN DEATH, result), toasts and a full-view feedback vignette.
+/// Head-locked match HUD: local health, round clock, safe-zone warning,
+/// sudden-death cue, result, and full-view damage feedback.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class FusionRoundHud : MonoBehaviour
@@ -51,6 +51,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private float roundLength = 60f, suddenDeathAt = 40f;
     private float suddenDeathAmount;
     private float previousHit;
+    private float damageFlashUntil;
 
     public static FusionRoundHud Current { get; private set; }
 
@@ -95,10 +96,11 @@ public sealed class FusionRoundHud : MonoBehaviour
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
-        Marker(timelineRoot, 10f / 60f, Warn, "LASER", -26f);
-        Marker(timelineRoot, 20f / 60f, HealPickupView.Green, "HEAL", 26f);
+        Marker(timelineRoot, SafeZoneHazardView.WarningAt / 60f, Warn, "SAFE ZONES", -25f);
+        Marker(timelineRoot, SafeZoneHazardView.HealAt / 60f, HealPickupView.Green, "HEAL", 26f);
         Marker(timelineRoot, 40f / 60f, Amber, "SUDDEN DEATH");
         timelineHead = HudKit.Image(timelineRoot, "Head", HudSprites.Dot(), Color.white, new Vector2(-220f, 0f), new Vector2(26f, 26f));
+        timelineRoot.gameObject.SetActive(false); // The phase band says the next action without tiny, overlapping labels.
 
         // Centre banner.
         banner = HudKit.Rect(root, "Banner", new Vector2(0f, 0f), new Vector2(1500f, 260f));
@@ -213,11 +215,19 @@ public sealed class FusionRoundHud : MonoBehaviour
         {
             case FusionRoundDirector.RoundPhase.Waiting:
                 timer.text = Clock(roundLength);
-                phaseLabel.text = !NetworkPlayerAlignment.HasCalibration ? "ALIGN AT START"
-                    : opponentHealth == null ? "THUMBS UP 3S FOR SOLO"
-                    : "WAITING FOR OPPONENT TO ALIGN";
+                phaseLabel.text = !NetworkPlayerAlignment.HasCalibration ? "ALIGN AT START" : "WAITING FOR OTHER PLAYER";
                 SetTimeline(0f);
                 ShowBanner("waiting", "", "", Color.white, 0f);
+                lastCountdownNumber = lastHealState = -1;
+                break;
+
+            case FusionRoundDirector.RoundPhase.Sandbox:
+                timer.text = "READY";
+                phaseLabel.text = "THUMBS UP 3S TO START";
+                phaseLabel.color = Friendly;
+                phaseBand.color = HudKit.A(Friendly, 0.1f);
+                SetTimeline(0f);
+                ShowBanner("practice", "", "", Color.white, 0f);
                 lastCountdownNumber = lastHealState = -1;
                 break;
 
@@ -243,9 +253,14 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
-                else if (elapsed >= ArenaLaserSweepView.FirstSeconds - 5f
-                    && elapsed < ArenaLaserSweepView.FirstSeconds + 0.8f)
-                    ShowBanner("laserwarning", "WATCH OUT FOR LASERS", "", Warn, 1f);
+                else if (elapsed >= SafeZoneHazardView.WarningAt && elapsed < SafeZoneHazardView.BlastAt)
+                {
+                    ShowBanner("safe_warn", "DANGER", "", Warn, 1f);
+                    bannerCaption.text = "MOVE TO A GLOWING SAFE ZONE · "
+                        + Mathf.CeilToInt(SafeZoneHazardView.BlastAt - elapsed);
+                }
+                else if (SafeZoneHazardView.IsExploding(elapsed))
+                    ShowBanner("safe_blast", "BLAST", "STAY IN A SAFE ZONE", Warn, 1f);
                 else if (sd >= -5f && sd < 0f)
                 {
                     ShowBanner("suddenwarn", "SUDDEN DEATH", "", Amber, 1f);
@@ -256,22 +271,21 @@ public sealed class FusionRoundHud : MonoBehaviour
                 else ShowBanner("none", "", "", Color.white, 0f);
 
                 bool rebuilding = sd >= -5f && sd < 0f;
-                bool laserComing = (elapsed >= ArenaLaserSweepView.FirstSeconds - 5f
-                        && elapsed < ArenaLaserSweepView.FirstSeconds)
-                    || (sd >= 2f && elapsed < ArenaLaserSweepView.StartsAt(1));
+                bool safeSoon = elapsed >= SafeZoneHazardView.WarningAt - 5f
+                    && elapsed < SafeZoneHazardView.WarningAt;
+                bool safeWarning = elapsed >= SafeZoneHazardView.WarningAt
+                    && elapsed < SafeZoneHazardView.BlastAt;
+                bool blasting = SafeZoneHazardView.IsExploding(elapsed);
                 phaseLabel.text = rebuilding ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-sd)
-                    : sd >= 0f && sd < 2f ? "SUDDEN DEATH"
-                    : laserComing ? "LASER IN " + Mathf.CeilToInt(
-                        elapsed < ArenaLaserSweepView.FirstSeconds ? ArenaLaserSweepView.FirstSeconds - elapsed
-                            : ArenaLaserSweepView.StartsAt(1) - elapsed)
-                    : sd >= 0f ? "SUDDEN DEATH · LASER"
-                    : elapsed < ArenaLaserSweepView.FirstSeconds - 5f
-                        ? round.SoloOverride ? "SURVIVE ONE MINUTE" : "LOWER OPPONENT HEALTH"
-                    : "LASER ACTIVE";
-                Color statusColor = rebuilding ? Amber
-                    : elapsed < ArenaLaserSweepView.FirstSeconds - 5f ? Friendly : Warn;
+                    : safeSoon ? "SAFE ZONES IN " + Mathf.CeilToInt(SafeZoneHazardView.WarningAt - elapsed)
+                    : safeWarning ? "ENTER A SAFE ZONE · " + Mathf.CeilToInt(SafeZoneHazardView.BlastAt - elapsed)
+                    : blasting ? "BLAST · STAY INSIDE"
+                    : sd >= 0f ? "SUDDEN DEATH"
+                    : elapsed >= SafeZoneHazardView.HealAt ? "HEAL AVAILABLE"
+                    : round.SoloOverride ? "SURVIVE ONE MINUTE" : "LOWER OPPONENT HEALTH";
+                Color statusColor = rebuilding ? Amber : safeSoon || safeWarning || blasting ? Warn : Friendly;
                 phaseLabel.color = Color.Lerp(statusColor, Color.white, 0.3f);
-                phaseBand.color = HudKit.A(statusColor, elapsed < ArenaLaserSweepView.FirstSeconds - 5f ? 0.08f : 0.16f);
+                phaseBand.color = HudKit.A(statusColor, safeSoon || safeWarning || blasting || rebuilding ? 0.16f : 0.08f);
                 if (rebuilding) timer.color = Amber;
                 else if (sd >= 0f) timer.color = Color.Lerp(Color.white, Warn, 0.3f);
                 UpdateHealToasts(round);
@@ -289,7 +303,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(1f);
                 ShowBanner(round.SoloOverride ? "soloresult" : draw ? "draw" : won ? "win" : "lose",
                     round.SoloOverride ? won ? "SURVIVED" : "TRY AGAIN" : draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
-                    "NEXT ROUND IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, 1f);
+                    "PRACTICE IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, 1f);
                 break;
             }
         }
@@ -361,10 +375,10 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerText.text = title;
                 bannerCaption.text = caption;
                 bannerText.color = color;
-                bannerText.fontSize = key == "laserwarning" ? 110f : title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
+                bannerText.fontSize = title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
                 bannerCaption.fontSize = key.StartsWith("count") ? 30f : 34f;
                 bannerCaption.characterSpacing = key.StartsWith("count") ? 8f : 16f;
-                bool danger = key == "laserwarning";
+                bool danger = key == "safe_warn" || key == "safe_blast";
                 bannerStripes.parent.gameObject.SetActive(danger);
                 bannerBand.color = HudKit.A(color, danger ? 0.22f : 0.12f);
                 if (key == "fight") SynthAudio.Play2D(SynthAudio.Clunk(), 0.9f, 0.8f);
@@ -379,7 +393,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         float age = Time.time - bannerShownAt;
         float targetAlpha = bannerTarget;
-        if (bannerKey == "laserwarning")
+        if (bannerKey == "safe_warn" || bannerKey == "safe_blast")
         {
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 5f);
             targetAlpha *= 0.8f + 0.2f * pulse;
@@ -407,6 +421,8 @@ public sealed class FusionRoundHud : MonoBehaviour
         toastUntil = Time.time + seconds;
     }
 
+    public void PulseDamage() => damageFlashUntil = Time.time + 0.55f;
+
     private void UpdateToast()
     {
         float age = Time.time - toastShownAt;
@@ -422,6 +438,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         float now = Time.time;
         float hit = ArmActivationSignal.Level(ArmActivationSignal.Kind.Hit, now);
+        float immediate = Mathf.Clamp01((damageFlashUntil - now) / 0.55f);
         if (hit > 0.6f && previousHit < 0.3f)
         {
             SynthAudio.Play2D(SynthAudio.Explosion(), 0.35f, 1.4f);
@@ -436,12 +453,13 @@ public sealed class FusionRoundHud : MonoBehaviour
         float danger = suddenDeathAmount * 0.06f;
 
         Color color = Warn;
-        float alpha = Mathf.Max(Mathf.Min(1f, hit * 0.75f) + lead * 0.2f, low, danger);
+        float alpha = Mathf.Max(Mathf.Min(1f, hit * 0.75f) + lead * 0.2f, low, danger, immediate * 0.82f);
         if (block > alpha) { color = CombatVfxStyle.Shield; alpha = Mathf.Min(0.8f, block * 0.6f); }
         if (heal > alpha) { color = HealPickupView.Green; alpha = Mathf.Min(0.7f, heal * 0.5f); }
         vignette.color = HudKit.A(color, alpha);
         vignetteRoot.gameObject.SetActive(alpha > 0.005f);
-        localCard.Shake(hit);
+        localCard.Shake(Mathf.Max(hit, immediate));
+        if (immediate > 0f) { timer.color = Color.Lerp(timer.color, Warn, immediate); phaseLabel.color = Warn; }
     }
 
     /// <summary>0..1 lub-dub pulse at ~80 bpm, faster in sudden death.</summary>
@@ -466,12 +484,14 @@ public sealed class FusionRoundHud : MonoBehaviour
         Initialize();
         Position(camera);
         timer.text = "1:12";
-        phaseLabel.text = "SUDDEN DEATH IN 5";
-        phaseBand.color = HudKit.A(Amber, 0.16f);
+        phaseLabel.text = "ENTER A SAFE ZONE · 5";
+        phaseBand.color = HudKit.A(Warn, 0.16f);
         ShowBanner("count5", "5", "POINT: FIRE   PALM: ICE   FIST: SHIELD", Friendly, 1f);
         bannerCaption.ForceMeshUpdate(true);
         if (bannerCaption.isTextOverflowing) throw new System.Exception("Countdown control hint overflows the HUD.");
-        ShowBanner("suddenwarn", "SUDDEN DEATH", "NEW ARENA IN 5", Amber, 1f);
+        ShowBanner("safe_warn", "DANGER", "MOVE TO A GLOWING SAFE ZONE · 5", Warn, 1f);
+        bannerCaption.ForceMeshUpdate(true);
+        if (bannerCaption.isTextOverflowing) throw new System.Exception("Safe-zone warning overflows the HUD.");
         bannerGroup.alpha = 1f;
         localCard.Preview(240, 0.8f);
         SetTimeline(0.2f);

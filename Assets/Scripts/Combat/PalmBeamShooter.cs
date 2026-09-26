@@ -210,12 +210,6 @@ public sealed class PalmBeamShooter : MonoBehaviour
                 Quaternion.LookRotation(direction), 0.35f, 1.5f);
         }
 
-        if (Time.time - beamBurstStartTime >= maxBeamDurationSeconds)
-        {
-            StopBeamBurst(true);
-            return;
-        }
-
         ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor, hitSomething);
         if (hitCollider != null) ApplyCombatResult(hitCollider, result);
         DrawBeam(origin, beamEnd, beamColor);
@@ -298,7 +292,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
         if (result == "Shield")
         {
-            if (FusionRoundDirector.Active()?.IsFighting == true)
+            if (FusionRoundDirector.Active()?.AllowsCombat == true)
                 hitCollider.GetComponentInParent<NetworkPlayerHealth>()?.RequestHeadshotDamage("fire");
             hitCollider.GetComponentInParent<ForearmShieldEffects>()?.PulseImpact();
             if (Time.time - lastBlockFxAt > 0.25f)
@@ -363,7 +357,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     private void ApplyHeadshotDamage(Collider hitCollider)
     {
-        if (FusionRoundDirector.Active()?.IsFighting != true) return;
+        if (FusionRoundDirector.Active()?.AllowsCombat != true) return;
         NetworkPlayerHealth health = hitCollider.GetComponentInParent<NetworkPlayerHealth>();
         if (health == null || health.IsLocalPlayer)
         {

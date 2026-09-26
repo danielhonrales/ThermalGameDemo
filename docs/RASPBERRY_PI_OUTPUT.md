@@ -61,7 +61,7 @@ Discrete events:
 - `session_start`, `session_pause`, `session_resume`, `session_stop`
 - `player_ready`, `calibrated`, `round_phase`, `round_disconnected`
 - `fire_shot`, `fire_contact` (miss/hit/blocked/shield/headshot), `ice_shot`, `ice_impact` (collider/floor)
-- `hit_received` (fire/ice/laser), `shield_block` (fire/ice), `death`, `health_reset`
+- `hit_received` (fire/ice/safe-zone blast), `shield_block` (fire/ice), `death`, `health_reset`. In the practice sandbox, confirmed hits emit `hit_received` without reducing health.
 - `heal_received` (pickup, `amount` = HP restored)
 - `fire_cancel`, `ice_cancel`: the early `fire_shot` / `ice_shot` was sent but the player released before the attack happened
 
@@ -69,7 +69,7 @@ Discrete events:
 
 Every message carries `leadMs` (300). The game plays a build-up for that long after sending an event and shows the full effect at the end of it, so hardware should start ramping as soon as the packet arrives. `fire_shot` / `fire_start` and `ice_shot` are sent 300 ms before the beam fires or the grenade leaves the hand, during the last part of the charge. If the pose is released inside that window, `fire_stop` + `fire_cancel` or `ice_cancel` follows and the attack never happens. Hits, blocks and heals happen before they can be predicted, so they are sent immediately and the headset delays its peak visuals by the lead.
 
-Only the local player's confirmed damage/block events are emitted. Shield visibility alone does not emit a block. A sustained beam produces at most four block notifications per second. Actual damage still uses the existing health/invulnerability rules. `fire_contact` reports aiming contact while firing, not proof that health changed. `hit_received` is the authoritative health change on the defender.
+Only the local player's confirmed hit/block events are emitted. Shield visibility alone does not emit a block. A sustained beam produces at most four block notifications per second. During a duel, actual damage uses the health/invulnerability rules; during practice, the same confirmed hit signal leaves health full. `fire_contact` reports aiming contact while firing, not proof that a hit was accepted. `hit_received` is the defender's confirmed unshielded hit event.
 
 A `snapshot` repeats full state and counters every 250 ms when UDP is enabled. Local JSONL logs record changes/events (not repeated snapshots), flush once per second, and rotate at 1 MiB, retaining one previous log. The config is read at launch.
 

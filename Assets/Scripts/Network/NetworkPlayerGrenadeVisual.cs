@@ -187,7 +187,7 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         ChargeVisible = visible;
         if (visible)
         {
-            GrenadeVisible = false;
+            // The next bomb may charge while the previous one is still flying.
             ExplosionVisible = false;
         }
     }
@@ -214,7 +214,7 @@ public sealed class NetworkPlayerGrenadeVisual : NetworkBehaviour
         ExplosionVisible = visible;
         if (visible)
         {
-            ChargeVisible = false;
+            // Keep a new charge visible while the previous bomb detonates.
             GrenadeVisible = false;
             ExplosionSequence++;
         }
