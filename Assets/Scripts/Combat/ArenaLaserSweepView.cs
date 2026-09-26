@@ -5,9 +5,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public sealed class ArenaLaserSweepView : MonoBehaviour
 {
-    public const int Count = 4;
+    public const int Count = 2;
     public const float FirstSeconds = 10f;
-    private static readonly float[] StartSeconds = { FirstSeconds, 32f, 45f, 55f };
+    // One sweep at a time, with a gap while the arena rebuilds.
+    private static readonly float[] StartSeconds = { FirstSeconds, 44f };
+    private static readonly float[] EndSeconds = { 35f, 60f };
     private const float HalfArena = 2.7f;
     private const float SweepSpeed = 0.52f;
     private const float HitWidth = 0.15f;
@@ -19,13 +21,13 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
     private AudioSource proximityHum;
 
     public static float StartsAt(int index) => StartSeconds[index];
+    public static float EndsAt(int index) => EndSeconds[index];
 
     public static bool TryGetBeam(int index, float elapsed, out Vector3 from, out Vector3 to)
     {
         from = to = Vector3.zero;
-        if (index < 0 || index >= Count || elapsed < StartsAt(index)) return false;
+        if (index < 0 || index >= Count || elapsed < StartsAt(index) || elapsed >= EndsAt(index)) return false;
         float travel = Mathf.PingPong((elapsed - StartsAt(index)) * SweepSpeed, HalfArena * 2f);
-        if (index >= 2) travel = HalfArena * 2f - travel;
         float lane = travel - HalfArena;
         const float height = 1.48f;
         if ((index & 1) == 0)

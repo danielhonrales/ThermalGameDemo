@@ -68,7 +68,8 @@ Replace `QUEST_A_SERIAL` with the value shown by `adb devices`. First install an
 ```bash
 export QUEST_A=QUEST_A_SERIAL
 export APP_FILES=/sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files
-adb -s "$QUEST_A" install -r /tmp/ThermalGameDemo-2min-LAN.apk
+export APK_PATH=${APK_PATH:-/tmp/ThermalGameDemo-2min-LAN.apk}
+adb -s "$QUEST_A" install -r "$APK_PATH"
 adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 adb -s "$QUEST_A" shell ls "$APP_FILES"
 ```
@@ -103,7 +104,7 @@ Save that as a local file, replace `SECOND_PI_IP` with a numeric address, and pu
 
 ```bash
 export QUEST_B=QUEST_B_SERIAL
-adb -s "$QUEST_B" install -r /tmp/ThermalGameDemo-2min-LAN.apk
+adb -s "$QUEST_B" install -r "$APK_PATH"
 adb -s "$QUEST_B" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 adb -s "$QUEST_B" shell ls "$APP_FILES"
 adb -s "$QUEST_B" shell am force-stop com.UnityTechnologies.com.unity.template.urpblank

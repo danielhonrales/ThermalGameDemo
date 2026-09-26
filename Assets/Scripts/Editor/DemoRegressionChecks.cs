@@ -17,6 +17,7 @@ public static class DemoRegressionChecks
         RunFeedbackChecks();
         RunOutputCheck();
         RunLaserCheck();
+        RunArenaSequenceCheck();
         RunSoloCheck();
         CaptureHud();
     }
@@ -33,23 +34,35 @@ public static class DemoRegressionChecks
     public static void RunLaserCheck()
     {
         if (ArenaLaserSweepView.TryGetBeam(0, 9.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(1, 31.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(2, 44.99f, out _, out _)
-            || ArenaLaserSweepView.TryGetBeam(3, 54.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(0, 35f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(1, 43.99f, out _, out _)
+            || ArenaLaserSweepView.TryGetBeam(1, 60f, out _, out _)
             || !ArenaLaserSweepView.TryGetBeam(0, 10f, out Vector3 highFrom, out Vector3 highTo)
-            || !ArenaLaserSweepView.TryGetBeam(1, 32f, out Vector3 crossFrom, out Vector3 crossTo)
-            || !ArenaLaserSweepView.TryGetBeam(2, 45f, out _, out _)
-            || !ArenaLaserSweepView.TryGetBeam(3, 55f, out _, out _))
+            || !ArenaLaserSweepView.TryGetBeam(0, 34.99f, out _, out _)
+            || !ArenaLaserSweepView.TryGetBeam(1, 44f, out Vector3 crossFrom, out Vector3 crossTo)
+            || !ArenaLaserSweepView.TryGetBeam(1, 59.99f, out _, out _))
             throw new Exception("Laser activation times are wrong.");
         if (Mathf.Abs(highFrom.x - highTo.x) > 0.001f || Mathf.Abs(crossFrom.z - crossTo.z) > 0.001f
             || highFrom.y < 1.3f || crossFrom.y < 1.3f)
             throw new Exception("Laser axes or heights are wrong.");
         if (!ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.65f, 0.71f))
             || ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.1f, 0.71f))
-            || !ArenaLaserSweepView.Hits(1, 32f, new Vector3(0.275f, 1.65f, crossFrom.z))
-            || ArenaLaserSweepView.Hits(1, 32f, new Vector3(0.275f, 1.1f, crossFrom.z)))
+            || !ArenaLaserSweepView.Hits(1, 44f, new Vector3(0.275f, 1.65f, crossFrom.z))
+            || ArenaLaserSweepView.Hits(1, 44f, new Vector3(0.275f, 1.1f, crossFrom.z)))
             throw new Exception("Head-height duck laser checks are wrong.");
-        Debug.Log("LASER PASSED: 10/32/45/55 second arrivals, alternating axes, duckable head-height beams.");
+        Debug.Log("LASER PASSED: one sweep at a time, 35-44 second pause, perpendicular sudden-death return.");
+    }
+
+    public static void RunArenaSequenceCheck()
+    {
+        float coverDeliveredAt = SuddenDeathDirector.DeliveryStart + CoverDrone.GrabMid / CoverDrone.DeliverySpeed;
+        float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.Gone / CoverDrone.DeliverySpeed;
+        if (SuddenDeathDirector.PickupStart >= SuddenDeathDirector.DeliveryStart
+            || coverDeliveredAt >= 0f || dronesGoneAt >= 0f
+            || ArenaLaserSweepView.EndsAt(0) > 40f + SuddenDeathDirector.PickupStart
+            || ArenaLaserSweepView.StartsAt(1) <= 40f)
+            throw new Exception("Sudden-death cover must settle before 40 seconds while lasers pause.");
+        Debug.Log("ARENA SEQUENCE PASSED: cover lands and drones leave before 40 seconds; laser pauses for the rebuild.");
     }
 
     public static void RunSoloCheck()

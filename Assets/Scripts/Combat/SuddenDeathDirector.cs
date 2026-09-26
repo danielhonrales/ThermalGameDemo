@@ -4,16 +4,15 @@ using UnityEngine.Rendering;
 
 /// <summary>
 /// Client-side sudden-death presentation, driven entirely by the shared match clock.
-/// The arena turns hellish: red passthrough grade, a charred metal floor with glowing seams
-/// erupting underfoot, a scorched red roof, perimeter fires, falling sparks and embers —
-/// while drones rip out the old cover and drop new, scattered cover.
+/// Drones replace cover in the seconds before sudden death. A charred floor and restrained
+/// fire appear when the final 20 seconds begin.
 /// The real room and the opponent stay visible throughout.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class SuddenDeathDirector : MonoBehaviour
 {
-    private const float WarningLead = 5f;
-    public const float PickupStart = -15f;
+    private const float WarningLead = 6f;
+    public const float PickupStart = -4f;
     public const float DeliveryStart = PickupStart + CoverDrone.GrabMid / CoverDrone.PickupSpeed + 1f;
     private const float FloorOffset = -0.045f;
     private const float MirrorX = 0.275f;
@@ -77,7 +76,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private LineRenderer eruptionRing;
     private readonly List<GameObject> hellFx = new List<GameObject>();
     private readonly List<Vector3> firePoints = new List<Vector3>();
-    private readonly List<Vector3> sparkPoints = new List<Vector3>();
     private ParticleSystem embers, motes;
     private LineRenderer boundary;
     private Material lineMaterial, emberMaterial;
@@ -321,16 +319,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         {
             ArenaPoint(new Vector3(minX, 0f, minZ)), ArenaPoint(new Vector3(maxX, 0f, minZ)),
             ArenaPoint(new Vector3(maxX, 0f, maxZ)), ArenaPoint(new Vector3(minX, 0f, maxZ)),
-            ArenaPoint(new Vector3(MirrorX, 0f, minZ - 0.1f)), ArenaPoint(new Vector3(MirrorX, 0f, maxZ + 0.1f)),
-        });
-        const float ceilingHeight = 3.3f;
-        sparkPoints.AddRange(new[]
-        {
-            ArenaPoint(new Vector3(minX + 1.1f, ceilingHeight, minZ + 1.2f)),
-            ArenaPoint(new Vector3(maxX - 1.1f, ceilingHeight, maxZ - 1.2f)),
         });
 
-        // Dense rising embers and ash across the whole arena.
+        // Light rising embers mark the new arena without filling the room.
         var emberObject = new GameObject("Embers");
         emberObject.transform.SetParent(transform, false);
         emberObject.transform.position = centre + Vector3.up * 0.1f;
@@ -343,7 +334,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         main.startSpeed = new ParticleSystem.MinMaxCurve(0.1f, 0.45f);
         main.startSize = new ParticleSystem.MinMaxCurve(0.006f, 0.03f);
         main.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.55f, 0.15f, 1f), new Color(1f, 0.12f, 0.04f, 1f));
-        main.maxParticles = 280;
+        main.maxParticles = 140;
         main.gravityModifier = -0.03f;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         var emission = embers.emission;
@@ -482,11 +473,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (fx == null) return;
         foreach (Vector3 point in firePoints)
         {
-            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.36f, transform));
+            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.25f, transform));
         }
-        foreach (Vector3 point in sparkPoints)
-            hellFx.Add(SpawnLoop(fx.ceilingSparks, point, Quaternion.Euler(90f, 0f, 0f), 0.45f, transform));
-        SynthAudio.Play2D(SynthAudio.Explosion(), 0.8f, 0.6f);
+        SynthAudio.Play2D(SynthAudio.Explosion(), 0.35f, 0.6f);
     }
 
     private void BeginSwap()
@@ -543,7 +532,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         ThermalFxLibrary fx = ThermalFxLibrary.Instance;
         if (!drone.IsDown)
         {
-            ThermalFxLibrary.Spawn(fx?.metalSparks, foot + Vector3.up * 0.1f, 1f, 2f);
+            ThermalFxLibrary.Spawn(fx?.metalSparks, foot + Vector3.up * 0.1f, 0.45f, 1.2f);
             SynthAudio.PlayAt(SynthAudio.Clunk(), foot, 0.25f, 0.7f);
         }
         if (Layout[slot].kind == CoverKind.BurningCrate && fx != null)
@@ -575,7 +564,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             float on = landed < 0f ? 0f : Mathf.Clamp01((Time.time - landed) / 0.25f);
             float flicker = landed >= 0f && Time.time - landed < 0.5f && Random.value > 0.6f ? 0.2f : 1f;
             coverStrips[i].GetPropertyBlock(block);
-            block.SetColor(EmissionId, Red * (on * flicker * (2.5f + 3f * beat)));
+            block.SetColor(EmissionId, Ember * (on * flicker * (1.2f + 0.6f * beat)));
             coverStrips[i].SetPropertyBlock(block);
         }
     }
@@ -633,8 +622,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
                     - hellFloor.transform.rotation * (meshCentre * scale);
                 hellFloorRenderer.GetPropertyBlock(block);
                 float surge = Mathf.Exp(-(Time.time - eruptedAt) * 2.5f);
-                // Molten cracks (colour lives in the emission texture) throb with the heartbeat.
-                block.SetColor(EmissionId, Color.white * (1.1f + 1.2f * beat + 5f * surge) * hell);
+                // A brief glow marks the finished arena without a full-screen flash.
+                block.SetColor(EmissionId, Color.white * (1.1f + 0.4f * beat + 1.5f * surge) * hell);
                 hellFloorRenderer.SetPropertyBlock(block);
             }
         }
@@ -643,14 +632,14 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (eruptionRing.enabled)
         {
             CombatVfxStyle.SetRing(eruptionRing, new Vector3(centre.x, floorY + 0.02f, centre.z), Quaternion.Euler(90f, 0f, 0f), 0.3f + ringAge * 4.5f, 96);
-            eruptionRing.widthMultiplier = 0.25f * (1f - ringAge / 1.2f) + 0.02f;
+            eruptionRing.widthMultiplier = 0.12f * (1f - ringAge / 1.2f) + 0.02f;
             eruptionRing.startColor = eruptionRing.endColor = CombatVfxStyle.WithAlpha(Color.Lerp(Color.white, Ember, ringAge * 2f), 1f - ringAge / 1.2f);
         }
 
         if (active && !embers.isPlaying) embers.Play();
         else if (!active && embers.isPlaying) embers.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         var emission = embers.emission;
-        emission.rateOverTime = 20f * amount + 55f * hell;
+        emission.rateOverTime = 8f * amount + 20f * hell;
         if (motes != null)
         {
             var calm = motes.emission;

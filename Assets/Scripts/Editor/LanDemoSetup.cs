@@ -111,6 +111,7 @@ public static class LanDemoSetup
         DemoRegressionChecks.RunFeedbackChecks();
         DemoRegressionChecks.RunOutputCheck();
         DemoRegressionChecks.RunLaserCheck();
+        DemoRegressionChecks.RunArenaSequenceCheck();
         DemoRegressionChecks.RunSoloCheck();
         Apply();
         BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions

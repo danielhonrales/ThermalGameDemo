@@ -81,7 +81,7 @@ public sealed class FusionRoundHud : MonoBehaviour
 
         localCard = new HealthCard(root, "YOU", HealPickupView.Green, new Vector2(-760f, 285f), true);
 
-        // Round clock with a match timeline underneath (heal at 20 s, arena change at 25 s).
+        // Round clock with the three predictable events underneath.
         clock = HudKit.Rect(root, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
         clockGlow = HudKit.Image(clock, "Bloom", HudSprites.Dot(), HudKit.A(Friendly, 0.1f), Vector2.zero, new Vector2(420f, 170f));
         timer = HudKit.Text(clock, "Time", HudKit.Heavy, 76f, Color.white, new Vector2(0f, 2f), new Vector2(260f, 100f), TextAlignmentOptions.Center);
@@ -95,9 +95,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
-        Marker(timelineRoot, 20f / 60f, HealPickupView.Green, "HEAL", -38f);
-        Marker(timelineRoot, 25f / 60f, Warn, "ARENA", 46f);
-        Marker(timelineRoot, 40f / 60f, Warn, "SUDDEN DEATH");
+        Marker(timelineRoot, 10f / 60f, Warn, "LASER", -26f);
+        Marker(timelineRoot, 20f / 60f, HealPickupView.Green, "HEAL", 26f);
+        Marker(timelineRoot, 40f / 60f, Amber, "SUDDEN DEATH");
         timelineHead = HudKit.Image(timelineRoot, "Head", HudSprites.Dot(), Color.white, new Vector2(-220f, 0f), new Vector2(26f, 26f));
 
         // Centre banner.
@@ -200,12 +200,10 @@ public sealed class FusionRoundHud : MonoBehaviour
         }
 
         float sd = round.SuddenDeathClock;
-        float arena = round.FightElapsed - (round.SuddenDeathStartsAt + SuddenDeathDirector.PickupStart);
         suddenDeathAmount = Mathf.MoveTowards(suddenDeathAmount,
             round.IsFighting && sd >= 0f ? 1f : 0f, Time.deltaTime * 2f);
         Color accent = Color.Lerp(Friendly, Warn, suddenDeathAmount);
-        float beat = HeartbeatPulse();
-        clockGlow.color = HudKit.A(accent, 0.08f + suddenDeathAmount * 0.3f * beat);
+        clockGlow.color = HudKit.A(accent, 0.08f + suddenDeathAmount * 0.12f);
         timer.color = Color.white;
         clock.localScale = Vector3.one;
         phaseBand.color = Color.clear;
@@ -227,14 +225,14 @@ public sealed class FusionRoundHud : MonoBehaviour
             {
                 int number = Mathf.Max(1, Mathf.CeilToInt(remaining));
                 timer.text = Clock(roundLength);
-                phaseLabel.text = "GET READY";
+                phaseLabel.text = "ROUND STARTS IN " + number;
                 SetTimeline(0f);
                 if (number != lastCountdownNumber)
                 {
                     lastCountdownNumber = number;
                     SynthAudio.Play2D(SynthAudio.CountBeat(), 0.8f);
                 }
-                ShowBanner("count" + number, number.ToString(), "BATTLE STARTS IN", Friendly, 1f);
+                ShowBanner("count" + number, number.ToString(), "POINT: FIRE   PALM: ICE   FIST: SHIELD", Friendly, 1f);
                 break;
             }
 
@@ -248,43 +246,34 @@ public sealed class FusionRoundHud : MonoBehaviour
                 else if (elapsed >= ArenaLaserSweepView.FirstSeconds - 5f
                     && elapsed < ArenaLaserSweepView.FirstSeconds + 0.8f)
                     ShowBanner("laserwarning", "WATCH OUT FOR LASERS", "", Warn, 1f);
-                else if (arena >= -5f && arena < 0f)
+                else if (sd >= -5f && sd < 0f)
                 {
-                    int left = Mathf.CeilToInt(-arena);
-                    ShowBanner("coverwarn", "COVER WILL MOVE", "", Amber, 1f);
-                    bannerCaption.text = "IN " + left + (left == 1 ? " SECOND" : " SECONDS");
+                    ShowBanner("suddenwarn", "SUDDEN DEATH", "", Amber, 1f);
+                    bannerCaption.text = "NEW ARENA IN " + Mathf.CeilToInt(-sd);
                 }
-                else if (arena >= 0f && arena < 4f)
-                    ShowBanner("covermoving", "COVER IS MOVING", "", Amber, 1f);
+                else if (sd >= 0f && sd < 2f)
+                    ShowBanner("suddendeath", "SUDDEN DEATH", "", Warn, 1f);
                 else ShowBanner("none", "", "", Color.white, 0f);
 
-                float nextLaser = float.PositiveInfinity;
-                for (int i = 0; i < ArenaLaserSweepView.Count; i++)
-                    if (elapsed < ArenaLaserSweepView.StartsAt(i))
-                    {
-                        nextLaser = ArenaLaserSweepView.StartsAt(i) - elapsed;
-                        break;
-                    }
-                bool coverPhase = arena >= -5f && arena < 4f;
-                bool suddenPhase = sd >= -5f && sd < 2f;
-                bool laserSoon = nextLaser <= 5f && !coverPhase && !suddenPhase;
-                phaseLabel.text = coverPhase ? arena < 0f ? "COVER MOVES IN " + Mathf.CeilToInt(-arena) : "COVER IS MOVING"
-                    : sd >= -5f && sd < 0f ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-sd)
-                    : laserSoon ? (elapsed < ArenaLaserSweepView.FirstSeconds ? "LASERS IN " : "NEXT LASER IN ")
-                        + Mathf.CeilToInt(nextLaser)
-                    : sd >= 0f ? "SUDDEN DEATH · LASERS"
-                    : elapsed >= ArenaLaserSweepView.FirstSeconds ? "LASERS ACTIVE"
-                    : round.SoloOverride ? "SOLO RUN" : "DUEL";
-                bool urgent = coverPhase || suddenPhase || laserSoon || elapsed >= ArenaLaserSweepView.FirstSeconds;
-                Color statusColor = coverPhase ? Amber : Warn;
-                phaseLabel.color = urgent ? Color.Lerp(statusColor, Color.white, 0.3f) : Soft;
-                phaseBand.color = urgent ? HudKit.A(statusColor, 0.16f) : Color.clear;
-                if (coverPhase || suddenPhase)
-                {
-                    float pulse = coverPhase && arena < 0f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 5f) : beat;
-                    timer.color = Color.Lerp(Color.white, statusColor, 0.25f + 0.4f * pulse);
-                    clock.localScale = Vector3.one * (1f + 0.03f * pulse);
-                }
+                bool rebuilding = sd >= -5f && sd < 0f;
+                bool laserComing = (elapsed >= ArenaLaserSweepView.FirstSeconds - 5f
+                        && elapsed < ArenaLaserSweepView.FirstSeconds)
+                    || (sd >= 2f && elapsed < ArenaLaserSweepView.StartsAt(1));
+                phaseLabel.text = rebuilding ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-sd)
+                    : sd >= 0f && sd < 2f ? "SUDDEN DEATH"
+                    : laserComing ? "LASER IN " + Mathf.CeilToInt(
+                        elapsed < ArenaLaserSweepView.FirstSeconds ? ArenaLaserSweepView.FirstSeconds - elapsed
+                            : ArenaLaserSweepView.StartsAt(1) - elapsed)
+                    : sd >= 0f ? "SUDDEN DEATH · LASER"
+                    : elapsed < ArenaLaserSweepView.FirstSeconds - 5f
+                        ? round.SoloOverride ? "SURVIVE ONE MINUTE" : "LOWER OPPONENT HEALTH"
+                    : "LASER ACTIVE";
+                Color statusColor = rebuilding ? Amber
+                    : elapsed < ArenaLaserSweepView.FirstSeconds - 5f ? Friendly : Warn;
+                phaseLabel.color = Color.Lerp(statusColor, Color.white, 0.3f);
+                phaseBand.color = HudKit.A(statusColor, elapsed < ArenaLaserSweepView.FirstSeconds - 5f ? 0.08f : 0.16f);
+                if (rebuilding) timer.color = Amber;
+                else if (sd >= 0f) timer.color = Color.Lerp(Color.white, Warn, 0.3f);
                 UpdateHealToasts(round);
                 break;
             }
@@ -373,7 +362,9 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerCaption.text = caption;
                 bannerText.color = color;
                 bannerText.fontSize = key == "laserwarning" ? 110f : title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
-                bool danger = color == Warn || color == Enemy;
+                bannerCaption.fontSize = key.StartsWith("count") ? 30f : 34f;
+                bannerCaption.characterSpacing = key.StartsWith("count") ? 8f : 16f;
+                bool danger = key == "laserwarning";
                 bannerStripes.parent.gameObject.SetActive(danger);
                 bannerBand.color = HudKit.A(color, danger ? 0.22f : 0.12f);
                 if (key == "fight") SynthAudio.Play2D(SynthAudio.Clunk(), 0.9f, 0.8f);
@@ -388,13 +379,12 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         float age = Time.time - bannerShownAt;
         float targetAlpha = bannerTarget;
-        if (bannerKey.StartsWith("coverwarn") || bannerKey == "covermoving" || bannerKey == "laserwarning")
+        if (bannerKey == "laserwarning")
         {
-            Color color = bannerKey == "laserwarning" ? Warn : Amber;
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 5f);
             targetAlpha *= 0.8f + 0.2f * pulse;
-            bannerText.color = Color.Lerp(color, Color.white, pulse * 0.2f);
-            bannerBand.color = HudKit.A(color, 0.1f + 0.12f * pulse);
+            bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.2f);
+            bannerBand.color = HudKit.A(Warn, 0.1f + 0.12f * pulse);
         }
         bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, targetAlpha, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
         // One entrance, then a steady warning while the countdown changes.
@@ -443,7 +433,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         float lead = ArmActivationSignal.Anticipation(ArmActivationSignal.Kind.Hit, now);
         float low = localHealth != null && localHealth.IsAlive && localHealth.Health01 < 0.3f
             ? (0.25f + 0.35f * HeartbeatPulse()) * Mathf.InverseLerp(0.3f, 0.05f, localHealth.Health01) : 0f;
-        float danger = suddenDeathAmount * (0.14f + 0.12f * HeartbeatPulse());
+        float danger = suddenDeathAmount * 0.06f;
 
         Color color = Warn;
         float alpha = Mathf.Max(Mathf.Min(1f, hit * 0.75f) + lead * 0.2f, low, danger);
@@ -476,9 +466,12 @@ public sealed class FusionRoundHud : MonoBehaviour
         Initialize();
         Position(camera);
         timer.text = "1:12";
-        phaseLabel.text = "SUDDEN DEATH · LASERS";
-        phaseBand.color = HudKit.A(Warn, 0.16f);
-        ShowBanner("laserwarning", "WATCH OUT FOR LASERS", "", Warn, 1f);
+        phaseLabel.text = "SUDDEN DEATH IN 5";
+        phaseBand.color = HudKit.A(Amber, 0.16f);
+        ShowBanner("count5", "5", "POINT: FIRE   PALM: ICE   FIST: SHIELD", Friendly, 1f);
+        bannerCaption.ForceMeshUpdate(true);
+        if (bannerCaption.isTextOverflowing) throw new System.Exception("Countdown control hint overflows the HUD.");
+        ShowBanner("suddenwarn", "SUDDEN DEATH", "NEW ARENA IN 5", Amber, 1f);
         bannerGroup.alpha = 1f;
         localCard.Preview(240, 0.8f);
         SetTimeline(0.2f);
