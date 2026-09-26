@@ -45,6 +45,12 @@ public static class DemoRegressionChecks
         if (Mathf.Abs(highFrom.x - highTo.x) > 0.001f || Mathf.Abs(crossFrom.z - crossTo.z) > 0.001f
             || highFrom.y < 1.3f || crossFrom.y < 1.3f)
             throw new Exception("Laser axes or heights are wrong.");
+        if (ArenaLaserSweepView.ShouldPreview(0, 35f)
+            || ArenaLaserSweepView.ShouldPreview(0, 40f)
+            || ArenaLaserSweepView.ShouldPreview(1, 45f)
+            || !ArenaLaserSweepView.ShouldPreview(0, 8f)
+            || !ArenaLaserSweepView.ShouldPreview(1, 42f))
+            throw new Exception("Laser previews must appear only before their own sweep.");
         if (!ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.65f, 0.71f))
             || ArenaLaserSweepView.Hits(0, 10f, new Vector3(highFrom.x, 1.1f, 0.71f))
             || !ArenaLaserSweepView.Hits(1, 44f, new Vector3(0.275f, 1.65f, crossFrom.z))

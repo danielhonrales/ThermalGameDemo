@@ -22,6 +22,8 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
 
     public static float StartsAt(int index) => StartSeconds[index];
     public static float EndsAt(int index) => EndSeconds[index];
+    public static bool ShouldPreview(int index, float elapsed) =>
+        index >= 0 && index < Count && elapsed >= StartsAt(index) - 2f && elapsed < StartsAt(index);
 
     public static bool TryGetBeam(int index, float elapsed, out Vector3 from, out Vector3 to)
     {
@@ -90,7 +92,7 @@ public sealed class ArenaLaserSweepView : MonoBehaviour
         {
             Vector3 from = Vector3.zero, to = Vector3.zero;
             bool active = fighting && TryGetBeam(i, elapsed, out from, out to);
-            bool preview = fighting && !active && StartsAt(i) - elapsed <= 2f
+            bool preview = fighting && ShouldPreview(i, elapsed)
                 && TryGetBeam(i, StartsAt(i), out from, out to);
             glows[i].enabled = cores[i].enabled = active || preview;
             if (!active && !preview) continue;
