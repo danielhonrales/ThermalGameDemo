@@ -167,7 +167,10 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         else if (connectionToClient != null) TargetDamage(connectionToClient, source, amount, currentHealth, blocked);
     }
 
-    private void ApplyDamage(int damage, bool ignoreShield, string source)
+    [Server]
+    public void ApplyArenaBlast(int damage) => ApplyDamage(damage, true, "safe_zone", true);
+
+    private void ApplyDamage(int damage, bool ignoreShield, string source, bool bypassInvulnerability = false)
     {
         if (CurrentHealth <= 0) return;
         if (shieldActive && !ignoreShield)
@@ -185,7 +188,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             return;
         }
 
-        if (Time.time < nextDamageAllowedTime)
+        if (Time.time < nextDamageAllowedTime && !bypassInvulnerability)
         {
             return;
         }

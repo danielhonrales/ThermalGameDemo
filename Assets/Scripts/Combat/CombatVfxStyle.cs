@@ -29,6 +29,7 @@ internal static class CombatVfxStyle
 
         Material material = new Material(shader) { name = name };
         material.color = tint;
+        if (material.HasProperty("_Cull")) material.SetFloat("_Cull", 0f);
         material.renderQueue = (int)RenderQueue.Transparent;
         return material;
     }

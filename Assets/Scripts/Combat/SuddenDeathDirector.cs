@@ -13,27 +13,25 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 {
     private const float WarningLead = 6f;
     public const float PickupStart = -4f;
-    public const float DeliveryStart = PickupStart + CoverDrone.GrabMid / CoverDrone.PickupSpeed + 1f;
+    public const float DeliveryStart = PickupStart;
     private const float FloorOffset = -0.045f;
     private const float MirrorX = 0.275f;
 
     private static readonly Color Red = new Color(1f, 0.1f, 0.06f, 1f);
     private static readonly Color Ember = new Color(1f, 0.32f, 0.08f, 1f);
 
-    private enum CoverKind { Concrete, Metal, BurningCrate }
-    private struct Slot { public Vector3 position; public float yaw; public CoverKind kind; }
-
-    // Scattered sudden-death cover, mirror-symmetric about the plane between the start pads.
-    private static readonly Slot[] Layout =
+    public const float GroundFireRadius = 0.65f;
+    public static readonly Vector2[] GroundFires =
     {
-        new Slot { position = new Vector3(MirrorX, 0f, 0.71f), yaw = 0f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-1.25f, 0f, 2.35f), yaw = 25f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(1.8f, 0f, 2.35f), yaw = -25f, kind = CoverKind.Metal },
-        new Slot { position = new Vector3(-1.2f, 0f, -0.95f), yaw = -25f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(1.75f, 0f, -0.95f), yaw = 25f, kind = CoverKind.Concrete },
-        new Slot { position = new Vector3(-1.9f, 0f, 0.7f), yaw = 65f, kind = CoverKind.BurningCrate },
-        new Slot { position = new Vector3(2.45f, 0f, 0.7f), yaw = -65f, kind = CoverKind.BurningCrate },
+        new Vector2(-0.65f, -1.15f), new Vector2(1.2f, 2.7f),
+        new Vector2(-1.7f, 1.4f), new Vector2(2.2f, -0.1f)
     };
+    public static bool IsInGroundFire(Vector3 head)
+    {
+        foreach (Vector2 point in GroundFires)
+            if (Vector2.Distance(point, new Vector2(head.x, head.z)) <= GroundFireRadius) return true;
+        return false;
+    }
 
     private sealed class Cluster
     {
@@ -151,6 +149,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         var loose = new List<Transform>();
         foreach (Transform child in cover)
         {
+            // Empty assembly roots may remain after the artist moves/removes their visuals.
+            if (child.GetComponentsInChildren<MeshRenderer>(true).Length == 0) continue;
             if (child.name.StartsWith("Obstacle")) AddCluster(new List<Transform> { child });
             else if (child.name.StartsWith("Crate")) loose.Add(child);
         }
@@ -208,24 +208,26 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private void BuildNewCover()
     {
         ThermalFxLibrary fx = ThermalFxLibrary.Instance;
-        for (int i = 0; i < Layout.Length; i++)
+        var authored = FindFirstObjectByType<ArenaLayouts>();
+        if (authored == null || authored.suddenDeathCover == null) return;
+        for (int i = 0; i < authored.suddenDeathCover.childCount; i++)
         {
-            Slot slot = Layout[i];
-            GameObject piece = CreateCoverPiece(slot.kind, fx);
-            piece.name = "Sudden death cover " + i;
-            piece.transform.SetParent(gameplayRoot != null ? gameplayRoot : transform, true);
-
-            // Measure upright, then face the slot yaw and sit on the floor.
-            piece.transform.rotation = Quaternion.identity;
-            Bounds upright = RenderBounds(piece);
-            Vector3 topLocal = piece.transform.InverseTransformPoint(new Vector3(upright.center.x, upright.max.y, upright.center.z));
-            bool alongZ = upright.size.z >= upright.size.x;
-            float length = Mathf.Max(upright.size.x, upright.size.z) * 0.9f;
-            piece.transform.rotation = (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(0f, slot.yaw, 0f);
+            Transform source = authored.suddenDeathCover.GetChild(i);
+            GameObject piece = Instantiate(source.gameObject, gameplayRoot != null ? gameplayRoot : transform);
+            piece.name = "Sudden death " + source.name;
+            piece.transform.SetPositionAndRotation(source.position, source.rotation);
+            piece.transform.localScale = source.lossyScale;
+            if (piece.transform.parent != null)
+            {
+                Vector3 parentScale = piece.transform.parent.lossyScale;
+                piece.transform.localScale = new Vector3(source.lossyScale.x / parentScale.x,
+                    source.lossyScale.y / parentScale.y, source.lossyScale.z / parentScale.z);
+            }
+            piece.SetActive(true);
             Bounds b = RenderBounds(piece);
-            Vector3 target = ArenaPoint(slot.position) + Vector3.up * 0.03f;
-            piece.transform.position += target - new Vector3(b.center.x, b.min.y, b.center.z);
-            b = RenderBounds(piece);
+            Vector3 topLocal = piece.transform.InverseTransformPoint(new Vector3(b.center.x, b.max.y, b.center.z));
+            bool alongZ = b.size.z >= b.size.x;
+            float length = Mathf.Max(b.size.x, b.size.z) * 0.9f;
             if (piece.GetComponentInChildren<Collider>() == null)
             {
                 var box = piece.AddComponent<BoxCollider>();
@@ -251,37 +253,17 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             coverLandedAt.Add(-1f);
             coverFires.Add(null);
 
-            piece.AddComponent<GameplayCoverMarker>();
+            ArenaCargoPhysics.Register(piece.transform, i);
+            if (piece.GetComponent<GameplayCoverMarker>() == null) piece.AddComponent<GameplayCoverMarker>();
             CombatLayers.SetLayerRecursively(piece, CombatLayers.GameplayCoverLayer);
             piece.SetActive(false);
             newCover.Add(piece);
         }
     }
 
-    private static GameObject CreateCoverPiece(CoverKind kind, ThermalFxLibrary fx)
-    {
-        string path = kind == CoverKind.Metal ? "ThermalFX/Cover/Metal_Barrier_1"
-            : kind == CoverKind.Concrete ? "ThermalFX/Cover/Concrete_Barrier_2" : "ThermalFX/Cover/Crate";
-        GameObject prefab = Resources.Load<GameObject>(path);
-        GameObject piece = prefab != null ? Instantiate(prefab) : GameObject.CreatePrimitive(PrimitiveType.Cube);
-        if (kind != CoverKind.BurningCrate && fx != null && fx.barrier != null)
-            foreach (Renderer r in piece.GetComponentsInChildren<Renderer>()) r.sharedMaterial = fx.barrier;
-        // Wide, shoulder-height surfaces make the new cover useful for hiding.
-        if (kind == CoverKind.Concrete) piece.transform.localScale *= 0.78f;
-        if (kind == CoverKind.BurningCrate) piece.transform.localScale *= 0.5f;
-        if (kind != CoverKind.BurningCrate)
-        {
-            piece.transform.localScale = Vector3.Scale(piece.transform.localScale, new Vector3(1.15f, 1f, 1.15f));
-            float height = RenderBounds(piece).size.y;
-            if (height > 0.01f) piece.transform.localScale = Vector3.Scale(piece.transform.localScale,
-                new Vector3(1f, Mathf.Max(1f, 1.15f / height), 1f));
-        }
-        return piece;
-    }
-
     private static Bounds RenderBounds(GameObject go)
     {
-        Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = go.GetComponentsInChildren<Renderer>(true);
         if (renderers.Length == 0) return new Bounds(go.transform.position, Vector3.one * 0.5f);
         Bounds b = renderers[0].bounds;
         foreach (Renderer r in renderers) if (!(r is ParticleSystemRenderer)) b.Encapsulate(r.bounds);
@@ -315,11 +297,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 
         float minX = arenaBounds.min.x, maxX = arenaBounds.max.x, minZ = arenaBounds.min.z, maxZ = arenaBounds.max.z;
         // Fires line the arena edge (outside the play lanes).
-        firePoints.AddRange(new[]
-        {
-            ArenaPoint(new Vector3(minX, 0f, minZ)), ArenaPoint(new Vector3(maxX, 0f, minZ)),
-            ArenaPoint(new Vector3(maxX, 0f, maxZ)), ArenaPoint(new Vector3(minX, 0f, maxZ)),
-        });
+        foreach (Vector2 point in GroundFires)
+            firePoints.Add(ArenaPoint(new Vector3(point.x, 0f, point.y)));
 
         // Light rising embers mark the new arena without filling the room.
         var emberObject = new GameObject("Embers");
@@ -473,9 +452,13 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         if (fx == null) return;
         foreach (Vector3 point in firePoints)
         {
-            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.25f, transform));
+            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.48f, transform));
+            var ring = CombatVfxStyle.CreateLine(transform, "Burning ground boundary", lineMaterial, true, 0.035f);
+            CombatVfxStyle.SetRing(ring, point + Vector3.up * 0.025f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius, 40);
+            ring.startColor = ring.endColor = Ember;
+            hellFx.Add(ring.gameObject);
         }
-        SynthAudio.Play2D(SynthAudio.Explosion(), 0.35f, 0.6f);
+        // The arena change is drones and ground fire; the big blast belongs to safe zones.
     }
 
     private void BeginSwap()
@@ -484,16 +467,12 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         seenDownMask = 0;
         drones.Clear();
         int index = 0;
-        for (int i = 0; i < clusters.Count; i++)
+        foreach (Cluster cluster in clusters)
         {
-            Cluster cluster = clusters[i];
             Bounds b = ClusterBounds(cluster);
             cluster.carrier.position = new Vector3(b.center.x, b.max.y, b.center.z);
             foreach (Transform item in cluster.items) item.SetParent(cluster.carrier, true);
-            Vector3 top = cluster.carrier.position;
-            FlightPath(top, 0.55f, 0.16f, index, out Vector3 entry, out Vector3 hover, out Vector3 low, out Vector3 exit);
-            drones.Add(CoverDrone.Create(transform, index++, CoverDrone.Job.Pickup, PickupStart,
-                entry, hover, low, exit, cluster.carrier, null));
+            ArenaCargoPhysics.Register(cluster.carrier, 100 + clusters.IndexOf(cluster));
         }
         for (int i = 0; i < newCover.Count; i++)
         {
@@ -505,8 +484,18 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             var drone = CoverDrone.Create(transform, index++, CoverDrone.Job.Delivery, DeliveryStart,
                 entry, hover, low, exit, piece.transform, d => OnCoverLanded(slot, d));
             drone.SetDeliveryPose(piece.transform.position, piece.transform.rotation);
+            // Each arrival drops its load, then removes one original obstacle on the same flight.
+            if (i < clusters.Count) drone.SetReturnCargo(clusters[i].carrier);
             piece.transform.position += Vector3.up * 6f;
             drones.Add(drone);
+        }
+        for (int i = newCover.Count; i < clusters.Count; i++)
+        {
+            Bounds b = ClusterBounds(clusters[i]);
+            Vector3 top = new Vector3(b.center.x, b.max.y, b.center.z);
+            FlightPath(top, 0.6f, 0.14f, index, out Vector3 entry, out Vector3 hover, out Vector3 low, out Vector3 exit);
+            drones.Add(CoverDrone.Create(transform, index++, CoverDrone.Job.Pickup, PickupStart,
+                entry, hover, low, exit, clusters[i].carrier, null));
         }
     }
 
@@ -517,10 +506,10 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         Vector3 outward = Flat(top - centre);
         if (outward.sqrMagnitude < 0.01f) outward = Quaternion.Euler(0f, index * 137f, 0f) * Vector3.forward;
         outward.Normalize();
-        hover = top + Vector3.up * hoverHeight;
-        low = top + Vector3.up * lowHeight;
-        entry = hover + Quaternion.Euler(0f, -35f, 0f) * outward * 7f + Vector3.up * 1.6f;
-        exit = hover + Quaternion.Euler(0f, 55f, 0f) * outward * 8f + Vector3.up * 2.2f;
+        hover = new Vector3(top.x, Mathf.Max(floorY + 2.35f, top.y + 0.65f), top.z);
+        low = hover; // Hull stays overhead; the winch reaches down to the load.
+        entry = hover + Quaternion.Euler(0f, -35f, 0f) * outward * 4.5f + Vector3.up * 0.35f;
+        exit = hover + Quaternion.Euler(0f, 55f, 0f) * outward * 5f + Vector3.up * 0.55f;
     }
 
     private void OnCoverLanded(int slot, CoverDrone drone)
@@ -532,10 +521,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         ThermalFxLibrary fx = ThermalFxLibrary.Instance;
         if (!drone.IsDown)
         {
-            ThermalFxLibrary.Spawn(fx?.metalSparks, foot + Vector3.up * 0.1f, 0.45f, 1.2f);
-            SynthAudio.PlayAt(SynthAudio.Clunk(), foot, 0.25f, 0.7f);
+            // Dust and sound follow the scripted landing, replicated by the host.
         }
-        if (Layout[slot].kind == CoverKind.BurningCrate && fx != null)
+        if (piece.name.Contains("Burning") && fx != null)
         {
             Bounds b = RenderBounds(piece);
             coverFires[slot] = SpawnLoop(fx.fireMedium, new Vector3(b.center.x, b.max.y, b.center.z), Quaternion.identity, 0.3f, piece.transform);
@@ -719,6 +707,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
                 item.gameObject.SetActive(true);
             }
             cluster.carrier.gameObject.SetActive(true);
+            if (cluster.carrier.TryGetComponent(out ArenaCargoPhysics physics)) Destroy(physics);
             if (cluster.carrier.TryGetComponent(out Rigidbody rb)) Destroy(rb);
             if (cluster.carrier.TryGetComponent(out CargoImpact impact)) Destroy(impact);
         }

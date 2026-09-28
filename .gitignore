@@ -19,6 +19,8 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 *.log
+__pycache__/
+*.pyc
 
 # Unity player/build byproducts
 /*_BackUpThisFolder_ButDontShipItWithYourGame/

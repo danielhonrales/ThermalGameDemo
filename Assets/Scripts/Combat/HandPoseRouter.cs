@@ -210,7 +210,7 @@ public sealed class HandPoseRouter : MonoBehaviour
         float tucked = previous == PoseKind.Fire ? 0.62f : 0.42f;
         bool outerTucked = (ring < 0f || ring <= tucked) && (pinky < 0f || pinky <= tucked)
             && (ring >= 0f || pinky >= 0f);
-        if ((indexOut || middleOut) && outerTucked) return PoseKind.Fire;
+        if ((indexOut && middleOut) && outerTucked) return PoseKind.Fire;
         // A shield needs a real fist: all tracked fingers curled, not just a loose resting hand.
         bool holding = previous == PoseKind.Shield;
         float curled = holding ? 0.40f : 0.26f;

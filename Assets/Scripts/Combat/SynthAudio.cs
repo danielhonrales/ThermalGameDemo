@@ -97,6 +97,26 @@ public static class SynthAudio
         return body + sub * 0.9f;
     });
 
+    // One rounded, low warning tone per second; the rest of the loop is silent.
+    public static AudioClip BlastAlarm() => Build("blast-alarm-quiet", 1f, (t, d) =>
+    {
+        float envelope = Mathf.SmoothStep(0f, 1f, t / 0.09f)
+            * (1f - Mathf.SmoothStep(0.13f, 0.38f, t));
+        return (Sine(300f, t) + 0.04f * Sine(600f, t)) * envelope;
+    }, 0.32f);
+
+    /// <summary>Slow, airy field motion with a quiet seam between loop points.</summary>
+    public static AudioClip ShieldAirLoop() => Build("shield-air-loop", 2f, (t, d) =>
+    {
+        float swell = Mathf.Pow(Mathf.Sin(Mathf.PI * t / d), 2f);
+        return (LowNoise(0.012f) * 0.85f + Sine(112f, t) * 0.12f)
+            * swell * (0.8f + 0.2f * Sine(0.7f, t));
+    }, 0.38f);
+
+    public static AudioClip BlastRinging() => Build("blast-ringing", 3f, (t, d) =>
+        (Sine(1850f, t) * 0.75f + Sine(1872f, t) * 0.25f)
+        * Mathf.Clamp01(t / 0.12f) * Mathf.Pow(1f - t / d, 1.5f), 0.35f);
+
     public static AudioClip Rattle() => Build("rattle", 0.6f, (t, d) =>
     {
         float gate = Mathf.Sin(2f * Mathf.PI * 22f * t) > 0.3f ? 1f : 0.15f;

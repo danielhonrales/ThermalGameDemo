@@ -1,15 +1,16 @@
 # Quest and Raspberry Pi setup
 
-This guide describes the current router-only build. Both Quests install the **same APK** and select host/client automatically: the first one running on an empty LAN hosts after three seconds, and the other joins. Quest A sends its own events to the Pi at `192.168.1.5`; Quest B can send its events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match.
+This guide describes the current router-only build. Both Quests install the **same APK** and select host/client automatically: the first one running on an empty LAN hosts after three seconds, and the other joins. Quest A sends its own events to the Pi at `192.168.1.5`; Quest B can send its events to a second Pi by setting that Pi's address in its output config. The two Pi outputs are separate from the Quest-to-Quest match. One Quest can start a solo practice round; a duel requires two Quests.
 
 If you have the compiled APK install bundle and only want to run the demo, read [RUN_WITHOUT_UNITY.md](RUN_WITHOUT_UNITY.md) and skip section 2 below.
 
 ## 1. Prepare the router and devices
 
-1. Put the Pi and each Quest on the same router LAN. Keep the router powered even when its WAN/Internet cable is disconnected. Disable guest-network/client/AP isolation so Wi-Fi devices can contact each other.
-2. Reserve `192.168.1.5` for the current Pi in the router's DHCP settings, or assign that address statically. If its address changes, update `combat-output.json` on the headset and restart the app.
-3. Use Quest Developer Mode, connect each headset to the build computer by USB, put it on, and accept its USB debugging prompt. Run `adb devices`; every headset being configured must show `device`, not `unauthorized`. With two attached, use `adb -s SERIAL` for **every** headset command.
-4. Allow local UDP traffic: Mirror match port `7777` on whichever Quest hosts, discovery port `47777` and host election port `47778` between Quests, and combat output port `7779` on each Pi. No Internet, Photon login, Quest Link, or router port forwarding is needed at runtime.
+1. Flash Raspberry Pi OS to a Pi SD card with Raspberry Pi Imager. In Imager's advanced settings, set username `milabpi`, set a password, enable SSH, and configure the Pi's Wi-Fi or Ethernet for this router. Boot it and verify `ssh milabpi@192.168.1.5` works. If you choose a different username, edit `User=` and both `/home/milabpi/` paths in `tools/pi/thermal-game-receiver.service`, plus the install commands below. Use your own password; no credential is stored in this repo.
+2. Put the Pi and each Quest on the same router LAN. Keep the router powered even when its WAN/Internet cable is disconnected. Disable guest-network/client/AP isolation so Wi-Fi devices can contact each other. First-time Quest activation, Developer Mode setup, and software downloads may require Internet; the installed demo does not.
+3. Reserve `192.168.1.5` for the current Pi in the router's DHCP settings, or assign that address statically. If its address changes, update `combat-output.json` on the headset and restart the app. Check the actual Pi IP with `hostname -I` on the Pi.
+4. Enable Developer Mode on each Quest, install Android platform tools (`adb`) on the computer, connect each headset by USB, put it on, and accept its USB debugging prompt. Run `adb devices`; every headset being configured must show `device`, not `unauthorized`. With two attached, use `adb -s SERIAL` for **every** headset command.
+5. Allow local UDP traffic: Mirror match port `7777` on whichever Quest hosts, discovery port `47777` and host election port `47778` between Quests, and combat output port `7779` on each Pi. No Internet, Photon login, Quest Link, or router port forwarding is needed at runtime.
 
 The Pi service listens on all Pi network interfaces. A firewall on the Pi, if enabled, must allow incoming UDP `7779` from the Quest LAN.
 
@@ -24,22 +25,22 @@ git lfs install
 git lfs pull
 ```
 
-Restore the licensed asset folders listed in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md) at their exact paths. They are intentionally absent from GitHub. Open the project in Unity once to import assets and resolve packages. Build from the project root with this computer's `unity` helper:
-
-```bash
-unity run "$PWD" --editor-version 6000.3.14f1 -- \
-  -executeMethod LanDemoSetup.BuildLanApk -logFile /tmp/thermal-lan-build.log
-```
-
-If `unity` is unavailable, run the Editor binary directly, adjusting its installed path:
+Restore the licensed asset folders listed in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md) at their exact paths. They are intentionally absent from GitHub. Open the project in Unity once to import assets and resolve packages. `Assets/Scenes/Game.unity` is the build scene; `Assets/Scene.unity` is an extra working scene and is not in the APK build. From the project root, run the Editor in batch mode:
 
 ```bash
 ~/Unity/Hub/Editor/6000.3.14f1/Editor/Unity -batchmode -quit \
-  -projectPath "$PWD" -executeMethod LanDemoSetup.BuildLanApk \
+  -projectPath "$PWD" -executeMethod ThermalBatch.RebuildCheckAndBuild \
   -logFile /tmp/thermal-lan-build.log
 ```
 
-The method runs project regression checks, configures the Mirror scene/prefab, and writes `/tmp/ThermalGameDemo-2min-LAN.apk`. Confirm the log contains `LAN Quest APK built at /tmp/ThermalGameDemo-2min-LAN.apk` and that the APK exists. An APK is a build artifact; it is not stored in Git. Keep the same APK for both Quests.
+Adjust the Editor path if Unity Hub installed it elsewhere. If this computer has the `unity` CLI helper, the equivalent command is:
+
+```bash
+unity run "$PWD" --editor-version 6000.3.14f1 -- \
+  -executeMethod ThermalBatch.RebuildCheckAndBuild -logFile /tmp/thermal-lan-build.log
+```
+
+The method syncs colliders to the authored arena layouts, runs project regression checks, configures the Mirror scene/prefab, and writes `/tmp/ThermalGameDemo-2min-LAN.apk`. Confirm the log contains `LAN Quest APK built at /tmp/ThermalGameDemo-2min-LAN.apk` and that the APK exists. An APK is a build artifact; it is distributed in GitHub Releases rather than Git history. Keep the same APK for both Quests. To make the install bundle from a rebuilt APK, run `python3 tools/make_install_kit.py --apk /tmp/ThermalGameDemo-2min-LAN.apk --output /tmp/ThermalGameDemo-LAN-auto-install-kit.zip`.
 
 ## 3. Install the Pi receiver
 
@@ -116,11 +117,11 @@ Either headset can start first. The other searches by LAN discovery and retries.
 
 ## 6. Run and verify the demo
 
-Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. Both calibrated players enter the practice sandbox; either holds a thumbs-up on either hand for three seconds to begin the synchronized countdown. One calibrated player can start a solo round the same way. The right hand uses a pointing index or middle finger for the fire beam, an open palm for the ice bomb, and a relaxed fist for the shield. After a result, practice resumes and another thumbs-up starts the next round. See [the participant flow](TWO_MINUTE_DEMO.md).
+Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. Both calibrated players enter the practice sandbox; either holds a thumbs-up on either hand for three seconds to begin the synchronized countdown. One calibrated player can start a solo round the same way. The right hand uses both index and middle fingers extended for the fire beam, an open palm for the ice bomb, and a relaxed fist for the shield. After a result, practice resumes and another thumbs-up starts the next round. See [the participant flow](TWO_MINUTE_DEMO.md).
 
 Watch the Pi journal while playing. The receiver prints `ice_shot` when the bomb is thrown, `fire_start`/`fire_stop` as the beam turns on/off, `hit_received` for a confirmed unshielded hit, and `shield_block` for a confirmed block. Practice hits emit `hit_received` while health stays full. It may also print `output_timeout` when the app closes, pauses, or stops sending. The defender's Pi gets hit/block events; a shield pose alone is not a block.
 
-For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi running, start both Quests, calibrate, practice, exercise all four signals, and finish a round. An earlier single-Quest build confirmed APK launch, automatic host startup, host beacon transmission, Pi service startup, Quest-to-Pi UDP delivery, and an app-session timeout on the Pi. A test beacon from a laptop also made the Quest yield, try to join, then recover as host when the beacon stopped. A live four-signal, two-Quest match on this version and a WAN-disconnected round remain to be checked.
+For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi running, start both Quests, calibrate, practice, exercise all four signals, and finish a round. Current checks confirm APK launch, automatic host startup, Pi service startup, and live Quest-to-Pi fire, ice, and unshielded-hit events. A shield-block event, a complete two-Quest round on this exact build, and a WAN-disconnected round remain to be checked.
 
 ## Troubleshooting
 

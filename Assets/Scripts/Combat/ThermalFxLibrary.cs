@@ -136,6 +136,7 @@ public sealed class ThermalFxLibrary : ScriptableObject
             if (!unlitCache.TryGetValue(source, out Material replacement) || replacement == null)
             {
                 replacement = new Material(source) { name = source.name + " (Quest)" };
+                if (replacement.HasProperty("_Cull")) replacement.SetFloat("_Cull", 0f);
                 if (lit)
                 {
                     replacement.shader = unlit;

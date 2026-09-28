@@ -13,7 +13,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(30f)] private float roundSeconds = 60f;
     [SerializeField, Min(1f)] private float countdownSeconds = 5f;
     [SerializeField, Min(1f)] private float resultSeconds = 7f;
-    [SerializeField, Min(1)] private int safeZoneDamage = 80;
+    private const int SafeZoneDamage = 90;
     [Header("Sudden death")]
     [Tooltip("The final seconds of the round are sudden death.")]
     [SerializeField, Min(5f)] private float suddenDeathSeconds = 20f;
@@ -36,12 +36,67 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int WinsB;
     [SyncVar] public bool SoloOverride;
     [SyncVar] public int HazardSeed;
+    [SyncVar] public Vector2 SafeZoneA;
+    [SyncVar] public Vector2 SafeZoneB;
+    [SyncVar] public bool SafeZonesReady;
+    private bool blastResolved;
     /// <summary>0 = not yet spawned this round, 1 = available, 2 = taken.</summary>
     [SyncVar] public int HealState;
     [SyncVar] public Vector3 HealCenter;
     [SyncVar] public int HealTakerId = -1;
     /// <summary>Bit per sudden-death drone that has been shot down this round.</summary>
     [SyncVar] public int DroneDownMask;
+
+    public readonly SyncList<byte> WoodHeat = new SyncList<byte>();
+    private double nextWoodHit;
+    private double nextCargoSnapshot;
+
+    public void RequestWoodBurn(int panel, int cell)
+    {
+        if (isServer) AcceptWoodBurn(panel, cell);
+        else if (isOwned) CmdWoodBurn(panel, cell);
+    }
+
+    [Command]
+    private void CmdWoodBurn(int panel, int cell) => AcceptWoodBurn(panel, cell);
+
+    [Server]
+    private void AcceptWoodBurn(int panel, int cell)
+    {
+        var director = Active();
+        if (director == null || !director.AllowsCombat || panel < 0 || panel > 1
+            || cell < 0 || cell >= BurnableWood.CellCount || NetworkTime.time < nextWoodHit) return;
+        nextWoodHit = NetworkTime.time + 0.08;
+        int index = panel * BurnableWood.CellCount + cell;
+        if (director.WoodHeat.Count != BurnableWood.CellCount * 2) return;
+        BurnableWood.SpreadHeat(director.WoodHeat, panel * BurnableWood.CellCount, cell);
+    }
+
+    [Server]
+    public void SendCargoImpact(Vector3 point) => RpcCargoImpact(NetworkPlayerAlignment.InverseTransformPoint(point));
+
+    [ClientRpc]
+    private void RpcCargoImpact(Vector3 point) => ArenaCargoPhysics.Impact(NetworkPlayerAlignment.TransformPoint(point));
+
+    private void SendCargoSnapshots()
+    {
+        if (!isServer || !IsDirector || NetworkTime.time < nextCargoSnapshot) return;
+        nextCargoSnapshot = NetworkTime.time + 0.05;
+        var bodies = ArenaCargoPhysics.Bodies.Values.Where(b => b != null && b.Released && b.gameObject.activeInHierarchy).ToArray();
+        if (bodies.Length == 0) return;
+        RpcCargoPoses(bodies.Select(b => b.Id).ToArray(),
+            bodies.Select(b => NetworkPlayerAlignment.InverseTransformPoint(b.transform.position)).ToArray(),
+            bodies.Select(b => NetworkPlayerAlignment.InverseTransformRotation(b.transform.rotation)).ToArray());
+    }
+
+    [ClientRpc]
+    private void RpcCargoPoses(int[] ids, Vector3[] positions, Quaternion[] rotations)
+    {
+        if (isServer || !IsFighting && Phase != RoundPhase.Result) return;
+        for (int i = 0; i < ids.Length; i++)
+            if (ArenaCargoPhysics.Bodies.TryGetValue(ids[i], out var body) && body != null)
+                body.Receive(positions[i], rotations[i]);
+    }
 
     private FusionRoundHud hud;
     private SafeZoneHazardView safeZoneView;
@@ -182,11 +237,17 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 
         UpdateHeal(players);
 
+        PrepareSafeZones(players);
         DamagePlayersOutsideSafeZones(players);
+        DamagePlayersInFire(players);
     }
 
     private void ResetHeal()
     {
+        WoodHeat.Clear();
+        for (int i = 0; i < BurnableWood.CellCount * 2; i++) WoodHeat.Add(0);
+        SafeZonesReady = false;
+        blastResolved = false;
         HealState = 0;
         HealTakerId = -1;
         DroneDownMask = 0;
@@ -256,7 +317,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         PhaseCode = (int)RoundPhase.Countdown;
         phaseEndsAt = NetworkTime.time + countdownSeconds;
         WinnerPlayerId = -1;
-        HazardSeed = Random.Range(0, SafeZoneHazardView.LayoutCount);
+        HazardSeed = Random.Range(0, int.MaxValue);
         ResetHeal();
         ResetPlayers(players);
     }
@@ -332,20 +393,48 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         HealState = 2;
     }
 
+    private void PrepareSafeZones(List<NetworkPlayerHealth> players)
+    {
+        if (SafeZonesReady || FightElapsed < SafeZoneHazardView.WarningAt || FightElapsed >= SafeZoneHazardView.BlastAt) return;
+        var heads = players.Select(p => p.GetComponent<NetworkHeadTracker>()).Where(h => h != null)
+            .Select(h => h.CanonicalHeadPosition).ToArray();
+        Physics.SyncTransforms();
+        bool Clear(Vector2 point) => SafeZoneHazardView.HasClearance(
+            NetworkPlayerAlignment.TransformPoint(new Vector3(point.x, 1.125f, point.y)),
+            NetworkPlayerAlignment.TransformRotation(Quaternion.identity));
+        if (SafeZoneHazardView.SelectZones(heads, Clear, HazardSeed, out var a, out var b))
+        { SafeZoneA = a; SafeZoneB = b; SafeZonesReady = true; }
+    }
+
+    private void DamagePlayersInFire(List<NetworkPlayerHealth> players)
+    {
+        if (!IsSuddenDeath) return;
+        foreach (var player in players)
+        {
+            var head = player.GetComponent<NetworkHeadTracker>();
+            if (head != null && SuddenDeathDirector.IsInGroundFire(head.CanonicalHeadPosition))
+                player.RequestDamage(20, true, "ground_fire");
+        }
+    }
+
     private void DamagePlayersOutsideSafeZones(List<NetworkPlayerHealth> players)
     {
-        if (!SafeZoneHazardView.IsExploding(FightElapsed)) return;
+        if (!SafeZonesReady || blastResolved || !SafeZoneHazardView.IsExploding(FightElapsed)) return;
+        blastResolved = true;
         foreach (NetworkPlayerHealth player in players)
         {
             NetworkHeadTracker head = player.GetComponent<NetworkHeadTracker>();
             if (head == null || !player.IsAlive) continue;
-            if (!SafeZoneHazardView.Contains(HazardSeed, head.CanonicalHeadPosition))
-                player.RequestDamage(safeZoneDamage, true, "safe_zone");
+            if (!SafeZoneHazardView.Contains(SafeZoneA, SafeZoneB, head.CanonicalHeadPosition))
+            {
+                player.ApplyArenaBlast(SafeZoneDamage);
+            }
         }
     }
 
     private void Update()
     {
+        SendCargoSnapshots();
         if (isOwned)
         {
             UpdateResetGesture();

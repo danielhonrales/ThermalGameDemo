@@ -87,4 +87,4 @@ References: [IETF UDP Usage Guidelines](https://www.rfc-editor.org/info/rfc8085/
 python3 -m unittest discover -s tools/pi -p 'test_*.py'
 ```
 
-Unity `DemoRegressionChecks.RunOutputCheck` sends real loopback UDP packets through the game output class and verifies state transitions, duplicate suppression, block counters, source and health fields. On 2026-09-23 the built app on Quest A at `192.168.1.208` launched as host and sent packets to the Pi service at `192.168.1.5`; the service reported that app session's `output_timeout` after the app was stopped. Live gesture-generated signals and a two-Quest match remain to be verified.
+Unity `DemoRegressionChecks.RunOutputCheck` sends real loopback UDP packets through the game output class and verifies state transitions, duplicate suppression, block counters, source and health fields. On 2026-09-28 the Pi service at `192.168.1.5:7779` logged live headset fire starts/stops, ice shots, and unshielded hits. A live shield-block event and a full two-Quest match on the latest build remain to be verified.

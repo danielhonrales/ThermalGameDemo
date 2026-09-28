@@ -22,7 +22,7 @@ public sealed class LanMatchManager : NetworkManager
 
     private const int ElectionPort = 47778;
     // Bump whenever networked state changes so headsets on different builds never pair up.
-    public const int ProtocolVersion = 10;
+    public const int ProtocolVersion = 16;
     public const long DiscoveryHandshake = 0x544845524D414C00L + ProtocolVersion;
     private const string BeaconPrefix = "THERMAL-LAN-10:";
 

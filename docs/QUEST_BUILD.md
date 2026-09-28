@@ -9,11 +9,12 @@ The game is a standalone Android app. Quest Link is not required on Linux.
 Build the LAN development APK from the repository root:
 
 ```bash
-unity run "$PWD" --editor-version 6000.3.14f1 -- \
-  -executeMethod LanDemoSetup.BuildLanApk -logFile /tmp/thermal-lan-build.log
+~/Unity/Hub/Editor/6000.3.14f1/Editor/Unity -batchmode -quit \
+  -projectPath "$PWD" -executeMethod ThermalBatch.RebuildCheckAndBuild \
+  -logFile /tmp/thermal-lan-build.log
 ```
 
-The build method writes `/tmp/ThermalGameDemo-2min-LAN.apk`. With Quest Developer Mode enabled and USB debugging accepted inside the headset, install and launch it:
+Adjust the Editor path if Unity Hub installed it elsewhere. The build syncs the authored arena colliders, runs regression checks, and writes `/tmp/ThermalGameDemo-2min-LAN.apk`. With Quest Developer Mode enabled and USB debugging accepted inside the headset, install and launch it:
 
 ```bash
 adb devices

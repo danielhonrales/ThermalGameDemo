@@ -1,5 +1,9 @@
 # Demo validation
 
+## 2026-09-28 release handoff
+
+The latest LAN APK was built successfully with the authored arena layouts, synced colliders, and regression checks. It was installed and launched on a connected Quest. The Raspberry Pi receiver at `192.168.1.5:7779` was active and logged live `fire_start`/`fire_stop`, `ice_shot`, and `hit_received` events from the headset. The smoke test did not observe a live `shield_block` event. A complete two-Quest duel on this exact APK and a router-WAN-disconnected round have not been verified. See [SETUP.md](SETUP.md) for the exact acceptance steps.
+
 ## 2026-09-23 automatic LAN role selection
 
 The updated Mirror APK passed `RunLanElectionCheck`, was installed on Quest A, and logged a search followed by automatic host startup and `player_ready` despite an old `lan-match.json` containing `"role":"host"`. A laptop listening on UDP `47778` received the Quest's host beacon from `192.168.1.208`. A temporary lower-priority test beacon sent from the laptop made the Quest yield its host role, attempt to connect to `192.168.1.27`, and automatically host again after that beacon stopped. This verifies the single-Quest and collision-recovery paths. Two real Quests joining, combat signals, and an Internet-disconnected round remain untested.

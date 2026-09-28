@@ -242,7 +242,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                     lastCountdownNumber = number;
                     SynthAudio.Play2D(SynthAudio.CountBeat(), 0.8f);
                 }
-                ShowBanner("count" + number, number.ToString(), "POINT: FIRE   PALM: ICE   FIST: SHIELD", Friendly, 1f);
+                ShowBanner("count" + number, number.ToString(), "", Friendly, 1f);
                 break;
             }
 
@@ -253,14 +253,14 @@ public sealed class FusionRoundHud : MonoBehaviour
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 if (Time.time - fightStartedAt < 1.1f)
                     ShowBanner("fight", "FIGHT", "", Friendly, 1f);
-                else if (elapsed >= SafeZoneHazardView.WarningAt && elapsed < SafeZoneHazardView.BlastAt)
+                else if (round.SafeZonesReady && elapsed >= SafeZoneHazardView.WarningAt && elapsed < SafeZoneHazardView.BlastAt)
                 {
                     ShowBanner("safe_warn", "DANGER", "", Warn, 1f);
                     bannerCaption.text = "MOVE TO A GLOWING SAFE ZONE · "
                         + Mathf.CeilToInt(SafeZoneHazardView.BlastAt - elapsed);
                 }
                 else if (SafeZoneHazardView.IsExploding(elapsed))
-                    ShowBanner("safe_blast", "BLAST", "STAY IN A SAFE ZONE", Warn, 1f);
+                    ShowBanner("safe_blast", "", "", Warn, 0f);
                 else if (sd >= -5f && sd < 0f)
                 {
                     ShowBanner("suddenwarn", "SUDDEN DEATH", "", Amber, 1f);
@@ -376,6 +376,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerCaption.text = caption;
                 bannerText.color = color;
                 bannerText.fontSize = title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
+                bannerCaption.color = Color.white;
                 bannerCaption.fontSize = key.StartsWith("count") ? 30f : 34f;
                 bannerCaption.characterSpacing = key.StartsWith("count") ? 8f : 16f;
                 bool danger = key == "safe_warn" || key == "safe_blast";
@@ -399,6 +400,7 @@ public sealed class FusionRoundHud : MonoBehaviour
             targetAlpha *= 0.8f + 0.2f * pulse;
             bannerText.color = Color.Lerp(Warn, Color.white, pulse * 0.2f);
             bannerBand.color = HudKit.A(Warn, 0.1f + 0.12f * pulse);
+            bannerCaption.color = Color.Lerp(new Color(0.65f, 0.04f, 0.02f), new Color(1f, 0.25f, 0.16f), pulse);
         }
         bannerGroup.alpha = Mathf.MoveTowards(bannerGroup.alpha, targetAlpha, Time.deltaTime * (bannerTarget > 0f ? 10f : 4f));
         // One entrance, then a steady warning while the countdown changes.
@@ -486,7 +488,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         timer.text = "1:12";
         phaseLabel.text = "ENTER A SAFE ZONE · 5";
         phaseBand.color = HudKit.A(Warn, 0.16f);
-        ShowBanner("count5", "5", "POINT: FIRE   PALM: ICE   FIST: SHIELD", Friendly, 1f);
+        ShowBanner("count5", "5", "", Friendly, 1f);
         bannerCaption.ForceMeshUpdate(true);
         if (bannerCaption.isTextOverflowing) throw new System.Exception("Countdown control hint overflows the HUD.");
         ShowBanner("safe_warn", "DANGER", "MOVE TO A GLOWING SAFE ZONE · 5", Warn, 1f);

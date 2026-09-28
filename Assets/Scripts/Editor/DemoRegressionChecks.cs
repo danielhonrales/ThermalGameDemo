@@ -42,24 +42,31 @@ public static class DemoRegressionChecks
             || !SafeZoneHazardView.IsExploding(25f)
             || SafeZoneHazardView.IsExploding(28f))
             throw new Exception("Safe-zone warning, blast, or heal timing is wrong.");
-        for (int seed = 0; seed < SafeZoneHazardView.LayoutCount; seed++)
+        for (int seed = 0; seed < 12; seed++)
         {
-            Vector2 first = SafeZoneHazardView.Center(seed, 0);
-            Vector2 second = SafeZoneHazardView.Center(seed, 1);
-            if (Vector2.Distance(first, second) < 1.5f
-                || !SafeZoneHazardView.Contains(seed, new Vector3(first.x, 1.6f, first.y))
-                || !SafeZoneHazardView.Contains(seed, new Vector3(second.x, 1.6f, second.y))
-                || SafeZoneHazardView.Contains(seed, new Vector3(0.275f, 1.6f, 0.71f)))
-                throw new Exception("Safe zones must be distinct and include only their marked floor space.");
+            var heads = new[] { new Vector3(-0.8f, 1.6f, 0f), new Vector3(1.3f, 1.6f, 1.4f) };
+            if (!SafeZoneHazardView.SelectZones(heads, _ => true, seed, out var first, out var second))
+                throw new Exception("Procedural zones missing.");
+            foreach (var head in heads)
+                if (SafeZoneHazardView.DistanceToZone(first, head) < SafeZoneHazardView.MinimumMove
+                    || SafeZoneHazardView.DistanceToZone(second, head) < SafeZoneHazardView.MinimumMove)
+                    throw new Exception("A safe zone did not require movement.");
+            if (first.x + SafeZoneHazardView.HalfWidth > SafeZoneHazardView.Midline
+                || second.x - SafeZoneHazardView.HalfWidth < SafeZoneHazardView.Midline
+                || Vector2.Distance(first, second) < 1.25f
+                || !SafeZoneHazardView.Contains(first, second, new Vector3(first.x, 1.6f, first.y)))
+                throw new Exception("Safe-zone footprints overlap or reject their center.");
         }
-        Debug.Log("SAFE ZONE PASSED: two distinct refuges, five-second warning, repeated blast window, heal afterward.");
+        if (SafeZoneHazardView.SelectZones(new[] { Vector3.zero }, _ => false, 1, out _, out _))
+            throw new Exception("Blocked arena must not spawn unreachable refuges.");
+        Debug.Log("SAFE ZONE PASSED: procedural refuges require movement, respect blocked space, five-second warning.");
     }
 
     public static void RunArenaSequenceCheck()
     {
         float coverDeliveredAt = SuddenDeathDirector.DeliveryStart + CoverDrone.GrabMid / CoverDrone.DeliverySpeed;
-        float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.Gone / CoverDrone.DeliverySpeed;
-        if (SuddenDeathDirector.PickupStart >= SuddenDeathDirector.DeliveryStart
+        float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.ExchangeGone / CoverDrone.DeliverySpeed;
+        if (SuddenDeathDirector.PickupStart != SuddenDeathDirector.DeliveryStart
             || coverDeliveredAt >= 0f || dronesGoneAt >= 0f
             || SafeZoneHazardView.BlastEndsAt >= 40f + SuddenDeathDirector.PickupStart)
             throw new Exception("Sudden-death cover must settle before 40 seconds after the safe-zone blast.");
@@ -154,12 +161,12 @@ public static class DemoRegressionChecks
         float curled = HandPoseRouter.MeasureExtension(Direction(0), Direction(50), Direction(120), Direction(160));
         if (straight < 0.85f || curled > 0.35f) throw new Exception("Finger bend fixture failed.");
         var cases = new[] {
-            (straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Fire),
-            (curled, straight, curled, curled, false, HandPoseRouter.PoseKind.Fire),
+            (straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Neutral),
+            (curled, straight, curled, curled, false, HandPoseRouter.PoseKind.Neutral),
             (straight, straight, curled, curled, true, HandPoseRouter.PoseKind.Fire),
             (straight, straight, straight, straight, false, HandPoseRouter.PoseKind.Ice),
             (straight, straight, -1f, straight, false, HandPoseRouter.PoseKind.Ice),
-            (straight, curled, -1f, curled, false, HandPoseRouter.PoseKind.Fire),
+            (straight, curled, -1f, curled, false, HandPoseRouter.PoseKind.Neutral),
             (straight, curled, -1f, -1f, false, HandPoseRouter.PoseKind.Neutral),
             (curled, curled, -1f, -1f, false, HandPoseRouter.PoseKind.Shield),
             (-1f, -1f, -1f, -1f, false, HandPoseRouter.PoseKind.Neutral),
@@ -182,7 +189,7 @@ public static class DemoRegressionChecks
         float rotated = HandPoseRouter.MeasureExtension(rotation * Direction(0), rotation * Direction(8),
             rotation * Direction(12), rotation * Direction(15));
         if (Mathf.Abs(rotated - straight) > 0.001f) throw new Exception("Hand orientation changed finger classification.");
-        Debug.Log("POSE FIXTURES PASSED: index/middle gun, open palm, relaxed fist, occluded outer fingers, invalid tracking, and rotated hand.");
+        Debug.Log("POSE FIXTURES PASSED: two-finger gun, open palm, relaxed fist, occluded outer fingers, invalid tracking, and rotated hand.");
     }
 
     public static void RunHudFollowCheck()
@@ -213,6 +220,7 @@ public static class DemoRegressionChecks
     public static void RunFeedbackChecks()
     {
         var root = new GameObject("Immediate feedback regression");
+        root.transform.position = Vector3.one * 1000f;
         root.SetActive(false);
         var cover = GameObject.CreatePrimitive(PrimitiveType.Cube);
         try
@@ -235,7 +243,7 @@ public static class DemoRegressionChecks
             SetRouter("candidate", HandPoseRouter.PoseKind.Fire);
             SetRouter("candidateSince", Time.unscaledTime - 1f);
             SetRouter("hasFireRay", true);
-            SetRouter("fireRay", new Ray(Vector3.zero, Vector3.forward));
+            SetRouter("fireRay", new Ray(root.transform.position, Vector3.forward));
             var effects = root.AddComponent<ThermalBeamEffects>();
             var shooter = root.AddComponent<PalmBeamShooter>();
             typeof(PalmBeamShooter).GetMethod("Awake", flags).Invoke(shooter, null);
@@ -243,12 +251,12 @@ public static class DemoRegressionChecks
             SetShooter("palmOrigin", root.transform);
             SetShooter("showAimGuideWhileCharging", true);
             SetShooter("showAimGuide", true);
-            cover.transform.position = Vector3.forward * 3f;
+            cover.transform.position = root.transform.position + Vector3.forward * 3f;
             cover.layer = CombatLayers.GameplayCoverLayer;
             Physics.SyncTransforms();
             shooter.FireBeam();
             var line = (LineRenderer)typeof(PalmBeamShooter).GetField("aimGuideLine", flags).GetValue(shooter);
-            if (!line.enabled || Mathf.Abs(line.GetPosition(1).z - 2.5f) > 0.001f)
+            if (!line.enabled || Mathf.Abs(line.GetPosition(1).z - (root.transform.position.z + 2.5f)) > 0.001f)
                 throw new Exception("First-frame dotted beam preview must end at the actual cover raycast.");
             float burst = (float)typeof(PalmBeamShooter).GetField("beamBurstStartTime", flags).GetValue(shooter);
             if (burst >= 0f) throw new Exception("Unconfirmed pose must not fire the beam.");
@@ -582,17 +590,17 @@ public static class DemoRegressionChecks
         Transform cover = GameObject.Find("ArenaRoot/GameplayRoot/GameplayCover")?.transform;
         if (arena == null || cover == null) throw new Exception("Arena or starting cover missing.");
         Collider[] obstacles = cover.GetComponentsInChildren<Collider>(true);
-        for (int seed = 0; seed < SafeZoneHazardView.LayoutCount; seed++)
-            for (int index = 0; index < 2; index++)
-            {
-                Vector2 center = SafeZoneHazardView.Center(seed, index);
-                Vector3 point = arena.TransformPoint(new Vector3(center.x, 0f, center.y));
-                Bounds standingSpace = new Bounds(point + Vector3.up * 1.075f, new Vector3(1.1f, 2.15f, 1.1f));
-                foreach (Collider obstacle in obstacles)
-                    if (obstacle.enabled && obstacle.bounds.Intersects(standingSpace))
-                        throw new Exception($"Safe-zone layout {seed} zone {index} intersects {obstacle.name}.");
-            }
-        Debug.Log($"SAFE ZONE CLEARANCE PASSED: all layouts fit between {obstacles.Length} starting-cover colliders.");
+        for (int sample = 0; sample < 20; sample++)
+        {
+            var heads = new[] { new Vector3(-1.5f + sample * 0.1f, 1.6f, -0.4f),
+                new Vector3(1.8f - sample * 0.1f, 1.6f, 1.8f) };
+            Physics.SyncTransforms();
+            bool Clear(Vector2 point) => SafeZoneHazardView.HasClearance(
+                arena.TransformPoint(new Vector3(point.x, 1.125f, point.y)), arena.rotation);
+            if (!SafeZoneHazardView.SelectZones(heads, Clear, sample, out var a, out var b) || !Clear(a) || !Clear(b))
+                throw new Exception("Procedural refuges failed starting-cover clearance sample " + sample);
+        }
+        Debug.Log($"SAFE ZONE CLEARANCE PASSED: procedural placement across 20 player pairs and {obstacles.Length} colliders.");
     }
 
     public static void RunBoneLookup()

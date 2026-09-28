@@ -20,6 +20,7 @@ public sealed class ForearmShieldEffects : MonoBehaviour
     private LineRenderer innerArc;
     private readonly LineRenderer[] rotatingCells = new LineRenderer[5];
     private AudioSource shieldAudio;
+    private AudioSource shieldLoopAudio;
     private AudioClip deployClip;
     private AudioClip impactClip;
     private bool isVisible;
@@ -70,6 +71,9 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         float breathing = 0.96f + 0.04f * Mathf.Sin(Time.time * 2.8f);
         float impact = hitPulseAt >= 0f
             ? 1f - Mathf.Clamp01((Time.time - hitPulseAt) / 0.32f) : 0f;
+
+        if (shieldLoopAudio != null)
+            shieldLoopAudio.volume = Mathf.Lerp(0.04f, 0.13f, deployed);
 
         if (fieldMaterial != null)
         {
@@ -137,6 +141,7 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         isVisible = false;
         confirmed = false;
         if (shieldAudio != null) shieldAudio.Stop();
+        if (shieldLoopAudio != null) shieldLoopAudio.Stop();
         if (shieldRoot != null)
         {
             shieldRoot.gameObject.SetActive(false);
@@ -163,6 +168,11 @@ public sealed class ForearmShieldEffects : MonoBehaviour
         }
         if (active && !confirmed && shieldAudio != null && deployClip != null)
             CombatAudioVoice.Play(shieldAudio, deployClip, 0.65f, 0.4f);
+        if (shieldLoopAudio != null)
+        {
+            if (active && !shieldLoopAudio.isPlaying) shieldLoopAudio.Play();
+            else if (!active && shieldLoopAudio.isPlaying) shieldLoopAudio.Stop();
+        }
         confirmed = active;
     }
 
@@ -207,6 +217,10 @@ public sealed class ForearmShieldEffects : MonoBehaviour
             rotatingCells[i] = CombatVfxStyle.CreateLine(shieldRoot,
                 "ShieldCellArc", lineMaterial, false, 0.005f);
         shieldAudio = CombatAudioVoice.Create(transform, "Shield audio", null, false);
+        shieldLoopAudio = CombatAudioVoice.Create(shieldRoot, "Held shield whoosh",
+            SynthAudio.ShieldAirLoop(), true, 0.04f);
+        shieldLoopAudio.maxDistance = 4f;
+        shieldLoopAudio.dopplerLevel = 0f;
         deployClip = Resources.Load<AudioClip>("CustomAssets/Audio/AbsorbOrb");
         impactClip = Resources.Load<AudioClip>("CustomAssets/Audio/ChargeBlast");
         root.SetActive(false);

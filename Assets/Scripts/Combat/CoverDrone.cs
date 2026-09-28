@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 /// Sudden-death cargo drone. Its flight is a pure function of the shared match clock, so both
 /// headsets see the same choreography: it streaks in from far outside the room, snatches or drops
 /// cover, and blasts away. Shooting it (beam or ice blast) knocks it out of the sky: it sparks,
-/// trails smoke and fire, and explodes; any cargo it carries falls with physics and stays as cover.
+/// trails smoke and fire, and explodes; cargo returns to its authored landing pose and stays fixed as cover.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class CoverDrone : MonoBehaviour
@@ -13,9 +13,19 @@ public sealed class CoverDrone : MonoBehaviour
     public enum Job { Pickup, Delivery }
 
     // Timeline (seconds from this drone's start): fast swoop in, quick grab, fast exit.
-    public const float Arrive = 0.82f, GrabEnd = 1.24f, Gone = 2.03f;
+    public const float Arrive = 1.25f, GrabEnd = 1.37f, Gone = 2.75f;
     public const float GrabMid = (Arrive + GrabEnd) * 0.5f;
-    public const float PickupSpeed = 1.08f, DeliverySpeed = 1.35f;
+    public const float PickupSpeed = 1f, DeliverySpeed = 1f;
+    public const float ExchangeGrab = 1.60f, ExchangeGone = 3.05f;
+    private Transform returnCargo;
+    private Vector3 returnPoint, returnOffset;
+    private bool returnAttached;
+
+    public void SetReturnCargo(Transform value)
+    {
+        returnCargo = value;
+        returnPoint = new Vector3(value.position.x, Mathf.Max(low.y, value.position.y + 0.65f), value.position.z);
+    }
 
     public int Index { get; private set; }
     public bool IsDown { get; private set; }
@@ -35,6 +45,7 @@ public sealed class CoverDrone : MonoBehaviour
     private Quaternion deliveryRotation = Quaternion.identity;
     private Quaternion cargoRotation = Quaternion.identity;
 
+    private Transform hook;
     private Transform model;
     private Transform clawLeft, clawRight;
     private LineRenderer thruster, jetLeft, jetRight, searchlight, tractor;
@@ -126,7 +137,18 @@ public sealed class CoverDrone : MonoBehaviour
         searchlight.enabled = true;
         tractor = CombatVfxStyle.CreateLine(transform, "Tractor beam", lineMaterial, true, 0.34f);
         tractor.positionCount = 2;
-        tractor.widthCurve = new AnimationCurve(new Keyframe(0f, 0.15f), new Keyframe(1f, 1f));
+        tractor.widthMultiplier = 0.012f;
+        tractor.widthCurve = AnimationCurve.Constant(0f, 1f, 1f);
+        tractor.startColor = tractor.endColor = new Color(0.65f, 0.72f, 0.8f, 1f);
+        hook = new GameObject("Grapple hook").transform;
+        hook.SetParent(transform, false);
+        for (int i = 0; i < 3; i++)
+        {
+            var tine = Part(PrimitiveType.Cube, "Hook tine", dark, Vector3.zero, new Vector3(0.025f, 0.12f, 0.025f)).transform;
+            tine.SetParent(hook, false);
+            tine.localPosition = Quaternion.Euler(0f, i * 120f, 0f) * new Vector3(0.045f, -0.035f, 0f);
+            tine.localRotation = Quaternion.Euler(0f, i * 120f, -25f);
+        }
 
         trail = gameObject.AddComponent<TrailRenderer>();
         trail.sharedMaterial = lineMaterial;
@@ -205,9 +227,15 @@ public sealed class CoverDrone : MonoBehaviour
         if (IsDown) { TickDown(); return; }
         float t = (clock - startAt) * (job == Job.Delivery ? DeliverySpeed : PickupSpeed);
         if (t < 0f) { if (gameObject.activeSelf) gameObject.SetActive(false); return; }
-        if (t > Gone)
+        if (returnCargo != null && t >= ExchangeGrab && !returnAttached)
+        {
+            returnAttached = true;
+            returnOffset = returnCargo.position - returnPoint;
+        }
+        if (t > (returnCargo != null ? ExchangeGone : Gone))
         {
             Finished = true;
+            if (returnCargo != null) returnCargo.gameObject.SetActive(false);
             if (gameObject.activeSelf) gameObject.SetActive(false);
             if (job == Job.Pickup && cargo != null && cargoAttached) cargo.gameObject.SetActive(false);
             return;
@@ -233,6 +261,13 @@ public sealed class CoverDrone : MonoBehaviour
 
         AnimateParts(t);
         UpdateCargo(t);
+        if (returnCargo != null && returnAttached)
+        {
+            float winch = Mathf.Clamp01((t - ExchangeGrab) / 0.35f);
+            returnCargo.position = position + Vector3.Lerp(returnOffset, Vector3.down * Mathf.Min(0.65f, -returnOffset.y), winch)
+                + CargoLag(t);
+        }
+        UpdateGrapple(t);
     }
 
     private static float EaseOut(float x) { x = Mathf.Clamp01(x); return 1f - (1f - x) * (1f - x) * (1f - x); }
@@ -243,6 +278,13 @@ public sealed class CoverDrone : MonoBehaviour
 
     private Vector3 Pose(float t)
     {
+        if (returnCargo != null && t >= GrabMid)
+        {
+            if (t < ExchangeGrab)
+                return Vector3.Lerp(low, returnPoint, Mathf.SmoothStep(0f, 1f, (t - GrabMid) / (ExchangeGrab - GrabMid)));
+            return Bezier(returnPoint, returnPoint + Vector3.up, exit,
+                Mathf.SmoothStep(0f, 1f, (t - ExchangeGrab) / (ExchangeGone - ExchangeGrab)));
+        }
         float bob = Mathf.Sin((t + seed) * 5f) * 0.02f;
         if (t < Arrive)
         {
@@ -285,16 +327,32 @@ public sealed class CoverDrone : MonoBehaviour
         clawLeft.localPosition = new Vector3(-jaw, -0.16f, 0.02f);
         clawRight.localPosition = new Vector3(jaw, -0.16f, 0.02f);
 
-        bool beam = t > Arrive - 0.15f && t < GrabEnd + 0.1f;
-        tractor.enabled = beam;
-        if (beam)
+    }
+
+    private Vector3 CargoLag(float t)
+    {
+        Vector3 travel = (Pose(t) - Pose(Mathf.Max(0f, t - 0.03f))) / 0.03f;
+        return Vector3.ClampMagnitude(Vector3.ProjectOnPlane(-travel * 0.035f, Vector3.up), 0.45f)
+            + transform.right * (Mathf.Sin(t * 7f + seed) * 0.045f);
+    }
+
+    private void UpdateGrapple(float t)
+    {
+        Transform load = !cargoReleased ? cargo : returnAttached ? returnCargo : null;
+        Vector3 end;
+        if (load != null)
         {
-            float pulse = 0.35f + 0.2f * Mathf.Sin(Time.time * 45f);
-            tractor.SetPosition(0, transform.position - Vector3.up * 0.15f);
-            tractor.SetPosition(1, new Vector3(transform.position.x, low.y - 0.3f, transform.position.z));
-            tractor.startColor = CombatVfxStyle.WithAlpha(Color.Lerp(Red, Color.white, 0.2f), pulse);
-            tractor.endColor = CombatVfxStyle.WithAlpha(Red, 0.03f);
+            var collider = load.GetComponentInChildren<Collider>();
+            end = collider != null ? new Vector3(collider.bounds.center.x, collider.bounds.max.y, collider.bounds.center.z) : load.position;
         }
+        else if (returnCargo != null && t < ExchangeGrab)
+            end = Vector3.Lerp(transform.position - Vector3.up * 0.2f, returnCargo.position,
+                Mathf.Clamp01((t - GrabMid) / (ExchangeGrab - GrabMid)));
+        else end = transform.position - Vector3.up * 0.25f;
+        tractor.enabled = true;
+        tractor.SetPosition(0, transform.position - Vector3.up * 0.15f);
+        tractor.SetPosition(1, end);
+        hook.position = end;
     }
 
     private static void SetFlame(LineRenderer line, Vector3 start, Vector3 direction, float length)
@@ -328,11 +386,13 @@ public sealed class CoverDrone : MonoBehaviour
 
         if (job == Job.Delivery && t >= GrabMid)
         {
-            Release(false);
+            Release(true);
             return;
         }
-        Vector3 anchor = job == Job.Pickup ? transform.position + cargoOffset : transform.position + (deliveryRest - low);
-        cargo.SetPositionAndRotation(anchor, cargoRotation);
+        Vector3 anchor = job == Job.Pickup ? transform.position + cargoOffset
+            : transform.position + (deliveryRest - low) + Vector3.up * 0.75f;
+        cargo.SetPositionAndRotation(anchor + CargoLag(t), cargoRotation * Quaternion.Euler(
+            Mathf.Sin(t * 5f + seed) * 3f, 0f, Mathf.Sin(t * 6f + seed) * 4f));
     }
 
     private void Release(bool falling)
@@ -342,14 +402,10 @@ public sealed class CoverDrone : MonoBehaviour
         if (falling)
         {
             cargo.gameObject.SetActive(true);
-            if (!cargo.TryGetComponent(out Rigidbody rb)) rb = cargo.gameObject.AddComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.mass = 40f;
-            rb.interpolation = RigidbodyInterpolation.Interpolate;
-            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            rb.linearVelocity = Vector3.ClampMagnitude(velocity, 5f);
-            rb.angularVelocity = Random.insideUnitSphere * 3f;
-            if (!cargo.TryGetComponent(out CargoImpact _)) cargo.gameObject.AddComponent<CargoImpact>();
+            var physics = cargo.GetComponent<ArenaCargoPhysics>();
+            if (physics != null)
+                physics.Release(IsDown ? velocity : Vector3.down * 0.5f,
+                    IsDown ? new Vector3(1.1f, 0.6f, -0.8f) : new Vector3(0.1f, 0f, -0.15f));
         }
         else
         {
@@ -392,6 +448,9 @@ public sealed class CoverDrone : MonoBehaviour
         FusionRoundHud.Current?.Toast("DRONE DOWN", CombatVfxStyle.Heat, 1.8f);
         if (cargo != null && !cargoReleased && (job == Job.Delivery || cargoAttached))
             Release(true);
+        if (returnCargo != null && returnAttached)
+            returnCargo.GetComponent<ArenaCargoPhysics>()?.Release(velocity, new Vector3(-1f, 0.6f, 1f));
+        hook.gameObject.SetActive(false);
         body.isKinematic = false;
         body.mass = 4f;
         body.linearVelocity = Vector3.ClampMagnitude(velocity, 4f) + Vector3.up * 0.8f;
@@ -442,6 +501,7 @@ public sealed class CoverDrone : MonoBehaviour
     private void OnDestroy()
     {
         if (lineMaterial != null) Destroy(lineMaterial);
+        if (smokeMaterial != null) Destroy(smokeMaterial);
     }
 }
 

@@ -19,11 +19,11 @@ public sealed class SandboxGuideView : MonoBehaviour
         HudKit.Image(board, "Board", HudSprites.Panel(18), new Color(0.015f, 0.025f, 0.04f, 0.82f),
             Vector2.zero, new Vector2(1250f, 940f), true, 1f);
         Label(board, "PRACTICE ARENA", 56f, Color.white, new Vector2(0f, 375f), new Vector2(1150f, 90f));
-        Label(board, "TRY EACH HAND POSE", 28f, FusionRoundHud.Friendly,
+        Label(board, "TRY EACH ABILITY WITH YOUR RIGHT HAND", 28f, FusionRoundHud.Friendly,
             new Vector2(0f, 320f), new Vector2(1100f, 55f));
-        Card("FIRE BEAM", "FINGER GUN  ·  HOLD TO BURN", Fire, 180f, 0);
-        Card("ICE BOMB", "OPEN PALM  ·  AUTO RECHARGE", Ice, -5f, 1);
-        Card("SHIELD", "FIST  ·  HOLD TO BLOCK", Shield, -190f, 2);
+        Card("FIRE BEAM", "FINGER GUN", Fire, 180f, 0);
+        Card("ICE BOMB", "OPEN PALM", Ice, -5f, 1);
+        Card("SHIELD", "FIST", Shield, -190f, 2);
         Label(board, "EITHER PLAYER: THUMBS UP FOR 3 SECONDS TO START", 28f,
             Color.white, new Vector2(0f, -390f), new Vector2(1180f, 65f));
         board.gameObject.SetActive(false);
@@ -32,7 +32,7 @@ public sealed class SandboxGuideView : MonoBehaviour
     private void Card(string title, string instruction, Color accent, float y, int kind)
     {
         var row = HudKit.Rect(board, title + " card", new Vector2(0f, y), new Vector2(1160f, 165f));
-        HudKit.Image(row, "Panel", HudSprites.Panel(12), new Color(0.09f, 0.13f, 0.18f, 0.95f),
+        HudKit.Image(row, "Panel", HudSprites.Panel(12), new Color(0.045f, 0.075f, 0.11f, 0.95f),
             Vector2.zero, new Vector2(1160f, 165f), true, 1f);
         HudKit.Image(row, "Accent", HudSprites.Panel(4), accent, new Vector2(-562f, 0f), new Vector2(9f, 140f), true, 1f);
         DrawHand(row, kind, accent);
@@ -46,7 +46,7 @@ public sealed class SandboxGuideView : MonoBehaviour
     {
         var label = HudKit.Text(parent, text, HudKit.Heavy, size, color, position, dimensions, TextAlignmentOptions.Center);
         label.text = text;
-        label.characterSpacing = size < 30f ? 4f : 7f;
+        label.characterSpacing = size < 30f ? 1f : 3f;
         return label;
     }
 
@@ -62,17 +62,30 @@ public sealed class SandboxGuideView : MonoBehaviour
     {
         var hand = HudKit.Rect(row, "Hand pose", new Vector2(-445f, -3f), new Vector2(145f, 145f));
         Color skin = new Color(0.88f, 0.93f, 1f, 1f);
+        if (kind == 0)
+        {
+            // Side-on finger gun: the fire leaves along the two extended fingers.
+            Bar(hand, "Palm", skin, new Vector2(-27f, -23f), new Vector2(66f, 65f));
+            Bar(hand, "Index", skin, new Vector2(19f, 14f), new Vector2(80f, 14f));
+            Bar(hand, "Middle", skin, new Vector2(19f, -6f), new Vector2(80f, 14f));
+            Bar(hand, "Thumb", skin, new Vector2(-43f, 27f), new Vector2(22f, 54f), -28f);
+            Bar(hand, "Curled ring", skin, new Vector2(5f, -39f), new Vector2(29f, 16f));
+            Bar(hand, "Curled pinky", skin, new Vector2(-5f, -55f), new Vector2(23f, 13f));
+            Bar(hand, "Fire from fingertips", accent, new Vector2(96f, 4f), new Vector2(67f, 8f));
+            HudKit.Image(hand, "Fire tip", HudSprites.Dot(), HudKit.A(accent, 0.8f),
+                new Vector2(128f, 4f), new Vector2(30f, 30f));
+            return;
+        }
         Bar(hand, "Palm", skin, new Vector2(0f, -24f), new Vector2(72f, kind == 2 ? 65f : 74f));
         Bar(hand, "Thumb", skin, new Vector2(-47f, -12f), new Vector2(22f, 58f), 42f);
         for (int finger = 0; finger < 4; finger++)
         {
-            bool extended = kind == 1 || (kind == 0 && finger == 1);
+            bool extended = kind == 1 || (kind == 0 && finger < 2);
             float height = extended ? 67f : kind == 2 ? 20f : 26f;
             float x = -28f + finger * 19f;
             Bar(hand, "Finger " + finger, skin, new Vector2(x, 13f + height * 0.5f - 14f),
                 new Vector2(15f, height));
         }
-        if (kind == 0) Bar(hand, "Aim line", accent, new Vector2(61f, 33f), new Vector2(55f, 7f));
         if (kind == 1) HudKit.Image(hand, "Ice charge", HudSprites.Dot(), accent,
             new Vector2(0f, 62f), new Vector2(52f, 52f));
         if (kind == 2) HudKit.Image(hand, "Shield glow", HudSprites.Dot(),

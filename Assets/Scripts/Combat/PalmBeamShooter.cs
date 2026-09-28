@@ -211,7 +211,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
         }
 
         ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor, hitSomething);
-        if (hitCollider != null) ApplyCombatResult(hitCollider, result);
+        if (hitCollider != null) ApplyCombatResult(hitCollider, result, beamEnd);
         DrawBeam(origin, beamEnd, beamColor);
         if (beamEffects != null)
         {
@@ -281,8 +281,10 @@ public sealed class PalmBeamShooter : MonoBehaviour
         return missColor;
     }
 
-    private void ApplyCombatResult(Collider hitCollider, string result)
+    private void ApplyCombatResult(Collider hitCollider, string result, Vector3 hitPoint)
     {
+        var wood = hitCollider.GetComponentInParent<BurnableWood>();
+        if (wood != null) { wood.ReportBurn(hitPoint); return; }
         CoverDrone drone = hitCollider.GetComponentInParent<CoverDrone>();
         if (drone != null)
         {
