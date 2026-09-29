@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Head-locked match HUD: local health, round clock, safe-zone warning,
+/// Match HUD: eye-level local health and round clock; head-locked safe-zone warning,
 /// sudden-death cue, result, and full-view damage feedback.
 /// </summary>
 [DisallowMultipleComponent]
@@ -22,6 +22,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private const float HudScale = 0.00095f;
 
     private RectTransform root;
+    private RectTransform statusRoot;
     private RectTransform vignetteRoot;
     private Image vignette;
     private HealthCard localCard;
@@ -48,6 +49,8 @@ public sealed class FusionRoundHud : MonoBehaviour
     private int lastCountdownNumber = -1, lastHealState = -1, lastPhase = -1;
     private NetworkPlayerHealth localHealth, opponentHealth;
     private Quaternion smoothedRotation = Quaternion.identity;
+    private Vector3 smoothedHeading = Vector3.forward;
+    private Transform statusHead;
     private float roundLength = 60f, suddenDeathAt = 40f;
     private float suddenDeathAmount;
     private float previousHit;
@@ -61,10 +64,14 @@ public sealed class FusionRoundHud : MonoBehaviour
         Initialize();
     }
 
+    private void OnEnable() => Application.onBeforeRender += PlaceStatus;
+    private void OnDisable() => Application.onBeforeRender -= PlaceStatus;
+
     private void OnDestroy()
     {
         if (Current == this) Current = null;
         if (root != null) DestroyHudObject(root.gameObject);
+        if (statusRoot != null) DestroyHudObject(statusRoot.gameObject);
         if (vignetteRoot != null) DestroyHudObject(vignetteRoot.gameObject);
         if (bannerTitleOverlay != null) DestroyHudObject(bannerTitleOverlay);
         if (bannerCaptionOverlay != null) DestroyHudObject(bannerCaptionOverlay);
@@ -79,20 +86,22 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         if (root != null) return;
         root = HudKit.Canvas("Arena HUD", transform, new Vector2(2800f, 1700f), 20);
+        // Health and clock sit at a constant eye-level height; only urgent banners/toasts follow head pitch.
+        statusRoot = HudKit.Canvas("Arena HUD status", transform, new Vector2(2800f, 1700f), 19);
 
-        localCard = new HealthCard(root, "YOU", HealPickupView.Green, new Vector2(-760f, 285f), true);
+        localCard = new HealthCard(statusRoot, "YOU", HealPickupView.Green, new Vector2(-760f, 285f), true);
 
         // Round clock with the three predictable events underneath.
-        clock = HudKit.Rect(root, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
+        clock = HudKit.Rect(statusRoot, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
         clockGlow = HudKit.Image(clock, "Bloom", HudSprites.Dot(), HudKit.A(Friendly, 0.1f), Vector2.zero, new Vector2(420f, 170f));
         timer = HudKit.Text(clock, "Time", HudKit.Heavy, 76f, Color.white, new Vector2(0f, 2f), new Vector2(260f, 100f), TextAlignmentOptions.Center);
-        phaseBand = HudKit.Image(root, "Phase status band", HudSprites.Panel(4), Color.clear,
+        phaseBand = HudKit.Image(statusRoot, "Phase status band", HudSprites.Panel(4), Color.clear,
             new Vector2(0f, 262f), new Vector2(700f, 50f));
-        phaseLabel = HudKit.Text(root, "Phase", HudKit.Display, 32f, Soft,
+        phaseLabel = HudKit.Text(statusRoot, "Phase", HudKit.Display, 32f, Soft,
             new Vector2(0f, 262f), new Vector2(700f, 44f), TextAlignmentOptions.Center);
         phaseLabel.characterSpacing = 8f;
 
-        timelineRoot = HudKit.Rect(root, "Timeline", new Vector2(0f, 222f), new Vector2(440f, 30f));
+        timelineRoot = HudKit.Rect(statusRoot, "Timeline", new Vector2(0f, 222f), new Vector2(440f, 30f));
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
@@ -169,10 +178,13 @@ public sealed class FusionRoundHud : MonoBehaviour
         {
             root.SetParent(head, false);
             vignetteRoot.SetParent(head, false);
+            statusRoot.SetParent(head.parent, false);
             smoothedRotation = head.rotation;
+            smoothedHeading = Heading(head);
         }
         // Slight rotational lag makes the HUD feel mounted in a helmet rather than glued to the eyes.
-        smoothedRotation = Quaternion.Slerp(smoothedRotation, head.rotation, 1f - Mathf.Exp(-Time.deltaTime * 14f));
+        float follow = 1f - Mathf.Exp(-Time.deltaTime * 14f);
+        smoothedRotation = Quaternion.Slerp(smoothedRotation, head.rotation, follow);
         if (Quaternion.Angle(smoothedRotation, head.rotation) > 25f) smoothedRotation = head.rotation;
         Quaternion lag = Quaternion.Inverse(head.rotation) * smoothedRotation;
         root.localPosition = lag * new Vector3(0f, 0f, HudDistance);
@@ -181,6 +193,30 @@ public sealed class FusionRoundHud : MonoBehaviour
         vignetteRoot.localPosition = new Vector3(0f, 0f, 0.45f);
         vignetteRoot.localRotation = Quaternion.identity;
         vignetteRoot.localScale = Vector3.one * 0.0012f;
+
+        // Health and clock turn with the player but ignore looking up/down or tilting.
+        Vector3 heading = Heading(head);
+        smoothedHeading = Vector3.Slerp(smoothedHeading, heading, follow).normalized;
+        if (Vector3.Angle(smoothedHeading, heading) > 25f) smoothedHeading = heading;
+        statusHead = head;
+        statusRoot.localScale = Vector3.one * HudScale;
+        PlaceStatus();
+    }
+
+    // Also runs before render: the camera rig late-updates the head pose after LateUpdate.
+    private void PlaceStatus()
+    {
+        if (statusHead == null || statusRoot == null) return;
+        statusRoot.SetPositionAndRotation(statusHead.position + smoothedHeading * HudDistance,
+            Quaternion.LookRotation(smoothedHeading, Vector3.up));
+    }
+
+    private static Vector3 Heading(Transform head)
+    {
+        // Camera right stays level when looking almost straight up or down.
+        Vector3 forward = Vector3.ProjectOnPlane(head.forward, Vector3.up);
+        if (forward.sqrMagnitude < 0.04f) forward = Vector3.Cross(head.right, Vector3.up);
+        return forward.normalized;
     }
 
     // ---------- Match state ----------

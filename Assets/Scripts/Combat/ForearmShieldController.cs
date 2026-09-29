@@ -11,10 +11,16 @@ public sealed class ForearmShieldController : MonoBehaviour
     [Tooltip("Hand-local axis used only to push the shield off the hand. Up is the back-of-hand side for this rig; Down is the palm/beam side.")]
     [SerializeField] private PalmBeamShooter.LocalAxis shieldMountOffsetAxis = PalmBeamShooter.LocalAxis.Up;
     [SerializeField] private PalmBeamShooter.LocalAxis shieldFacingAxis = PalmBeamShooter.LocalAxis.Forward;
-    [Tooltip("Places the shield on the back of the hand instead of in front of a closed fist.")]
+    [Tooltip("Mounts the shield along the back of the forearm instead of in front of a closed fist.")]
     [SerializeField] private bool mountOnBackOfHand = true;
     [Tooltip("Local rotation applied only for the back-of-hand mount. Adjust the signed X value if the shield faces the wrong way on-device.")]
     [SerializeField] private Vector3 backHandRotationOffset = new Vector3(90f, 0f, 0f);
+
+    [Header("Forearm Mount")]
+    [Tooltip("Distance behind the tracked wrist where the shield is centred, along the same estimated forearm as the heat/cold arm spirals. 0.125 is the middle of the 25 cm forearm cuff.")]
+    [SerializeField, Min(0f)] private float forearmMountDistance = 0.125f;
+    [Tooltip("Lift off the back of the forearm, just clear of the forearm spiral and fist.")]
+    [SerializeField, Min(0f)] private float forearmLift = 0.075f;
 
     [Header("Fist Gate")]
     [SerializeField] private bool requireTrackedHand = true;
@@ -35,6 +41,9 @@ public sealed class ForearmShieldController : MonoBehaviour
     private bool wasFistActive;
     private float shieldActiveUntilTime;
     private HandPoseRouter poseRouter;
+    private bool hasForearmMount;
+    private Vector3 forearmMountLocalPosition;
+    private Quaternion forearmMountLocalRotation;
 
     public bool IsShieldActive => poseRouter != null
         ? poseRouter.IsShieldPose : Time.time < shieldActiveUntilTime;
@@ -350,6 +359,28 @@ public sealed class ForearmShieldController : MonoBehaviour
         worldPosition = handOrigin.position;
         worldRotation = handOrigin.rotation;
 
+        if (mountOnBackOfHand && poseRouter != null)
+        {
+            // Same wrist + estimated-forearm frame as the heat/cold charge spirals and the forearm cuff.
+            if (poseRouter.TryGetForearmPose(headset, out Vector3 wrist, out Quaternion armRotation))
+            {
+                GetForearmMount(wrist, armRotation, forearmMountDistance, forearmLift,
+                    out worldPosition, out worldRotation);
+                forearmMountLocalPosition = handOrigin.InverseTransformPoint(worldPosition);
+                forearmMountLocalRotation = Quaternion.Inverse(handOrigin.rotation) * worldRotation;
+                hasForearmMount = true;
+                return true;
+            }
+
+            // Brief tracking gaps hold the last forearm placement rather than jumping to the knuckle mount.
+            if (hasForearmMount)
+            {
+                worldPosition = handOrigin.TransformPoint(forearmMountLocalPosition);
+                worldRotation = handOrigin.rotation * forearmMountLocalRotation;
+                return true;
+            }
+        }
+
         EnsureHandSkeleton();
         if (handSkeleton != null && handSkeleton.IsInitialized && TryGetKnuckleShieldPose(out worldPosition, out worldRotation))
         {
@@ -367,6 +398,16 @@ public sealed class ForearmShieldController : MonoBehaviour
         worldRotation = BuildShieldRotation(worldPosition, forward);
         worldRotation = ApplyBackHandRotation(worldRotation);
         return true;
+    }
+
+    /// <summary>Centres the shield over the forearm, facing out from its back, long axis along the arm.</summary>
+    public static void GetForearmMount(Vector3 wrist, Quaternion armRotation, float behindWrist, float lift,
+        out Vector3 position, out Quaternion rotation)
+    {
+        Vector3 alongArm = armRotation * Vector3.forward;
+        Vector3 backOfArm = armRotation * Vector3.up;
+        position = wrist - alongArm * behindWrist + backOfArm * lift;
+        rotation = Quaternion.LookRotation(backOfArm, alongArm);
     }
 
     private bool TryGetKnuckleShieldPose(out Vector3 worldPosition, out Quaternion worldRotation)

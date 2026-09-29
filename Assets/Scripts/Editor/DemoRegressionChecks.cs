@@ -20,6 +20,7 @@ public static class DemoRegressionChecks
         RunArenaSequenceCheck();
         RunSoloCheck();
         RunRepeatedIceVisualCheck();
+        RunArmEffectsCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -115,6 +116,80 @@ public static class DemoRegressionChecks
         Debug.Log("REPEATED ICE PASSED: new charge stays visible during previous flight and explosion.");
     }
 
+    public static void RunArmEffectsCheck()
+    {
+        var root = new GameObject("Arm effects regression");
+        root.SetActive(false);
+        var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        var effects = root.AddComponent<IceGrenadeEffects>();
+        var onSignal = typeof(ArmActivationSignal).GetMethod("OnSignal", BindingFlags.Static | BindingFlags.NonPublic);
+        try
+        {
+            var rings = (LineRenderer[])typeof(IceGrenadeEffects).GetField("chargeRings", flags).GetValue(effects);
+            foreach (var (progress, expected) in new[] { (0.1f, 1), (0.5f, 3), (1f, 5) })
+            {
+                effects.ShowCharge(Vector3.zero, Quaternion.identity, progress, false);
+                int lit = 0;
+                float previousZ = float.NegativeInfinity;
+                foreach (LineRenderer ring in rings)
+                {
+                    if (!ring.enabled) continue;
+                    lit++;
+                    float z = ring.GetPosition(0).z;
+                    for (int i = 1; i < ring.positionCount; i++)
+                        if (Mathf.Abs(ring.GetPosition(i).z - z) > 0.0001f)
+                            throw new Exception("Ice forearm ring is not a flat ring around the arm.");
+                    if (z <= previousZ) throw new Exception("Ice forearm rings must land from elbow to wrist.");
+                    previousZ = z;
+                }
+                if (lit != expected) throw new Exception($"Ice charge at {progress:P0} lit {lit} forearm rings, expected {expected}.");
+            }
+            ArmActivationSignal.Sample(Time.time); // First sample subscribes and resets outside play mode.
+            onSignal.Invoke(null, new object[] { "session_pause", "" });
+            onSignal.Invoke(null, new object[] { "ice_charge_start", "ice" });
+            if (ArmActivationSignal.Sample(Time.time + 0.1f).Cold < 0.999f)
+                throw new Exception("An ice charge must fade the forearm spiral.");
+            onSignal.Invoke(null, new object[] { "fire_start", "fire" });
+            var firing = ArmActivationSignal.Sample(Time.time + 0.1f);
+            if (firing.Cold > 0.5f || firing.Shield > 0f)
+                throw new Exception("Firing must keep the forearm spiral.");
+            onSignal.Invoke(null, new object[] { "session_pause", "" });
+            onSignal.Invoke(null, new object[] { "shield_start", "shield" });
+            if (ArmActivationSignal.Sample(Time.time + 0.1f).Shield < 0.999f)
+                throw new Exception("Raising the shield must swap the forearm spiral for its aura.");
+
+            var arm = root.AddComponent<ForearmPulseSpiral>();
+            var armType = typeof(ForearmPulseSpiral);
+            armType.GetMethod("Awake", flags).Invoke(arm, null);
+            var eye = new GameObject("Aura eye").transform;
+            eye.SetParent(root.transform, false);
+            eye.position = new Vector3(0f, 1f, 0.12f); // Above a forearm lying along +Z from the origin.
+            armType.GetField("headset", flags).SetValue(arm, eye);
+            armType.GetField("visible", flags).SetValue(arm, 1f);
+            var updateAura = armType.GetMethod("UpdateAura", flags);
+            var aura = (MeshRenderer)armType.GetField("auraRenderer", flags).GetValue(arm);
+            var colors = (Color32[])armType.GetField("auraColors", flags).GetValue(arm);
+            int sides = (int)armType.GetField("AuraSides", BindingFlags.Static | BindingFlags.NonPublic).GetRawConstantValue();
+            int rows = (int)armType.GetField("AuraRows", BindingFlags.Static | BindingFlags.NonPublic).GetRawConstantValue();
+            updateAura.Invoke(arm, new object[] { new ArmActivationSignal.Reading { Shield = 1f, Intensity = 0.55f }, 0.55f, Vector3.zero, 1f });
+            int middle = rows / 2 * sides; // Inner glow, halfway along the arm; side 0 is edge-on, side/4 faces the eye.
+            if (!aura.enabled || colors[0].a != 0 || colors[(rows - 1) * sides].a != 0
+                || colors[middle].a <= colors[middle + sides / 4].a)
+                throw new Exception("Shield aura must fade toward elbow and wrist and glow brightest around the arm's outline.");
+            updateAura.Invoke(arm, new object[] { new ArmActivationSignal.Reading { Intensity = 0.55f }, 0.55f, Vector3.zero, 1f });
+            if (aura.enabled) throw new Exception("Shield aura must stay hidden without a shield.");
+        }
+        finally
+        {
+            onSignal.Invoke(null, new object[] { "session_pause", "" });
+            foreach (string name in new[] { "impactRoot", "hitRoot" })
+                if (typeof(IceGrenadeEffects).GetField(name, flags).GetValue(effects) is Transform leftover)
+                    UnityEngine.Object.DestroyImmediate(leftover.gameObject);
+            UnityEngine.Object.DestroyImmediate(root);
+        }
+        Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
+    }
+
     public static void RunSkeletonProvider()
     {
         var root = new GameObject("Provider regression");
@@ -201,14 +276,28 @@ public static class DemoRegressionChecks
             var camera = cameraRoot.AddComponent<Camera>();
             var hud = root.AddComponent<FusionRoundHud>();
             hud.Preview(camera);
-            var field = typeof(FusionRoundHud).GetField("root", BindingFlags.Instance | BindingFlags.NonPublic);
-            var hudRoot = (RectTransform)field.GetValue(hud);
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var hudRoot = (RectTransform)typeof(FusionRoundHud).GetField("root", flags).GetValue(hud);
+            var status = (RectTransform)typeof(FusionRoundHud).GetField("statusRoot", flags).GetValue(hud);
             Vector3 expectedLocal = camera.transform.InverseTransformPoint(hudRoot.position);
             // Calibration/network updates can stop while tracking keeps moving.
             camera.transform.SetPositionAndRotation(new Vector3(3f, 1.6f, -2f), Quaternion.Euler(10f, 85f, 0f));
             if (Vector3.Distance(hudRoot.position, camera.transform.TransformPoint(expectedLocal)) > 0.001f)
-                throw new Exception("Local HP bar freezes in world space between round updates/calibration.");
-            Debug.Log("HUD FOLLOW PASSED: health remains eye-relative without a network HUD refresh.");
+                throw new Exception("Head-locked banners freeze in world space between round updates/calibration.");
+            // Health and clock hold eye height in the facing direction whatever the head pitch or tilt.
+            Vector3 facing = Quaternion.Euler(0f, 85f, 0f) * Vector3.forward;
+            typeof(FusionRoundHud).GetField("smoothedHeading", flags).SetValue(hud, facing);
+            var position = typeof(FusionRoundHud).GetMethod("Position", flags);
+            foreach (Vector3 look in new[] { new Vector3(-35f, 85f, 0f), new Vector3(0f, 85f, 0f),
+                new Vector3(45f, 85f, 25f), new Vector3(85f, 85f, 0f) })
+            {
+                camera.transform.rotation = Quaternion.Euler(look);
+                position.Invoke(hud, new object[] { camera });
+                if (Vector3.Distance(status.position, camera.transform.position + facing * 1.5f) > 0.001f
+                    || Vector3.Dot(status.up, Vector3.up) < 0.999f)
+                    throw new Exception($"Health and clock moved with head pitch/tilt {look}.");
+            }
+            Debug.Log("HUD FOLLOW PASSED: banners stay eye-relative without a network refresh; health and clock keep eye height at any head pitch.");
         }
         finally
         {
@@ -279,12 +368,19 @@ public static class DemoRegressionChecks
             Vector3 normalCuff = HandPoseRouter.ForearmDirection(head, Quaternion.identity, outwardWrist);
             if (Vector3.Distance(normalCuff, outwardWrist - elbow) > 0.001f)
                 throw new Exception("Forearm cuff changed the normal right-hand pose.");
+            Quaternion arm = Quaternion.LookRotation(normalCuff, Vector3.up);
+            ForearmShieldController.GetForearmMount(outwardWrist, arm, 0.125f, 0.075f,
+                out Vector3 shieldCentre, out Quaternion shieldRotation);
+            if (Vector3.Distance(shieldCentre, Vector3.Lerp(elbow, outwardWrist, 0.5f) + arm * Vector3.up * 0.075f) > 0.001f
+                || Mathf.Abs(Vector3.Dot(shieldRotation * Vector3.forward, normalCuff.normalized)) > 0.001f
+                || Vector3.Dot(shieldRotation * Vector3.up, normalCuff.normalized) < 0.999f)
+                throw new Exception("Shield must lie along the back of the forearm, centred over the arm-effect cuff.");
             Mesh shield = (Mesh)typeof(ForearmShieldEffects).Assembly.GetType("CombatVfxStyle")
                 .GetMethod("CreateHexField", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { 0.31f });
             foreach (Color color in shield.colors)
                 if (color.a < 0.19f) throw new Exception("Shield fill is too transparent.");
             UnityEngine.Object.DestroyImmediate(shield);
-            Debug.Log("FEEDBACK PASSED: immediate pose preview, charge raycast hits cover without firing, arm estimate follows calibrated frame, visible shield fill.");
+            Debug.Log("FEEDBACK PASSED: immediate pose preview, charge raycast hits cover without firing, arm estimate follows calibrated frame, shield along the forearm, visible shield fill.");
         }
         finally { UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(cover); }
     }
@@ -487,6 +583,43 @@ public static class DemoRegressionChecks
             UnityEngine.Object.DestroyImmediate(wall);
         }
         Debug.Log("TRAJECTORY CHECKS PASSED: preview equals live grenade for cover/floor impacts at 36, 72 and 90 fps.");
+
+        foreach (float distance in new[] { 0.5f, 2f, 5f })
+        foreach (float handHeight in new[] { 0.9f, 1.6f })
+        {
+            // Arena-scale coordinates; an empty mask keeps scene colliders out of the flight.
+            Vector3 start = new Vector3(0.3f, handHeight, 0.6f);
+            Vector3 aim = start + Quaternion.Euler(0f, distance * 40f, 0f) * Vector3.forward * distance;
+            aim.y = 0f;
+            Vector3 launch = IceGrenadeLauncher.SolveTimedLaunchVelocity(start, aim, Physics.gravity, 1f);
+            int steps = IceGrenadeTrajectory.Predict(start, launch, Physics.gravity, 0f, 0.1f, 0.08f, 4f,
+                0, points, out var landing) - 1;
+            if (Vector3.Distance(landing.Point, aim) > 0.001f
+                || Mathf.Abs(steps * IceGrenadeTrajectory.StepSeconds - 1f) > IceGrenadeTrajectory.StepSeconds + 0.0001f)
+                throw new Exception($"Ice bomb aimed {distance} m away from {handHeight} m did not land on target after one second.");
+        }
+        var cooldownRoot = new GameObject("Ice cooldown regression");
+        cooldownRoot.SetActive(false);
+        GameObject thrown = null;
+        try
+        {
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var type = typeof(IceGrenadeLauncher);
+            var launcher = cooldownRoot.AddComponent<IceGrenadeLauncher>();
+            type.GetMethod("ThrowGrenade", flags).Invoke(launcher, new object[] { cooldownRoot.transform.position, Vector3.up });
+            thrown = ((Component)type.GetField("activeProjectile", flags).GetValue(launcher)).gameObject;
+            if ((float)type.GetField("nextThrowAllowedTime", flags).GetValue(launcher) - Time.time < 2.999f)
+                throw new Exception("An ice throw must start a 3-second cooldown.");
+            foreach (var placed in UnityEngine.Object.FindObjectsByType<IceGrenadeLauncher>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if ((float)type.GetField("throwCooldownSeconds", flags).GetValue(placed) < 3f)
+                    throw new Exception($"{placed.name} ice cooldown is shorter than 3 seconds.");
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(thrown);
+            UnityEngine.Object.DestroyImmediate(cooldownRoot);
+        }
+        Debug.Log("ICE TIMING PASSED: 0.5-5 m throws land on target after one second; each throw starts a 3-second cooldown.");
     }
 
     public static void CaptureHud()

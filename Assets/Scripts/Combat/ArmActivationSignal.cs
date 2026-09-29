@@ -18,6 +18,8 @@ public static class ArmActivationSignal
         public float Vibration;
         /// <summary>0..1 inside a build-up window, rising toward the peak.</summary>
         public float Anticipation;
+        /// <summary>0..1 share of the activity (including build-ups) that is cold / shield.</summary>
+        public float Cold, Shield;
         public Color Color;
     }
 
@@ -168,6 +170,7 @@ public static class ArmActivationSignal
         if (!subscribed) Subscribe();
         var reading = new Reading { Color = CombatVfxStyle.Neutral };
         float total = 0f;
+        float presence = 0f, coldPresence = 0f, shieldPresence = 0f;
         Color mix = Color.black;
         for (int i = pulses.Count - 1; i >= 0; i--)
         {
@@ -179,12 +182,19 @@ public static class ArmActivationSignal
                 continue;
             }
             total += level;
+            // Build-ups count too, so a starting ice charge is cold from its first frame.
+            float weight = level + anticipation * pulse.Strength;
+            presence += weight;
+            if (pulse.Kind == Kind.Cold) coldPresence += weight;
+            else if (pulse.Kind == Kind.Shield) shieldPresence += weight;
             mix += ColorFor(pulse.Kind) * level;
             reading.Anticipation = Mathf.Max(reading.Anticipation, anticipation);
             reading.Vibration = Mathf.Max(reading.Vibration,
                 pulse.Vibration * Mathf.Max(spike, level / Mathf.Max(0.01f, pulse.Strength) * 0.4f));
         }
         reading.Intensity = Mathf.Min(1.5f, total);
+        reading.Cold = presence > 0.0001f ? coldPresence / presence : 0f;
+        reading.Shield = presence > 0.0001f ? shieldPresence / presence : 0f;
         if (total > 0.001f)
             reading.Color = Color.Lerp(CombatVfxStyle.Neutral, mix / total, Mathf.Clamp01(total * 2.5f));
         reading.Color.a = 1f;

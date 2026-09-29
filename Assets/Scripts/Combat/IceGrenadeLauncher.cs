@@ -24,8 +24,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     [SerializeField] private float highHandHeightAboveFloor = 1.75f;
     [SerializeField, Range(1f, 3f)] private float throwHeightExponent = 1.6f;
     [SerializeField, Min(0.1f)] private float gravityMultiplier = 1f;
-    [SerializeField, Min(0.1f)] private float arcPeakHeight = 0.75f;
-    [SerializeField, Min(0.05f)] private float minArcPeakHeight = 0.25f;
+    [Tooltip("Every throw reaches its aimed landing point this long after release; launch speed scales with distance.")]
+    [SerializeField, Min(0.1f)] private float flightSeconds = 1f;
 
     [Header("Pose Gate")]
     [SerializeField] private bool requireIronManPose = true;
@@ -40,7 +40,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     [Header("Charge")]
     [SerializeField] private bool requireChargeBeforeThrow = true;
     [SerializeField, Min(0f)] private float chargeSeconds = 2f;
-    [SerializeField, Min(0f)] private float throwCooldownSeconds = 0.35f;
+    [Tooltip("Delay after each throw before the next ice bomb can begin charging.")]
+    [SerializeField, Min(0f)] private float throwCooldownSeconds = 3f;
 
     [Header("Arc Preview")]
     [SerializeField] private bool showArcPreview = true;
@@ -94,7 +95,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private void Update()
     {
-        // A held palm begins another visible charge after the short throw gap.
+        // A held palm begins another visible charge once the throw cooldown ends.
         bool projectileInFlight = activeProjectile != null && activeProjectile.IsAlive;
 
         if (palmOrigin == null)
@@ -109,7 +110,8 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         if (Time.time < nextThrowAllowedTime)
         {
             grenadeEffects?.HideCharge();
-            HideArcPreview();
+            // The white landing marker stays up until its bomb detonates.
+            HideArcPath();
             return;
         }
 
@@ -382,12 +384,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             target = smoothedAimTarget;
         }
 
-        float throwDistance = Vector3.Distance(
-            new Vector3(origin.x, 0f, origin.z), new Vector3(target.x, 0f, target.z));
-        float gravity = Mathf.Abs(Physics.gravity.y) * gravityMultiplier;
-        float distanceT = Mathf.InverseLerp(minThrowDistance, maxThrowDistance, throwDistance);
-        float peakHeight = Mathf.Lerp(minArcPeakHeight, arcPeakHeight, distanceT);
-        return SolveBallisticVelocity(origin, target, gravity, peakHeight);
+        return SolveTimedLaunchVelocity(origin, target, Physics.gravity * gravityMultiplier, flightSeconds);
     }
 
     private float GetThrowDistance()
@@ -503,25 +500,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         return reference.TransformPoint(new Vector3(0f, floorLocalHeight, 0f)).y;
     }
 
-    private static Vector3 SolveBallisticVelocity(Vector3 origin, Vector3 target, float gravity, float peakHeightOffset)
+    /// <summary>Launch velocity that reaches the target exactly after the flight time, whatever the distance.</summary>
+    public static Vector3 SolveTimedLaunchVelocity(Vector3 origin, Vector3 target, Vector3 gravity, float flightSeconds)
     {
-        Vector3 displacement = target - origin;
-        Vector3 displacementXZ = new Vector3(displacement.x, 0f, displacement.z);
-        float horizontalDistance = displacementXZ.magnitude;
-        float peakHeight = Mathf.Max(origin.y + peakHeightOffset, target.y + 0.2f);
-
-        if (horizontalDistance <= 0.05f)
-        {
-            float upwardSpeed = Mathf.Sqrt(2f * gravity * Mathf.Max(0.15f, peakHeight - origin.y));
-            return Vector3.up * upwardSpeed;
-        }
-
-        float rise = Mathf.Max(0.05f, peakHeight - origin.y);
-        float fall = Mathf.Max(0.05f, peakHeight - target.y);
-        float upwardSpeedComponent = Mathf.Sqrt(2f * gravity * rise);
-        float totalTime = upwardSpeedComponent / gravity + Mathf.Sqrt(2f * fall / gravity);
-        Vector3 horizontalVelocity = displacementXZ / totalTime;
-        return horizontalVelocity + Vector3.up * upwardSpeedComponent;
+        float time = Mathf.Max(0.1f, flightSeconds);
+        return (target - origin) / time - gravity * (0.5f * time);
     }
 
     private static Quaternion GetThrowRotation(Vector3 launchVelocity)

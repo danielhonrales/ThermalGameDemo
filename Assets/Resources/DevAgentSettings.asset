@@ -17,9 +17,9 @@ MonoBehaviour:
   serverPort: 48735
   mcpServerPort: 48736
   witConfiguration: {fileID: 0}
-  witClientAccessToken:
+  witClientAccessToken: 
   pushToTalkButton: 1
   handPushToTalkGesture: 0
   enableDelayedRelease: 1
   releaseDelay: 0.8
-  accessToken:
+  accessToken: 9e0298908b604cbc91797f9e8d745809

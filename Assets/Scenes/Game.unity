@@ -2392,8 +2392,7 @@ MonoBehaviour:
   highHandHeightAboveFloor: 1.75
   throwHeightExponent: 1.6
   gravityMultiplier: 1
-  arcPeakHeight: 0.75
-  minArcPeakHeight: 0.25
+  flightSeconds: 1
   requireIronManPose: 1
   requireTrackedHand: 1
   requireFingersPointUp: 1
@@ -2404,7 +2403,7 @@ MonoBehaviour:
   maxFingerPinchForOpenPalm: 0.35
   requireChargeBeforeThrow: 1
   chargeSeconds: 1.05
-  throwCooldownSeconds: 0
+  throwCooldownSeconds: 3
   showArcPreview: 1
   arcPreviewSteps: 48
   arcPreviewWidth: 0.012

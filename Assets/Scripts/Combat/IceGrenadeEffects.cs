@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-/// <summary>Compact cyan charge, spline flight trail, and brief cold impact.</summary>
+/// <summary>Compact cyan charge with sequential forearm rings, spline flight trail, and brief cold impact.</summary>
 [DisallowMultipleComponent]
 public sealed class IceGrenadeEffects : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
     private readonly Transform[] fragments = new Transform[36];
     private readonly Vector3[] fragmentDirections = new Vector3[36];
     private readonly LineRenderer[] blizzard = new LineRenderer[32];
-    private readonly LineRenderer[] chargeHelices = new LineRenderer[3];
+    private readonly LineRenderer[] chargeRings = new LineRenderer[5];
     private readonly LineRenderer[] hitBrackets = new LineRenderer[4];
     private Material lineMaterial;
     private Material shardMaterial;
@@ -101,15 +101,22 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         chargeOrbit.startColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.ColdCore,
             0.3f + 0.42f * progress);
         chargeOrbit.endColor = CombatVfxStyle.WithAlpha(CombatVfxStyle.Cold, 0.02f);
-        for (int i = 0; i < chargeHelices.Length; i++)
+        // Rings land one after another from elbow to wrist as the charge fills.
+        for (int i = 0; i < chargeRings.Length; i++)
         {
-            LineRenderer helix = chargeHelices[i];
-            CombatVfxStyle.SetHelix(helix, 0.22f, 0.055f + progress * 0.035f,
-                2.8f, Time.time * (i == 1 ? -8f : 7f) + i * 2.094f);
-            Color tint = CombatVfxStyle.WithAlpha(i == 1 ? CombatVfxStyle.ColdCore : CombatVfxStyle.Cold,
-                0.5f + 0.45f * progress);
-            helix.startColor = tint;
-            helix.endColor = CombatVfxStyle.WithAlpha(tint, 0.18f);
+            LineRenderer ring = chargeRings[i];
+            float landed = Mathf.Clamp01(progress * chargeRings.Length - i);
+            if (landed <= 0f) { ring.enabled = false; continue; }
+            float along = i / (chargeRings.Length - 1f);
+            float settle = 1f - (1f - landed) * (1f - landed);
+            // Each ring snaps in wide and white, then tightens onto the arm in cyan.
+            CombatVfxStyle.SetRing(ring, new Vector3(0f, 0f, -Mathf.Lerp(0.22f, 0.02f, along)),
+                Quaternion.identity, Mathf.Lerp(0.072f, 0.056f, along) * (1f + 0.6f * (1f - settle)), 32);
+            float shimmer = 0.85f + 0.15f * Mathf.Sin(Time.time * 9f - i * 0.9f);
+            ring.startColor = ring.endColor = CombatVfxStyle.WithAlpha(
+                Color.Lerp(Color.white, CombatVfxStyle.Cold, settle),
+                Mathf.Clamp01(landed * 3f) * (0.55f + 0.4f * progress) * shimmer);
+            ring.widthMultiplier = (i == chargeRings.Length - 1 ? 0.012f : 0.009f) * (1f + 0.8f * (1f - settle));
         }
         if (chargeAudio != null)
         {
@@ -365,9 +372,9 @@ public sealed class IceGrenadeEffects : MonoBehaviour
             lineMaterial, false, 0.006f);
         chargeOrbit = CombatVfxStyle.CreateLine(chargeRoot, "ColdChargeOrbit",
             lineMaterial, false, 0.007f);
-        for (int i = 0; i < chargeHelices.Length; i++)
-            chargeHelices[i] = CombatVfxStyle.CreateLine(chargeRoot,
-                "Cold forearm spiral", lineMaterial, false, i == 1 ? 0.013f : 0.009f);
+        for (int i = 0; i < chargeRings.Length; i++)
+            chargeRings[i] = CombatVfxStyle.CreateLine(chargeRoot,
+                "Cold forearm ring", lineMaterial, false, 0.009f);
         chargeRoot.gameObject.SetActive(false);
 
         grenadeTemplate = new GameObject("ColdGrenadeTemplate").transform;

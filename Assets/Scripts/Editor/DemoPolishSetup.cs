@@ -59,7 +59,8 @@ public static class DemoPolishSetup
         if (ice == null) throw new InvalidOperationException("Game scene is missing IceGrenadeLauncher.");
         ice.enabled = true;
         SetFloat(ice, "chargeSeconds", 1.05f);
-        SetFloat(ice, "throwCooldownSeconds", 0f);
+        SetFloat(ice, "throwCooldownSeconds", 3f);
+        SetFloat(ice, "flightSeconds", 1f);
         SetFloat(ice, "minThrowDistance", 0.50f);
         SetFloat(ice, "maxThrowDistance", 5f);
         SetFloat(ice, "lowHandHeightOffsetFromHeadset", -0.55f);
