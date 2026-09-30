@@ -230,7 +230,9 @@ public sealed class VisualOnlyEnvironment : MonoBehaviour
         Matrix4x4 playfieldMatrix = Matrix4x4.TRS(worldCenter, playfieldRoot.rotation, Vector3.one).inverse;
         Shader.SetGlobalMatrix(PlayfieldWorldToLocalId, playfieldMatrix);
         Shader.SetGlobalVector(PlayfieldHalfExtentsId, Vector3.Max(playfieldSize * 0.5f, Vector3.one * 0.01f));
-        Shader.SetGlobalFloat(PlayfieldCutoutEnabledId, cutOutPassthroughPlayfield ? 1f : 0f);
+        // A spectator PC has no passthrough to show through the cutout.
+        Shader.SetGlobalFloat(PlayfieldCutoutEnabledId,
+            cutOutPassthroughPlayfield && !SpectatorSession.IsSpectator ? 1f : 0f);
     }
 
     private IEnumerator LogOcclusionStatus()

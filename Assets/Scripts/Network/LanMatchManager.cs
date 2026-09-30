@@ -9,7 +9,10 @@ using Mirror.Discovery;
 using UnityEngine;
 using kcp2k;
 
-/// <summary>Starts a two-Quest LAN match with no cloud service or participant UI.</summary>
+/// <summary>
+/// Starts a two-Quest LAN match with no cloud service or participant UI. A PC in spectator mode
+/// (<see cref="SpectatorSession"/>) joins as a third connection that never hosts or plays.
+/// </summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(KcpTransport), typeof(NetworkDiscovery))]
 public sealed class LanMatchManager : NetworkManager
@@ -22,7 +25,7 @@ public sealed class LanMatchManager : NetworkManager
 
     private const int ElectionPort = 47778;
     // Bump whenever networked state changes so headsets on different builds never pair up.
-    public const int ProtocolVersion = 16;
+    public const int ProtocolVersion = 17;
     public const long DiscoveryHandshake = 0x544845524D414C00L + ProtocolVersion;
     private const string BeaconPrefix = "THERMAL-LAN-10:";
 
@@ -39,8 +42,10 @@ public sealed class LanMatchManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        maxConnections = 2;
-        autoCreatePlayer = true;
+        // The host's own connection counts too: host, opponent and an optional spectator PC.
+        // OnServerAddPlayer still limits the match to two players.
+        maxConnections = 3;
+        autoCreatePlayer = !SpectatorSession.IsSpectator;
         settings = LoadSettings();
         var kcp = GetComponent<KcpTransport>();
         kcp.port = (ushort)Mathf.Clamp(settings.port, 1, 65535);
@@ -61,7 +66,9 @@ public sealed class LanMatchManager : NetworkManager
     public override void Start()
     {
         base.Start();
-        Debug.Log("LAN: looking for a host Quest; the first headset will host automatically.");
+        Debug.Log(SpectatorSession.IsSpectator
+            ? "LAN: spectator looking for a host Quest; it joins without a player and never hosts."
+            : "LAN: looking for a host Quest; the first headset will host automatically.");
         StartLooking();
     }
 
@@ -147,6 +154,8 @@ public sealed class LanMatchManager : NetworkManager
                 ConnectToHost(settings.fallbackHost);
                 yield break;
             }
+            // A spectator keeps listening; the host's election beacon also connects it.
+            if (SpectatorSession.IsSpectator) continue;
             StartHost();
             discovery.AdvertiseServer();
             Debug.Log($"LAN: hosting the two-player match on UDP {settings.port}.");

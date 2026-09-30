@@ -21,6 +21,7 @@ public static class DemoRegressionChecks
         RunSoloCheck();
         RunRepeatedIceVisualCheck();
         RunArmEffectsCheck();
+        RunSpectatorCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -188,6 +189,36 @@ public static class DemoRegressionChecks
             UnityEngine.Object.DestroyImmediate(root);
         }
         Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
+    }
+
+    public static void RunSpectatorCheck()
+    {
+        // Head poses arrive at the 20 Hz send rate; spectator views interpolate between them.
+        var samples = new List<(float time, Pose pose)>();
+        SpectatorDirector.AddSample(samples, 10f, new Pose(Vector3.zero, Quaternion.identity));
+        SpectatorDirector.AddSample(samples, 10.05f, new Pose(Vector3.right, Quaternion.Euler(0f, 90f, 0f)));
+        Pose middle = SpectatorDirector.Interpolate(samples, 10.025f);
+        if (Vector3.Distance(middle.position, Vector3.right * 0.5f) > 0.001f
+            || Quaternion.Angle(middle.rotation, Quaternion.Euler(0f, 45f, 0f)) > 0.1f)
+            throw new Exception("Spectator head views must interpolate between network samples.");
+        // After standing still, movement resumes from the resting pose instead of jumping ahead.
+        SpectatorDirector.AddSample(samples, 12f, new Pose(Vector3.right * 2f, Quaternion.identity));
+        if (Vector3.Distance(SpectatorDirector.Interpolate(samples, 11.9f).position, Vector3.right) > 0.001f)
+            throw new Exception("Spectator head view jumped when a still player moved again.");
+        int count = samples.Count;
+        SpectatorDirector.AddSample(samples, 12.01f, samples[count - 1].pose);
+        if (samples.Count != count) throw new Exception("An unchanged head pose must not add a sample.");
+
+        var layout = new Bounds(new Vector3(0.275f, 0.6f, 0.71f), new Vector3(5.2f, 1.2f, 4f));
+        List<SpectatorDirector.Shot> shots = SpectatorDirector.GenerateShots(layout);
+        Vector3 focus = new Vector3(layout.center.x, 0.9f, layout.center.z);
+        foreach (SpectatorDirector.Shot shot in shots)
+            if (Mathf.Abs(shot.LocalPosition.x) > SpectatorDirector.PlayfieldHalf + 0.001f
+                || Mathf.Abs(shot.LocalPosition.z) > SpectatorDirector.PlayfieldHalf + 0.001f
+                || Vector3.Dot(shot.LocalRotation * Vector3.forward, focus - shot.LocalPosition) <= 0f)
+                throw new Exception($"Spectator camera {shot.Label} is outside the playfield or faces away from the arena.");
+        if (shots.Count < 5) throw new Exception("Spectator gallery needs several arena cameras.");
+        Debug.Log($"SPECTATOR PASSED: head views interpolate 20 Hz poses and resume smoothly; {shots.Count} generated arena cameras stay in the playfield facing the layout.");
     }
 
     public static void RunSkeletonProvider()

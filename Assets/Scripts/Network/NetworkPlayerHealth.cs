@@ -40,6 +40,7 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     public bool IsAlive => CurrentHealth > 0;
     public bool IsShieldActive => shieldActive;
     public float Health01 => maxHealth <= 0 ? 0f : Mathf.Clamp01(CurrentHealth / (float)maxHealth);
+    public Transform HealthBarRoot => healthBarRoot;
 
     public override void OnStartClient()
     {
@@ -279,7 +280,8 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
         Camera camera = Camera.main;
         Vector3 headPosition = headTracker != null ? headTracker.HeadWorldPosition
             : headTarget != null ? headTarget.position : transform.position;
-        if (visible && camera != null)
+        // A spectator renders several cameras, so it keeps every bar visible and faces it per camera.
+        if (visible && camera != null && !SpectatorSession.IsSpectator)
         {
             int coverLayer = CombatLayers.GameplayCoverLayer;
             Vector3 toHead = headPosition - camera.transform.position;

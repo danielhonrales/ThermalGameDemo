@@ -141,6 +141,14 @@ public sealed class FusionRoundHud : MonoBehaviour
         // Feedback vignette sits closer than the HUD and covers the whole view.
         vignetteRoot = HudKit.Canvas("Feedback vignette", transform, new Vector2(2000f, 1700f), 10);
         vignette = HudKit.Image(vignetteRoot, "Vignette", HudSprites.Vignette(), new Color(1f, 0f, 0f, 0f), Vector2.zero, new Vector2(2000f, 1700f));
+
+        // A spectator PC shows its own overlays (SpectatorDirector); the headset HUD stays hidden.
+        if (SpectatorSession.IsSpectator)
+        {
+            root.gameObject.SetActive(false);
+            statusRoot.gameObject.SetActive(false);
+            vignetteRoot.gameObject.SetActive(false);
+        }
     }
 
     private static Material OverlayMaterial(TextMeshProUGUI label)
@@ -165,7 +173,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private void LateUpdate()
     {
         Camera eye = Camera.main;
-        if (eye == null) return;
+        if (eye == null || SpectatorSession.IsSpectator) return;
         Position(eye);
         UpdateVignette();
         UpdateToast();

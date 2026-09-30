@@ -44,7 +44,8 @@ public sealed class CombatEventOutput : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Boot()
     {
-        if (instance != null) return;
+        // A spectator PC is not wearing the forearm hardware and must not appear as a headset to the Pi.
+        if (instance != null || SpectatorSession.IsSpectator) return;
         instance = new GameObject("Combat event output").AddComponent<CombatEventOutput>();
         DontDestroyOnLoad(instance.gameObject);
     }

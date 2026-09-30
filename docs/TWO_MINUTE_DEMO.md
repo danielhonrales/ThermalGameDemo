@@ -22,7 +22,7 @@ For the router-only test, both headsets must join the same private router with c
 
 Ice landing control: lower the casting hand for a nearby throw and raise it for a farther throw; head direction gives broad aim, and a small wrist tilt or turn during charging adjusts it left/right. The full 0.5–5 m range is available while the hand stays below eye level. The compact marker remains adjustable throughout charging, turns white on launch, and stays visible until detonation. Every bomb reaches its marker one second after release; launch speed scales with distance.
 
-This revision uses LAN protocol 16. Install the same current APK on both headsets.
+This revision uses LAN protocol 17. Install the same current APK on both headsets; a spectator PC must run the same project revision.
 
 The normal arena includes reactor housings, cargo lockers, consoles, bulkheads, and small decorative deck equipment. A framed ablative shield on each side chars over a broad area at the beam impact point. About half a second of sustained fire opens the centre of a widening hole; beam shots then pass through it. Burn state is shared and resets for practice/new rounds. Wood remains in place during the drone exchange.
 

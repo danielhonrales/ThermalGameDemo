@@ -27,6 +27,7 @@ public sealed class NetworkHeadTracker : NetworkBehaviour
     [SyncVar] private Quaternion NetworkHeadRotation;
 
     public Vector3 HeadWorldPosition => GetHeadWorldPose().position;
+    public Pose HeadWorldPose => GetHeadWorldPose();
     public Vector3 CanonicalHeadPosition => isOwned && localHead != null
         ? NetworkPlayerAlignment.HasCalibration ? NetworkPlayerAlignment.InverseTransformPoint(localHead.position)
           : useArenaRelativeCoordinates && arenaRoot != null ? arenaRoot.InverseTransformPoint(localHead.position) : localHead.position
