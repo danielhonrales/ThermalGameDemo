@@ -10,6 +10,18 @@ public sealed class HandPoseRouter : MonoBehaviour
     [SerializeField] private Transform handAnchor;
     [SerializeField, Min(0f)] private float trackingGraceSeconds = 0.12f;
     [SerializeField, Min(0f)] private float poseExitGraceSeconds = 0.10f;
+    [Tooltip("Extra sideways lean for the shield's forearm aura, since a blocking forearm is held more diagonally than an attacking one. Positive swings the elbow end toward the body's right. With the arm straight up, attack effects lean about 15 degrees that way, so 30 puts the shield aura at about 45.")]
+    [SerializeField, Range(-90f, 90f)] private float shieldLean = 30f;
+    [Tooltip("Extra sideways lean for the hot laser and ice bomb forearm effects. Positive swings the elbow end toward the body's right, like Shield Lean.")]
+    [SerializeField, Range(-90f, 90f)] private float attackLean = 10f;
+    [Tooltip("Extra lean toward the body for the hot laser and ice bomb forearm effects. Positive swings the elbow end back toward the body.")]
+    [SerializeField, Range(-90f, 90f)] private float attackTowardBody = 15f;
+    [Tooltip("The ice bomb only counts while the open palm is turned away from the body: the palm must face within this many degrees of the body's forward direction, in any direction.")]
+    [SerializeField, Range(0f, 180f)] private float icePalmMaxAngle = 70f;
+    [Tooltip("The shield only counts while the fist's palm is turned toward the chest: the palm must face within this many degrees of the body's backward direction, in any direction.")]
+    [SerializeField, Range(0f, 180f)] private float shieldPalmMaxAngle = 45f;
+    [Tooltip("Fire also takes a one-finger gun. Off, fire needs the two-finger gun.")]
+    [SerializeField] private bool looseFingerGun = true;
     private int evaluatedFrame = -1;
     private PoseKind current;
     private PoseKind candidate;
@@ -40,6 +52,11 @@ public sealed class HandPoseRouter : MonoBehaviour
     public bool IsIcePose => Current == PoseKind.Ice;
     public bool IsShieldPose => Current == PoseKind.Shield;
     public bool IsThumbsUp { get { Evaluate(); return thumbsUp; } }
+    /// <summary>Fire only on the two-finger gun, as for a gesture that must not be made by accident.</summary>
+    public void RequireTwoFingerGun() => looseFingerGun = false;
+    public float ShieldLean => shieldLean;
+    public float AttackLean => attackLean;
+    public float AttackTowardBody => attackTowardBody;
     public bool TryGetFireRay(out Ray ray)
     {
         Evaluate();
@@ -109,6 +126,28 @@ public sealed class HandPoseRouter : MonoBehaviour
         // When the right hand crosses the chest, limit the visual cuff's inward swivel.
         Vector3 solveWrist = wrist + right * Mathf.Max(0f, -0.08f - inward);
         return solveWrist - EstimateElbow(head, headRotation, solveWrist);
+    }
+
+    /// <summary>
+    /// Leans a forearm pose, pivoting at the wrist. Positive degrees swing the elbow end toward the
+    /// body's right, and positive towardBodyDegrees swing it back toward the body. The lean scales
+    /// with how upright the forearm is, so a forearm pointing forward or out to the side is left alone.
+    /// </summary>
+    public static Quaternion LeanForearm(Quaternion forearm, Quaternion headRotation, float degrees,
+        float towardBodyDegrees = 0f)
+    {
+        if (Mathf.Abs(degrees) < 0.01f && Mathf.Abs(towardBodyDegrees) < 0.01f) return forearm;
+        // Camera right stays level when looking straight up at a raised fist.
+        Vector3 bodyForward = Vector3.ProjectOnPlane(headRotation * Vector3.forward, Vector3.up);
+        if (bodyForward.sqrMagnitude < 0.04f) bodyForward = Vector3.Cross(headRotation * Vector3.right, Vector3.up);
+        if (bodyForward.sqrMagnitude < 0.0001f) return forearm;
+        bodyForward.Normalize();
+        Vector3 bodyRight = Vector3.Cross(Vector3.up, bodyForward);
+        float upright = Vector3.Dot(forearm * Vector3.forward, Vector3.up);
+        // About the body's forward axis the wrist end tips left, so the elbow end swings right;
+        // about its right axis the wrist end tips forward, so the elbow end swings back to the body.
+        return Quaternion.AngleAxis(degrees * upright, bodyForward)
+            * Quaternion.AngleAxis(towardBodyDegrees * upright, bodyRight) * forearm;
     }
 
     private void Awake() => FindReferences();
@@ -183,7 +222,9 @@ public sealed class HandPoseRouter : MonoBehaviour
         thumbsUp = ClassifyThumbsUp(straightness, upward, index, middle, ring, pinky);
         if (index >= 0f || middle >= 0f) lastValidAt = Time.unscaledTime;
         bool palmUp = handAnchor != null && Vector3.Dot(-handAnchor.up, Vector3.up) > 0.35f;
-        PoseKind observed = Classify(index, middle, ring, pinky, palmUp, current);
+        PoseKind observed = Classify(index, middle, ring, pinky, palmUp, current, looseFingerGun);
+        if (observed == PoseKind.Ice && !IsPalmFacing(false, icePalmMaxAngle)) observed = PoseKind.Neutral;
+        if (observed == PoseKind.Shield && !IsPalmFacing(true, shieldPalmMaxAngle)) observed = PoseKind.Neutral;
         AdvancePose(observed, Time.unscaledTime, poseExitGraceSeconds,
             ref current, ref candidate, ref candidateSince, ref departureSince);
 
@@ -197,8 +238,9 @@ public sealed class HandPoseRouter : MonoBehaviour
     }
 
     // Entry thresholds are stricter than hold thresholds so a relaxed, resting hand stays Neutral.
+    // oneFingerGun lets fire take the index alone; otherwise it needs the index and middle fingers.
     public static PoseKind Classify(float index, float middle, float ring, float pinky,
-        bool palmUp, PoseKind previous)
+        bool palmUp, PoseKind previous, bool oneFingerGun = true)
     {
         float straight = previous == PoseKind.Fire || previous == PoseKind.Ice ? 0.67f : 0.82f;
         bool indexOut = index >= straight;
@@ -210,7 +252,7 @@ public sealed class HandPoseRouter : MonoBehaviour
         float tucked = previous == PoseKind.Fire ? 0.62f : 0.42f;
         bool outerTucked = (ring < 0f || ring <= tucked) && (pinky < 0f || pinky <= tucked)
             && (ring >= 0f || pinky >= 0f);
-        if ((indexOut && middleOut) && outerTucked) return PoseKind.Fire;
+        if (indexOut && (middleOut || oneFingerGun) && outerTucked) return PoseKind.Fire;
         // A shield needs a real fist: all tracked fingers curled, not just a loose resting hand.
         bool holding = previous == PoseKind.Shield;
         float curled = holding ? 0.40f : 0.26f;
@@ -219,6 +261,43 @@ public sealed class HandPoseRouter : MonoBehaviour
             && ring <= outerCurled && pinky <= outerCurled) return PoseKind.Shield;
         return PoseKind.Neutral;
     }
+
+    // Ice wants the palm turned away from the body; the shield wants it turned toward the chest.
+    private bool IsPalmFacing(bool towardBody, float maxDegrees)
+    {
+        Camera eye = Camera.main;
+        Transform wrist = Bone(OVRSkeleton.BoneId.XRHand_Wrist, OVRSkeleton.BoneId.Hand_WristRoot);
+        Transform middle = Bone(OVRSkeleton.BoneId.XRHand_MiddleProximal, OVRSkeleton.BoneId.Hand_Middle1);
+        Transform index = Bone(OVRSkeleton.BoneId.XRHand_IndexProximal, OVRSkeleton.BoneId.Hand_Index1);
+        Transform pinky = Bone(OVRSkeleton.BoneId.XRHand_LittleProximal, OVRSkeleton.BoneId.Hand_Pinky1);
+        if (eye == null || wrist == null || middle == null || index == null || pinky == null) return false;
+        Vector3 palm = PalmNormal(wrist.position, middle.position, index.position, pinky.position,
+            handSide == OVRPlugin.Hand.HandRight);
+        return towardBody ? IsPalmTurnedToBody(palm, eye.transform.rotation, maxDegrees)
+            : IsPalmTurnedAway(palm, eye.transform.rotation, maxDegrees);
+    }
+
+    /// <summary>Direction the palm faces, from the wrist and the middle, index and little-finger knuckles.</summary>
+    public static Vector3 PalmNormal(Vector3 wrist, Vector3 middleKnuckle, Vector3 indexKnuckle,
+        Vector3 littleKnuckle, bool rightHand)
+    {
+        Vector3 normal = Vector3.Cross(middleKnuckle - wrist, indexKnuckle - littleKnuckle).normalized;
+        return rightHand ? normal : -normal;
+    }
+
+    /// <summary>True when the palm faces within maxDegrees of the body's level forward direction, whichever way it tilts.</summary>
+    public static bool IsPalmTurnedAway(Vector3 palmNormal, Quaternion headRotation, float maxDegrees)
+    {
+        // Camera right stays level when looking straight up or down.
+        Vector3 bodyForward = Vector3.ProjectOnPlane(headRotation * Vector3.forward, Vector3.up);
+        if (bodyForward.sqrMagnitude < 0.04f) bodyForward = Vector3.Cross(headRotation * Vector3.right, Vector3.up);
+        return palmNormal.sqrMagnitude > 0.0001f && bodyForward.sqrMagnitude > 0.0001f
+            && Vector3.Angle(palmNormal, bodyForward) <= maxDegrees;
+    }
+
+    /// <summary>True when the palm faces within maxDegrees of the body's level backward direction, toward the chest.</summary>
+    public static bool IsPalmTurnedToBody(Vector3 palmNormal, Quaternion headRotation, float maxDegrees)
+        => IsPalmTurnedAway(-palmNormal, headRotation, maxDegrees);
 
     public static bool ClassifyThumbsUp(float straightness, float upward,
         float index, float middle, float ring, float pinky)

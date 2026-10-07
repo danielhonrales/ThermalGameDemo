@@ -50,6 +50,7 @@ Every datagram is one UTF-8 JSON object under 1400 bytes. Fields:
 | `seq`, `time` | Increasing sequence per session; headset monotonic seconds |
 | `event`, `source`, `amount` | Event name, source/category, damage amount where relevant |
 | `health` | Latest local health (-1 before player initialization) |
+| `attack` | Attack behind the latest `hit_received` or `shield_block`: `fire` or `ground_fire` (hot), `ice` (cold); empty before the first. Kept on later messages, including snapshots |
 | `active` | Complete set of currently active states |
 | `hits`, `blocks`, `fireBursts`, `iceThrows`, `deaths` | Cumulative event counters for this app run |
 | `leadMs` | Time from this packet until the in-game visual peak (see Hardware lead) |
@@ -61,7 +62,7 @@ Discrete events:
 - `session_start`, `session_pause`, `session_resume`, `session_stop`
 - `player_ready`, `calibrated`, `round_phase`, `round_disconnected`
 - `fire_shot`, `fire_contact` (miss/hit/blocked/shield/headshot), `ice_shot`, `ice_impact` (collider/floor)
-- `hit_received` (fire/ice/safe-zone blast), `shield_block` (fire/ice), `death`, `health_reset`. In the practice sandbox, confirmed hits emit `hit_received` without reducing health.
+- `hit_received` (fire/ice/ground fire), `shield_block` (fire/ice), `death`, `health_reset`. In the practice sandbox, confirmed hits emit `hit_received` without reducing health.
 - `heal_received` (pickup, `amount` = HP restored)
 - `fire_cancel`, `ice_cancel`: the early `fire_shot` / `ice_shot` was sent but the player released before the attack happened
 
@@ -75,7 +76,7 @@ A `snapshot` repeats full state and counters every 250 ms when UDP is enabled. L
 
 ## Delivery behavior
 
-UDP is best effort: one-time events can be lost. The next snapshot repairs continuous state and cumulative counts; it does not replay the missing event's timing, source or amount. The receiver rejects duplicate/out-of-order sequence numbers and prints `output_timeout` after one second without a fresh packet for a session. Restarted apps have new session IDs.
+UDP is best effort: one-time events can be lost. The next snapshot repairs continuous state and cumulative counts, and its `attack` names the latest hit or block, so a receiver that sees `hits` or `blocks` go up can still heat or cool to match; it does not replay the missing event's timing, source or amount. The receiver rejects duplicate/out-of-order sequence numbers and prints `output_timeout` after one second without a fresh packet for a session. Restarted apps have new session IDs.
 
 This is appropriate for the current dummy integration and replaceable continuous feedback. Before implementing hardware actions that require guaranteed commands, define their acknowledgement/retry and shutdown behavior or use a reliable transport. Do not interpret a single received `shield_start` as an indefinite instruction: the full state and timeout are part of the contract.
 
@@ -87,4 +88,4 @@ References: [IETF UDP Usage Guidelines](https://www.rfc-editor.org/info/rfc8085/
 python3 -m unittest discover -s tools/pi -p 'test_*.py'
 ```
 
-Unity `DemoRegressionChecks.RunOutputCheck` sends real loopback UDP packets through the game output class and verifies state transitions, duplicate suppression, block counters, source and health fields. On 2026-09-28 the Pi service at `192.168.1.5:7779` logged live headset fire starts/stops, ice shots, and unshielded hits. A live shield-block event and a full two-Quest match on the latest build remain to be verified.
+Unity `DemoRegressionChecks.RunOutputCheck` sends real loopback UDP packets through the game output class and verifies state transitions, duplicate suppression, block counters, source, health and attack fields. On 2026-09-28 the Pi service at `192.168.1.5:7779` logged live headset fire starts/stops, ice shots, and unshielded hits. A live shield-block event and a full two-Quest match on the latest build remain to be verified.

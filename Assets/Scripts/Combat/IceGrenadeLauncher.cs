@@ -39,7 +39,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     [Header("Charge")]
     [SerializeField] private bool requireChargeBeforeThrow = true;
-    [SerializeField, Min(0f)] private float chargeSeconds = 2f;
+    [SerializeField, Min(0f)] private float chargeSeconds = 2.5f;
     [Tooltip("Delay after each throw before the next ice bomb can begin charging.")]
     [SerializeField, Min(0f)] private float throwCooldownSeconds = 3f;
 
@@ -109,7 +109,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
         if (Time.time < nextThrowAllowedTime)
         {
-            grenadeEffects?.HideCharge();
+            // Holding the ice pose while recharging shows a grey, slowly turning copy of the charge.
+            if ((!requireIronManPose || IsIronManPoseActive()) && TryGetForearmMount(out Vector3 wristMount, out Quaternion armMount))
+                grenadeEffects?.ShowCooldown(wristMount, armMount);
+            else
+                grenadeEffects?.HideCharge();
             // The white landing marker stays up until its bomb detonates.
             HideArcPath();
             return;
@@ -141,7 +145,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
             float progress = GetChargeProgress();
             Vector3 chargePosition = origin;
             Quaternion chargeRotation = GetThrowRotation(launchVelocity);
-            if (poseRouter != null && poseRouter.TryGetForearmPose(headset, out Vector3 wrist, out Quaternion armRotation))
+            if (TryGetForearmMount(out Vector3 wrist, out Quaternion armRotation))
             { chargePosition = wrist; chargeRotation = armRotation; }
             grenadeEffects?.ShowCharge(chargePosition, chargeRotation, progress, poseRouter == null || poseRouter.IsIcePose);
             UpdateArcPreview(origin, launchVelocity);
@@ -151,6 +155,20 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         }
 
         ThrowGrenade(origin, launchVelocity);
+    }
+
+    // Charge visuals sit on the wrist along the forearm, leaned like the other hot laser / ice bomb effects.
+    private bool TryGetForearmMount(out Vector3 wrist, out Quaternion armRotation)
+    {
+        armRotation = Quaternion.identity;
+        if (poseRouter == null || !poseRouter.TryGetForearmPose(headset, out wrist, out Quaternion forearm))
+        {
+            wrist = Vector3.zero;
+            return false;
+        }
+        armRotation = headset != null
+            ? HandPoseRouter.LeanForearm(forearm, headset.rotation, poseRouter.AttackLean, poseRouter.AttackTowardBody) : forearm;
+        return true;
     }
 
     public void SetPalmOrigin(Transform newPalmOrigin)

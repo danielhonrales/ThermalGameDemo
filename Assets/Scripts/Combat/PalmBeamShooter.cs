@@ -52,8 +52,10 @@ public sealed class PalmBeamShooter : MonoBehaviour
     [SerializeField] private Color chargeColor = new Color(1f, 0.21f, 0.13f, 1f);
 
     [Header("Beam Burst")]
+    [Tooltip("A burst stops after this long, even with the pose still held.")]
     [SerializeField, Min(0f)] private float maxBeamDurationSeconds = 3f;
-    [SerializeField, Min(0f)] private float beamCooldownSeconds = 2f;
+    [Tooltip("After each burst, the beam can't charge for this long; a held pose shows a grey charge meanwhile.")]
+    [SerializeField, Min(0f)] private float beamCooldownSeconds = 3f;
 
     [Header("Visuals")]
     [SerializeField] private bool showSimpleBeamLine;
@@ -80,7 +82,6 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private ForearmShieldController shieldController;
     private bool wasAttackPoseActive;
     private HandPoseRouter poseRouter;
-    private bool waitingForPoseReset;
 
     private void Reset()
     {
@@ -124,13 +125,6 @@ public sealed class PalmBeamShooter : MonoBehaviour
         }
 
         bool attackPoseActive = !requireIronManPose || IsIronManPoseActive();
-        if (poseRouter != null && !attackPoseActive)
-            waitingForPoseReset = false;
-        if (poseRouter != null && waitingForPoseReset)
-        {
-            StopBeamBurst(false);
-            return;
-        }
         if (attackPoseActive && !wasAttackPoseActive)
         {
             shieldController?.CancelForAttack();
@@ -138,21 +132,25 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
         wasAttackPoseActive = attackPoseActive;
 
-        if (poseRouter == null && Time.time < nextAllowedFireTime)
+        if (Time.time < nextAllowedFireTime)
         {
             StopBeamBurst(false);
+            // Holding the fire pose while it recharges shows a grey, slowly turning copy of the charge, like the ice bomb.
+            if (attackPoseActive && beamEffects != null && (shieldController == null || !shieldController.IsShieldActive))
+                beamEffects.ShowCooldown(GetBeamOrigin(), GetChargeRotation());
             return;
         }
 
+        // Every burst that fired, however it ended, starts the cooldown.
         if (shieldController != null && shieldController.IsShieldActive)
         {
-            StopBeamBurst(false);
+            StopBeamBurst(beamBurstStartTime >= 0f);
             return;
         }
 
         if (requireIronManPose && !attackPoseActive)
         {
-            StopBeamBurst(poseRouter == null && beamBurstStartTime >= 0f);
+            StopBeamBurst(beamBurstStartTime >= 0f);
             return;
         }
 
@@ -209,6 +207,11 @@ public sealed class PalmBeamShooter : MonoBehaviour
             ThermalFxLibrary.Spawn(ThermalFxLibrary.Instance?.muzzleFlash, muzzle,
                 Quaternion.LookRotation(direction), 0.35f, 1.5f);
         }
+        else if (IsBurstOver(beamBurstStartTime, Time.time, maxBeamDurationSeconds))
+        {
+            StopBeamBurst(true);
+            return;
+        }
 
         ShowAimGuide(origin, beamEnd, hitSomething ? beamColor : aimGuideHitColor, hitSomething);
         if (hitCollider != null) ApplyCombatResult(hitCollider, result, beamEnd);
@@ -221,6 +224,10 @@ public sealed class PalmBeamShooter : MonoBehaviour
         PublishNetworkBeam(origin, beamEnd, beamColor, hitSomething, beamEnd, GetEffectMountPosition(), GetEffectMountRotation());
         LogResultIfChanged(result, hitCollider);
     }
+
+    /// <summary>Whether a burst that began at burstStart has run its full length (0 = no limit).</summary>
+    public static bool IsBurstOver(float burstStart, float now, float maxSeconds)
+        => maxSeconds > 0f && burstStart >= 0f && now - burstStart >= maxSeconds;
 
     private void ResolveBeamHits(
         Vector3 origin,
@@ -339,7 +346,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     public void CancelForShield()
     {
-        StopBeamBurst(false);
+        StopBeamBurst(beamBurstStartTime >= 0f);
         wasAttackPoseActive = false;
     }
 
@@ -476,11 +483,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
         lastResult = null;
         lastHitInstanceId = 0;
 
-        if (startCooldown)
-        {
-            if (poseRouter != null) waitingForPoseReset = true;
-            else nextAllowedFireTime = Time.time + beamCooldownSeconds;
-        }
+        if (startCooldown) nextAllowedFireTime = Time.time + beamCooldownSeconds;
     }
 
     private void ShowAimGuide(Vector3 origin, Vector3 beamEnd, Color endMarkerColor, bool hasHit)

@@ -21,11 +21,16 @@ public sealed class CombatEventOutput : MonoBehaviour
         public double time;
         public string @event, source;
         public int amount, health = -1;
+        /// <summary>Attack behind the latest hit or block (fire, ice, ground_fire), so the Pi can heat or cool.
+        /// Kept on later messages so a snapshot that makes up a lost hit still names it.</summary>
+        public string attack = "";
         public string[] active;
         public int hits, blocks, fireBursts, iceThrows, deaths;
         public int leadMs = Mathf.RoundToInt(HardwareLeadSeconds * 1000f);
     }
     public const float HardwareLeadSeconds = 0.3f;
+    /// <summary>Resources text file holding the Pi IP a per-player APK was built with (see PlayerApkBuilds).</summary>
+    public const string BakedPiHostResource = "pi-host";
     /// <summary>Raised for every non-snapshot event (name, source) as it is sent to the Pi.</summary>
     public static event Action<string, string> Signaled;
     private static CombatEventOutput instance;
@@ -62,7 +67,7 @@ public sealed class CombatEventOutput : MonoBehaviour
         logPath = Path.Combine(Application.persistentDataPath, "combat-events.jsonl");
         try
         {
-            Config config = File.Exists(configPath) ? JsonUtility.FromJson<Config>(File.ReadAllText(configPath)) : new Config();
+            Config config = File.Exists(configPath) ? JsonUtility.FromJson<Config>(File.ReadAllText(configPath)) : DefaultConfig();
             if (!File.Exists(configPath)) File.WriteAllText(configPath, JsonUtility.ToJson(config, true));
             if (File.Exists(logPath)) { if (File.Exists(logPath + ".previous")) File.Delete(logPath + ".previous"); File.Move(logPath, logPath + ".previous"); }
             log = new StreamWriter(logPath, false, new UTF8Encoding(false));
@@ -80,6 +85,15 @@ public sealed class CombatEventOutput : MonoBehaviour
         }
         catch (Exception e) { Debug.LogWarning("Combat output setup: " + e.Message); }
         Write("session_start", "app", 0);
+    }
+
+    // New installs take the Pi IP baked into their APK; builds without one use Config's default.
+    private static Config DefaultConfig()
+    {
+        var config = new Config();
+        TextAsset baked = Resources.Load<TextAsset>(BakedPiHostResource);
+        if (baked != null && !string.IsNullOrWhiteSpace(baked.text)) config.host = baked.text.Trim();
+        return config;
     }
 
     public static void SetPlayer(int id, int health)
@@ -103,8 +117,8 @@ public sealed class CombatEventOutput : MonoBehaviour
         if (health >= 0) instance.message.health = health;
         switch (name)
         {
-            case "hit_received": instance.message.hits++; break;
-            case "shield_block": instance.message.blocks++; break;
+            case "hit_received": instance.message.hits++; instance.message.attack = source; break;
+            case "shield_block": instance.message.blocks++; instance.message.attack = source; break;
             case "fire_shot": instance.message.fireBursts++; break;
             case "ice_shot": instance.message.iceThrows++; break;
             case "death": instance.message.deaths++; break;

@@ -17,7 +17,11 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     private readonly LineRenderer[] chargeHelices = new LineRenderer[3];
     private Material lineMaterial;
     private Material shardMaterial;
+    private Material dullShardMaterial;
     private Mesh shardMesh;
+    private MeshRenderer chargeShardRenderer;
+    // Grey used while the beam cooldown runs, as for the ice bomb.
+    private static readonly Color Dull = new Color(0.55f, 0.58f, 0.62f, 1f);
     private LineRenderer beamHalo;
     private LineRenderer beamBody;
     private LineRenderer beamCore;
@@ -185,6 +189,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         progress = Mathf.Clamp01(progress);
         chargeRoot.gameObject.SetActive(true);
         chargeRoot.SetPositionAndRotation(start, mountRotation);
+        chargeShardRenderer.sharedMaterial = shardMaterial;
         float scale = Mathf.Lerp(0.05f, 0.095f, progress)
             * (1f + 0.035f * Mathf.Sin(Time.time * 10f));
         chargeShard.localScale = Vector3.one * scale;
@@ -218,6 +223,35 @@ public sealed class ThermalBeamEffects : MonoBehaviour
             chargeAudio.volume = chargeVolume * Mathf.Lerp(0.25f, 1f, progress);
             if (playAudio && !chargeAudio.isPlaying) chargeAudio.Play();
             if (!playAudio && chargeAudio.isPlaying) chargeAudio.Stop();
+        }
+    }
+
+    /// <summary>A grey, faded, slowly turning copy of the full charge while the beam cooldown runs.</summary>
+    public void ShowCooldown(Vector3 start, Quaternion mountRotation)
+    {
+        EnsureEffects();
+        beamHalo.enabled = beamBody.enabled = beamCore.enabled = false;
+        strandA.enabled = strandB.enabled = false;
+        if (beamAudio != null && beamAudio.isPlaying) beamAudio.Stop();
+        if (chargeAudio != null && chargeAudio.isPlaying) chargeAudio.Stop();
+        chargeRoot.gameObject.SetActive(true);
+        chargeRoot.SetPositionAndRotation(start, mountRotation);
+        chargeShardRenderer.sharedMaterial = dullShardMaterial;
+        chargeShard.localScale = Vector3.one * 0.095f;
+        // Turns at about a quarter of the charge's speed.
+        chargeShard.localRotation = Quaternion.Euler(0f, Time.time * 20f, 0f);
+        CombatVfxStyle.SetRing(chargeArc, Vector3.zero, Quaternion.identity, 0.14f, 40, -90f + Time.time * 14f, 285f);
+        chargeArc.startColor = CombatVfxStyle.WithAlpha(Dull, 0.3f);
+        chargeArc.endColor = CombatVfxStyle.WithAlpha(Dull, 0.03f);
+        CombatVfxStyle.SetRing(chargeOuterArc, Vector3.zero, Quaternion.identity, 0.19f, 48, 90f - Time.time * 21f, 245f);
+        chargeOuterArc.startColor = CombatVfxStyle.WithAlpha(Dull, 0.22f);
+        chargeOuterArc.endColor = CombatVfxStyle.WithAlpha(Dull, 0.02f);
+        for (int i = 0; i < chargeHelices.Length; i++)
+        {
+            LineRenderer helix = chargeHelices[i];
+            CombatVfxStyle.SetHelix(helix, 0.32f, 0.077f, 2.5f, Time.time * (i % 2 == 0 ? 2f : -1.75f) + i * 2.094f);
+            helix.startColor = CombatVfxStyle.WithAlpha(Dull, 0.3f);
+            helix.endColor = CombatVfxStyle.WithAlpha(Dull, 0.06f);
         }
     }
 
@@ -285,6 +319,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         if (lineMaterial != null) return;
         lineMaterial = CombatVfxStyle.CreateMaterial("Heat lines", Color.white);
         shardMaterial = CombatVfxStyle.CreateMaterial("Heat charge", CombatVfxStyle.HeatCore);
+        dullShardMaterial = CombatVfxStyle.CreateMaterial("Heat cooldown", CombatVfxStyle.WithAlpha(Dull, 0.4f));
         shardMesh = CombatVfxStyle.CreateShard();
         beamHalo = CombatVfxStyle.CreateLine(transform, "Heat atmosphere", lineMaterial, true, 0.19f);
         beamBody = CombatVfxStyle.CreateLine(transform, "Heat flow", lineMaterial, true, 0.09f);
@@ -312,10 +347,10 @@ public sealed class ThermalBeamEffects : MonoBehaviour
         GameObject shard = new GameObject("HeatCore");
         shard.transform.SetParent(chargeRoot, false);
         shard.AddComponent<MeshFilter>().sharedMesh = shardMesh;
-        MeshRenderer renderer = shard.AddComponent<MeshRenderer>();
-        renderer.sharedMaterial = shardMaterial;
-        renderer.shadowCastingMode = ShadowCastingMode.Off;
-        renderer.receiveShadows = false;
+        chargeShardRenderer = shard.AddComponent<MeshRenderer>();
+        chargeShardRenderer.sharedMaterial = shardMaterial;
+        chargeShardRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        chargeShardRenderer.receiveShadows = false;
         chargeShard = shard.transform;
         chargeArc = CombatVfxStyle.CreateLine(chargeRoot, "HeatChargeArc", lineMaterial, false, 0.003f);
         chargeOuterArc = CombatVfxStyle.CreateLine(chargeRoot, "HeatChargeOrbit", lineMaterial, false, 0.006f);
@@ -347,6 +382,7 @@ public sealed class ThermalBeamEffects : MonoBehaviour
     {
         if (lineMaterial != null) Destroy(lineMaterial);
         if (shardMaterial != null) Destroy(shardMaterial);
+        if (dullShardMaterial != null) Destroy(dullShardMaterial);
         if (shardMesh != null) Destroy(shardMesh);
     }
 }

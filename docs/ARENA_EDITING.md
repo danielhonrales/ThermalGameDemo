@@ -27,7 +27,6 @@ The sudden-death preview hides starting drone loads and shows the new layout plu
 - Use the normal LAN APK build (`LanDemoSetup.BuildLanApk`), or the existing `ThermalBatch.RebuildCheckAndBuild` automation. Despite its legacy name, that automation now preserves authored layouts.
 - **Do not use Thermal → Build Default Arena Layout** after sculpting: that explicit reset command regenerates the starting obstacles and samples.
 - Install the same APK on both headsets. Positions are authored relative to the shared arena and follow each headset's calibration.
-- Keep clear space for a 0.9 × 0.9 m refuge in each half. The build checks safe-zone placement against the starting cover and fails if the layout blocks the tested placements.
 
 Cover uses a short scripted landing, then remains fixed. It does not bounce, ricochet, or respond to players. A shot-down drone's load returns to its authored landing location.
 

@@ -13,7 +13,10 @@ public sealed class ForearmBursts : MonoBehaviour
     private const int RingCount = 8;
     private const float RingSeconds = 0.35f;
 
-    private struct Ring { public float startedAt, delay; public Color color; public bool towardHand; public float width; }
+    // Which forearm line a ring races along: the tracked arm, or leaned for attacks / the shield.
+    private enum Line { Arm, Attack, Shield }
+
+    private struct Ring { public float startedAt, delay; public Color color; public bool towardHand; public float width; public Line line; }
 
     private struct Pending { public float at; public string name, source; }
 
@@ -74,16 +77,16 @@ public sealed class ForearmBursts : MonoBehaviour
                 break;
             case "shield_block":
                 ThermalFxLibrary.Spawn(fx?.shieldSparks, arm.Wrist, 0.4f, 2f);
-                for (int i = 0; i < 2; i++) AddRing(CombatVfxStyle.Shield, true, i * 0.06f, 0.014f);
+                for (int i = 0; i < 2; i++) AddRing(CombatVfxStyle.Shield, true, i * 0.06f, 0.014f, Line.Shield);
                 break;
             case "fire_shot":
-                AddRing(CombatVfxStyle.Heat, true, 0f, 0.018f);
-                AddRing(CombatVfxStyle.HeatCore, true, 0.05f, 0.008f);
+                AddRing(CombatVfxStyle.Heat, true, 0f, 0.018f, Line.Attack);
+                AddRing(CombatVfxStyle.HeatCore, true, 0.05f, 0.008f, Line.Attack);
                 break;
             case "ice_shot":
                 ThermalFxLibrary.Spawn(fx?.coldSparks, arm.Wrist, 0.35f, 2f);
-                AddRing(CombatVfxStyle.Cold, true, 0f, 0.018f);
-                AddRing(CombatVfxStyle.ColdCore, true, 0.05f, 0.008f);
+                AddRing(CombatVfxStyle.Cold, true, 0f, 0.018f, Line.Attack);
+                AddRing(CombatVfxStyle.ColdCore, true, 0.05f, 0.008f, Line.Attack);
                 break;
             case "heal_received":
                 ThermalFxLibrary.Spawn(fx?.healSparks, mid, 0.5f, 2.5f);
@@ -93,22 +96,24 @@ public sealed class ForearmBursts : MonoBehaviour
         }
     }
 
-    private void AddRing(Color color, bool towardHand, float delay, float width)
+    private void AddRing(Color color, bool towardHand, float delay, float width, Line line = Line.Arm)
     {
-        rings[nextRing] = new Ring { startedAt = Time.time, delay = delay, color = color, towardHand = towardHand, width = width };
+        rings[nextRing] = new Ring { startedAt = Time.time, delay = delay, color = color, towardHand = towardHand, width = width, line = line };
         nextRing = (nextRing + 1) % RingCount;
     }
 
     private void DrawRings()
     {
         bool pose = arm.HasPose;
-        Vector3 elbow = arm.Elbow, wrist = arm.Wrist;
-        Quaternion plane = arm.ArmRotation;
+        Vector3 wrist = arm.Wrist;
         for (int i = 0; i < RingCount; i++)
         {
             float t = (Time.time - rings[i].startedAt - rings[i].delay) / RingSeconds;
             LineRenderer line = lines[i];
             if (!pose || t < 0f || t > 1f) { line.enabled = false; continue; }
+            // Shot rings lean like the attack cuff; block rings follow the shield aura.
+            Vector3 elbow = rings[i].line == Line.Shield ? arm.ShieldElbow : rings[i].line == Line.Attack ? arm.AttackElbow : arm.Elbow;
+            Quaternion plane = rings[i].line == Line.Shield ? arm.ShieldRotation : rings[i].line == Line.Attack ? arm.AttackRotation : arm.ArmRotation;
             // Rings race along the arm and flare outward as they travel.
             float along = rings[i].towardHand ? t : 1f - t;
             Vector3 centre = Vector3.Lerp(elbow, wrist + (wrist - elbow).normalized * 0.06f, along);

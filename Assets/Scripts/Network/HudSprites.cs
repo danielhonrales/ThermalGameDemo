@@ -70,13 +70,6 @@ public static class HudSprites
         return Mathf.Pow(Mathf.Clamp01(1f - d), 2.2f);
     }, Vector4.zero);
 
-    /// <summary>Diagonal hazard stripes, tiles horizontally.</summary>
-    public static Sprite Stripes() => Make("stripes", 64, (x, y, s) =>
-    {
-        float v = Mathf.Repeat((x + y) / s * 2f, 1f);
-        return Mathf.Clamp01((Mathf.Abs(v - 0.5f) - 0.22f) * 24f);
-    }, Vector4.zero, TextureWrapMode.Repeat);
-
     /// <summary>Full-view edge vignette: clear centre, opaque edges.</summary>
     public static Sprite Vignette() => Make("vignette", 256, (x, y, s) =>
     {

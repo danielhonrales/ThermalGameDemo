@@ -3,7 +3,7 @@ using System.Linq;
 using Mirror;
 using UnityEngine;
 
-/// <summary>Shared authority for practice, the 60-second duel, safe zones, and the heal.</summary>
+/// <summary>Shared authority for practice, the 60-second duel, and the heal.</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NetworkIdentity))]
 public sealed class FusionRoundDirector : NetworkBehaviour
@@ -13,7 +13,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(30f)] private float roundSeconds = 60f;
     [SerializeField, Min(1f)] private float countdownSeconds = 5f;
     [SerializeField, Min(1f)] private float resultSeconds = 7f;
-    private const int SafeZoneDamage = 90;
     [Header("Sudden death")]
     [Tooltip("The final seconds of the round are sudden death.")]
     [SerializeField, Min(5f)] private float suddenDeathSeconds = 20f;
@@ -35,11 +34,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int WinsA;
     [SyncVar] public int WinsB;
     [SyncVar] public bool SoloOverride;
-    [SyncVar] public int HazardSeed;
-    [SyncVar] public Vector2 SafeZoneA;
-    [SyncVar] public Vector2 SafeZoneB;
-    [SyncVar] public bool SafeZonesReady;
-    private bool blastResolved;
     /// <summary>0 = not yet spawned this round, 1 = available, 2 = taken.</summary>
     [SyncVar] public int HealState;
     [SyncVar] public Vector3 HealCenter;
@@ -99,7 +93,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     }
 
     private FusionRoundHud hud;
-    private SafeZoneHazardView safeZoneView;
     private SandboxGuideView sandboxGuide;
     private HealPickupView healView;
     private SuddenDeathDirector suddenDeath;
@@ -142,6 +135,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         resetHand.transform.SetParent(transform, false);
         leftResetPose = resetHand.AddComponent<HandPoseRouter>();
         leftResetPose.UseLeftHand();
+        // A one-finger point held by chance must not restart the match.
+        leftResetPose.RequireTwoFingerGun();
         var soloHand = new GameObject("Right hand solo start");
         soloHand.transform.SetParent(transform, false);
         rightSoloPose = soloHand.AddComponent<HandPoseRouter>();
@@ -236,9 +231,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         }
 
         UpdateHeal(players);
-
-        PrepareSafeZones(players);
-        DamagePlayersOutsideSafeZones(players);
         DamagePlayersInFire(players);
     }
 
@@ -246,8 +238,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     {
         WoodHeat.Clear();
         for (int i = 0; i < BurnableWood.CellCount * 2; i++) WoodHeat.Add(0);
-        SafeZonesReady = false;
-        blastResolved = false;
         HealState = 0;
         HealTakerId = -1;
         DroneDownMask = 0;
@@ -317,7 +307,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         PhaseCode = (int)RoundPhase.Countdown;
         phaseEndsAt = NetworkTime.time + countdownSeconds;
         WinnerPlayerId = -1;
-        HazardSeed = Random.Range(0, int.MaxValue);
         ResetHeal();
         ResetPlayers(players);
     }
@@ -365,7 +354,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     private void UpdateHeal(List<NetworkPlayerHealth> players)
     {
         if (players.Count == 0) return;
-        if (HealState == 0 && FightElapsed >= SafeZoneHazardView.HealAt)
+        if (HealState == 0 && FightElapsed >= HealPickupView.HealAt)
         {
             // Float above the arena centre (in the shared canonical frame) so it never spawns in cover.
             Transform arena = GameObject.Find("ArenaRoot")?.transform;
@@ -393,19 +382,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         HealState = 2;
     }
 
-    private void PrepareSafeZones(List<NetworkPlayerHealth> players)
-    {
-        if (SafeZonesReady || FightElapsed < SafeZoneHazardView.WarningAt || FightElapsed >= SafeZoneHazardView.BlastAt) return;
-        var heads = players.Select(p => p.GetComponent<NetworkHeadTracker>()).Where(h => h != null)
-            .Select(h => h.CanonicalHeadPosition).ToArray();
-        Physics.SyncTransforms();
-        bool Clear(Vector2 point) => SafeZoneHazardView.HasClearance(
-            NetworkPlayerAlignment.TransformPoint(new Vector3(point.x, 1.125f, point.y)),
-            NetworkPlayerAlignment.TransformRotation(Quaternion.identity));
-        if (SafeZoneHazardView.SelectZones(heads, Clear, HazardSeed, out var a, out var b))
-        { SafeZoneA = a; SafeZoneB = b; SafeZonesReady = true; }
-    }
-
     private void DamagePlayersInFire(List<NetworkPlayerHealth> players)
     {
         if (!IsSuddenDeath) return;
@@ -414,21 +390,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             var head = player.GetComponent<NetworkHeadTracker>();
             if (head != null && SuddenDeathDirector.IsInGroundFire(head.CanonicalHeadPosition))
                 player.RequestDamage(20, true, "ground_fire");
-        }
-    }
-
-    private void DamagePlayersOutsideSafeZones(List<NetworkPlayerHealth> players)
-    {
-        if (!SafeZonesReady || blastResolved || !SafeZoneHazardView.IsExploding(FightElapsed)) return;
-        blastResolved = true;
-        foreach (NetworkPlayerHealth player in players)
-        {
-            NetworkHeadTracker head = player.GetComponent<NetworkHeadTracker>();
-            if (head == null || !player.IsAlive) continue;
-            if (!SafeZoneHazardView.Contains(SafeZoneA, SafeZoneB, head.CanonicalHeadPosition))
-            {
-                player.ApplyArenaBlast(SafeZoneDamage);
-            }
         }
     }
 
@@ -448,8 +409,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             if (hud == null) hud = new GameObject("Round HUD").AddComponent<FusionRoundHud>();
         }
         hud.Show(this);
-        if (safeZoneView == null) safeZoneView = new GameObject("Safe zone hazard").AddComponent<SafeZoneHazardView>();
-        safeZoneView.Show(this);
         if (sandboxGuide == null) sandboxGuide = new GameObject("Sandbox ability guide").AddComponent<SandboxGuideView>();
         sandboxGuide.Show(IsSandbox);
         if (suddenDeath == null) suddenDeath = SuddenDeathDirector.Ensure();
@@ -518,7 +477,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         }
         if (healView != null) Destroy(healView.gameObject);
         if (cachedDirector == null && suddenDeath != null) suddenDeath.ResetArena();
-        if (safeZoneView != null) Destroy(safeZoneView.gameObject);
         if (sandboxGuide != null) Destroy(sandboxGuide.gameObject);
     }
 

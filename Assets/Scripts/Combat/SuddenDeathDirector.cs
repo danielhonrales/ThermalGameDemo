@@ -458,7 +458,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             ring.startColor = ring.endColor = Ember;
             hellFx.Add(ring.gameObject);
         }
-        // The arena change is drones and ground fire; the big blast belongs to safe zones.
+        // The arena change is drones and ground fire only; there is no big blast.
     }
 
     private void BeginSwap()

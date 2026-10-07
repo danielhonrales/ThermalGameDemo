@@ -52,13 +52,13 @@ public static class DemoPolishSetup
         SetFloat(beam, "chargeSeconds", 0.75f);
         SetColor(beam, "aimGuideColor", new Color(1f, 0.21f, 0.13f, 0.9f));
         SetColor(beam, "aimGuideHitColor", new Color(1f, 0.55f, 0.45f, 0.95f));
-        SetFloat(beam, "maxBeamDurationSeconds", 2.5f);
-        SetFloat(beam, "beamCooldownSeconds", 0f);
+        SetFloat(beam, "maxBeamDurationSeconds", 3f);
+        SetFloat(beam, "beamCooldownSeconds", 3f);
 
         IceGrenadeLauncher ice = rig.GetComponent<IceGrenadeLauncher>();
         if (ice == null) throw new InvalidOperationException("Game scene is missing IceGrenadeLauncher.");
         ice.enabled = true;
-        SetFloat(ice, "chargeSeconds", 1.05f);
+        SetFloat(ice, "chargeSeconds", 2.5f);
         SetFloat(ice, "throwCooldownSeconds", 3f);
         SetFloat(ice, "flightSeconds", 1f);
         SetFloat(ice, "minThrowDistance", 0.50f);

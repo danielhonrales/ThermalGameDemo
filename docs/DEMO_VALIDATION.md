@@ -20,7 +20,7 @@ These checks establish transport and startup, not live gameplay. A two-Quest rou
 
 The failed pose build mixed legacy and OpenXR bone identifiers. These enum values overlap numerically, so accepting either value selected unrelated joints. An Editor regression that invokes the actual resolver reproduced incorrect joint selection in both formats. The corrected resolver chooses the skeleton format before looking up an ID.
 
-`DemoRegressionChecks.RunAll` verifies both joint mappings, anatomically bent finger samples, one- and two-finger fire poses, open-palm ice, relaxed fist, missing outer-finger samples, invalid samples, and rotation invariance. It also renders `/tmp/thermal-hud-preview.png` and rejects overflowing HUD text. The Android build runs the mapping and pose checks before building.
+`DemoRegressionChecks.RunAll` verifies both joint mappings, anatomically bent finger samples, one- and two-finger fire poses, the two-finger-only left-hand reset, the 3-second beam limit and grey cooldown, open-palm ice, relaxed fist, palm direction for ice (within 70° of forward) and shield (within 45° of backward), missing outer-finger samples, invalid samples, and rotation invariance. It also renders `/tmp/thermal-hud-preview.png` and rejects overflowing HUD text. The Android build runs the mapping and pose checks before building.
 
 Development APKs write `pose-trace.csv` in the app's persistent data directory at 10 Hz for up to ten minutes. This records tracking validity, skeleton format, four bend scores, candidate pose, and selected pose. It allows on-headset failures to be investigated without relying on a short logcat buffer. It is not an in-game diagnostic overlay.
 

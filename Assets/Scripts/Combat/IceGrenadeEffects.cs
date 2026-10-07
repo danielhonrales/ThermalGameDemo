@@ -25,6 +25,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
     private Material lineMaterial;
     private Material shardMaterial;
     private Material radiusMaterial;
+    private Material dullShardMaterial;
+    private MeshRenderer chargeShardRenderer;
     private Mesh shardMesh;
     private Mesh radiusMesh;
     private Transform chargeRoot;
@@ -52,6 +54,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
     private float impactAt = -1f;
     private float hitAt = -1f;
     private Color hitColor;
+    // Grey used while the throw cooldown runs.
+    private static readonly Color Dull = new Color(0.55f, 0.58f, 0.62f, 1f);
 
     public float ExplosionRadius => explosionRadius;
 
@@ -87,6 +91,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         chargeRoot.gameObject.SetActive(true);
         chargeRoot.SetPositionAndRotation(palmPosition + palmRotation * Vector3.forward * 0.03f,
             palmRotation);
+        chargeShardRenderer.sharedMaterial = shardMaterial;
         chargeShard.localScale = Vector3.one * Mathf.Lerp(0.09f, 0.16f, progress);
         chargeShard.localRotation = Quaternion.Euler(Time.time * 65f, Time.time * 110f, 0f);
         CombatVfxStyle.SetRing(chargeArc, Vector3.zero, Quaternion.identity,
@@ -107,11 +112,10 @@ public sealed class IceGrenadeEffects : MonoBehaviour
             LineRenderer ring = chargeRings[i];
             float landed = Mathf.Clamp01(progress * chargeRings.Length - i);
             if (landed <= 0f) { ring.enabled = false; continue; }
-            float along = i / (chargeRings.Length - 1f);
             float settle = 1f - (1f - landed) * (1f - landed);
             // Each ring snaps in wide and white, then tightens onto the arm in cyan.
-            CombatVfxStyle.SetRing(ring, new Vector3(0f, 0f, -Mathf.Lerp(0.22f, 0.02f, along)),
-                Quaternion.identity, Mathf.Lerp(0.072f, 0.056f, along) * (1f + 0.6f * (1f - settle)), 32);
+            RingPlacement(i, out Vector3 centre, out float radius);
+            CombatVfxStyle.SetRing(ring, centre, Quaternion.identity, radius * (1f + 0.6f * (1f - settle)), 32);
             float shimmer = 0.85f + 0.15f * Mathf.Sin(Time.time * 9f - i * 0.9f);
             ring.startColor = ring.endColor = CombatVfxStyle.WithAlpha(
                 Color.Lerp(Color.white, CombatVfxStyle.Cold, settle),
@@ -125,6 +129,41 @@ public sealed class IceGrenadeEffects : MonoBehaviour
             if (playAudio && !chargeAudio.isPlaying) chargeAudio.Play();
             if (!playAudio && chargeAudio.isPlaying) chargeAudio.Stop();
         }
+    }
+
+    /// <summary>A grey, faded, slowly turning copy of the full charge while the throw cooldown runs.</summary>
+    public void ShowCooldown(Vector3 palmPosition, Quaternion palmRotation)
+    {
+        EnsureEffects();
+        chargeRoot.gameObject.SetActive(true);
+        chargeRoot.SetPositionAndRotation(palmPosition + palmRotation * Vector3.forward * 0.03f,
+            palmRotation);
+        chargeShardRenderer.sharedMaterial = dullShardMaterial;
+        chargeShard.localScale = Vector3.one * 0.12f;
+        // Turns at about a quarter of the charge's speed.
+        chargeShard.localRotation = Quaternion.Euler(Time.time * 15f, Time.time * 25f, 0f);
+        CombatVfxStyle.SetRing(chargeArc, Vector3.zero, Quaternion.identity, 0.15f, 40, 90f - Time.time * 12f, 285f);
+        chargeArc.startColor = CombatVfxStyle.WithAlpha(Dull, 0.3f);
+        chargeArc.endColor = CombatVfxStyle.WithAlpha(Dull, 0.03f);
+        CombatVfxStyle.SetRing(chargeOrbit, Vector3.zero, Quaternion.identity, 0.22f, 48, -70f + Time.time * 18f, 240f);
+        chargeOrbit.startColor = CombatVfxStyle.WithAlpha(Dull, 0.22f);
+        chargeOrbit.endColor = CombatVfxStyle.WithAlpha(Dull, 0.02f);
+        for (int i = 0; i < chargeRings.Length; i++)
+        {
+            RingPlacement(i, out Vector3 centre, out float radius);
+            CombatVfxStyle.SetRing(chargeRings[i], centre, Quaternion.identity, radius, 32);
+            chargeRings[i].startColor = chargeRings[i].endColor = CombatVfxStyle.WithAlpha(Dull, 0.3f);
+            chargeRings[i].widthMultiplier = 0.007f;
+        }
+        if (chargeAudio != null && chargeAudio.isPlaying) chargeAudio.Stop();
+    }
+
+    // Forearm rings run from 22 cm behind the wrist (elbow end) to the wrist, narrowing slightly.
+    private void RingPlacement(int index, out Vector3 centre, out float radius)
+    {
+        float along = index / (chargeRings.Length - 1f);
+        centre = new Vector3(0f, 0f, -Mathf.Lerp(0.22f, 0.02f, along));
+        radius = Mathf.Lerp(0.072f, 0.056f, along);
     }
 
     public void HideCharge()
@@ -368,6 +407,8 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         chargeRoot = new GameObject("ColdCharge").transform;
         chargeRoot.SetParent(transform, false);
         chargeShard = MakeShard(chargeRoot, "ChargeShard");
+        chargeShardRenderer = chargeShard.GetComponent<MeshRenderer>();
+        dullShardMaterial = CombatVfxStyle.CreateMaterial("Cold cooldown", CombatVfxStyle.WithAlpha(Dull, 0.4f));
         chargeArc = CombatVfxStyle.CreateLine(chargeRoot, "ColdChargeArc",
             lineMaterial, false, 0.006f);
         chargeOrbit = CombatVfxStyle.CreateLine(chargeRoot, "ColdChargeOrbit",
@@ -465,6 +506,7 @@ public sealed class IceGrenadeEffects : MonoBehaviour
         if (hitRoot != null) Destroy(hitRoot.gameObject);
         if (lineMaterial != null) Destroy(lineMaterial);
         if (shardMaterial != null) Destroy(shardMaterial);
+        if (dullShardMaterial != null) Destroy(dullShardMaterial);
         if (radiusMaterial != null) Destroy(radiusMaterial);
         if (shardMesh != null) Destroy(shardMesh);
         if (radiusMesh != null) Destroy(radiusMesh);

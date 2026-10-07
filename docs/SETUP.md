@@ -117,7 +117,7 @@ Either headset can start first. The other searches by LAN discovery and retries.
 
 ## 6. Run and verify the demo
 
-Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. Both calibrated players enter the practice sandbox; either holds a thumbs-up on either hand for three seconds to begin the synchronized countdown. One calibrated player can start a solo round the same way. The right hand uses both index and middle fingers extended for the fire beam, an open palm for the ice bomb, and a relaxed fist for the shield. After a result, practice resumes and another thumbs-up starts the next round. See [the participant flow](TWO_MINUTE_DEMO.md).
+Stand at the same real-world reference point one headset at a time, face the same direction, and hold the **left middle-finger pinch** to calibrate. Both calibrated players enter the practice sandbox; either holds a thumbs-up on either hand for three seconds to begin the synchronized countdown. One calibrated player can start a solo round the same way. The right hand uses a finger gun (the index finger, or index and middle, extended) for the fire beam (each burst lasts up to 3 seconds, then a 3-second cooldown follows), an open palm turned away from the body for the ice bomb, and a fist with the palm turned toward the chest for the shield. After a result, practice resumes and another thumbs-up starts the next round. See [the participant flow](TWO_MINUTE_DEMO.md).
 
 Watch the Pi journal while playing. The receiver prints `ice_shot` when the bomb is thrown, `fire_start`/`fire_stop` as the beam turns on/off, `hit_received` for a confirmed unshielded hit, and `shield_block` for a confirmed block. Practice hits emit `hit_received` while health stays full. It may also print `output_timeout` when the app closes, pauses, or stops sending. The defender's Pi gets hit/block events; a shield pose alone is not a block.
 
@@ -132,7 +132,7 @@ For a full offline check, disconnect only the router's WAN, keep its LAN/Wi-Fi r
 | APK installs but config push fails | Launch the app once, then check the package-specific `files/` directory exists. |
 | Second Quest does not join | Same Wi-Fi/subnet, no client isolation, UDP `7777`/`47777`/`47778`; set its `fallbackHost` if broadcast discovery fails. |
 | Pi journal shows no attack signals | Check Pi service is `active`, Quest output JSON has `udpEnabled:true` and the Pi's current IP, restart the app after edits, then perform an attack. |
-| No `hit_received` or `shield_block` | These are confirmed defender events. The safe-zone blast can cause `hit_received` in solo mode; `shield_block` requires an opponent. Firing at empty space and merely raising a shield do not count. |
+| No `hit_received` or `shield_block` | These are confirmed defender events. Sudden-death ground fire can cause `hit_received` in solo mode; `shield_block` requires an opponent. Firing at empty space and merely raising a shield do not count. |
 | Build from a fresh clone has missing assets | Run `git lfs pull` and restore the excluded licensed folders in [EXTERNAL_ASSETS.md](EXTERNAL_ASSETS.md). |
 
 The headset's local event history is `combat-events.jsonl` in its app data directory. Pull it with `adb -s "$QUEST_A" pull "$APP_FILES/combat-events.jsonl" .` for diagnosis.

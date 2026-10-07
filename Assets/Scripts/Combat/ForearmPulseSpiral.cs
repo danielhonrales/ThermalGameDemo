@@ -5,8 +5,11 @@ using UnityEngine.Rendering;
 /// Always-on double helix wrapped around the tracked right forearm (elbow to wrist), where the
 /// Peltiers and vibros sit. Idle it breathes softly; <see cref="ArmActivationSignal"/> drives
 /// its colour, pulse travelling along the arm, build-up tightening, peak flash and vibro jitter.
-/// Each activity keeps its own look: heat shows the helix, cold (ice) fades it to the collar and
-/// flow rings, and the shield replaces everything with a pulsing purple aura.
+/// Each activity keeps its own look: heat shows a quiet helix with bright spirals travelling up it,
+/// cold (ice) fades the helix to the collar and flow rings, and the shield replaces everything
+/// with a pulsing purple aura. Heat and cold lean the cuff's elbow end slightly toward the body's
+/// right and back toward the body (HandPoseRouter.AttackLean / AttackTowardBody); the aura leans
+/// further right, matching a diagonal blocking forearm (HandPoseRouter.ShieldLean).
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class ForearmPulseSpiral : MonoBehaviour
@@ -22,6 +25,13 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
     private const int Segments = 72;
     private readonly LineRenderer[] strands = new LineRenderer[3];
     private LineRenderer wristCollar, elbowCollar, flowRing;
+    // Heat laser: short bright spirals that travel elbow to wrist over the quiet helix.
+    private const int CoilSegments = 32;
+    private const float CoilSpan = 0.3f, CoilTurns = 2f;
+    private readonly LineRenderer[] heatCoils = new LineRenderer[3];
+    private Gradient coilGradient;
+    private readonly GradientColorKey[] coilColors = new GradientColorKey[2];
+    private readonly GradientAlphaKey[] coilAlphas = new GradientAlphaKey[4];
     private Material material;
     private Gradient gradient;
     private readonly GradientColorKey[] colorKeys = new GradientColorKey[2];
@@ -47,6 +57,12 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
     public Quaternion ArmRotation => smoothedRotation;
     public Vector3 Elbow => smoothedWrist - smoothedRotation * Vector3.forward * forearmLength;
     public float ArmRadius => armRadius;
+    /// <summary>The forearm leaned for hot laser / ice bomb effects (HandPoseRouter.AttackLean / AttackTowardBody).</summary>
+    public Quaternion AttackRotation { get; private set; } = Quaternion.identity;
+    public Vector3 AttackElbow => smoothedWrist - AttackRotation * Vector3.forward * forearmLength;
+    /// <summary>The forearm leaned sideways for shield effects (HandPoseRouter.ShieldLean).</summary>
+    public Quaternion ShieldRotation { get; private set; } = Quaternion.identity;
+    public Vector3 ShieldElbow => smoothedWrist - ShieldRotation * Vector3.forward * forearmLength;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AttachToLocalRig()
@@ -75,7 +91,13 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         wristCollar = CombatVfxStyle.CreateLine(root, "WristCollar", material, true, 0.005f);
         elbowCollar = CombatVfxStyle.CreateLine(root, "ElbowCollar", material, true, 0.004f);
         flowRing = CombatVfxStyle.CreateLine(root, "FlowRing", material, true, 0.007f);
+        for (int i = 0; i < heatCoils.Length; i++)
+        {
+            heatCoils[i] = CombatVfxStyle.CreateLine(root, "HeatCoil" + i, material, true, 0.012f);
+            heatCoils[i].positionCount = CoilSegments + 1;
+        }
         gradient = new Gradient();
+        coilGradient = new Gradient();
         CreateAura(root);
     }
 
@@ -119,6 +141,9 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
 
     private static int AuraIndex(int layer, int row, int side) => (layer * AuraRows + row) * AuraSides + side;
 
+    private Quaternion Lean(float degrees, float towardBodyDegrees = 0f) => headset != null
+        ? HandPoseRouter.LeanForearm(smoothedRotation, headset.rotation, degrees, towardBodyDegrees) : smoothedRotation;
+
     private void LateUpdate()
     {
         if (headset == null)
@@ -135,6 +160,9 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         float follow = 1f - Mathf.Exp(-Time.deltaTime * 30f);
         smoothedWrist = tracked && smoothedWrist == Vector3.zero ? wrist : Vector3.Lerp(smoothedWrist, wrist, follow);
         smoothedRotation = Quaternion.Slerp(smoothedRotation, rotation, follow);
+        // Attack and (more diagonal) blocking forearms each lean sideways by their own amount.
+        AttackRotation = poseRouter != null ? Lean(poseRouter.AttackLean, poseRouter.AttackTowardBody) : smoothedRotation;
+        ShieldRotation = Lean(poseRouter != null ? poseRouter.ShieldLean : 0f);
 
         ArmActivationSignal.Reading signal = ArmActivationSignal.Sample(Time.time);
         float energy = Mathf.Clamp01(signal.Intensity);
@@ -144,17 +172,21 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         // Build-up spins faster and cinches the helix; the peak releases it outward.
         float spin = 1.4f + energy * 9f + signal.Anticipation * 14f;
         phase += Time.deltaTime * spin;
-        flow = Mathf.Repeat(flow + Time.deltaTime * (0.35f + energy * 1.6f), 1f);
+        // Heat spirals travel at a readable pace instead of racing.
+        flow = Mathf.Repeat(flow + Time.deltaTime * Mathf.Lerp(0.35f + energy * 1.6f, 0.9f, signal.Heat), 1f);
         float cinch = 1f - 0.28f * signal.Anticipation * signal.Anticipation;
         float swell = 1f + 0.35f * Mathf.Max(0f, signal.Intensity - 1f) + 0.12f * energy;
 
-        Vector3 axis = smoothedRotation * Vector3.forward;
-        Vector3 up = smoothedRotation * Vector3.up;
-        Vector3 side = smoothedRotation * Vector3.right;
+        // The cuff leans like the attack effects while the hot laser or ice bomb drives it.
+        Quaternion cuff = Quaternion.Slerp(smoothedRotation, AttackRotation, Mathf.Clamp01(signal.Heat + signal.Cold));
+        Vector3 axis = cuff * Vector3.forward;
+        Vector3 up = cuff * Vector3.up;
+        Vector3 side = cuff * Vector3.right;
         Vector3 elbow = smoothedWrist - axis * forearmLength;
 
         // Ice reads as rings and the shield as an aura: the helix fades out for both.
-        float spiral = Mathf.Clamp01(1f - signal.Cold - signal.Shield);
+        // The heat laser keeps a quieter helix so its travelling spirals stand out.
+        float spiral = Mathf.Clamp01(1f - signal.Cold - signal.Shield) * (1f - 0.55f * signal.Heat);
         float lines = 1f - signal.Shield;
         for (int s = 0; s < strands.Length; s++)
         {
@@ -177,7 +209,7 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
             float strandAlpha = (s == 2 ? 0.55f : s == 1 ? 0.8f : 1f) * spiral;
             ApplyGradient(line, signal, energy, breathing, strandAlpha);
             line.widthMultiplier = (s == 0 ? 0.009f : s == 1 ? 0.0065f : 0.003f)
-                * (1f + energy * 0.9f + signal.Vibration * 0.4f);
+                * (1f + energy * 0.9f + signal.Vibration * 0.4f) * (1f - 0.35f * signal.Heat);
         }
 
         Quaternion ringPlane = Quaternion.LookRotation(axis, up);
@@ -194,16 +226,49 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         wristCollar.enabled = elbowCollar.enabled = lines > 0.02f;
 
         // A bright ring sweeps along the arm while active, like heat moving through the pads.
+        // The heat laser uses travelling spirals instead.
+        float activity = visible * lines * Mathf.Clamp01(energy * 1.2f + signal.Anticipation * 0.6f);
         float ringT = FlowPosition(signal);
+        float ringAlpha = activity * (1f - signal.Heat);
         CombatVfxStyle.SetRing(flowRing, elbow + axis * (forearmLength * ringT), ringPlane,
             armRadius * Mathf.Lerp(1.15f, 0.82f, ringT) * swell * 1.08f, 40);
         Color ringColor = Color.Lerp(tint, Color.white, 0.35f * energy);
-        flowRing.startColor = flowRing.endColor = CombatVfxStyle.WithAlpha(ringColor,
-            visible * lines * Mathf.Clamp01(energy * 1.2f + signal.Anticipation * 0.6f));
+        flowRing.startColor = flowRing.endColor = CombatVfxStyle.WithAlpha(ringColor, ringAlpha);
         flowRing.widthMultiplier = 0.004f + 0.006f * energy;
-        flowRing.enabled = (energy > 0.02f || signal.Anticipation > 0f) && lines > 0.02f;
+        flowRing.enabled = (energy > 0.02f || signal.Anticipation > 0f) && ringAlpha > 0.01f;
 
-        UpdateAura(signal, energy, elbow, swell);
+        // Short bright spirals travel elbow to wrist over the quiet helix, fading in at the elbow and
+        // out at the wrist, and twisting as they go.
+        Color hot = Color.Lerp(tint, Color.white, 0.2f + 0.2f * energy);
+        for (int k = 0; k < heatCoils.Length; k++)
+        {
+            LineRenderer coil = heatCoils[k];
+            float centre = Mathf.Repeat(flow + k / (float)heatCoils.Length, 1f);
+            float alpha = Mathf.Clamp01(activity * signal.Heat * 1.6f * Mathf.Sin(Mathf.PI * centre));
+            coil.enabled = alpha > 0.01f;
+            if (!coil.enabled) continue;
+            for (int i = 0; i <= CoilSegments; i++)
+            {
+                float u = i / (float)CoilSegments;
+                float t = centre + (u - 0.5f) * CoilSpan;
+                float radius = armRadius * Mathf.Lerp(1.12f, 0.78f, Mathf.Clamp01(t)) * swell * 1.22f;
+                float angle = u * CoilTurns * Mathf.PI * 2f + phase * 1.2f + k * 2.1f;
+                Vector3 radial = side * Mathf.Cos(angle) + up * Mathf.Sin(angle);
+                coil.SetPosition(i, elbow + axis * (forearmLength * t) + radial * radius);
+            }
+            // Tapered ends, with a whiter leading end toward the wrist.
+            coilColors[0] = new GradientColorKey(hot, 0f);
+            coilColors[1] = new GradientColorKey(Color.Lerp(hot, Color.white, 0.5f), 1f);
+            coilAlphas[0] = new GradientAlphaKey(0f, 0f);
+            coilAlphas[1] = new GradientAlphaKey(alpha, 0.3f);
+            coilAlphas[2] = new GradientAlphaKey(alpha, 0.8f);
+            coilAlphas[3] = new GradientAlphaKey(0f, 1f);
+            coilGradient.SetKeys(coilColors, coilAlphas);
+            coil.colorGradient = coilGradient;
+            coil.widthMultiplier = 0.009f + 0.007f * energy;
+        }
+
+        UpdateAura(signal, energy, ShieldElbow, swell);
     }
 
     // Soft purple glow around the forearm: fades toward elbow and wrist, brightest around the arm's
@@ -216,7 +281,7 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         auraPhase = Mathf.Repeat(auraPhase + Time.deltaTime * (1.1f + signal.Vibration * 1.5f), 1f);
         float flare = Mathf.Clamp01((signal.Intensity - 0.7f) * 1.5f);
         float beat = 0.5f + 0.5f * Mathf.Cos(auraPhase * Mathf.PI * 2f);
-        auraRoot.SetPositionAndRotation(elbow, smoothedRotation);
+        auraRoot.SetPositionAndRotation(elbow, ShieldRotation);
         Vector3 eye = headset != null ? auraRoot.InverseTransformPoint(headset.position) : Vector3.up;
         const float start = -0.03f;
         float length = forearmLength + 0.07f;
@@ -282,6 +347,7 @@ public sealed class ForearmPulseSpiral : MonoBehaviour
         if (wristCollar != null) wristCollar.enabled = enabled;
         if (elbowCollar != null) elbowCollar.enabled = enabled;
         if (flowRing != null) flowRing.enabled = enabled;
+        foreach (LineRenderer coil in heatCoils) if (coil != null) coil.enabled = enabled;
         if (auraRenderer != null) auraRenderer.enabled = enabled;
     }
 

@@ -571,14 +571,11 @@ public sealed class SpectatorDirector : MonoBehaviour
             {
                 int seconds = Mathf.Max(0, Mathf.CeilToInt(round.PhaseRemaining));
                 title = $"{seconds / 60}:{seconds % 60:00}";
-                float elapsed = round.FightElapsed, suddenDeath = round.SuddenDeathClock;
-                bool warning = elapsed >= SafeZoneHazardView.WarningAt && elapsed < SafeZoneHazardView.BlastAt;
+                float suddenDeath = round.SuddenDeathClock;
                 detail = suddenDeath >= -5f && suddenDeath < 0f ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-suddenDeath)
-                    : warning ? "SAFE ZONE BLAST IN " + Mathf.CeilToInt(SafeZoneHazardView.BlastAt - elapsed)
-                    : SafeZoneHazardView.IsExploding(elapsed) ? "SAFE ZONE BLAST"
                     : suddenDeath >= 0f ? "SUDDEN DEATH"
                     : round.SoloOverride ? "SOLO ROUND" : "FIGHT";
-                if (suddenDeath >= -5f || warning) accent = FusionRoundHud.Amber;
+                if (suddenDeath >= -5f) accent = FusionRoundHud.Amber;
                 return;
             }
             case FusionRoundDirector.RoundPhase.Result:

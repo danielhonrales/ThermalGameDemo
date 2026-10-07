@@ -16,7 +16,6 @@ public static class DemoRegressionChecks
         RunHudFollowCheck();
         RunFeedbackChecks();
         RunOutputCheck();
-        RunSafeZoneCheck();
         RunArenaSequenceCheck();
         RunSoloCheck();
         RunRepeatedIceVisualCheck();
@@ -35,44 +34,14 @@ public static class DemoRegressionChecks
         Debug.Log("LAN ELECTION PASSED: host ID tie-break preserves a full match.");
     }
 
-    public static void RunSafeZoneCheck()
-    {
-        if (SafeZoneHazardView.WarningAt != 20f
-            || SafeZoneHazardView.BlastAt - SafeZoneHazardView.WarningAt != 5f
-            || SafeZoneHazardView.HealAt <= SafeZoneHazardView.BlastEndsAt
-            || SafeZoneHazardView.IsExploding(24.99f)
-            || !SafeZoneHazardView.IsExploding(25f)
-            || SafeZoneHazardView.IsExploding(28f))
-            throw new Exception("Safe-zone warning, blast, or heal timing is wrong.");
-        for (int seed = 0; seed < 12; seed++)
-        {
-            var heads = new[] { new Vector3(-0.8f, 1.6f, 0f), new Vector3(1.3f, 1.6f, 1.4f) };
-            if (!SafeZoneHazardView.SelectZones(heads, _ => true, seed, out var first, out var second))
-                throw new Exception("Procedural zones missing.");
-            foreach (var head in heads)
-                if (SafeZoneHazardView.DistanceToZone(first, head) < SafeZoneHazardView.MinimumMove
-                    || SafeZoneHazardView.DistanceToZone(second, head) < SafeZoneHazardView.MinimumMove)
-                    throw new Exception("A safe zone did not require movement.");
-            if (first.x + SafeZoneHazardView.HalfWidth > SafeZoneHazardView.Midline
-                || second.x - SafeZoneHazardView.HalfWidth < SafeZoneHazardView.Midline
-                || Vector2.Distance(first, second) < 1.25f
-                || !SafeZoneHazardView.Contains(first, second, new Vector3(first.x, 1.6f, first.y)))
-                throw new Exception("Safe-zone footprints overlap or reject their center.");
-        }
-        if (SafeZoneHazardView.SelectZones(new[] { Vector3.zero }, _ => false, 1, out _, out _))
-            throw new Exception("Blocked arena must not spawn unreachable refuges.");
-        Debug.Log("SAFE ZONE PASSED: procedural refuges require movement, respect blocked space, five-second warning.");
-    }
-
     public static void RunArenaSequenceCheck()
     {
         float coverDeliveredAt = SuddenDeathDirector.DeliveryStart + CoverDrone.GrabMid / CoverDrone.DeliverySpeed;
         float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.ExchangeGone / CoverDrone.DeliverySpeed;
         if (SuddenDeathDirector.PickupStart != SuddenDeathDirector.DeliveryStart
-            || coverDeliveredAt >= 0f || dronesGoneAt >= 0f
-            || SafeZoneHazardView.BlastEndsAt >= 40f + SuddenDeathDirector.PickupStart)
-            throw new Exception("Sudden-death cover must settle before 40 seconds after the safe-zone blast.");
-        Debug.Log("ARENA SEQUENCE PASSED: safe-zone blast ends before cover moves; drones leave before 40 seconds.");
+            || coverDeliveredAt >= 0f || dronesGoneAt >= 0f)
+            throw new Exception("Sudden-death cover must settle before 40 seconds.");
+        Debug.Log("ARENA SEQUENCE PASSED: drones deliver cover and leave before 40 seconds.");
     }
 
     public static void RunSoloCheck()
@@ -145,6 +114,16 @@ public static class DemoRegressionChecks
                 }
                 if (lit != expected) throw new Exception($"Ice charge at {progress:P0} lit {lit} forearm rings, expected {expected}.");
             }
+            // Holding the pose during the throw cooldown shows every ring in dim grey; charging restores the cyan sequence.
+            effects.ShowCooldown(Vector3.zero, Quaternion.identity);
+            foreach (LineRenderer ring in rings)
+                if (!ring.enabled || Mathf.Abs(ring.startColor.r - ring.startColor.b) > 0.1f || ring.startColor.a > 0.45f)
+                    throw new Exception("The ice cooldown must show every forearm ring in dim grey.");
+            effects.ShowCharge(Vector3.zero, Quaternion.identity, 0.1f, false);
+            var shard = (MeshRenderer)typeof(IceGrenadeEffects).GetField("chargeShardRenderer", flags).GetValue(effects);
+            if (rings[1].enabled || Mathf.Abs(rings[0].startColor.r - rings[0].startColor.b) < 0.1f
+                || shard.sharedMaterial.name != "Cold fragments")
+                throw new Exception("Charging after the cooldown must return to the cyan ring sequence.");
             ArmActivationSignal.Sample(Time.time); // First sample subscribes and resets outside play mode.
             onSignal.Invoke(null, new object[] { "session_pause", "" });
             onSignal.Invoke(null, new object[] { "ice_charge_start", "ice" });
@@ -154,6 +133,10 @@ public static class DemoRegressionChecks
             var firing = ArmActivationSignal.Sample(Time.time + 0.1f);
             if (firing.Cold > 0.5f || firing.Shield > 0f)
                 throw new Exception("Firing must keep the forearm spiral.");
+            onSignal.Invoke(null, new object[] { "session_pause", "" });
+            onSignal.Invoke(null, new object[] { "fire_start", "fire" });
+            if (ArmActivationSignal.Sample(Time.time + 0.1f).Heat < 0.999f)
+                throw new Exception("The heat beam must switch the forearm to its quiet helix and travelling spirals.");
             onSignal.Invoke(null, new object[] { "session_pause", "" });
             onSignal.Invoke(null, new object[] { "shield_start", "shield" });
             if (ArmActivationSignal.Sample(Time.time + 0.1f).Shield < 0.999f)
@@ -267,12 +250,12 @@ public static class DemoRegressionChecks
         float curled = HandPoseRouter.MeasureExtension(Direction(0), Direction(50), Direction(120), Direction(160));
         if (straight < 0.85f || curled > 0.35f) throw new Exception("Finger bend fixture failed.");
         var cases = new[] {
-            (straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Neutral),
+            (straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Fire),
             (curled, straight, curled, curled, false, HandPoseRouter.PoseKind.Neutral),
             (straight, straight, curled, curled, true, HandPoseRouter.PoseKind.Fire),
             (straight, straight, straight, straight, false, HandPoseRouter.PoseKind.Ice),
             (straight, straight, -1f, straight, false, HandPoseRouter.PoseKind.Ice),
-            (straight, curled, -1f, curled, false, HandPoseRouter.PoseKind.Neutral),
+            (straight, curled, -1f, curled, false, HandPoseRouter.PoseKind.Fire),
             (straight, curled, -1f, -1f, false, HandPoseRouter.PoseKind.Neutral),
             (curled, curled, -1f, -1f, false, HandPoseRouter.PoseKind.Shield),
             (-1f, -1f, -1f, -1f, false, HandPoseRouter.PoseKind.Neutral),
@@ -291,11 +274,54 @@ public static class DemoRegressionChecks
         }
         if (HandPoseRouter.Classify(straight, straight, straight, straight, false, HandPoseRouter.PoseKind.Shield)
             != HandPoseRouter.PoseKind.Ice) throw new Exception("Opening fist must release shield.");
+        if (HandPoseRouter.Classify(straight, curled, curled, curled, false, HandPoseRouter.PoseKind.Neutral, false)
+            != HandPoseRouter.PoseKind.Neutral
+            || HandPoseRouter.Classify(straight, straight, curled, curled, false, HandPoseRouter.PoseKind.Neutral, false)
+            != HandPoseRouter.PoseKind.Fire)
+            throw new Exception("Two-finger-only fire (the left-hand match reset) must still need both fingers.");
         Quaternion rotation = Quaternion.Euler(70f, 105f, 33f);
         float rotated = HandPoseRouter.MeasureExtension(rotation * Direction(0), rotation * Direction(8),
             rotation * Direction(12), rotation * Direction(15));
         if (Mathf.Abs(rotated - straight) > 0.001f) throw new Exception("Hand orientation changed finger classification.");
-        Debug.Log("POSE FIXTURES PASSED: two-finger gun, open palm, relaxed fist, occluded outer fingers, invalid tracking, and rotated hand.");
+
+        // Right hand held up, palm facing +Z: wrist, middle, index and little-finger knuckles.
+        Vector3[] palmForward = { Vector3.zero, new Vector3(0f, 0.09f, 0f), new Vector3(-0.03f, 0.085f, 0f), new Vector3(0.035f, 0.075f, 0f) };
+        Vector3 Palm(Quaternion turn, bool right)
+        {
+            Vector3 P(int i) => turn * (right ? palmForward[i] : Vector3.Scale(palmForward[i], new Vector3(-1f, 1f, 1f)));
+            return HandPoseRouter.PalmNormal(P(0), P(1), P(2), P(3), right);
+        }
+        bool Away(Quaternion turn, Quaternion head, bool right = true)
+            => HandPoseRouter.IsPalmTurnedAway(Palm(turn, right), head, 70f);
+        bool ToBody(Quaternion turn, Quaternion head, bool right = true)
+            => HandPoseRouter.IsPalmTurnedToBody(Palm(turn, right), head, 45f);
+        Quaternion level = Quaternion.identity;
+        if (!Away(level, level) || Away(Quaternion.Euler(0f, 180f, 0f), level))
+            throw new Exception("Ice palm must count facing forward and not facing the body.");
+        if (!Away(Quaternion.Euler(0f, 65f, 0f), level) || Away(Quaternion.Euler(0f, 75f, 0f), level)
+            || !Away(Quaternion.Euler(0f, -65f, 0f), level) || Away(Quaternion.Euler(0f, -75f, 0f), level)
+            || !Away(Quaternion.Euler(-65f, 0f, 0f), level) || Away(Quaternion.Euler(-75f, 0f, 0f), level)
+            || !Away(Quaternion.Euler(65f, 0f, 0f), level) || Away(Quaternion.Euler(75f, 0f, 0f), level))
+            throw new Exception("Ice palm threshold must be 70 degrees from forward in every direction.");
+        if (!Away(level, Quaternion.Euler(60f, 0f, 0f)) || !Away(level, Quaternion.Euler(-90f, 0f, 0f))
+            || Away(level, Quaternion.Euler(0f, 180f, 0f)))
+            throw new Exception("Ice palm must use the body's level forward, whatever the head pitch.");
+        if (!Away(level, level, false) || Away(Quaternion.Euler(0f, 180f, 0f), level, false))
+            throw new Exception("Left-hand palm direction is mirrored incorrectly.");
+        Quaternion back = Quaternion.Euler(0f, 180f, 0f);
+        if (!ToBody(back, level) || ToBody(level, level) || ToBody(Quaternion.Euler(0f, 90f, 0f), level))
+            throw new Exception("Shield palm must count facing the chest and not facing forward or sideways.");
+        if (!ToBody(Quaternion.Euler(0f, 140f, 0f), level) || ToBody(Quaternion.Euler(0f, 130f, 0f), level)
+            || !ToBody(Quaternion.Euler(0f, 220f, 0f), level) || ToBody(Quaternion.Euler(0f, 230f, 0f), level)
+            || !ToBody(Quaternion.Euler(40f, 180f, 0f), level) || ToBody(Quaternion.Euler(50f, 180f, 0f), level)
+            || !ToBody(Quaternion.Euler(-40f, 180f, 0f), level) || ToBody(Quaternion.Euler(-50f, 180f, 0f), level))
+            throw new Exception("Shield palm threshold must be 45 degrees from backward in every direction.");
+        if (!ToBody(back, Quaternion.Euler(60f, 0f, 0f)) || !ToBody(back, Quaternion.Euler(-90f, 0f, 0f))
+            || ToBody(back, back))
+            throw new Exception("Shield palm must use the body's level backward, whatever the head pitch.");
+        if (!ToBody(back, level, false) || ToBody(level, level, false))
+            throw new Exception("Left-hand shield palm direction is mirrored incorrectly.");
+        Debug.Log("POSE FIXTURES PASSED: one- and two-finger gun (two-finger only for the reset), open palm, relaxed fist, occluded outer fingers, invalid tracking, rotated hand, ice palm within 70 degrees of forward, and shield palm within 45 degrees of backward.");
     }
 
     public static void RunHudFollowCheck()
@@ -380,6 +406,22 @@ public static class DemoRegressionChecks
                 throw new Exception("First-frame dotted beam preview must end at the actual cover raycast.");
             float burst = (float)typeof(PalmBeamShooter).GetField("beamBurstStartTime", flags).GetValue(shooter);
             if (burst >= 0f) throw new Exception("Unconfirmed pose must not fire the beam.");
+            // A held beam stops after 3 seconds, then a held pose shows the grey cooldown instead of recharging.
+            float ShooterTime(string name) => (float)typeof(PalmBeamShooter).GetField(name, flags).GetValue(shooter);
+            if (PalmBeamShooter.IsBurstOver(10f, 12.9f, 3f) || !PalmBeamShooter.IsBurstOver(10f, 13f, 3f)
+                || PalmBeamShooter.IsBurstOver(-1f, 13f, 3f) || PalmBeamShooter.IsBurstOver(10f, 99f, 0f))
+                throw new Exception("A beam burst must last exactly 3 seconds.");
+            SetRouter("current", HandPoseRouter.PoseKind.Fire);
+            SetShooter("beamBurstStartTime", Time.time);
+            typeof(PalmBeamShooter).GetMethod("StopBeamBurst", flags).Invoke(shooter, new object[] { true });
+            if (ShooterTime("beamBurstStartTime") >= 0f || ShooterTime("nextAllowedFireTime") - Time.time < 2.99f)
+                throw new Exception("An ended burst must start a 3-second cooldown.");
+            shooter.FireBeam();
+            var heatCharge = root.transform.Find("HeatCharge");
+            if (ShooterTime("poseChargeStartTime") >= 0f || heatCharge == null || !heatCharge.gameObject.activeSelf)
+                throw new Exception("A held pose must show the grey cooldown, not recharge, while the beam cools down.");
+            SetShooter("nextAllowedFireTime", 0f);
+            SetRouter("current", HandPoseRouter.PoseKind.Neutral);
             Vector3 head = new Vector3(0f, 1.7f, 0f), wrist = new Vector3(0.3f, 1.1f, 0.35f);
             Vector3 elbow = HandPoseRouter.EstimateElbow(head, Quaternion.identity, wrist);
             if (Mathf.Abs(Vector3.Distance(elbow, wrist) - 0.25f) > 0.001f)
@@ -406,12 +448,34 @@ public static class DemoRegressionChecks
                 || Mathf.Abs(Vector3.Dot(shieldRotation * Vector3.forward, normalCuff.normalized)) > 0.001f
                 || Vector3.Dot(shieldRotation * Vector3.up, normalCuff.normalized) < 0.999f)
                 throw new Exception("Shield must lie along the back of the forearm, centred over the arm-effect cuff.");
+            // A blocking forearm is held more diagonally: with the arm straight up, attack effects lean
+            // about 15 degrees (elbow end toward the body's right) and the shield aura about 45 the same
+            // way, never forward or back.
+            Vector3 raisedWrist = new Vector3(0.18f, 2f, 0.05f);
+            Quaternion attack = Quaternion.LookRotation(HandPoseRouter.ForearmDirection(head, Quaternion.identity, raisedWrist), Vector3.forward);
+            Quaternion guard = HandPoseRouter.LeanForearm(attack, Quaternion.identity, 30f);
+            Vector3 attackAxis = attack * Vector3.forward, guardAxis = guard * Vector3.forward;
+            float attackLean = Mathf.Atan2(attackAxis.x, attackAxis.y) * Mathf.Rad2Deg;
+            float guardLean = Mathf.Atan2(guardAxis.x, guardAxis.y) * Mathf.Rad2Deg;
+            // Hot laser / ice bomb effects lean 10 degrees further the same way, and their elbow end
+            // swings 15 degrees back toward the body (wrist end tips forward).
+            Vector3 leanedAxis = HandPoseRouter.LeanForearm(attack, Quaternion.identity, 10f, 15f) * Vector3.forward;
+            float leanedAttack = Mathf.Atan2(leanedAxis.x, leanedAxis.y) * Mathf.Rad2Deg;
+            float towardBody = (Mathf.Atan2(leanedAxis.z, leanedAxis.y) - Mathf.Atan2(attackAxis.z, attackAxis.y)) * Mathf.Rad2Deg;
+            Quaternion pointing = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+            if (attackLean > -10f || guardLean > -38f || guardLean < -50f
+                || leanedAttack > attackLean - 9f || leanedAttack < attackLean - 12f || towardBody < 13f || towardBody > 17f
+                || Mathf.Abs(guardAxis.z - attackAxis.z) > 0.001f
+                || HandPoseRouter.LeanForearm(attack, Quaternion.identity, 0f) != attack
+                || Quaternion.Angle(HandPoseRouter.LeanForearm(pointing, Quaternion.identity, 30f), pointing) > 0.01f
+                || Quaternion.Angle(HandPoseRouter.LeanForearm(attack, Quaternion.Euler(-90f, 0f, 0f), 30f), guard) > 0.01f)
+                throw new Exception($"The shield aura must lean further than attack effects, elbow end toward the body's right, in the side plane (attack {attackLean:0.0}, shield {guardLean:0.0}).");
             Mesh shield = (Mesh)typeof(ForearmShieldEffects).Assembly.GetType("CombatVfxStyle")
                 .GetMethod("CreateHexField", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { 0.31f });
             foreach (Color color in shield.colors)
                 if (color.a < 0.19f) throw new Exception("Shield fill is too transparent.");
             UnityEngine.Object.DestroyImmediate(shield);
-            Debug.Log("FEEDBACK PASSED: immediate pose preview, charge raycast hits cover without firing, arm estimate follows calibrated frame, shield along the forearm, visible shield fill.");
+            Debug.Log("FEEDBACK PASSED: immediate pose preview, charge raycast hits cover without firing, beam stops after 3 s into a grey 3 s cooldown, arm estimate follows calibrated frame, shield along the forearm, visible shield fill.");
         }
         finally { UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(cover); }
     }
@@ -448,15 +512,21 @@ public static class DemoRegressionChecks
             if (first.@event != "shield_start" || block.@event != "shield_block" || block.blocks != 1
                 || block.health != 300 || block.seq != first.seq + 1 || block.active.Length != 1)
                 throw new Exception("UDP state/event sequencing or block accounting failed.");
+            if (first.attack != "" || block.attack != "ice")
+                throw new Exception("Block must name its attack for the Pi's hot/cold choice.");
             CombatEventOutput.State("shield", false);
             var stopped = Read();
             if (stopped.active.Length != 0 || stopped.@event != "shield_stop")
                 throw new Exception("Shield stop did not clear output state.");
-            CombatEventOutput.Emit("hit_received", "hazard", 12, 288);
+            if (stopped.attack != "ice")
+                throw new Exception("Later messages must keep the last attack, so a snapshot can stand in for a lost hit.");
+            CombatEventOutput.Emit("hit_received", "fire", 12, 288);
             var hit = Read();
-            if (hit.source != "hazard" || hit.hits != 1 || hit.health != 288)
+            if (hit.source != "fire" || hit.hits != 1 || hit.health != 288)
                 throw new Exception("Damage source/health missing from output.");
-            Debug.Log("OUTPUT PASSED: real UDP loopback, ordered state transitions, duplicate suppression, shield blocks and hazard damage payloads.");
+            if (hit.attack != "fire")
+                throw new Exception("Hit must name its attack for the Pi's hot/cold choice.");
+            Debug.Log("OUTPUT PASSED: real UDP loopback, ordered state transitions, duplicate suppression, shield blocks and damage payloads, and hit/block attack kept for the Pi's hot/cold choice.");
         }
         finally
         {
@@ -642,15 +712,16 @@ public static class DemoRegressionChecks
             if ((float)type.GetField("nextThrowAllowedTime", flags).GetValue(launcher) - Time.time < 2.999f)
                 throw new Exception("An ice throw must start a 3-second cooldown.");
             foreach (var placed in UnityEngine.Object.FindObjectsByType<IceGrenadeLauncher>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-                if ((float)type.GetField("throwCooldownSeconds", flags).GetValue(placed) < 3f)
-                    throw new Exception($"{placed.name} ice cooldown is shorter than 3 seconds.");
+                if ((float)type.GetField("throwCooldownSeconds", flags).GetValue(placed) < 3f
+                    || Mathf.Abs((float)type.GetField("chargeSeconds", flags).GetValue(placed) - 2.5f) > 0.001f)
+                    throw new Exception($"{placed.name} ice needs a 3-second cooldown and a 2.5-second charge.");
         }
         finally
         {
             UnityEngine.Object.DestroyImmediate(thrown);
             UnityEngine.Object.DestroyImmediate(cooldownRoot);
         }
-        Debug.Log("ICE TIMING PASSED: 0.5-5 m throws land on target after one second; each throw starts a 3-second cooldown.");
+        Debug.Log("ICE TIMING PASSED: 0.5-5 m throws land on target after one second; each throw starts a 3-second cooldown; ice charges for 2.5 seconds.");
     }
 
     public static void CaptureHud()
@@ -745,26 +816,6 @@ public static class DemoRegressionChecks
             UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline = originalPipeline;
             QualitySettings.renderPipeline = originalQuality;
         }
-    }
-
-    public static void InspectSafeZoneClearance()
-    {
-        UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
-        Transform arena = GameObject.Find("ArenaRoot")?.transform;
-        Transform cover = GameObject.Find("ArenaRoot/GameplayRoot/GameplayCover")?.transform;
-        if (arena == null || cover == null) throw new Exception("Arena or starting cover missing.");
-        Collider[] obstacles = cover.GetComponentsInChildren<Collider>(true);
-        for (int sample = 0; sample < 20; sample++)
-        {
-            var heads = new[] { new Vector3(-1.5f + sample * 0.1f, 1.6f, -0.4f),
-                new Vector3(1.8f - sample * 0.1f, 1.6f, 1.8f) };
-            Physics.SyncTransforms();
-            bool Clear(Vector2 point) => SafeZoneHazardView.HasClearance(
-                arena.TransformPoint(new Vector3(point.x, 1.125f, point.y)), arena.rotation);
-            if (!SafeZoneHazardView.SelectZones(heads, Clear, sample, out var a, out var b) || !Clear(a) || !Clear(b))
-                throw new Exception("Procedural refuges failed starting-cover clearance sample " + sample);
-        }
-        Debug.Log($"SAFE ZONE CLEARANCE PASSED: procedural placement across 20 player pairs and {obstacles.Length} colliders.");
     }
 
     public static void RunBoneLookup()

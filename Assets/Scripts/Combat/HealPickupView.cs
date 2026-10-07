@@ -8,6 +8,8 @@ using UnityEngine.Rendering;
 [DisallowMultipleComponent]
 public sealed class HealPickupView : MonoBehaviour
 {
+    /// <summary>Seconds into the fight when the heal appears.</summary>
+    public const float HealAt = 29f;
     internal static readonly Color Green = new Color(0.22f, 1f, 0.45f, 1f);
     internal static readonly Color GreenCore = new Color(0.8f, 1f, 0.86f, 1f);
 
