@@ -83,7 +83,7 @@ adb -s "$QUEST_A" push tools/pi/quest-a-combat-output.json "$APP_FILES/combat-ou
 adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 ```
 
-The Quest automatically hosts if it finds no other host. Its Pi output file selects `192.168.1.5:7779` and device label `quest-a`. To change the Pi IP or label, edit the local JSON, push it again, and restart the app. Check startup with:
+The Quest automatically hosts if it finds no other host. Its Pi output file sets device label `quest-a`. On launch, press **PLAYER 1** in the floating **Select Pi** menu to send to `192.168.1.4:7779`; restart the app to choose again. The menu's Pi IPs are set on the `Pi Selection Menu` object in `Game.unity`. Check startup with:
 
 ```bash
 adb -s "$QUEST_A" logcat -d -s Unity:D | grep -E 'LAN: hosting|CombatOutput|Exception'
@@ -93,15 +93,15 @@ Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event.
 
 ## 5. Add Quest B later
 
-Give Quest B the **same APK**. There is no host/client choice to make. If Quest A is already running, Quest B finds it and joins. If both start together, host beacons break the tie. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app only if you need to push its separate Pi output config.
+Give Quest B the **same APK**. There is no host/client choice to make. If Quest A is already running, Quest B finds it and joins. If both start together, host beacons break the tie. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app only if you need to push its own device label. On launch, press **PLAYER 2** in the **Select Pi** menu to send to the second Pi (`192.168.1.248`).
 
-For Quest B's Pi output, create a separate `combat-output.json` with its own label and the **second Pi's actual LAN IP**:
+To label Quest B's output, push a `combat-output.json` with its own label (the menu choice overrides `host`):
 
 ```json
-{"udpEnabled":true,"host":"SECOND_PI_IP","port":7779,"deviceLabel":"quest-b"}
+{"udpEnabled":true,"host":"192.168.1.5","port":7779,"deviceLabel":"quest-b"}
 ```
 
-Save that as a local file, replace `SECOND_PI_IP` with a numeric address, and push it to Quest B as `combat-output.json`. Run the same receiver service on that Pi, substituting its user, address, and home directory in the install commands. If both headsets should temporarily use the current Pi, use `192.168.1.5` for both and keep different device labels; the Pi receiver tracks their sessions separately.
+Run the same receiver service on the second Pi, substituting its user, address, and home directory in the install commands. If both headsets should temporarily use the current Pi, press the same button on both; the Pi receiver tracks their sessions separately.
 
 ```bash
 export QUEST_B=QUEST_B_SERIAL

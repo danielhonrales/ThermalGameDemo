@@ -36,7 +36,9 @@ Push the configuration to each headset and restart the app:
 adb -s QUEST_SERIAL push tools/pi/quest-a-combat-output.json /sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/combat-output.json
 ```
 
-The Quests select their Mirror host/client roles automatically; no role file is needed. When a second Quest is added, give it a different `deviceLabel` and its own Pi IP in `combat-output.json` if it should send to a second Pi. The Pi output does not depend on the second Quest being present, but receiving a hit or shield block does require another player or a game hazard.
+At launch, a **Select Pi** menu floats in front of the player until a fingertip presses one of the Pi buttons; that headset then sends to the chosen Pi for the rest of the run. Restart the app to choose again. The Pi labels and IPs live on the `Pi Selection Menu` object in `Assets/Scenes/Game.unity` (component `PiSelectionMenu`); a button with no valid IP is greyed out. The menu's choice replaces the `host` in `combat-output.json`; `udpEnabled`, `port` and `deviceLabel` still come from that file. Keys 1–9 select in the Editor.
+
+The Quests select their Mirror host/client roles automatically; no role file is needed. When a second Quest is added, give it a different `deviceLabel` in `combat-output.json` and pick the second Pi in the startup menu. The Pi output does not depend on the second Quest being present, but receiving a hit or shield block does require another player or a game hazard.
 
 Keep the Pi at `192.168.1.5` with a router DHCP reservation or static address. The router must allow traffic between Wi-Fi clients; guest/client isolation can prevent delivery. Allow UDP port 7779 on the Pi. No discovery or Internet service is needed for this output.
 

@@ -29,13 +29,13 @@ public sealed class CombatEventOutput : MonoBehaviour
         public int leadMs = Mathf.RoundToInt(HardwareLeadSeconds * 1000f);
     }
     public const float HardwareLeadSeconds = 0.3f;
-    /// <summary>Resources text file holding the Pi IP a per-player APK was built with (see PlayerApkBuilds).</summary>
-    public const string BakedPiHostResource = "pi-host";
     /// <summary>Raised for every non-snapshot event (name, source) as it is sent to the Pi.</summary>
     public static event Action<string, string> Signaled;
     private static CombatEventOutput instance;
+    private static bool hostSelectionPending;
     private readonly HashSet<string> active = new HashSet<string>();
     private readonly Message message = new Message();
+    private Config config = new Config();
     private StreamWriter log;
     private Socket socket;
     private IPEndPoint destination;
@@ -44,7 +44,7 @@ public sealed class CombatEventOutput : MonoBehaviour
     private bool suspended;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetStatics() { instance = null; Signaled = null; }
+    private static void ResetStatics() { instance = null; Signaled = null; hostSelectionPending = false; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Boot()
@@ -67,33 +67,60 @@ public sealed class CombatEventOutput : MonoBehaviour
         logPath = Path.Combine(Application.persistentDataPath, "combat-events.jsonl");
         try
         {
-            Config config = File.Exists(configPath) ? JsonUtility.FromJson<Config>(File.ReadAllText(configPath)) : DefaultConfig();
+            config = File.Exists(configPath) ? JsonUtility.FromJson<Config>(File.ReadAllText(configPath)) : new Config();
             if (!File.Exists(configPath)) File.WriteAllText(configPath, JsonUtility.ToJson(config, true));
             if (File.Exists(logPath)) { if (File.Exists(logPath + ".previous")) File.Delete(logPath + ".previous"); File.Move(logPath, logPath + ".previous"); }
             log = new StreamWriter(logPath, false, new UTF8Encoding(false));
             if (!string.IsNullOrWhiteSpace(config.deviceLabel)) message.device = config.deviceLabel;
-            if (config.udpEnabled)
-            {
-                if (!IPAddress.TryParse(config.host, out var address) || config.port < 1 || config.port > 65535)
-                    Debug.LogWarning("Combat output: set a numeric Pi IP and port in combat-output.json.");
-                else
-                {
-                    destination = new IPEndPoint(address, config.port);
-                    socket = new Socket(address.AddressFamily, SocketType.Dgram, ProtocolType.Udp) { Blocking = false };
-                }
-            }
         }
         catch (Exception e) { Debug.LogWarning("Combat output setup: " + e.Message); }
         Write("session_start", "app", 0);
     }
 
-    // New installs take the Pi IP baked into their APK; builds without one use Config's default.
-    private static Config DefaultConfig()
+    // Runs after the first scene's Awake, so a startup Pi menu can claim the destination first.
+    private void Start()
     {
-        var config = new Config();
-        TextAsset baked = Resources.Load<TextAsset>(BakedPiHostResource);
-        if (baked != null && !string.IsNullOrWhiteSpace(baked.text)) config.host = baked.text.Trim();
-        return config;
+        if (!hostSelectionPending) Connect(config.host);
+    }
+
+    /// <summary>Holds UDP output until <see cref="SelectHost"/> picks a Pi; the config file's host is ignored.</summary>
+    public static void AwaitHostSelection()
+    {
+        hostSelectionPending = true;
+        if (instance == null) return;
+        instance.socket?.Dispose();
+        instance.socket = null;
+        instance.destination = null;
+    }
+
+    /// <summary>Sends this headset's output to the given Pi IP (port from combat-output.json).</summary>
+    public static bool SelectHost(string host)
+    {
+        hostSelectionPending = false;
+        if (instance == null || !instance.Connect(host)) return false;
+        instance.Write("pi_selected", host, 0);
+        return true;
+    }
+
+    private bool Connect(string host)
+    {
+        socket?.Dispose();
+        socket = null;
+        destination = null;
+        if (!config.udpEnabled) return false;
+        if (!IPAddress.TryParse(host, out var address) || config.port < 1 || config.port > 65535)
+        {
+            Debug.LogWarning($"Combat output: '{host}' is not a numeric Pi IP, or the port in combat-output.json is invalid.");
+            return false;
+        }
+        try
+        {
+            destination = new IPEndPoint(address, config.port);
+            socket = new Socket(address.AddressFamily, SocketType.Dgram, ProtocolType.Udp) { Blocking = false };
+            Debug.Log($"[CombatOutput] Sending to Pi {destination}");
+            return true;
+        }
+        catch (SocketException e) { Debug.LogWarning("Combat output setup: " + e.Message); destination = null; return false; }
     }
 
     public static void SetPlayer(int id, int health)
