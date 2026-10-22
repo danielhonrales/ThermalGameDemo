@@ -64,17 +64,6 @@ public sealed class HandPoseRouter : MonoBehaviour
         return hasFireRay && FeedbackPose == PoseKind.Fire;
     }
 
-    public bool TryGetTrackedWristRotation(out Quaternion rotation)
-    {
-        Evaluate();
-        rotation = Quaternion.identity;
-        if (hand == null || !hand.IsTracked || skeleton == null || !skeleton.IsDataValid) return false;
-        Transform wrist = Bone(OVRSkeleton.BoneId.XRHand_Wrist, OVRSkeleton.BoneId.Hand_WristRoot);
-        if (wrist == null) return false;
-        rotation = wrist.rotation;
-        return true;
-    }
-
     public bool TryGetForearmPose(Transform head, out Vector3 position, out Quaternion rotation)
     {
         Evaluate();
@@ -262,17 +251,33 @@ public sealed class HandPoseRouter : MonoBehaviour
         return PoseKind.Neutral;
     }
 
-    // Ice wants the palm turned away from the body; the shield wants it turned toward the chest.
-    private bool IsPalmFacing(bool towardBody, float maxDegrees)
+    /// <summary>Direction the tracked palm faces; false while the hand isn't tracked.</summary>
+    public bool TryGetPalmNormal(out Vector3 normal)
     {
-        Camera eye = Camera.main;
+        Evaluate();
+        normal = Vector3.zero;
+        if (hand == null || !hand.IsTracked || skeleton == null || !skeleton.IsDataValid) return false;
+        return TryPalmNormal(out normal);
+    }
+
+    private bool TryPalmNormal(out Vector3 normal)
+    {
+        normal = Vector3.zero;
         Transform wrist = Bone(OVRSkeleton.BoneId.XRHand_Wrist, OVRSkeleton.BoneId.Hand_WristRoot);
         Transform middle = Bone(OVRSkeleton.BoneId.XRHand_MiddleProximal, OVRSkeleton.BoneId.Hand_Middle1);
         Transform index = Bone(OVRSkeleton.BoneId.XRHand_IndexProximal, OVRSkeleton.BoneId.Hand_Index1);
         Transform pinky = Bone(OVRSkeleton.BoneId.XRHand_LittleProximal, OVRSkeleton.BoneId.Hand_Pinky1);
-        if (eye == null || wrist == null || middle == null || index == null || pinky == null) return false;
-        Vector3 palm = PalmNormal(wrist.position, middle.position, index.position, pinky.position,
+        if (wrist == null || middle == null || index == null || pinky == null) return false;
+        normal = PalmNormal(wrist.position, middle.position, index.position, pinky.position,
             handSide == OVRPlugin.Hand.HandRight);
+        return true;
+    }
+
+    // Ice wants the palm turned away from the body; the shield wants it turned toward the chest.
+    private bool IsPalmFacing(bool towardBody, float maxDegrees)
+    {
+        Camera eye = Camera.main;
+        if (eye == null || !TryPalmNormal(out Vector3 palm)) return false;
         return towardBody ? IsPalmTurnedToBody(palm, eye.transform.rotation, maxDegrees)
             : IsPalmTurnedAway(palm, eye.transform.rotation, maxDegrees);
     }

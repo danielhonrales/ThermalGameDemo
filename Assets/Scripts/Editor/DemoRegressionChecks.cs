@@ -647,21 +647,22 @@ public static class DemoRegressionChecks
             }
         }
         finally { UnityEngine.Object.DestroyImmediate(rangeRoot); }
+        // The palm's level facing aims the throw, however far it tilts up or down.
         foreach (var test in new[] {
-            (Quaternion.identity, 0f),
-            (Quaternion.Euler(0f, 0f, -1f), 0f),
-            (Quaternion.Euler(0f, 0f, -10f), 12.8f),
-            (Quaternion.Euler(0f, 0f, 10f), -12.8f),
-            (Quaternion.Euler(0f, 10f, 0f), 12.8f),
-            (Quaternion.Euler(12f, 0f, 0f), 0f),
-            (Quaternion.Euler(0f, 0f, -60f), 35f)
+            (new Vector3(0f, 0f, 1f), new Vector3(0f, 0f, 1f)),
+            (new Vector3(1f, 0f, 1f), new Vector3(1f, 0f, 1f).normalized),
+            (new Vector3(-1f, 0.8f, 0.5f), new Vector3(-1f, 0f, 0.5f).normalized),
+            (new Vector3(0f, -2f, 2f), new Vector3(0f, 0f, 1f))
         })
         {
-            float angle = IceGrenadeLauncher.WristSteeringAngle(Quaternion.identity, test.Item1);
-            if (Mathf.Abs(angle - test.Item2) > 0.02f)
-                throw new Exception($"Wrist steering expected {test.Item2}, got {angle}.");
+            if (!IceGrenadeLauncher.TryLevelHeading(test.Item1, out Vector3 heading)
+                || Vector3.Angle(heading, test.Item2) > 0.01f || Mathf.Abs(heading.magnitude - 1f) > 0.001f)
+                throw new Exception($"Palm facing {test.Item1} should aim along {test.Item2}, got {heading}.");
         }
-        Debug.Log("ICE STEERING PASSED: short low casts, full raised range, left/right wrist steering, dead band and bounded deflection.");
+        if (IceGrenadeLauncher.TryLevelHeading(Vector3.up, out _)
+            || IceGrenadeLauncher.TryLevelHeading(new Vector3(0.1f, -1f, 0.1f), out _))
+            throw new Exception("A palm facing straight up or down must not set the throw direction.");
+        Debug.Log("ICE AIM PASSED: short low casts, full raised range, throws follow the palm's level facing, a flat palm keeps the last direction.");
         var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         wall.layer = 30;
         wall.transform.position = new Vector3(1000f, 2f, 1001.5f);

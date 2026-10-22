@@ -8,12 +8,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-/// <summary>Startup menu that floats in front of the player until a fingertip presses one of the
-/// Raspberry Pis found on the LAN; this headset's combat output then goes to that Pi. Each Pi's
-/// receiver broadcasts "THERMAL-PI-1:&lt;name&gt;" to UDP <see cref="DiscoveryPort"/> about once a second,
-/// so no Pi IPs live in Unity. The expected names always have a button, greyed until that Pi is
-/// heard; any other Pi that announces itself is added after them. It appears once per launch, so
-/// restart the app to choose again. Keys 1-9 also select, for editor testing.</summary>
+/// <summary>Startup menu that floats in front of the player until one of the Raspberry Pis found on
+/// the LAN is chosen, by pressing its button with a fingertip or by pointing at it and pinching;
+/// this headset's combat output then goes to that Pi. CLOSE dismisses it with no Pi, leaving the
+/// output off. Each Pi's receiver broadcasts "THERMAL-PI-1:&lt;name&gt;" to UDP <see cref="DiscoveryPort"/>
+/// about once a second, so no Pi IPs live in Unity. The expected names always have a button, greyed
+/// until that Pi is heard; any other Pi that announces itself is added after them. It appears once
+/// per launch, so restart the app to choose again. Keys 1-9 select and Escape closes, for editor
+/// testing.</summary>
 [DisallowMultipleComponent]
 public sealed class PiSelectionMenu : MonoBehaviour
 {
@@ -31,6 +33,9 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private const float Scale = 0.001f;
     private const float ButtonGap = 20f;
     private static readonly Vector2 ButtonSize = new Vector2(160f, 100f);
+    private static readonly Vector2 CloseSize = new Vector2(70f, 34f);
+    // Metres; a pointer ray farther from the board than this is ignored.
+    private const float MaxRayLength = 3f;
     private static readonly Color Idle = new Color(0.045f, 0.075f, 0.11f, 0.95f);
     private static readonly Color Disabled = new Color(0.05f, 0.05f, 0.06f, 0.8f);
 
@@ -38,23 +43,27 @@ public sealed class PiSelectionMenu : MonoBehaviour
     {
         public string name, host;
         public float lastSeen = float.NegativeInfinity;
-        public Vector2 center;
+        public Vector2 center, size = ButtonSize;
         public Image panel;
         public TextMeshProUGUI title, address;
-        public bool shown;
-        public bool Valid => host != null && Time.unscaledTime - lastSeen < StaleAfter;
+        public bool shown, close;
+        public bool Valid => close || (host != null && Time.unscaledTime - lastSeen < StaleAfter);
+        public bool Pressable => close || shown;
     }
     private sealed class Finger
     {
         public OVRPlugin.Hand side;
         public OVRHand hand;
         public OVRSkeleton skeleton;
-        public bool armed;
+        public bool armed, pinching;
+        public LineRenderer ray;
     }
 
     private RectTransform board;
     private Vector2 boardSize;
     private readonly List<PiButton> buttons = new List<PiButton>();
+    private PiButton closeButton;
+    private Material rayMaterial;
     private TextMeshProUGUI status;
     private UdpClient discovery;
     private string discoveryError;
@@ -82,6 +91,13 @@ public sealed class PiSelectionMenu : MonoBehaviour
             discoveryError = e.Message;
             Debug.LogWarning($"[PiSelectionMenu] Cannot listen for Pis on UDP {DiscoveryPort}: {e.Message}");
         }
+        rayMaterial = CombatVfxStyle.CreateMaterial("Pi menu pointer", Color.white);
+        foreach (var finger in fingers)
+        {
+            finger.ray = CombatVfxStyle.CreateLine(transform, "Pi menu pointer", rayMaterial, true, 0.004f);
+            finger.ray.startColor = HudKit.A(FusionRoundHud.Friendly, 0.15f);
+            finger.ray.endColor = HudKit.A(FusionRoundHud.Friendly, 0.85f);
+        }
         Build();
     }
 
@@ -105,6 +121,21 @@ public sealed class PiSelectionMenu : MonoBehaviour
         return null;
     }
 
+    private IEnumerable<PiButton> Targets()
+    {
+        foreach (var button in buttons) yield return button;
+        if (closeButton != null) yield return closeButton;
+    }
+
+    /// <summary>The pressable button under a point in board units, if any.</summary>
+    private PiButton ButtonAt(Vector3 local)
+    {
+        foreach (var button in Targets())
+            if (button.Pressable && Mathf.Abs(local.x - button.center.x) < button.size.x * 0.5f
+                && Mathf.Abs(local.y - button.center.y) < button.size.y * 0.5f) return button;
+        return null;
+    }
+
     private void Build()
     {
         float rowWidth = buttons.Count * ButtonSize.x + Mathf.Max(0, buttons.Count - 1) * ButtonGap;
@@ -114,8 +145,17 @@ public sealed class PiSelectionMenu : MonoBehaviour
         HudKit.Image(board, "Board", HudSprites.Panel(18), new Color(0.015f, 0.025f, 0.04f, 0.88f),
             Vector2.zero, boardSize, true, 1f);
         Label(board, "SELECT PI", 26f, Color.white, new Vector2(0f, 100f), boardSize.x - 20f);
-        Label(board, "PRESS A BUTTON WITH YOUR FINGERTIP", 11f, FusionRoundHud.Friendly, new Vector2(0f, 70f), boardSize.x - 20f);
+        Label(board, "PRESS WITH A FINGERTIP, OR POINT AND PINCH", 11f, FusionRoundHud.Friendly, new Vector2(0f, 70f), boardSize.x - 20f);
         status = Label(board, "", 10f, FusionRoundHud.Soft, new Vector2(0f, -105f), boardSize.x - 20f);
+
+        closeButton = new PiButton
+        {
+            name = "CLOSE", close = true, size = CloseSize,
+            center = new Vector2(boardSize.x * 0.5f - CloseSize.x * 0.5f - 12f, boardSize.y * 0.5f - CloseSize.y * 0.5f - 12f),
+        };
+        var closeRoot = HudKit.Rect(board, "Close button", closeButton.center, CloseSize);
+        closeButton.panel = HudKit.Image(closeRoot, "Panel", HudSprites.Panel(10), Idle, Vector2.zero, CloseSize, true, 1f);
+        Label(closeRoot, "CLOSE", 11f, Color.white, Vector2.zero, CloseSize.x - 8f);
 
         for (int i = 0; i < buttons.Count; i++)
         {
@@ -181,9 +221,10 @@ public sealed class PiSelectionMenu : MonoBehaviour
             if (button.Valid != button.shown) { Refresh(button); changed = true; }
         if (changed) RefreshStatus();
         var keys = Keyboard.current;
-        if (keys != null)
-            for (int i = 0; i < buttons.Count && i < 9; i++)
-                if (keys[Key.Digit1 + i].wasPressedThisFrame || keys[Key.Numpad1 + i].wasPressedThisFrame) { Select(buttons[i]); return; }
+        if (keys == null) return;
+        if (keys.escapeKey.wasPressedThisFrame) { Select(closeButton); return; }
+        for (int i = 0; i < buttons.Count && i < 9; i++)
+            if (keys[Key.Digit1 + i].wasPressedThisFrame || keys[Key.Numpad1 + i].wasPressedThisFrame) { Select(buttons[i]); return; }
     }
 
     private void Listen()
@@ -252,38 +293,78 @@ public sealed class PiSelectionMenu : MonoBehaviour
 
     private void Press(Vector3?[] tips)
     {
-        foreach (var button in buttons)
-            if (button.shown) button.panel.color = Idle;
+        foreach (var button in Targets())
+            if (button.Pressable) button.panel.color = Idle;
         for (int f = 0; f < fingers.Length; f++)
         {
             var finger = fingers[f];
-            if (tips[f] == null) { finger.armed = false; continue; }
-            // The board faces away from the player, so the near side is negative local z.
-            Vector3 local = board.InverseTransformPoint(tips[f].Value);
-            float depth = -local.z;
-            PiButton over = null;
-            foreach (var button in buttons)
-                if (button.shown && Mathf.Abs(local.x - button.center.x) < ButtonSize.x * 0.5f
-                    && Mathf.Abs(local.y - button.center.y) < ButtonSize.y * 0.5f) over = button;
-            if (over == null || depth > 120f || depth < -40f) { finger.armed = false; continue; }
-            // A press needs an approach from the front; sliding in sideways behind the panel does nothing.
-            if (depth > 12f) finger.armed = true;
-            over.panel.color = Color.Lerp(Idle, FusionRoundHud.Friendly, depth <= 12f ? 0.7f : 0.3f);
-            if (finger.armed && depth <= 0f) { Select(over); return; }
+            bool pinching = finger.hand != null && finger.hand.IsTracked
+                && finger.hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+            bool pinchStarted = pinching && !finger.pinching;
+            finger.pinching = pinching;
+            // A fingertip at the board presses directly; otherwise the hand points from a distance.
+            if (tips[f] != null && Poke(finger, tips[f].Value)) finger.ray.enabled = false;
+            else Point(finger, pinching, pinchStarted);
+            if (selected) return;
         }
+    }
+
+    /// <summary>Handles a fingertip near a button; false when it isn't near one.</summary>
+    private bool Poke(Finger finger, Vector3 tip)
+    {
+        // The board faces away from the player, so the near side is negative local z.
+        Vector3 local = board.InverseTransformPoint(tip);
+        float depth = -local.z;
+        PiButton over = ButtonAt(local);
+        if (over == null || depth > 120f || depth < -40f) { finger.armed = false; return false; }
+        // A press needs an approach from the front; sliding in sideways behind the panel does nothing.
+        if (depth > 12f) finger.armed = true;
+        over.panel.color = Color.Lerp(Idle, FusionRoundHud.Friendly, depth <= 12f ? 0.7f : 0.3f);
+        if (finger.armed && depth <= 0f) Select(over);
+        return true;
+    }
+
+    /// <summary>Casts the hand's system pointer ray at the board; a pinch presses the button it is on.</summary>
+    private void Point(Finger finger, bool pinching, bool pinchStarted)
+    {
+        var hand = finger.hand;
+        finger.ray.enabled = false;
+        if (hand == null || !hand.IsTracked || !hand.IsPointerPoseValid || hand.PointerPose == null) return;
+        var ray = new Ray(hand.PointerPose.position, hand.PointerPose.forward);
+        if (!new Plane(board.forward, board.position).Raycast(ray, out float distance) || distance > MaxRayLength) return;
+        Vector3 hit = ray.GetPoint(distance);
+        Vector3 local = board.InverseTransformPoint(hit);
+        if (Mathf.Abs(local.x) > boardSize.x * 0.5f || Mathf.Abs(local.y) > boardSize.y * 0.5f) return;
+        finger.ray.positionCount = 2;
+        finger.ray.SetPosition(0, ray.origin);
+        finger.ray.SetPosition(1, hit);
+        finger.ray.enabled = true;
+        PiButton over = ButtonAt(local);
+        if (over == null) return;
+        over.panel.color = Color.Lerp(Idle, FusionRoundHud.Friendly, pinching ? 0.7f : 0.3f);
+        if (pinchStarted) Select(over);
     }
 
     private void Select(PiButton button)
     {
-        if (selected || !button.Valid) return;
+        if (selected || button == null || !button.Valid) return;
         selected = true;
         discovery?.Dispose();
         discovery = null;
+        foreach (var finger in fingers) finger.ray.enabled = false;
+        hideAt = Time.unscaledTime + 1.2f;
+        if (button.close)
+        {
+            button.panel.color = FusionRoundHud.Friendly;
+            status.text = "NO PI: COMBAT OUTPUT OFF UNTIL RESTART";
+            status.color = FusionRoundHud.Warn;
+            Debug.Log("[PiSelectionMenu] Closed without a Pi; combat output stays off this run.");
+            return;
+        }
         bool sent = CombatEventOutput.SelectHost(button.host);
         button.panel.color = sent ? FusionRoundHud.Friendly : FusionRoundHud.Warn;
         status.text = sent ? $"SENDING TO {button.name} ({button.host})" : "PI OUTPUT DISABLED IN COMBAT-OUTPUT.JSON";
         status.color = sent ? FusionRoundHud.Friendly : FusionRoundHud.Warn;
-        hideAt = Time.unscaledTime + 1.2f;
         Debug.Log($"[PiSelectionMenu] Selected {button.name} ({button.host})");
     }
 
@@ -323,5 +404,6 @@ public sealed class PiSelectionMenu : MonoBehaviour
     {
         discovery?.Dispose();
         if (board != null) Destroy(board.gameObject);
+        if (rayMaterial != null) Destroy(rayMaterial);
     }
 }

@@ -11,10 +11,15 @@ the second headset. Later, with nothing plugged in, pass the IPs to reopen the w
 
 Give each Quest a DHCP reservation on the router so its IP never changes. The PC connects to the
 headsets; the game is not involved and the headsets never need the PC's IP. A sleeping headset
-(not worn) sends no frames, so its window stays black until someone puts it on.
+(not worn) sends no frames, and its window can stay blank after it wakes: start the mirror while
+the headset is on someone's head, or close the window and run this again.
 #>
 param(
     [string[]]$Ip = @(),
+    # Share of the left eye's width shown, as a 16:9 crop around the lens centre. The headset's
+    # picture is pre-warped for its lenses and ringed in black; cropping keeps the flatter middle.
+    # 0.9 is about the widest without the black ring showing at the edge; 1 shows the whole eye.
+    [ValidateRange(0.3, 1.0)][double]$Zoom = 0.9,
     [int]$MaxSize = 1280,
     [int]$Fps = 30,
     [string]$BitRate = '8M'
@@ -69,11 +74,20 @@ foreach ($target in $targets) {
     }
     # The display is both eyes side by side; mirror the left eye only.
     $size = & $adb -s $target shell wm size | Select-String 'Physical size: (\d+)x(\d+)'
-    $width = [int]$size.Matches[0].Groups[1].Value
+    $eyeWidth = [int]$size.Matches[0].Groups[1].Value / 2
     $height = [int]$size.Matches[0].Groups[2].Value
-    $crop = "$([int]($width / 2)):${height}:0:0"
+    if ($Zoom -ge 1) { $crop = "${eyeWidth}:${height}:0:0" }
+    else {
+        # The left lens's visible circle sits nearer the nose, measured on a Quest 3S.
+        $w = [int]($eyeWidth * $Zoom / 2) * 2
+        $h = [int]($w * 9 / 16 / 2) * 2
+        $x = [Math]::Min([Math]::Max(0, [int]($eyeWidth * 0.539 - $w / 2)), $eyeWidth - $w)
+        $y = [Math]::Min([Math]::Max(0, [int]($height * 0.483 - $h / 2)), $height - $h)
+        $crop = "${w}:${h}:${x}:${y}"
+    }
     Start-Process $scrcpy -ArgumentList @(
-        '-s', $target, '--window-title', "Quest $target",
+        # Start-Process joins arguments with spaces, so quote the title's.
+        '-s', $target, "--window-title=`"Quest $target`"",
         '--no-audio', '--no-control', '--crop', $crop,
         '--max-size', $MaxSize, '--max-fps', $Fps, '--video-bit-rate', $BitRate)
     Write-Host "Mirroring $target"

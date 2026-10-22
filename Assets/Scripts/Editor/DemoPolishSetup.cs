@@ -66,7 +66,7 @@ public static class DemoPolishSetup
         SetFloat(ice, "lowHandHeightOffsetFromHeadset", -0.55f);
         SetFloat(ice, "highHandHeightOffsetFromHeadset", -0.20f);
         SetFloat(ice, "throwHeightExponent", 1.6f);
-        SetBool(ice, "useGazeTargeting", true);
+        SetBool(ice, "aimWithPalm", true);
 
         IceGrenadeEffects coldEffects = rig.GetComponent<IceGrenadeEffects>();
         if (coldEffects != null)

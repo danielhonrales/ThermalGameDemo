@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [DisallowMultipleComponent]
 public sealed class IceGrenadeLauncher : MonoBehaviour
@@ -10,8 +11,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     [SerializeField] private PalmBeamShooter.LocalAxis aimUpAxis = PalmBeamShooter.LocalAxis.Up;
     [SerializeField] private Vector3 localOriginOffset;
     [SerializeField] private float worldUpOriginOffset = 0.08f;
+    [Tooltip("Without palm aiming: how far the throw direction leans from the palm toward the head's facing.")]
     [SerializeField, Range(0f, 1f)] private float headAimBlend = 0.65f;
-    [SerializeField] private bool useGazeTargeting = true;
+    [Tooltip("Throw where the tracked palm faces (level), from the hand; the head's facing until the palm is read.")]
+    [FormerlySerializedAs("useGazeTargeting")]
+    [SerializeField] private bool aimWithPalm = true;
 
     [Header("Throw")]
     [SerializeField] private Transform floorReference;
@@ -67,11 +71,11 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private HandPoseRouter poseRouter;
     private bool hasAimTarget;
     private Vector3 smoothedAimTarget;
-    private bool hasWristReference;
-    private Quaternion wristReferenceHeading;
-    private Quaternion neutralWristRotation;
-    private float wristSteeringDegrees;
+    private bool hasPalmHeading;
+    private Vector3 palmHeading;
     private IceGrenadeTrajectory.Contact predictedLanding;
+    // Per second; smooths hand-tracking jitter in the palm direction, which grows with throw distance.
+    private const float PalmHeadingSmoothing = 14f;
 
     private void Reset()
     {
@@ -329,8 +333,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         hardwareLeadSent = false;
         poseChargeStartTime = -1f;
         hasAimTarget = false;
-        hasWristReference = false;
-        wristSteeringDegrees = 0f;
+        hasPalmHeading = false;
     }
 
     private bool IsIronManPoseActive()
@@ -391,7 +394,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
     private Vector3 GetLaunchVelocity(Vector3 origin)
     {
         Vector3 target = GetTargetPoint(origin);
-        if (useGazeTargeting && headset != null)
+        if (aimWithPalm && headset != null)
         {
             if (!hasAimTarget) smoothedAimTarget = target;
             else if (Vector3.Distance(smoothedAimTarget, target) > 0.025f)
@@ -435,41 +438,40 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
 
     private Vector3 GetTargetPoint(Vector3 origin)
     {
-        if (useGazeTargeting && headset != null)
+        if (aimWithPalm && headset != null)
         {
-            float floorY = GetFloorWorldY();
-            // Head heading gives coarse aim; a small wrist bank or turn supplies fine steering.
-            float distance = GetThrowDistance();
-            Vector3 heading = GetGazeHeading();
-            if (poseRouter != null && poseRouter.TryGetTrackedWristRotation(out Quaternion wrist))
-            {
-                if (!hasWristReference)
-                {
-                    wristReferenceHeading = Quaternion.LookRotation(heading, Vector3.up);
-                    neutralWristRotation = Quaternion.Inverse(wristReferenceHeading) * wrist;
-                    hasWristReference = true;
-                }
-                wristSteeringDegrees = WristSteeringAngle(neutralWristRotation,
-                    Quaternion.Inverse(wristReferenceHeading) * wrist);
-            }
-            Vector3 steeredHeading = Quaternion.AngleAxis(wristSteeringDegrees, Vector3.up) * heading;
-            Vector3 target = origin + steeredHeading * distance;
-            return ConstrainForwardTarget(origin, target, steeredHeading,
-                minThrowDistance, maxThrowDistance, floorY);
+            // The bomb lands along the palm's level facing, out from the hand; hand height sets how far.
+            Vector3 heading = GetPalmHeading();
+            Vector3 target = origin + heading * GetThrowDistance();
+            return ConstrainForwardTarget(origin, target, heading,
+                minThrowDistance, maxThrowDistance, GetFloorWorldY());
         }
         return GetTargetPoint(origin, GetThrowDistance());
     }
 
-    public static float WristSteeringAngle(Quaternion neutral, Quaternion current)
+    private Vector3 GetPalmHeading()
     {
-        Quaternion delta = current * Quaternion.Inverse(neutral);
-        delta.ToAngleAxis(out float angle, out Vector3 axis);
-        if (angle > 180f) angle -= 360f;
-        if (Mathf.Abs(angle) < 0.001f) return 0f;
-        // Positive yaw or a rightward bank steers right; ignore pitch used for holding the palm.
-        float deflection = angle * (axis.y - axis.z);
-        float outsideDeadBand = Mathf.Max(0f, Mathf.Abs(deflection) - 2f);
-        return Mathf.Clamp(Mathf.Sign(deflection) * outsideDeadBand * 1.6f, -35f, 35f);
+        Vector3 heading;
+        if (poseRouter != null && poseRouter.TryGetPalmNormal(out Vector3 palm) && TryLevelHeading(palm, out Vector3 level))
+            heading = level;
+        else if (hasPalmHeading)
+            heading = palmHeading;      // keep the last reading through a tracking dropout
+        else
+            heading = GetGazeHeading();
+        palmHeading = hasPalmHeading
+            ? Vector3.Slerp(palmHeading, heading, 1f - Mathf.Exp(-PalmHeadingSmoothing * Time.deltaTime)).normalized
+            : heading;
+        hasPalmHeading = true;
+        return palmHeading;
+    }
+
+    /// <summary>The level direction a palm faces; false when it faces too nearly straight up or down to tell.</summary>
+    public static bool TryLevelHeading(Vector3 palmNormal, out Vector3 heading)
+    {
+        heading = Vector3.ProjectOnPlane(palmNormal, Vector3.up);
+        if (heading.sqrMagnitude < 0.09f * palmNormal.sqrMagnitude) { heading = Vector3.zero; return false; }
+        heading.Normalize();
+        return true;
     }
 
     private Vector3 GetGazeHeading()
