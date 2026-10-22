@@ -1,22 +1,29 @@
 using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>Startup menu that floats in front of the player until a fingertip presses one of the
-/// scene's Pi addresses; this headset's combat output then goes to that Pi. It appears once per
-/// launch, so restart the app to choose again. Keys 1-9 also select, for editor testing.</summary>
+/// Raspberry Pis found on the LAN; this headset's combat output then goes to that Pi. Each Pi's
+/// receiver broadcasts "THERMAL-PI-1:&lt;name&gt;" to UDP <see cref="DiscoveryPort"/> about once a second,
+/// so no Pi IPs live in Unity. The expected names always have a button, greyed until that Pi is
+/// heard; any other Pi that announces itself is added after them. It appears once per launch, so
+/// restart the app to choose again. Keys 1-9 also select, for editor testing.</summary>
 [DisallowMultipleComponent]
 public sealed class PiSelectionMenu : MonoBehaviour
 {
-    [Serializable] public sealed class PiTarget { public string label; public string host; }
+    public const int DiscoveryPort = 7780;
+    public const string BeaconPrefix = "THERMAL-PI-1:";
+    public const int MaxNameLength = 24;
+    // A Pi that has not announced itself for this long is greyed out until it is heard again.
+    private const float StaleAfter = 3f;
 
-    [SerializeField] private PiTarget[] targets =
-    {
-        new PiTarget { label = "PLAYER 1", host = "192.168.1.4" },
-        new PiTarget { label = "PLAYER 2", host = "192.168.1.248" },
-    };
+    [SerializeField] private string[] expectedPis = { "Player1", "Player2" };
     [SerializeField, Min(0.25f)] private float distance = 0.42f;
     [SerializeField] private float belowEyes = 0.12f;
 
@@ -27,7 +34,16 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private static readonly Color Idle = new Color(0.045f, 0.075f, 0.11f, 0.95f);
     private static readonly Color Disabled = new Color(0.05f, 0.05f, 0.06f, 0.8f);
 
-    private sealed class PiButton { public PiTarget target; public Vector2 center; public Image panel; public bool valid; }
+    private sealed class PiButton
+    {
+        public string name, host;
+        public float lastSeen = float.NegativeInfinity;
+        public Vector2 center;
+        public Image panel;
+        public TextMeshProUGUI title, address;
+        public bool shown;
+        public bool Valid => host != null && Time.unscaledTime - lastSeen < StaleAfter;
+    }
     private sealed class Finger
     {
         public OVRPlugin.Hand side;
@@ -38,22 +54,60 @@ public sealed class PiSelectionMenu : MonoBehaviour
 
     private RectTransform board;
     private Vector2 boardSize;
-    private PiButton[] buttons;
+    private readonly List<PiButton> buttons = new List<PiButton>();
     private TextMeshProUGUI status;
+    private UdpClient discovery;
+    private string discoveryError;
     private readonly Finger[] fingers = { new Finger { side = OVRPlugin.Hand.HandLeft }, new Finger { side = OVRPlugin.Hand.HandRight } };
     private float nextHandSearch, hideAt = -1f;
     private bool placed, selected;
 
     private void Awake()
     {
-        if (SpectatorSession.IsSpectator || targets == null || targets.Length == 0) { enabled = false; return; }
+        if (SpectatorSession.IsSpectator) { enabled = false; return; }
         CombatEventOutput.AwaitHostSelection();
+        foreach (string name in expectedPis)
+            if (!string.IsNullOrWhiteSpace(name) && Find(name.Trim()) == null)
+                buttons.Add(new PiButton { name = name.Trim() });
+        try
+        {
+            discovery = new UdpClient(AddressFamily.InterNetwork);
+            discovery.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            discovery.Client.Bind(new IPEndPoint(IPAddress.Any, DiscoveryPort));
+        }
+        catch (SocketException e)
+        {
+            discovery?.Dispose();
+            discovery = null;
+            discoveryError = e.Message;
+            Debug.LogWarning($"[PiSelectionMenu] Cannot listen for Pis on UDP {DiscoveryPort}: {e.Message}");
+        }
         Build();
+    }
+
+    /// <summary>Reads a Pi announcement; false for anything else on the discovery port.</summary>
+    public static bool TryParseBeacon(string packet, out string name)
+    {
+        name = null;
+        if (packet == null || !packet.StartsWith(BeaconPrefix, StringComparison.Ordinal)) return false;
+        string value = packet.Substring(BeaconPrefix.Length).Trim();
+        if (value.Length == 0 || value.Length > MaxNameLength) return false;
+        foreach (char c in value)
+            if (char.IsControl(c)) return false;
+        name = value;
+        return true;
+    }
+
+    private PiButton Find(string name)
+    {
+        foreach (var button in buttons)
+            if (string.Equals(button.name, name, StringComparison.OrdinalIgnoreCase)) return button;
+        return null;
     }
 
     private void Build()
     {
-        float rowWidth = targets.Length * ButtonSize.x + (targets.Length - 1) * ButtonGap;
+        float rowWidth = buttons.Count * ButtonSize.x + Mathf.Max(0, buttons.Count - 1) * ButtonGap;
         boardSize = new Vector2(Mathf.Max(380f, rowWidth + 40f), 270f);
         board = HudKit.Canvas("Pi selection menu", transform, boardSize, 40);
         board.localScale = Vector3.one * Scale;
@@ -61,27 +115,48 @@ public sealed class PiSelectionMenu : MonoBehaviour
             Vector2.zero, boardSize, true, 1f);
         Label(board, "SELECT PI", 26f, Color.white, new Vector2(0f, 100f), boardSize.x - 20f);
         Label(board, "PRESS A BUTTON WITH YOUR FINGERTIP", 11f, FusionRoundHud.Friendly, new Vector2(0f, 70f), boardSize.x - 20f);
-        status = Label(board, "RESTART THE APP TO CHOOSE AGAIN", 10f, FusionRoundHud.Soft, new Vector2(0f, -105f), boardSize.x - 20f);
+        status = Label(board, "", 10f, FusionRoundHud.Soft, new Vector2(0f, -105f), boardSize.x - 20f);
 
-        buttons = new PiButton[targets.Length];
-        for (int i = 0; i < targets.Length; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            var target = targets[i];
-            bool valid = target != null && System.Net.IPAddress.TryParse(target.host, out _);
-            var button = buttons[i] = new PiButton
-            {
-                target = target,
-                center = new Vector2(-rowWidth * 0.5f + ButtonSize.x * 0.5f + i * (ButtonSize.x + ButtonGap), -15f),
-                valid = valid,
-            };
+            var button = buttons[i];
+            button.center = new Vector2(-rowWidth * 0.5f + ButtonSize.x * 0.5f + i * (ButtonSize.x + ButtonGap), -15f);
             var root = HudKit.Rect(board, $"Pi {i + 1} button", button.center, ButtonSize);
-            button.panel = HudKit.Image(root, "Panel", HudSprites.Panel(12), valid ? Idle : Disabled,
-                Vector2.zero, ButtonSize, true, 1f);
-            string label = target != null && !string.IsNullOrWhiteSpace(target.label) ? target.label : $"PI {i + 1}";
-            Label(root, label, 26f, valid ? Color.white : FusionRoundHud.Soft, new Vector2(0f, 14f), ButtonSize.x - 10f);
-            Label(root, valid ? target.host : "NO IP SET", 12f, valid ? FusionRoundHud.Friendly : FusionRoundHud.Warn,
-                new Vector2(0f, -26f), ButtonSize.x - 10f);
+            button.panel = HudKit.Image(root, "Panel", HudSprites.Panel(12), Disabled, Vector2.zero, ButtonSize, true, 1f);
+            button.title = Label(root, button.name, 26f, FusionRoundHud.Soft, new Vector2(0f, 14f), ButtonSize.x - 10f);
+            button.address = Label(root, "", 12f, FusionRoundHud.Warn, new Vector2(0f, -26f), ButtonSize.x - 10f);
+            Refresh(button);
         }
+        RefreshStatus();
+    }
+
+    /// <summary>Rebuilds the board for a newly found Pi, keeping it where the player sees it.</summary>
+    private void Rebuild()
+    {
+        Transform parent = board.parent;
+        board.GetPositionAndRotation(out Vector3 position, out Quaternion rotation);
+        Destroy(board.gameObject);
+        Build();
+        board.SetParent(parent, false);
+        board.SetPositionAndRotation(position, rotation);
+    }
+
+    private static void Refresh(PiButton button)
+    {
+        button.shown = button.Valid;
+        button.panel.color = button.shown ? Idle : Disabled;
+        button.title.color = button.shown ? Color.white : FusionRoundHud.Soft;
+        button.address.text = button.shown ? button.host : button.host == null ? "SEARCHING" : "NOT RESPONDING";
+        button.address.color = button.shown ? FusionRoundHud.Friendly : FusionRoundHud.Warn;
+    }
+
+    private void RefreshStatus()
+    {
+        if (selected) return;
+        bool any = buttons.Exists(button => button.Valid);
+        status.text = discoveryError != null ? "PI DISCOVERY UNAVAILABLE: CHECK WI-FI"
+            : any ? "RESTART THE APP TO CHOOSE AGAIN" : "SEARCHING FOR PIS ON THE NETWORK";
+        status.color = discoveryError != null ? FusionRoundHud.Warn : FusionRoundHud.Soft;
     }
 
     private static TextMeshProUGUI Label(Transform parent, string text, float size, Color color, Vector2 position, float width)
@@ -100,10 +175,47 @@ public sealed class PiSelectionMenu : MonoBehaviour
             if (Time.unscaledTime >= hideAt) { board.gameObject.SetActive(false); enabled = false; }
             return;
         }
+        Listen();
+        bool changed = false;
+        foreach (var button in buttons)
+            if (button.Valid != button.shown) { Refresh(button); changed = true; }
+        if (changed) RefreshStatus();
         var keys = Keyboard.current;
         if (keys != null)
-            for (int i = 0; i < buttons.Length && i < 9; i++)
+            for (int i = 0; i < buttons.Count && i < 9; i++)
                 if (keys[Key.Digit1 + i].wasPressedThisFrame || keys[Key.Numpad1 + i].wasPressedThisFrame) { Select(buttons[i]); return; }
+    }
+
+    private void Listen()
+    {
+        if (discovery == null) return;
+        bool added = false;
+        try
+        {
+            while (discovery.Available > 0)
+            {
+                IPEndPoint from = null;
+                byte[] packet = discovery.Receive(ref from);
+                if (!TryParseBeacon(Encoding.UTF8.GetString(packet), out string name)) continue;
+                var button = Find(name);
+                if (button == null)
+                {
+                    buttons.Add(button = new PiButton { name = name });
+                    added = true;
+                }
+                button.lastSeen = Time.unscaledTime;
+                string host = from.Address.ToString();
+                if (button.host == host) continue;
+                Debug.Log(button.host == null ? $"[PiSelectionMenu] Found {name} at {host}"
+                    : $"[PiSelectionMenu] {name} moved from {button.host} to {host}");
+                button.host = host;
+                // A Pi added just now gets its labels when the board is rebuilt below.
+                if (button.panel != null) { Refresh(button); RefreshStatus(); }
+            }
+        }
+        catch (SocketException) { /* Wi-Fi may drop; keep listening when it returns. */ }
+        catch (ObjectDisposedException) { }
+        if (added) Rebuild();
     }
 
     private void LateUpdate()
@@ -141,7 +253,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private void Press(Vector3?[] tips)
     {
         foreach (var button in buttons)
-            if (button.valid) button.panel.color = Idle;
+            if (button.shown) button.panel.color = Idle;
         for (int f = 0; f < fingers.Length; f++)
         {
             var finger = fingers[f];
@@ -151,7 +263,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
             float depth = -local.z;
             PiButton over = null;
             foreach (var button in buttons)
-                if (button.valid && Mathf.Abs(local.x - button.center.x) < ButtonSize.x * 0.5f
+                if (button.shown && Mathf.Abs(local.x - button.center.x) < ButtonSize.x * 0.5f
                     && Mathf.Abs(local.y - button.center.y) < ButtonSize.y * 0.5f) over = button;
             if (over == null || depth > 120f || depth < -40f) { finger.armed = false; continue; }
             // A press needs an approach from the front; sliding in sideways behind the panel does nothing.
@@ -163,14 +275,16 @@ public sealed class PiSelectionMenu : MonoBehaviour
 
     private void Select(PiButton button)
     {
-        if (selected || !button.valid) return;
+        if (selected || !button.Valid) return;
         selected = true;
-        bool sent = CombatEventOutput.SelectHost(button.target.host);
+        discovery?.Dispose();
+        discovery = null;
+        bool sent = CombatEventOutput.SelectHost(button.host);
         button.panel.color = sent ? FusionRoundHud.Friendly : FusionRoundHud.Warn;
-        status.text = sent ? $"SENDING TO {button.target.host}" : "PI OUTPUT DISABLED IN COMBAT-OUTPUT.JSON";
+        status.text = sent ? $"SENDING TO {button.name} ({button.host})" : "PI OUTPUT DISABLED IN COMBAT-OUTPUT.JSON";
         status.color = sent ? FusionRoundHud.Friendly : FusionRoundHud.Warn;
         hideAt = Time.unscaledTime + 1.2f;
-        Debug.Log($"[PiSelectionMenu] Selected {button.target.label} ({button.target.host})");
+        Debug.Log($"[PiSelectionMenu] Selected {button.name} ({button.host})");
     }
 
     private Vector3?[] FingerTips()
@@ -207,6 +321,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
 
     private void OnDestroy()
     {
+        discovery?.Dispose();
         if (board != null) Destroy(board.gameObject);
     }
 }

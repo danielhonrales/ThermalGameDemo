@@ -83,7 +83,7 @@ adb -s "$QUEST_A" push tools/pi/quest-a-combat-output.json "$APP_FILES/combat-ou
 adb -s "$QUEST_A" shell am start -n com.UnityTechnologies.com.unity.template.urpblank/com.unity3d.player.UnityPlayerGameActivity
 ```
 
-The Quest automatically hosts if it finds no other host. Its Pi output file sets device label `quest-a`. On launch, press **PLAYER 1** in the floating **Select Pi** menu to send to `192.168.1.4:7779`; restart the app to choose again. The menu's Pi IPs are set on the `Pi Selection Menu` object in `Game.unity`. Check startup with:
+The Quest automatically hosts if it finds no other host. Its Pi output file sets device label `quest-a`. On launch, press **Player1** in the floating **Select Pi** menu to send to the Pi that announces itself as `Player1`; restart the app to choose again. The menu finds the Pis on the network itself (see [RASPBERRY_PI_OUTPUT.md](RASPBERRY_PI_OUTPUT.md#pi-discovery)); no Pi IPs are set in Unity. Check startup with:
 
 ```bash
 adb -s "$QUEST_A" logcat -d -s Unity:D | grep -E 'LAN: hosting|CombatOutput|Exception'
@@ -93,7 +93,7 @@ Expected lines include `LAN: hosting` and a `CombatOutput` `player_ready` event.
 
 ## 5. Add Quest B later
 
-Give Quest B the **same APK**. There is no host/client choice to make. If Quest A is already running, Quest B finds it and joins. If both start together, host beacons break the tie. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app only if you need to push its own device label. On launch, press **PLAYER 2** in the **Select Pi** menu to send to the second Pi (`192.168.1.248`).
+Give Quest B the **same APK**. There is no host/client choice to make. If Quest A is already running, Quest B finds it and joins. If both start together, host beacons break the tie. Connect Quest B by USB, use its own serial in `adb -s`, install and launch once, then stop the app only if you need to push its own device label. On launch, press **Player2** in the **Select Pi** menu to send to the second Pi.
 
 To label Quest B's output, push a `combat-output.json` with its own label (the menu choice overrides `host`):
 

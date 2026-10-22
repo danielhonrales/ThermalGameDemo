@@ -3,8 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Whether this machine joins the LAN match as a non-playing spectator. A spectator never hosts,
 /// never spawns a player and never sends hardware events; <see cref="SpectatorDirector"/> shows the
-/// match. In the Editor it follows the "Thermal Demo/Play As Spectator" toggle; a desktop player
-/// build can pass -spectator on the command line. Quest builds are never spectators.
+/// match. In the Editor it follows the "Thermal Demo/Play As Spectator" toggle; a Windows player
+/// build is always a spectator, and other desktop builds can pass -spectator. Quest builds never are.
 /// </summary>
 public static class SpectatorSession
 {
@@ -23,7 +23,8 @@ public static class SpectatorSession
         // Only interactive Play mode; builds and edit-mode checks on this PC stay normal.
         return Application.isPlaying && UnityEditor.EditorPrefs.GetBool(EditorPrefKey, false);
 #else
-        return System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-spectator") >= 0;
+        return Application.platform == RuntimePlatform.WindowsPlayer
+            || System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-spectator") >= 0;
 #endif
     }
 }

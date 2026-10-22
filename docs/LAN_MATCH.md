@@ -39,4 +39,13 @@ The PC has no passthrough, so it shows only the virtual arena, effects, and a si
 
 Without authored cameras, the gallery places seven cameras around the cover layout. To frame your own, move the Scene view to a good angle and choose **Thermal Demo > Add Spectator Viewpoint From Scene View**. This adds a `SpectatorViewpoint` under `ArenaRoot/SpectatorViewpoints`; each one sets a label, field of view, and whether to hide the virtual ceiling. Once any exist, the gallery uses only those, in name order. Save the scene to keep them.
 
-A Windows player build can also run as a spectator with the `-spectator` command-line argument. It opens Display 2 automatically when a second monitor is connected.
+Instead of the Editor, use the Windows build: **Thermal Demo > Build Windows Spectator** writes `Builds/Windows/ThermalGameDemo.exe` from the same project and scenes as the Quest APK. A Windows build is always a spectator, so it needs no command-line argument; on first launch, allow it through Windows Firewall for private networks. It opens Display 2 automatically when a second monitor is connected. The build leaves XR off on the PC.
+
+### Mirroring the real headset view
+
+The spectator rebuilds each view from head pose. To show what a headset actually displays, mirror it with [scrcpy](https://github.com/Genymobile/scrcpy) (`winget install Genymobile.scrcpy`). This runs over the same router and is independent of the game. The PC connects to each headset by IP, so the headsets don't need the PC's address.
+
+1. Join the Quest to the match router, plug it into the PC by USB and run `powershell -ExecutionPolicy Bypass -File tools\quest-mirror.ps1`. This switches the headset to network ADB, prints its IP and opens a window with its left-eye view. Unplug it and repeat for the other headset.
+2. Network ADB stays on until the headset reboots. Later, reopen the windows without USB: `tools\quest-mirror.ps1 -Ip <quest1-ip>,<quest2-ip>`. Reserve each Quest's IP on the router (DHCP reservation) so it stays the same.
+
+A headset that isn't being worn sleeps and sends no frames. Each mirror uses about 8 Mbit/s of Wi-Fi at 1280 px and 30 fps; lower it with `-MaxSize 960 -BitRate 4M` if the match lags.

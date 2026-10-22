@@ -21,6 +21,7 @@ public static class DemoRegressionChecks
         RunRepeatedIceVisualCheck();
         RunArmEffectsCheck();
         RunSpectatorCheck();
+        RunPiDiscoveryCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -174,6 +175,21 @@ public static class DemoRegressionChecks
         Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
     }
 
+    public static void RunPiDiscoveryCheck()
+    {
+        string prefix = PiSelectionMenu.BeaconPrefix;
+        if (!PiSelectionMenu.TryParseBeacon(prefix + "Player1", out string name) || name != "Player1"
+            || !PiSelectionMenu.TryParseBeacon(prefix + " Player2\n", out name) || name != "Player2")
+            throw new Exception("Pi discovery must read the announced name, ignoring surrounding whitespace.");
+        if (PiSelectionMenu.TryParseBeacon(prefix, out _)
+            || PiSelectionMenu.TryParseBeacon("THERMAL-LAN-10:" + Guid.NewGuid().ToString("N"), out _)
+            || PiSelectionMenu.TryParseBeacon(prefix + new string('x', PiSelectionMenu.MaxNameLength + 1), out _)
+            || PiSelectionMenu.TryParseBeacon(prefix + "Play\u0007er", out _)
+            || PiSelectionMenu.TryParseBeacon(null, out _))
+            throw new Exception("Pi discovery accepted an empty, foreign, oversized or malformed announcement.");
+        Debug.Log("PI DISCOVERY PASSED: announcements give the Pi name; other packets are ignored.");
+    }
+
     public static void RunSpectatorCheck()
     {
         // Head poses arrive at the 20 Hz send rate; spectator views interpolate between them.
@@ -201,6 +217,10 @@ public static class DemoRegressionChecks
                 || Vector3.Dot(shot.LocalRotation * Vector3.forward, focus - shot.LocalPosition) <= 0f)
                 throw new Exception($"Spectator camera {shot.Label} is outside the playfield or faces away from the arena.");
         if (shots.Count < 5) throw new Exception("Spectator gallery needs several arena cameras.");
+        var spawn = LanMatchManager.SpawnObserversForConnection;
+        if (spawn == null || spawn.GetParameters().Length != 1
+            || spawn.GetParameters()[0].ParameterType != typeof(Mirror.NetworkConnectionToClient))
+            throw new Exception("Mirror's NetworkServer.SpawnObserversForConnection changed; a spectator with no player would see nothing.");
         Debug.Log($"SPECTATOR PASSED: head views interpolate 20 Hz poses and resume smoothly; {shots.Count} generated arena cameras stay in the playfield facing the layout.");
     }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using Mirror;
 using Mirror.Discovery;
@@ -194,6 +195,18 @@ public sealed class LanMatchManager : NetworkManager
         while (NetworkClient.active) yield return null;
         yield return null;
         StartLooking();
+    }
+
+    // Mirror sends a ready client the existing objects only once it has a player (SetClientReady),
+    // and its method for doing so is private.
+    public static readonly MethodInfo SpawnObserversForConnection = typeof(NetworkServer)
+        .GetMethod("SpawnObserversForConnection", BindingFlags.NonPublic | BindingFlags.Static);
+
+    public override void OnServerReady(NetworkConnectionToClient conn)
+    {
+        base.OnServerReady(conn);
+        // A spectator never gets a player, so send it the players and round state now.
+        if (conn.identity == null) SpawnObserversForConnection?.Invoke(null, new object[] { conn });
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)

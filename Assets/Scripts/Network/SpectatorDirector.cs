@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using UnityEngine.XR.Management;
 
 /// <summary>
 /// Presentation for a PC that joins the LAN match as a spectator (<see cref="SpectatorSession"/>).
@@ -130,6 +131,13 @@ public sealed class SpectatorDirector : MonoBehaviour
     private void DisableLocalRig()
     {
         // This PC never plays: no headset cameras, hand-tracked weapons or calibration gestures.
+        // OpenXR starts with the app; stop it so a Link headset cannot take over the spectator view.
+        XRManagerSettings xr = XRGeneralSettings.Instance != null ? XRGeneralSettings.Instance.Manager : null;
+        if (xr != null && xr.activeLoader != null)
+        {
+            xr.StopSubsystems();
+            xr.DeinitializeLoader();
+        }
         foreach (OVRCameraRig rig in FindObjectsByType<OVRCameraRig>(FindObjectsSortMode.None))
             rig.disableEyeAnchorCameras = true;
         foreach (Camera camera in FindObjectsByType<Camera>(FindObjectsSortMode.None))

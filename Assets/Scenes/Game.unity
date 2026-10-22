@@ -82113,11 +82113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1581601a9f764e3ba04dabf5d14a612b, type: 3}
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PiSelectionMenu
-  targets:
-  - label: PLAYER 1
-    host: 192.168.1.4
-  - label: PLAYER 2
-    host: 192.168.1.248
+  expectedPis:
+  - Player1
+  - Player2
   distance: 0.42
   belowEyes: 0.12
 --- !u!1660057539 &9223372036854775807

@@ -36,11 +36,17 @@ Push the configuration to each headset and restart the app:
 adb -s QUEST_SERIAL push tools/pi/quest-a-combat-output.json /sdcard/Android/data/com.UnityTechnologies.com.unity.template.urpblank/files/combat-output.json
 ```
 
-At launch, a **Select Pi** menu floats in front of the player until a fingertip presses one of the Pi buttons; that headset then sends to the chosen Pi for the rest of the run. Restart the app to choose again. The Pi labels and IPs live on the `Pi Selection Menu` object in `Assets/Scenes/Game.unity` (component `PiSelectionMenu`); a button with no valid IP is greyed out. The menu's choice replaces the `host` in `combat-output.json`; `udpEnabled`, `port` and `deviceLabel` still come from that file. Keys 1–9 select in the Editor.
+At launch, a **Select Pi** menu floats in front of the player until a fingertip presses one of the Pi buttons; that headset then sends to the chosen Pi for the rest of the run. Restart the app to choose again. The buttons come from [Pi discovery](#pi-discovery): **Player1** and **Player2** are always shown and stay greyed out (`SEARCHING`) until a Pi with that name announces itself; any other announced Pi gets an extra button. A Pi that goes quiet for 3 seconds greys out again (`NOT RESPONDING`). The expected names are on the `Pi Selection Menu` object in `Assets/Scenes/Game.unity` (component `PiSelectionMenu`). The menu's choice replaces the `host` in `combat-output.json`; `udpEnabled`, `port` and `deviceLabel` still come from that file. Keys 1–9 select in the Editor.
+
+### Pi discovery
+
+Each Pi announces itself so the headsets need no Pi IPs. About once a second, the Pi sends one UDP broadcast datagram to `255.255.255.255:7780` whose payload is the UTF-8 text `THERMAL-PI-1:` followed by the Pi's name, for example `THERMAL-PI-1:Player1`. The name is 1–24 characters with no control characters; surrounding whitespace is ignored and names match case-insensitively. The headset takes the Pi's IP from the datagram's source address, then sends combat output to that IP on the `port` from `combat-output.json` (7779). Name the two Pis `Player1` and `Player2`. The headset listens only while the menu is open.
+
+The hardware receiver, `pi_receiver.py` in the Flashpoint repository (`prototyping/`), sends this beacon: run it with `--name Player1` on one Pi and `--name Player2` on the other (its `pi-receiver.service` sets `--name Player1`; change it on the second Pi). The dummy `tools/pi/receiver.py` here does not announce itself, so the menu cannot find a Pi that runs only the dummy.
 
 The Quests select their Mirror host/client roles automatically; no role file is needed. When a second Quest is added, give it a different `deviceLabel` in `combat-output.json` and pick the second Pi in the startup menu. The Pi output does not depend on the second Quest being present, but receiving a hit or shield block does require another player or a game hazard.
 
-Keep the Pi at `192.168.1.5` with a router DHCP reservation or static address. The router must allow traffic between Wi-Fi clients; guest/client isolation can prevent delivery. Allow UDP port 7779 on the Pi. No discovery or Internet service is needed for this output.
+The Pis no longer need fixed addresses, because the headsets find them by name. The router must allow traffic between Wi-Fi clients, including broadcasts; guest/client isolation can prevent discovery and delivery. Allow UDP port 7779 on the Pi. No Internet service is needed for this output.
 
 ## Message contract, schema 1
 
