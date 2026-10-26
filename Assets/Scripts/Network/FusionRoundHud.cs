@@ -55,6 +55,17 @@ public sealed class FusionRoundHud : MonoBehaviour
     private float previousHit;
     private float damageFlashUntil;
 
+    // Full-view announcement: the start countdown, FIGHT and the result fill most of the view.
+    private const float TakeoverDistance = 1.2f, TakeoverScale = 0.0011f;
+    private RectTransform takeoverRoot;
+    private CanvasGroup takeoverGroup;
+    private Image takeoverDim, takeoverEdge, takeoverFlash, takeoverRing, takeoverRingTrack;
+    private TextMeshProUGUI takeoverTitle, takeoverCaption;
+    private Material takeoverImageOverlay, takeoverTitleOverlay, takeoverCaptionOverlay;
+    private string takeoverKey = "";
+    private Color takeoverColor = Color.white;
+    private float takeoverShownAt, takeoverTarget, takeoverDimLevel, takeoverDimShown, takeoverRingFill = -1f;
+
     public static FusionRoundHud Current { get; private set; }
 
     private void Awake()
@@ -72,8 +83,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (root != null) DestroyHudObject(root.gameObject);
         if (statusRoot != null) DestroyHudObject(statusRoot.gameObject);
         if (vignetteRoot != null) DestroyHudObject(vignetteRoot.gameObject);
-        if (bannerTitleOverlay != null) DestroyHudObject(bannerTitleOverlay);
-        if (bannerCaptionOverlay != null) DestroyHudObject(bannerCaptionOverlay);
+        if (takeoverRoot != null) DestroyHudObject(takeoverRoot.gameObject);
+        foreach (Material overlay in new[] { bannerTitleOverlay, bannerCaptionOverlay, takeoverImageOverlay, takeoverTitleOverlay, takeoverCaptionOverlay })
+            if (overlay != null) DestroyHudObject(overlay);
     }
 
     private static void DestroyHudObject(Object value)
@@ -135,6 +147,32 @@ public sealed class FusionRoundHud : MonoBehaviour
         vignetteRoot = HudKit.Canvas("Feedback vignette", transform, new Vector2(2000f, 1700f), 10);
         vignette = HudKit.Image(vignetteRoot, "Vignette", HudSprites.Vignette(), new Color(1f, 0f, 0f, 0f), Vector2.zero, new Vector2(2000f, 1700f));
 
+        // Full-view announcement, wider and taller than the view and drawn over everything (cover included):
+        // a dimmed backdrop, a coloured edge glow, a flash, the countdown ring and one huge word or number.
+        takeoverRoot = HudKit.Canvas("Full-view announcement", transform, new Vector2(3600f, 3000f), 30);
+        takeoverGroup = takeoverRoot.gameObject.AddComponent<CanvasGroup>();
+        takeoverImageOverlay = OverlayImageMaterial();
+        takeoverDim = OverlayImage(HudKit.Image(takeoverRoot, "Dim", null, Color.clear, Vector2.zero, new Vector2(3600f, 3000f)));
+        takeoverEdge = OverlayImage(HudKit.Image(takeoverRoot, "Edge glow", HudSprites.Vignette(), Color.clear, Vector2.zero, new Vector2(3600f, 3000f)));
+        takeoverFlash = OverlayImage(HudKit.Image(takeoverRoot, "Flash", HudSprites.Dot(), Color.clear, Vector2.zero, new Vector2(2600f, 2000f)));
+        takeoverRingTrack = OverlayImage(HudKit.Image(takeoverRoot, "Ring track", HudSprites.Ring(), Color.clear, new Vector2(0f, 40f), new Vector2(1450f, 1450f)));
+        takeoverRing = OverlayImage(HudKit.Image(takeoverRoot, "Ring", HudSprites.Ring(), Color.clear, new Vector2(0f, 40f), new Vector2(1450f, 1450f)));
+        takeoverRing.type = Image.Type.Filled;
+        takeoverRing.fillMethod = Image.FillMethod.Radial360;
+        takeoverRing.fillOrigin = (int)Image.Origin360.Top;
+        takeoverTitle = HudKit.Text(takeoverRoot, "Title", HudKit.Heavy, 1100f, Color.white, new Vector2(0f, 40f), new Vector2(2000f, 1300f), TextAlignmentOptions.Center);
+        // Long words shrink to fit the width; a single digit stays full size.
+        takeoverTitle.enableAutoSizing = true;
+        takeoverTitle.fontSizeMin = 200f;
+        takeoverTitle.fontSizeMax = 1100f;
+        takeoverTitle.characterSpacing = 6f;
+        takeoverCaption = HudKit.Text(takeoverRoot, "Caption", HudKit.Display, 110f, Color.white, new Vector2(0f, -560f), new Vector2(2000f, 170f), TextAlignmentOptions.Center);
+        takeoverCaption.characterSpacing = 18f;
+        takeoverTitleOverlay = OverlayMaterial(takeoverTitle);
+        takeoverCaptionOverlay = OverlayMaterial(takeoverCaption);
+        takeoverGroup.alpha = 0f;
+        takeoverRoot.gameObject.SetActive(false);
+
         // A spectator PC shows its own overlays (SpectatorDirector); the headset HUD stays hidden.
         if (SpectatorSession.IsSpectator)
         {
@@ -142,6 +180,19 @@ public sealed class FusionRoundHud : MonoBehaviour
             statusRoot.gameObject.SetActive(false);
             vignetteRoot.gameObject.SetActive(false);
         }
+    }
+
+    private static Material OverlayImageMaterial()
+    {
+        var material = new Material(Canvas.GetDefaultCanvasMaterial()) { name = "HUD overlay image" };
+        material.SetInt("unity_GUIZTestMode", (int)UnityEngine.Rendering.CompareFunction.Always);
+        return material;
+    }
+
+    private Image OverlayImage(Image image)
+    {
+        image.material = takeoverImageOverlay;
+        return image;
     }
 
     private static Material OverlayMaterial(TextMeshProUGUI label)
@@ -179,6 +230,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         {
             root.SetParent(head, false);
             vignetteRoot.SetParent(head, false);
+            takeoverRoot.SetParent(head, false);
             statusRoot.SetParent(head.parent, false);
             smoothedRotation = head.rotation;
             smoothedHeading = Heading(head);
@@ -194,6 +246,9 @@ public sealed class FusionRoundHud : MonoBehaviour
         vignetteRoot.localPosition = new Vector3(0f, 0f, 0.45f);
         vignetteRoot.localRotation = Quaternion.identity;
         vignetteRoot.localScale = Vector3.one * 0.0012f;
+        takeoverRoot.localPosition = new Vector3(0f, 0f, TakeoverDistance);
+        takeoverRoot.localRotation = Quaternion.identity;
+        takeoverRoot.localScale = Vector3.one * TakeoverScale;
 
         // Health and clock turn with the player but ignore looking up/down or tilting.
         Vector3 heading = Heading(head);
@@ -255,6 +310,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 phaseLabel.text = !NetworkPlayerAlignment.HasCalibration ? "ALIGN AT START" : "WAITING FOR OTHER PLAYER";
                 SetTimeline(0f);
                 ShowBanner("waiting", "", "", Color.white, 0f);
+                HideTakeover();
                 lastCountdownNumber = lastHealState = -1;
                 break;
 
@@ -265,6 +321,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 phaseBand.color = HudKit.A(Friendly, 0.1f);
                 SetTimeline(0f);
                 ShowBanner("practice", "", "", Color.white, 0f);
+                HideTakeover();
                 lastCountdownNumber = lastHealState = -1;
                 break;
 
@@ -279,7 +336,9 @@ public sealed class FusionRoundHud : MonoBehaviour
                     lastCountdownNumber = number;
                     SynthAudio.Play2D(SynthAudio.CountBeat(), 0.8f);
                 }
-                ShowBanner("count" + number, number.ToString(), "", Friendly, 1f);
+                ShowBanner("count", "", "", Friendly, 0f);
+                // The ring drains over each second of the count.
+                ShowTakeover("count" + number, number.ToString(), "", Friendly, 0.45f, Mathf.Clamp01(remaining - (number - 1)));
                 break;
             }
 
@@ -288,8 +347,11 @@ public sealed class FusionRoundHud : MonoBehaviour
                 float elapsed = round.FightElapsed;
                 timer.text = Clock(remaining);
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
-                if (Time.time - fightStartedAt < 1.1f)
-                    ShowBanner("fight", "FIGHT", "", Friendly, 1f);
+                bool opening = Time.time - fightStartedAt < 1.1f;
+                if (opening) ShowTakeover("fight", "FIGHT", "", Friendly, 0.3f);
+                else HideTakeover();
+                if (opening)
+                    ShowBanner("fight", "", "", Friendly, 0f);
                 else if (sd >= -5f && sd < 0f)
                 {
                     ShowBanner("suddenwarn", "SUDDEN DEATH", "", Amber, 1f);
@@ -322,13 +384,60 @@ public sealed class FusionRoundHud : MonoBehaviour
                 phaseLabel.text = "ROUND OVER";
                 phaseLabel.color = Soft;
                 SetTimeline(1f);
-                ShowBanner(round.SoloOverride ? "soloresult" : draw ? "draw" : won ? "win" : "lose",
-                    round.SoloOverride ? won ? "SURVIVED" : "TRY AGAIN" : draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
-                    "PRACTICE IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, 1f);
+                string key = round.SoloOverride ? "soloresult" : draw ? "draw" : won ? "win" : "lose";
+                // Fully dimmed for the first few seconds, then lighter so players can look around.
+                float held = key == takeoverKey ? Time.time - takeoverShownAt : 0f;
+                ShowBanner(key, "", "", Color.white, 0f);
+                ShowTakeover(key, round.SoloOverride ? won ? "SURVIVED" : "TRY AGAIN" : draw ? "DRAW" : won ? "VICTORY" : "DEFEAT",
+                    "PRACTICE IN " + Mathf.CeilToInt(remaining), draw ? Soft : won ? Friendly : Enemy, held < 3f ? 0.55f : 0.25f);
                 break;
             }
         }
         AnimateBanner();
+        AnimateTakeover();
+    }
+
+    // ---------- Full-view announcement ----------
+
+    /// <summary>Fills most of the view with one word or number; ringFill 0..1 shows the countdown ring.</summary>
+    private void ShowTakeover(string key, string title, string caption, Color color, float dim, float ringFill = -1f)
+    {
+        takeoverTarget = 1f;
+        takeoverDimLevel = dim;
+        takeoverRingFill = ringFill;
+        takeoverCaption.text = caption;
+        if (key == takeoverKey) return;
+        takeoverKey = key;
+        takeoverShownAt = Time.time;
+        takeoverTitle.text = title;
+        takeoverTitle.color = color;
+        takeoverColor = color;
+        if (key == "fight") SynthAudio.Play2D(SynthAudio.Clunk(), 0.9f, 0.8f);
+    }
+
+    private void HideTakeover()
+    {
+        takeoverTarget = 0f;
+        takeoverKey = "";
+    }
+
+    private void AnimateTakeover()
+    {
+        takeoverGroup.alpha = Mathf.MoveTowards(takeoverGroup.alpha, takeoverTarget, Time.deltaTime * (takeoverTarget > 0f ? 8f : 3f));
+        bool visible = takeoverGroup.alpha > 0.001f;
+        if (takeoverRoot.gameObject.activeSelf != visible) takeoverRoot.gameObject.SetActive(visible);
+        if (!visible) return;
+        float age = Time.time - takeoverShownAt;
+        // Each new number or word slams in from larger, with a flash.
+        takeoverTitle.rectTransform.localScale = Vector3.one * (1f + 0.35f * Mathf.Exp(-age * 10f));
+        takeoverFlash.color = HudKit.A(Color.Lerp(Color.white, takeoverColor, 0.4f), 0.55f * Mathf.Exp(-age * 6f));
+        takeoverDimShown = Mathf.MoveTowards(takeoverDimShown, takeoverDimLevel, Time.deltaTime * 0.6f);
+        takeoverDim.color = new Color(0f, 0f, 0f, takeoverDimShown);
+        takeoverEdge.color = HudKit.A(takeoverColor, 0.5f + 0.25f * Mathf.Exp(-age * 4f));
+        bool ring = takeoverRingFill >= 0f;
+        takeoverRing.color = ring ? takeoverColor : Color.clear;
+        takeoverRingTrack.color = ring ? HudKit.A(Color.white, 0.14f) : Color.clear;
+        if (ring) takeoverRing.fillAmount = takeoverRingFill;
     }
 
     private void UpdateHealToasts(FusionRoundDirector round)

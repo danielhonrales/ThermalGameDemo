@@ -22,6 +22,7 @@ public static class DemoRegressionChecks
         RunArmEffectsCheck();
         RunSpectatorCheck();
         RunPiDiscoveryCheck();
+        RunArenaWallsCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -173,6 +174,68 @@ public static class DemoRegressionChecks
             UnityEngine.Object.DestroyImmediate(root);
         }
         Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
+    }
+
+    public static void RunArenaWallsCheck()
+    {
+        // Every headset computes the sliding wall from the same clock, so its path must be a fixed function of time.
+        const float travel = 1f, period = 12f;
+        foreach (var (time, expected) in new[] { (0.0, 0f), (3.0, travel), (6.0, 0f), (9.0, -travel), (1011.0, travel) })
+            if (Mathf.Abs(SlidingWall.Offset(time, travel, period) - expected) > 0.001f)
+                throw new Exception($"Sliding wall at {time} s should be {expected} m off centre, got {SlidingWall.Offset(time, travel, period)}.");
+        for (double t = 0; t < period; t += 0.25)
+            if (Mathf.Abs(SlidingWall.Offset(t, travel, period)) > travel + 0.0001f)
+                throw new Exception("The sliding wall left its track.");
+
+        Mesh mesh = ArenaWalls.CurvedWallMesh();
+        try
+        {
+            Bounds b = mesh.bounds;
+            if (Mathf.Abs(b.size.y - 1f) > 0.001f || b.max.x > -0.1f || b.max.z > -0.1f || Mathf.Max(b.size.x, b.size.z) > 1.1f)
+                throw new Exception("The curved wall must be 1 m high, under 1.1 m long, and curve away from its corner.");
+            Vector3[] vertices = mesh.vertices;
+            int[] triangles = mesh.GetTriangles(0);
+            int wrong = 0;
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                Vector3 a = vertices[triangles[i]], c1 = vertices[triangles[i + 1]], c2 = vertices[triangles[i + 2]];
+                Vector3 centre = (a + c1 + c2) / 3f, normal = Vector3.Cross(c1 - a, c2 - a).normalized;
+                Vector3 flat = new Vector3(centre.x, 0f, centre.z);
+                if (centre.y > 0.999f && Mathf.Abs(normal.y) > 0.5f) { if (normal.y < 0.99f) wrong++; continue; }
+                if (Mathf.Abs(normal.y) > 0.5f) { wrong++; continue; }
+                // The convex face points into the arena, away from the corner at the origin; the inner one toward it.
+                float side = Vector3.Dot(normal, flat.normalized);
+                if (Mathf.Abs(side) < 0.5f) continue;   // the two ends face along the arc
+                if (flat.magnitude > 1.12f && side < 0.9f) wrong++;
+                if (flat.magnitude < 1.08f && side > -0.9f) wrong++;
+            }
+            if (wrong > 0) throw new Exception($"{wrong} curved wall faces point the wrong way.");
+        }
+        finally { UnityEngine.Object.DestroyImmediate(mesh); }
+
+        mesh = ArenaWalls.SlidingWallMesh();
+        try
+        {
+            if (Mathf.Abs(mesh.bounds.size.y - 2.4f) > 0.001f) throw new Exception("The sliding wall must be full height (2.4 m).");
+            // Nothing but the glowing reveal may cover the window: shots pass through its middle and its corners.
+            Vector3[] vertices = mesh.vertices;
+            foreach (Vector2 p in new[] { new Vector2(0f, 1.3f), new Vector2(-0.23f, 0.95f), new Vector2(0.23f, 1.65f) })
+                for (int sub = 0; sub < 2; sub++)
+                {
+                    int[] triangles = mesh.GetTriangles(sub);
+                    for (int i = 0; i < triangles.Length; i += 3)
+                    {
+                        Vector3 a = vertices[triangles[i]], c1 = vertices[triangles[i + 1]], c2 = vertices[triangles[i + 2]];
+                        if (Mathf.Abs(Vector3.Cross(c1 - a, c2 - a).normalized.z) < 0.99f) continue;
+                        float d = (c1.y - c2.y) * (a.x - c2.x) + (c2.x - c1.x) * (a.y - c2.y);
+                        float l1 = ((c1.y - c2.y) * (p.x - c2.x) + (c2.x - c1.x) * (p.y - c2.y)) / d;
+                        float l2 = ((c2.y - a.y) * (p.x - c2.x) + (a.x - c2.x) * (p.y - c2.y)) / d;
+                        if (l1 > 0.001f && l2 > 0.001f && 1f - l1 - l2 > 0.001f) throw new Exception($"The sliding wall's window is covered at {p}.");
+                    }
+                }
+        }
+        finally { UnityEngine.Object.DestroyImmediate(mesh); }
+        Debug.Log("ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track; curved wall is 1 m high, short, and faces the right way; the sliding wall's window is open.");
     }
 
     public static void RunPiDiscoveryCheck()

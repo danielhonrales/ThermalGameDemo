@@ -20,11 +20,15 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private static readonly Color Red = new Color(1f, 0.1f, 0.06f, 1f);
     private static readonly Color Ember = new Color(1f, 0.32f, 0.08f, 1f);
 
-    public const float GroundFireRadius = 0.65f;
+    /// <summary>Centre of the play area (the scene's PlayAreaOutline) in the arena frame; ArenaMechanicsChecks keeps them in step.</summary>
+    public static readonly Vector2 PlayAreaCentre = new Vector2(0.15f, 0.40f);
+    public const float GroundFireRadius = 0.45f;
+    // In the arena frame. The two open corners and the pockets behind the curved walls burn, pushing
+    // players into the middle lanes; point-symmetric so neither side is favoured.
     public static readonly Vector2[] GroundFires =
     {
-        new Vector2(-0.65f, -1.15f), new Vector2(1.2f, 2.7f),
-        new Vector2(-1.7f, 1.4f), new Vector2(2.2f, -0.1f)
+        PlayAreaCentre + new Vector2(1.15f, -1.15f), PlayAreaCentre + new Vector2(-1.15f, 1.15f),
+        PlayAreaCentre + new Vector2(1.28f, 1.28f), PlayAreaCentre + new Vector2(-1.28f, -1.28f),
     };
     public static bool IsInGroundFire(Vector3 head)
     {
@@ -77,6 +81,20 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private ParticleSystem embers, motes;
     private LineRenderer boundary;
     private Material lineMaterial, emberMaterial;
+
+    // Ground-fire zones: marked during the warning, burning after the eruption.
+    private sealed class FireZone
+    {
+        public Vector3 point;
+        public GameObject root;
+        public Renderer disc;
+        public LineRenderer edge, dashes;
+        public ParticleSystem sparks;
+    }
+    private readonly List<FireZone> zones = new List<FireZone>();
+    private Material zoneMaterial, dashMaterial;
+    private Texture2D zoneTexture, dashTexture;
+    private static readonly int ColorId = Shader.PropertyToID("_Color");
     private AudioSource fireLoop;
 
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
@@ -103,9 +121,18 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 
         // Calibration places the floor at the arena root height.
         floorY = arenaFrame != null ? arenaFrame.position.y : 0f;
-        // Centred under the 5 x 5 m virtual ceiling.
-        centre = ArenaPoint(new Vector3(MirrorX, 0f, 0.71f));
-        arenaBounds = new Bounds(new Vector3(MirrorX, 0f, 0.71f), new Vector3(5.4f, 0.1f, 5.4f));
+        // The charred floor, embers and boundary cover the play area; without an outline, the old 5.4 m arena.
+        var area = FindFirstObjectByType<PlayAreaOutline>();
+        Vector3 local = new Vector3(MirrorX, 0f, 0.71f);
+        Vector2 size = new Vector2(5.4f, 5.4f);
+        if (area != null && arenaFrame != null)
+        {
+            local = arenaFrame.InverseTransformPoint(area.transform.position);
+            local.y = 0f;
+            size = area.Size + Vector2.one * 0.1f;
+        }
+        centre = ArenaPoint(local);
+        arenaBounds = new Bounds(local, new Vector3(size.x, 0.1f, size.y));
 
         // Legacy built-in particle shaders don't render in URP (they show as white domes).
         if (arenaFrame != null)
@@ -296,7 +323,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         eruptionRing = CombatVfxStyle.CreateLine(transform, "Eruption ring", lineMaterial, true, 0.12f);
 
         float minX = arenaBounds.min.x, maxX = arenaBounds.max.x, minZ = arenaBounds.min.z, maxZ = arenaBounds.max.z;
-        // Fires line the arena edge (outside the play lanes).
         foreach (Vector2 point in GroundFires)
             firePoints.Add(ArenaPoint(new Vector3(point.x, 0f, point.y)));
 
@@ -364,6 +390,120 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         });
 
         fireLoop = Loop(SynthAudio.FireRoar());
+        BuildFireZones();
+    }
+
+    private void BuildFireZones()
+    {
+        zoneTexture = ZoneTexture();
+        zoneMaterial = CombatVfxStyle.CreateMaterial("Fire zone", Color.white);
+        zoneMaterial.mainTexture = zoneTexture;
+        dashTexture = DashTexture();
+        dashMaterial = CombatVfxStyle.CreateMaterial("Fire zone dashes", Color.white);
+        dashMaterial.mainTexture = dashTexture;
+        Quaternion flat = (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(90f, 0f, 0f);
+        foreach (Vector3 point in firePoints)
+        {
+            var zone = new FireZone { point = point, root = new GameObject("Ground fire zone") };
+            zone.root.transform.SetParent(transform, false);
+            GameObject disc = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            Destroy(disc.GetComponent<Collider>());
+            disc.name = "Zone floor";
+            disc.transform.SetParent(zone.root.transform, false);
+            disc.transform.SetPositionAndRotation(point + Vector3.up * 0.012f, flat);
+            disc.transform.localScale = Vector3.one * GroundFireRadius * 2f;
+            zone.disc = disc.GetComponent<Renderer>();
+            zone.disc.sharedMaterial = zoneMaterial;
+            zone.disc.shadowCastingMode = ShadowCastingMode.Off;
+            zone.edge = CombatVfxStyle.CreateLine(zone.root.transform, "Zone edge", lineMaterial, true, 0.05f);
+            CombatVfxStyle.SetRing(zone.edge, point + Vector3.up * 0.02f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius, 48);
+            zone.edge.enabled = true;
+            // A marching dashed ring just inside the edge, like hazard tape.
+            zone.dashes = CombatVfxStyle.CreateLine(zone.root.transform, "Zone dashes", dashMaterial, true, 0.06f);
+            zone.dashes.textureMode = LineTextureMode.RepeatPerSegment;
+            CombatVfxStyle.SetRing(zone.dashes, point + Vector3.up * 0.022f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius * 0.8f, 18);
+            zone.dashes.enabled = true;
+            // Sparks rise from the whole zone: a nearly straight cone pointing up.
+            zone.sparks = Instantiate(embers, zone.root.transform);
+            zone.sparks.name = "Zone sparks";
+            zone.sparks.transform.SetPositionAndRotation(point + Vector3.up * 0.05f,
+                (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(-90f, 0f, 0f));
+            var shape = zone.sparks.shape;
+            shape.shapeType = ParticleSystemShapeType.Cone;
+            shape.angle = 8f;
+            shape.radius = GroundFireRadius * 0.9f;
+            shape.scale = Vector3.one;
+            shape.position = Vector3.zero;
+            var main = zone.sparks.main;
+            main.startSpeed = new ParticleSystem.MinMaxCurve(0.3f, 1.1f);
+            main.startLifetime = new ParticleSystem.MinMaxCurve(0.8f, 2f);
+            main.maxParticles = 80;
+            zone.sparks.Play();
+            zone.root.SetActive(false);
+            zones.Add(zone);
+        }
+    }
+
+    /// <summary>A disc that is filled faintly and brightest at its rim.</summary>
+    private static Texture2D ZoneTexture()
+    {
+        const int size = 128;
+        var texture = new Texture2D(size, size, TextureFormat.RGBA32, true) { name = "Fire zone", wrapMode = TextureWrapMode.Clamp };
+        var pixels = new Color32[size * size];
+        for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; x++)
+            {
+                float r = new Vector2(x + 0.5f - size * 0.5f, y + 0.5f - size * 0.5f).magnitude / (size * 0.5f);
+                float alpha = Mathf.Clamp01((1f - r) * size * 0.5f) * (0.45f + 0.55f * Mathf.SmoothStep(0.6f, 0.97f, r));
+                pixels[y * size + x] = new Color32(255, 255, 255, (byte)(alpha * 255f));
+            }
+        texture.SetPixels32(pixels);
+        texture.Apply(true, true);
+        return texture;
+    }
+
+    /// <summary>Half solid, half clear: one dash per line segment.</summary>
+    private static Texture2D DashTexture()
+    {
+        var texture = new Texture2D(16, 4, TextureFormat.RGBA32, false) { name = "Fire zone dash", wrapMode = TextureWrapMode.Repeat };
+        var pixels = new Color32[16 * 4];
+        for (int i = 0; i < pixels.Length; i++) pixels[i] = new Color32(255, 255, 255, (byte)(i % 16 < 9 ? 255 : 0));
+        texture.SetPixels32(pixels);
+        texture.Apply();
+        return texture;
+    }
+
+    /// <summary>Marks the zones from the warning on, and makes them burn once sudden death begins.</summary>
+    private void UpdateFireZones(float clock, float beat)
+    {
+        float warning = !erupted && clock > -WarningLead && clock < 0f ? Mathf.Clamp01((clock + WarningLead) / 0.6f) : 0f;
+        float burning = erupted ? Mathf.Clamp01((Time.time - eruptedAt) / 0.4f) : 0f;
+        bool shown = warning > 0f || burning > 0f;
+        float blink = 0.5f + 0.5f * Mathf.Sin(Time.time * 9f);
+        Color amber = new Color(1f, 0.62f, 0.12f, 1f);
+        if (dashMaterial != null) dashMaterial.mainTextureOffset = new Vector2(-Time.time * (erupted ? 1.5f : 2.5f), 0f);
+        foreach (FireZone zone in zones)
+        {
+            if (zone.root.activeSelf != shown) zone.root.SetActive(shown);
+            if (!shown) continue;
+            if (!zone.sparks.isPlaying) zone.sparks.Play();
+            Color floor = erupted
+                ? new Color(1f, 0.28f, 0.06f, (0.42f + 0.2f * beat) * burning)
+                : new Color(amber.r, amber.g, amber.b, (0.12f + 0.22f * blink) * warning);
+            zone.disc.GetPropertyBlock(block);
+            block.SetColor(ColorId, floor);
+            block.SetColor(BaseColorId, floor);
+            zone.disc.SetPropertyBlock(block);
+            zone.edge.widthMultiplier = erupted ? 0.07f : 0.04f;
+            zone.edge.startColor = zone.edge.endColor = erupted
+                ? CombatVfxStyle.WithAlpha(Color.Lerp(Ember, Color.white, 0.25f * beat), 0.95f * burning)
+                : CombatVfxStyle.WithAlpha(amber, (0.55f + 0.4f * blink) * warning);
+            zone.dashes.startColor = zone.dashes.endColor = erupted
+                ? CombatVfxStyle.WithAlpha(Red, 0.8f * burning)
+                : CombatVfxStyle.WithAlpha(Color.Lerp(amber, Color.white, 0.3f), 0.9f * warning);
+            var emission = zone.sparks.emission;
+            emission.rateOverTime = erupted ? 30f : 5f * warning;
+        }
     }
 
     private AudioSource Loop(AudioClip clip)
@@ -450,13 +590,19 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         ThermalFxLibrary fx = ThermalFxLibrary.Instance;
         hellFloor.SetActive(true);
         if (fx == null) return;
+        Quaternion heading = arenaFrame != null ? arenaFrame.rotation : Quaternion.identity;
         foreach (Vector3 point in firePoints)
         {
-            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.48f, transform));
-            var ring = CombatVfxStyle.CreateLine(transform, "Burning ground boundary", lineMaterial, true, 0.035f);
-            CombatVfxStyle.SetRing(ring, point + Vector3.up * 0.025f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius, 40);
-            ring.startColor = ring.endColor = Ember;
-            hellFx.Add(ring.gameObject);
+            // Each zone flares up, then burns: a tall fire in the middle ringed by smaller flames, with smoke.
+            ThermalFxLibrary.Spawn(fx.hitExplosion, point + Vector3.up * 0.1f, 0.7f, 3f);
+            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.5f, transform));
+            for (int i = 0; i < 4; i++)
+            {
+                float angle = (45f + 90f * i) * Mathf.Deg2Rad;
+                Vector3 rim = point + heading * new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * GroundFireRadius * 0.68f;
+                hellFx.Add(SpawnLoop(fx.fireMedium, rim, Quaternion.identity, 0.3f, transform));
+            }
+            hellFx.Add(SpawnLoop(fx.groundSmoke, point, Quaternion.identity, 0.35f, transform));
         }
         // The arena change is drones and ground fire only; there is no big blast.
     }
@@ -640,6 +786,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
 
         fireLoop.volume = 0.15f * hell;
         Toggle(fireLoop, hell > 0f);
+        UpdateFireZones(clock, beat);
     }
 
     private float FloorScale()
@@ -736,6 +883,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         foreach (GameObject piece in newCover) if (piece != null) Destroy(piece);
         if (lineMaterial != null) Destroy(lineMaterial);
         if (emberMaterial != null) Destroy(emberMaterial);
+        foreach (Object owned in new Object[] { zoneMaterial, dashMaterial, zoneTexture, dashTexture })
+            if (owned != null) Destroy(owned);
         redLut?.Dispose();
     }
 }

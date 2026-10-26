@@ -78,6 +78,14 @@ public static class HudSprites
         return Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.55f, 1.25f, r));
     }, Vector4.zero);
 
+    /// <summary>Anti-aliased ring; width is a fraction of the radius. Use with a radial fill for timers.</summary>
+    public static Sprite Ring(float width = 0.06f) => Make("ring" + width, 256, (x, y, s) =>
+    {
+        float half = s * 0.5f;
+        float r = new Vector2(x - half, y - half).magnitude;
+        return Mathf.Clamp01(half - 1f - r) * Mathf.Clamp01(r - half * (1f - width));
+    }, Vector4.zero);
+
     /// <summary>Horizontal fade (opaque left, transparent right) for banners.</summary>
     public static Sprite FadeBand() => Make("fadeband", 128, (x, y, s) =>
     {

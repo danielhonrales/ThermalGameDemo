@@ -27,8 +27,9 @@ public static class ArenaPlayArea
         var outline = new GameObject("Play Area Outline");
         Undo.RegisterCreatedObjectUndo(outline, "Add play area outline");
         outline.transform.SetParent(layouts.transform, false);
-        // Cover rests on the floor, so its lowest point gives the floor height.
-        Vector3 centre = layouts.transform.InverseTransformPoint(new Vector3(cover.center.x, cover.min.y, cover.center.z));
+        // Calibration puts the real floor at the arena root's height.
+        float floor = layouts.transform.root.position.y;
+        Vector3 centre = layouts.transform.InverseTransformPoint(new Vector3(cover.center.x, floor, cover.center.z));
         outline.transform.localPosition = centre;
         outline.AddComponent<PlayAreaOutline>();
         EditorSceneManager.MarkSceneDirty(outline.scene);
@@ -51,6 +52,7 @@ public static class ArenaPlayArea
         int i = Array.IndexOf(args, "-reportPath");
         string path = i >= 0 && i + 1 < args.Length ? args[i + 1] : "Temp/arena-play-area.txt";
         File.WriteAllText(path, report);
+        File.WriteAllLines(System.IO.Path.ChangeExtension(path, ".tsv"), rows);
         Debug.Log(report);
     }
 
@@ -92,8 +94,11 @@ public static class ArenaPlayArea
         groups.Add(("Spawn points", layouts.transform.Cast<Transform>()
             .Where(t => t.name == "SpawnPoints").SelectMany(Children)));
 
+        rows.Clear();
+        rows.Add($"area\t{outline.Size.x.ToString(System.Globalization.CultureInfo.InvariantCulture)}\t{outline.Size.y.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
         foreach (var (title, items) in groups)
         {
+            group = title;
             text.AppendLine().AppendLine(title + ":");
             foreach (Transform item in items)
             {
@@ -107,10 +112,19 @@ public static class ArenaPlayArea
         return text.ToString();
     }
 
+    // group, name, depth, fit, centre x/z and size x/z of each listed piece, for drawing a map.
+    private static readonly List<string> rows = new List<string>();
+    private static string group;
+
     private static void Describe(StringBuilder text, PlayAreaOutline outline, Transform item, int depth)
     {
         Bounds local = BoundsIn(outline.transform, item);
         string fit = Fit(outline, local);
+        rows.Add(string.Join("\t", group, item.name, depth, fit,
+            local.center.x.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture),
+            local.center.z.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture),
+            local.size.x.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture),
+            local.size.z.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)));
         string name = new string(' ', 2 * (depth - 1)) + item.name + (item.gameObject.activeInHierarchy ? "" : " (inactive)");
         text.AppendLine($"  [{fit,-7}] {name,-44} centre ({local.center.x:+0.00;-0.00}, {local.center.z:+0.00;-0.00})"
             + (local.size == Vector3.zero ? "  no mesh" : $"  size {local.size.x:0.00} x {local.size.z:0.00} x {local.size.y:0.00} high"));

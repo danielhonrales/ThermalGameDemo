@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -6,6 +7,32 @@ using UnityEngine.SceneManagement;
 
 public static class ArenaMechanicsChecks
 {
+    /// <summary>The sudden-death fire zones are fixed in code; they must sit inside the scene's play area, clear of the spawns.</summary>
+    private static void CheckGroundFires(Transform arena)
+    {
+        var area = UnityEngine.Object.FindFirstObjectByType<PlayAreaOutline>();
+        if (area == null) throw new Exception("The scene has no play area outline.");
+        Vector3 centre = arena.InverseTransformPoint(area.transform.position);
+        if (Vector2.Distance(new Vector2(centre.x, centre.z), SuddenDeathDirector.PlayAreaCentre) > 0.01f
+            || Mathf.Abs(centre.y) > 0.01f || Quaternion.Angle(area.transform.rotation, arena.rotation) > 0.5f)
+            throw new Exception($"The play area outline sits at {centre} in the arena; SuddenDeathDirector.PlayAreaCentre says {SuddenDeathDirector.PlayAreaCentre} on the floor.");
+        float r = SuddenDeathDirector.GroundFireRadius;
+        Transform[] spawns = GameObject.Find("ArenaRoot/GameplayRoot/SpawnPoints")?.transform.Cast<Transform>().ToArray() ?? new Transform[0];
+        foreach (Vector2 fire in SuddenDeathDirector.GroundFires)
+        {
+            Vector3 local = area.transform.InverseTransformPoint(arena.TransformPoint(new Vector3(fire.x, 0f, fire.y)));
+            if (Mathf.Abs(local.x) + r > area.Size.x * 0.5f + 0.001f || Mathf.Abs(local.z) + r > area.Size.y * 0.5f + 0.001f)
+                throw new Exception($"Ground fire at {fire} reaches outside the play area.");
+            foreach (Transform spawn in spawns)
+            {
+                Vector3 s = arena.InverseTransformPoint(spawn.position);
+                if (Vector2.Distance(new Vector2(s.x, s.z), fire) < r + 0.4f)
+                    throw new Exception($"Ground fire at {fire} is too close to {spawn.name}.");
+            }
+        }
+        Debug.Log("GROUND FIRE PASSED: every sudden-death fire zone lies inside the play area, clear of the spawns.");
+    }
+
     public static void Run()
     {
         CheckWood();
@@ -17,6 +44,7 @@ public static class ArenaMechanicsChecks
         for (int i = 0; i < 4; i++)
             if (Resources.Load<GameObject>("ThermalArena/ShipCargo" + i) == null)
                 throw new Exception("Missing diverse cargo variant " + i);
+        CheckGroundFires(roof.transform.root);
         Debug.Log("ARENA MECHANICS PASSED: wood chars, opens a physical hole, resets; cargo drops to authored pose without rigidbodies; four cargo variants.");
     }
 
