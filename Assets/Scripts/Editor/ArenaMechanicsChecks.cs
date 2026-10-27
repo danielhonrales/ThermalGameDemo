@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public static class ArenaMechanicsChecks
 {
-    /// <summary>The sudden-death fire zones are fixed in code; they must sit inside the scene's play area, clear of the spawns.</summary>
+    /// <summary>The sudden-death fire zones move along paths fixed in code; they must stay inside the scene's play area.</summary>
     private static void CheckGroundFires(Transform arena)
     {
         var area = UnityEngine.Object.FindFirstObjectByType<PlayAreaOutline>();
@@ -17,20 +17,15 @@ public static class ArenaMechanicsChecks
             || Mathf.Abs(centre.y) > 0.01f || Quaternion.Angle(area.transform.rotation, arena.rotation) > 0.5f)
             throw new Exception($"The play area outline sits at {centre} in the arena; SuddenDeathDirector.PlayAreaCentre says {SuddenDeathDirector.PlayAreaCentre} on the floor.");
         float r = SuddenDeathDirector.GroundFireRadius;
-        Transform[] spawns = GameObject.Find("ArenaRoot/GameplayRoot/SpawnPoints")?.transform.Cast<Transform>().ToArray() ?? new Transform[0];
-        foreach (Vector2 fire in SuddenDeathDirector.GroundFires)
-        {
-            Vector3 local = area.transform.InverseTransformPoint(arena.TransformPoint(new Vector3(fire.x, 0f, fire.y)));
-            if (Mathf.Abs(local.x) + r > area.Size.x * 0.5f + 0.001f || Mathf.Abs(local.z) + r > area.Size.y * 0.5f + 0.001f)
-                throw new Exception($"Ground fire at {fire} reaches outside the play area.");
-            foreach (Transform spawn in spawns)
+        for (float clock = 0f; clock <= 60f; clock += 0.25f)
+            for (int i = 0; i < SuddenDeathDirector.GroundFireCount; i++)
             {
-                Vector3 s = arena.InverseTransformPoint(spawn.position);
-                if (Vector2.Distance(new Vector2(s.x, s.z), fire) < r + 0.4f)
-                    throw new Exception($"Ground fire at {fire} is too close to {spawn.name}.");
+                Vector2 fire = SuddenDeathDirector.GroundFireAt(i, clock);
+                Vector3 local = area.transform.InverseTransformPoint(arena.TransformPoint(new Vector3(fire.x, 0f, fire.y)));
+                if (Mathf.Abs(local.x) + r > area.Size.x * 0.5f + 0.001f || Mathf.Abs(local.z) + r > area.Size.y * 0.5f + 0.001f)
+                    throw new Exception($"Ground fire {i + 1} at {clock} s reaches outside the play area.");
             }
-        }
-        Debug.Log("GROUND FIRE PASSED: every sudden-death fire zone lies inside the play area, clear of the spawns.");
+        Debug.Log("GROUND FIRE PASSED: the moving sudden-death fire zones stay inside the play area for a full minute.");
     }
 
     public static void Run()

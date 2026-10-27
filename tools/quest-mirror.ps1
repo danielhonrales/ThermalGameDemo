@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Mirrors each Quest's left-eye view to this PC with scrcpy over the LAN; no internet is needed.
+Mirrors each Quest's view to this PC with scrcpy over the LAN; no internet is needed.
 
 .DESCRIPTION
 Plug a headset in by USB and run this once: it switches the headset to network ADB on port 5555
@@ -16,11 +16,14 @@ the headset is on someone's head, or close the window and run this again.
 #>
 param(
     [string[]]$Ip = @(),
-    # Share of the left eye's width shown, as a 16:9 crop around the lens centre. The headset's
-    # picture is pre-warped for its lenses and ringed in black; cropping keeps the flatter middle.
-    # 0.9 is about the widest without the black ring showing at the edge; 1 shows the whole eye.
-    [ValidateRange(0.3, 1.0)][double]$Zoom = 0.9,
-    [int]$MaxSize = 1280,
+    # Share of the eye's width shown. 1 (the default) shows the whole eye view as the headset draws it:
+    # pre-warped for its lenses and ringed in black. Below 1, a 16:9 crop around the lens centre keeps
+    # the flatter middle.
+    [ValidateRange(0.3, 1.0)][double]$Zoom = 1.0,
+    # Pixels along the captured picture's long side, before the window squeezes it to shape.
+    [int]$MaxSize = 1920,
+    # Window height in pixels; the width follows from the view's shape.
+    [int]$WindowHeight = 900,
     [int]$Fps = 30,
     [string]$BitRate = '8M'
 )
@@ -72,23 +75,32 @@ foreach ($target in $targets) {
         $result = & $adb connect $target
         if ($result -notmatch 'connected') { Write-Warning "${target}: $result"; continue }
     }
-    # The display is both eyes side by side; mirror the left eye only.
+    # The mirrored display is one eye's view stretched to twice its width (on a Quest 3S, 3664 x 1920
+    # holding a 1832 x 1920 view: its round lens area shows as a 2:1 ellipse). Capture it whole, or a
+    # crop of it, and let the window squeeze it back to its true shape.
     $size = & $adb -s $target shell wm size | Select-String 'Physical size: (\d+)x(\d+)'
-    $eyeWidth = [int]$size.Matches[0].Groups[1].Value / 2
+    $width = [int]$size.Matches[0].Groups[1].Value
     $height = [int]$size.Matches[0].Groups[2].Value
-    if ($Zoom -ge 1) { $crop = "${eyeWidth}:${height}:0:0" }
+    if ($Zoom -ge 1)
+    {
+        $crop = "${width}:${height}:0:0"
+        $aspect = ($width / 2) / $height
+    }
     else {
-        # The left lens's visible circle sits nearer the nose, measured on a Quest 3S.
-        $w = [int]($eyeWidth * $Zoom / 2) * 2
-        $h = [int]($w * 9 / 16 / 2) * 2
-        $x = [Math]::Min([Math]::Max(0, [int]($eyeWidth * 0.539 - $w / 2)), $eyeWidth - $w)
-        $y = [Math]::Min([Math]::Max(0, [int]($height * 0.483 - $h / 2)), $height - $h)
+        # 16:9 once squeezed, around the lens centre, measured on a Quest 3S.
+        $w = [int]($width * $Zoom / 2) * 2
+        $h = [Math]::Min($height, [int]($w / 2 * 9 / 16 / 2) * 2)
+        $x = [Math]::Min([Math]::Max(0, [int]($width * 0.506 - $w / 2)), $width - $w)
+        $y = [Math]::Min([Math]::Max(0, [int]($height * 0.495 - $h / 2)), $height - $h)
         $crop = "${w}:${h}:${x}:${y}"
+        $aspect = ($w / 2) / $h
     }
     Start-Process $scrcpy -ArgumentList @(
         # Start-Process joins arguments with spaces, so quote the title's.
         '-s', $target, "--window-title=`"Quest $target`"",
         '--no-audio', '--no-control', '--crop', $crop,
+        '--render-fit=stretched', '--no-window-aspect-ratio-lock',
+        '--window-height', $WindowHeight, '--window-width', [int]($WindowHeight * $aspect),
         '--max-size', $MaxSize, '--max-fps', $Fps, '--video-bit-rate', $BitRate)
     Write-Host "Mirroring $target"
 }

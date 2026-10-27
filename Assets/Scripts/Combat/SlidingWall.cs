@@ -15,6 +15,7 @@ public sealed class SlidingWall : MonoBehaviour
     [SerializeField, Min(1f)] private float period = 12f;
 
     private Vector3 home;
+    private Transform homeParent;
 
     public float Travel => travel;
 
@@ -22,10 +23,16 @@ public sealed class SlidingWall : MonoBehaviour
     public static float Offset(double time, float travel, float period)
         => travel * Mathf.Sin((float)(2.0 * System.Math.PI * (time % period) / period));
 
-    private void Awake() => home = transform.localPosition;
+    private void Awake()
+    {
+        home = transform.localPosition;
+        homeParent = transform.parent;
+    }
 
     private void Update()
     {
+        // A drone carrying the wall off at sudden death moves it; it slides again once put back.
+        if (transform.parent != homeParent) return;
         double time = NetworkClient.active || NetworkServer.active ? NetworkTime.time : Time.timeAsDouble;
         transform.localPosition = home + transform.localRotation * Vector3.right * Offset(time, travel, period);
     }

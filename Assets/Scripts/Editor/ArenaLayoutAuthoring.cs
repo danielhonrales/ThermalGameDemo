@@ -74,8 +74,9 @@ public static class ArenaLayoutAuthoring
     {
         if (layouts == null || layouts.initialCover == null || layouts.suddenDeathCover == null)
             throw new Exception("Both authored arena layouts are required.");
-        if (layouts.suddenDeathCover.childCount == 0 || layouts.suddenDeathCover.childCount > 31)
-            throw new Exception("SuddenDeathLayout requires 1–31 direct child obstacles.");
+        // An empty layout is allowed: sudden death then only clears the starting cover.
+        if (layouts.suddenDeathCover.childCount > 31)
+            throw new Exception("SuddenDeathLayout allows at most 31 direct child obstacles.");
         int pickups = 0;
         foreach (Transform child in layouts.initialCover)
             if (child.name.StartsWith("Obstacle") || child.name.StartsWith("Crate")) pickups++;

@@ -23,17 +23,24 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     /// <summary>Centre of the play area (the scene's PlayAreaOutline) in the arena frame; ArenaMechanicsChecks keeps them in step.</summary>
     public static readonly Vector2 PlayAreaCentre = new Vector2(0.15f, 0.40f);
     public const float GroundFireRadius = 0.45f;
-    // In the arena frame. The two open corners and the pockets behind the curved walls burn, pushing
-    // players into the middle lanes; point-symmetric so neither side is favoured.
-    public static readonly Vector2[] GroundFires =
+    public const int GroundFireCount = 4;
+    // The zones circle the play area together, 90 degrees apart (point-symmetric, so neither side is
+    // favoured), while drifting in and out, so no spot stays safe. At most about 0.4 m/s.
+    private const float FireOrbit = 0.95f, FireOrbitSwing = 0.3f, FireSpin = 0.3f, FireSwingRate = 0.45f;
+
+    /// <summary>Where ground fire zone `index` is, in the arena frame, at a sudden-death clock time; before sudden death, where it will erupt.</summary>
+    public static Vector2 GroundFireAt(int index, float clock)
     {
-        PlayAreaCentre + new Vector2(1.15f, -1.15f), PlayAreaCentre + new Vector2(-1.15f, 1.15f),
-        PlayAreaCentre + new Vector2(1.28f, 1.28f), PlayAreaCentre + new Vector2(-1.28f, -1.28f),
-    };
-    public static bool IsInGroundFire(Vector3 head)
+        float t = Mathf.Max(0f, clock);
+        float radius = FireOrbit + FireOrbitSwing * Mathf.Sin(FireSwingRate * t);
+        float angle = Mathf.PI * (0.25f + 0.5f * index) + FireSpin * t;
+        return PlayAreaCentre + radius * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
+
+    public static bool IsInGroundFire(Vector3 head, float clock)
     {
-        foreach (Vector2 point in GroundFires)
-            if (Vector2.Distance(point, new Vector2(head.x, head.z)) <= GroundFireRadius) return true;
+        for (int i = 0; i < GroundFireCount; i++)
+            if (Vector2.Distance(GroundFireAt(i, clock), new Vector2(head.x, head.z)) <= GroundFireRadius) return true;
         return false;
     }
 
@@ -77,7 +84,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     private Renderer hellFloorRenderer;
     private LineRenderer eruptionRing;
     private readonly List<GameObject> hellFx = new List<GameObject>();
-    private readonly List<Vector3> firePoints = new List<Vector3>();
     private ParticleSystem embers, motes;
     private LineRenderer boundary;
     private Material lineMaterial, emberMaterial;
@@ -85,13 +91,14 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     // Ground-fire zones: marked during the warning, burning after the eruption.
     private sealed class FireZone
     {
-        public Vector3 point;
+        public int index;
         public GameObject root;
         public Renderer disc;
         public LineRenderer edge, dashes;
         public ParticleSystem sparks;
     }
     private readonly List<FireZone> zones = new List<FireZone>();
+    private float fireClock;    // the sudden-death clock the zones were last placed at; held through the result
     private Material zoneMaterial, dashMaterial;
     private Texture2D zoneTexture, dashTexture;
     private static readonly int ColorId = Shader.PropertyToID("_Color");
@@ -157,6 +164,12 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     }
 
     private Vector3 ArenaPoint(Vector3 local) => arenaFrame != null ? arenaFrame.TransformPoint(local) : local;
+
+    private Vector3 FirePoint(int index, float clock)
+    {
+        Vector2 point = GroundFireAt(index, clock);
+        return ArenaPoint(new Vector3(point.x, 0f, point.y));
+    }
 
     private void AddGraded(Transform root)
     {
@@ -323,8 +336,6 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         eruptionRing = CombatVfxStyle.CreateLine(transform, "Eruption ring", lineMaterial, true, 0.12f);
 
         float minX = arenaBounds.min.x, maxX = arenaBounds.max.x, minZ = arenaBounds.min.z, maxZ = arenaBounds.max.z;
-        foreach (Vector2 point in GroundFires)
-            firePoints.Add(ArenaPoint(new Vector3(point.x, 0f, point.y)));
 
         // Light rising embers mark the new arena without filling the room.
         var emberObject = new GameObject("Embers");
@@ -401,33 +412,37 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         dashTexture = DashTexture();
         dashMaterial = CombatVfxStyle.CreateMaterial("Fire zone dashes", Color.white);
         dashMaterial.mainTexture = dashTexture;
-        Quaternion flat = (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(90f, 0f, 0f);
-        foreach (Vector3 point in firePoints)
+        // Each zone is built around its own root, which moves it across the arena; its parts sit relative to it.
+        Quaternion heading = arenaFrame != null ? arenaFrame.rotation : Quaternion.identity;
+        Quaternion flat = Quaternion.Euler(90f, 0f, 0f);
+        for (int index = 0; index < GroundFireCount; index++)
         {
-            var zone = new FireZone { point = point, root = new GameObject("Ground fire zone") };
+            var zone = new FireZone { index = index, root = new GameObject("Ground fire zone " + (index + 1)) };
             zone.root.transform.SetParent(transform, false);
+            zone.root.transform.SetPositionAndRotation(FirePoint(index, 0f), heading);
             GameObject disc = GameObject.CreatePrimitive(PrimitiveType.Quad);
             Destroy(disc.GetComponent<Collider>());
             disc.name = "Zone floor";
             disc.transform.SetParent(zone.root.transform, false);
-            disc.transform.SetPositionAndRotation(point + Vector3.up * 0.012f, flat);
+            disc.transform.localPosition = Vector3.up * 0.012f;
+            disc.transform.localRotation = flat;
             disc.transform.localScale = Vector3.one * GroundFireRadius * 2f;
             zone.disc = disc.GetComponent<Renderer>();
             zone.disc.sharedMaterial = zoneMaterial;
             zone.disc.shadowCastingMode = ShadowCastingMode.Off;
-            zone.edge = CombatVfxStyle.CreateLine(zone.root.transform, "Zone edge", lineMaterial, true, 0.05f);
-            CombatVfxStyle.SetRing(zone.edge, point + Vector3.up * 0.02f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius, 48);
+            zone.edge = CombatVfxStyle.CreateLine(zone.root.transform, "Zone edge", lineMaterial, false, 0.05f);
+            CombatVfxStyle.SetRing(zone.edge, Vector3.up * 0.02f, flat, GroundFireRadius, 48);
             zone.edge.enabled = true;
             // A marching dashed ring just inside the edge, like hazard tape.
-            zone.dashes = CombatVfxStyle.CreateLine(zone.root.transform, "Zone dashes", dashMaterial, true, 0.06f);
+            zone.dashes = CombatVfxStyle.CreateLine(zone.root.transform, "Zone dashes", dashMaterial, false, 0.06f);
             zone.dashes.textureMode = LineTextureMode.RepeatPerSegment;
-            CombatVfxStyle.SetRing(zone.dashes, point + Vector3.up * 0.022f, Quaternion.Euler(90f, 0f, 0f), GroundFireRadius * 0.8f, 18);
+            CombatVfxStyle.SetRing(zone.dashes, Vector3.up * 0.022f, flat, GroundFireRadius * 0.8f, 18);
             zone.dashes.enabled = true;
             // Sparks rise from the whole zone: a nearly straight cone pointing up.
             zone.sparks = Instantiate(embers, zone.root.transform);
             zone.sparks.name = "Zone sparks";
-            zone.sparks.transform.SetPositionAndRotation(point + Vector3.up * 0.05f,
-                (arenaFrame != null ? arenaFrame.rotation : Quaternion.identity) * Quaternion.Euler(-90f, 0f, 0f));
+            zone.sparks.transform.localPosition = Vector3.up * 0.05f;
+            zone.sparks.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
             var shape = zone.sparks.shape;
             shape.shapeType = ParticleSystemShapeType.Cone;
             shape.angle = 8f;
@@ -486,6 +501,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         {
             if (zone.root.activeSelf != shown) zone.root.SetActive(shown);
             if (!shown) continue;
+            // The same clock-driven path the host uses for fire damage.
+            zone.root.transform.position = FirePoint(zone.index, fireClock);
             if (!zone.sparks.isPlaying) zone.sparks.Play();
             Color floor = erupted
                 ? new Color(1f, 0.28f, 0.06f, (0.42f + 0.2f * beat) * burning)
@@ -561,6 +578,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
             return;
         }
 
+        fireClock = clock;
         float warning = Mathf.Clamp01((clock + WarningLead) / WarningLead);
         float target = clock >= 0f ? 1f : warning * 0.3f;
         intensity = Mathf.MoveTowards(intensity, target, Time.deltaTime * (clock >= 0f ? 3f : 0.5f));
@@ -591,18 +609,21 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         hellFloor.SetActive(true);
         if (fx == null) return;
         Quaternion heading = arenaFrame != null ? arenaFrame.rotation : Quaternion.identity;
-        foreach (Vector3 point in firePoints)
+        foreach (FireZone zone in zones)
         {
-            // Each zone flares up, then burns: a tall fire in the middle ringed by smaller flames, with smoke.
+            // Each zone flares up, then burns: a tall fire in the middle ringed by smaller flames, with
+            // smoke. They ride on the zone's root, so they move with it.
+            Transform root = zone.root.transform;
+            Vector3 point = root.position;
             ThermalFxLibrary.Spawn(fx.hitExplosion, point + Vector3.up * 0.1f, 0.7f, 3f);
-            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.5f, transform));
+            hellFx.Add(SpawnLoop(fx.fireLarge, point, Quaternion.identity, 0.5f, root));
             for (int i = 0; i < 4; i++)
             {
                 float angle = (45f + 90f * i) * Mathf.Deg2Rad;
                 Vector3 rim = point + heading * new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * GroundFireRadius * 0.68f;
-                hellFx.Add(SpawnLoop(fx.fireMedium, rim, Quaternion.identity, 0.3f, transform));
+                hellFx.Add(SpawnLoop(fx.fireMedium, rim, Quaternion.identity, 0.3f, root));
             }
-            hellFx.Add(SpawnLoop(fx.groundSmoke, point, Quaternion.identity, 0.35f, transform));
+            hellFx.Add(SpawnLoop(fx.groundSmoke, point, Quaternion.identity, 0.35f, root));
         }
         // The arena change is drones and ground fire only; there is no big blast.
     }
@@ -874,6 +895,7 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         erupted = false;
         seenDownMask = 0;
         intensity = 0f;
+        fireClock = 0f;
         Atmosphere(0f, -999f);
     }
 

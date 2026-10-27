@@ -388,7 +388,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         foreach (var player in players)
         {
             var head = player.GetComponent<NetworkHeadTracker>();
-            if (head != null && SuddenDeathDirector.IsInGroundFire(head.CanonicalHeadPosition))
+            if (head != null && SuddenDeathDirector.IsInGroundFire(head.CanonicalHeadPosition, SuddenDeathClock))
                 player.RequestDamage(20, true, "ground_fire");
         }
     }

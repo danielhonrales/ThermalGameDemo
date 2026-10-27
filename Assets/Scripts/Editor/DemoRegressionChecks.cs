@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public static class DemoRegressionChecks
         RunSpectatorCheck();
         RunPiDiscoveryCheck();
         RunArenaWallsCheck();
+        RunGroundFireMotionCheck();
+        RunAttackMeterCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -176,6 +179,59 @@ public static class DemoRegressionChecks
         Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
     }
 
+    public static void RunAttackMeterCheck()
+    {
+        void Expect(string what, float actual, float expected)
+        {
+            if (Mathf.Abs(actual - expected) > 0.01f) throw new Exception($"{what}: meter should be {expected:0.00}, was {actual:0.00}.");
+        }
+        const float now = 100f, beam = 3f, cooldown = 3f, charge = 2.5f;
+        Expect("Fire ready", PalmBeamShooter.MeterAt(now, -1f, beam, 0f, cooldown, 1f), 1f);
+        Expect("Fire beam halfway", PalmBeamShooter.MeterAt(now, now - 1.5f, beam, 0f, cooldown, 1f), 0.5f);
+        Expect("Fire beam used up", PalmBeamShooter.MeterAt(now, now - 3f, beam, 0f, cooldown, 1f), 0f);
+        // Released at 40%: halfway through the cooldown it is halfway from there to full.
+        Expect("Fire cooldown halfway", PalmBeamShooter.MeterAt(now, -1f, beam, now + 1.5f, cooldown, 0.4f), 0.7f);
+        Expect("Fire cooldown start", PalmBeamShooter.MeterAt(now, -1f, beam, now + 3f, cooldown, 0.4f), 0.4f);
+
+        Expect("Ice ready", IceGrenadeLauncher.MeterAt(now, -1f, charge, 0f, cooldown), 1f);
+        Expect("Ice charging halfway", IceGrenadeLauncher.MeterAt(now, now - 1.25f, charge, 0f, cooldown), 0.5f);
+        Expect("Ice thrown", IceGrenadeLauncher.MeterAt(now, -1f, charge, now + 3f, cooldown), 0f);
+        Expect("Ice cooldown halfway", IceGrenadeLauncher.MeterAt(now, -1f, charge, now + 1.5f, cooldown), 0.5f);
+        Debug.Log("ATTACK METERS PASSED: fire drains while the beam fires and refills from where it stopped; ice drains while charging and refills after the throw.");
+    }
+
+    public static void RunGroundFireMotionCheck()
+    {
+        float r = SuddenDeathDirector.GroundFireRadius;
+        Vector2 centre = SuddenDeathDirector.PlayAreaCentre;
+        int count = SuddenDeathDirector.GroundFireCount;
+        for (int i = 0; i < count; i++)
+            if (SuddenDeathDirector.GroundFireAt(i, -3f) != SuddenDeathDirector.GroundFireAt(i, 0f))
+                throw new Exception("During the warning, fire zones must sit where they will erupt.");
+        float moved = 0f;
+        for (float t = 0f; t <= 60f; t += 0.1f)
+            for (int i = 0; i < count; i++)
+            {
+                Vector2 p = SuddenDeathDirector.GroundFireAt(i, t);
+                float speed = Vector2.Distance(p, SuddenDeathDirector.GroundFireAt(i, t + 0.1f)) / 0.1f;
+                if (speed > 0.5f) throw new Exception($"Fire zone {i + 1} moves {speed:0.00} m/s at {t:0.0} s; players must be able to step clear.");
+                if (Vector2.Distance(p - centre, centre - SuddenDeathDirector.GroundFireAt((i + count / 2) % count, t)) > 0.001f)
+                    throw new Exception("Fire zones must stay point-symmetric so neither side is favoured.");
+                for (int j = i + 1; j < count; j++)
+                    if (Vector2.Distance(p, SuddenDeathDirector.GroundFireAt(j, t)) < 2f * r - 0.05f)
+                        throw new Exception($"Fire zones {i + 1} and {j + 1} overlap at {t:0.0} s.");
+                moved = Mathf.Max(moved, Vector2.Distance(p, SuddenDeathDirector.GroundFireAt(i, 0f)));
+            }
+        if (moved < 1f) throw new Exception("Fire zones must move around the arena during sudden death.");
+        // Damage follows the moving zones.
+        Vector2 at10 = SuddenDeathDirector.GroundFireAt(0, 10f), at0 = SuddenDeathDirector.GroundFireAt(0, 0f);
+        bool startClearAt10 = Enumerable.Range(0, count).All(j => Vector2.Distance(SuddenDeathDirector.GroundFireAt(j, 10f), at0) > r);
+        if (!SuddenDeathDirector.IsInGroundFire(new Vector3(at10.x, 1.6f, at10.y), 10f)
+            || (startClearAt10 && SuddenDeathDirector.IsInGroundFire(new Vector3(at0.x, 1.6f, at0.y), 10f)))
+            throw new Exception("Fire damage must follow the zones as they move.");
+        Debug.Log($"GROUND FIRE MOTION PASSED: zones roam up to {moved:0.0} m, stay point-symmetric, never overlap, move at most 0.5 m/s, and damage follows them.");
+    }
+
     public static void RunArenaWallsCheck()
     {
         // Every headset computes the sliding wall from the same clock, so its path must be a fixed function of time.
@@ -191,9 +247,14 @@ public static class DemoRegressionChecks
         try
         {
             Bounds b = mesh.bounds;
-            if (Mathf.Abs(b.size.y - 1f) > 0.001f || b.max.x > -0.1f || b.max.z > -0.1f || Mathf.Max(b.size.x, b.size.z) > 1.1f)
-                throw new Exception("The curved wall must be 1 m high, under 1.1 m long, and curve away from its corner.");
+            if (Mathf.Abs(b.size.y - 1.5f) > 0.001f || b.max.x > -0.1f || b.max.z > -0.1f || Mathf.Max(b.size.x, b.size.z) > 0.8f)
+                throw new Exception("The curved wall must be 1.5 m high, under 0.8 m long, and curve away from its corner.");
             Vector3[] vertices = mesh.vertices;
+            // Only the left half (the lower angles, left as seen from the arena) rises above half height.
+            foreach (Vector3 v in vertices)
+                if (v.y > 0.76f && Mathf.Repeat(Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg, 360f) > 225.1f)
+                    throw new Exception("The curved wall's upper half must cover only its left half.");
+            if (!vertices.Any(v => v.y > 1.49f)) throw new Exception("The curved wall's left half must reach full height.");
             int[] triangles = mesh.GetTriangles(0);
             int wrong = 0;
             for (int i = 0; i < triangles.Length; i += 3)
@@ -201,11 +262,11 @@ public static class DemoRegressionChecks
                 Vector3 a = vertices[triangles[i]], c1 = vertices[triangles[i + 1]], c2 = vertices[triangles[i + 2]];
                 Vector3 centre = (a + c1 + c2) / 3f, normal = Vector3.Cross(c1 - a, c2 - a).normalized;
                 Vector3 flat = new Vector3(centre.x, 0f, centre.z);
-                if (centre.y > 0.999f && Mathf.Abs(normal.y) > 0.5f) { if (normal.y < 0.99f) wrong++; continue; }
-                if (Mathf.Abs(normal.y) > 0.5f) { wrong++; continue; }
+                // Both tops (full and half height) face up; the wall has no faces pointing down.
+                if (Mathf.Abs(normal.y) > 0.5f) { if (normal.y < 0.99f) wrong++; continue; }
                 // The convex face points into the arena, away from the corner at the origin; the inner one toward it.
                 float side = Vector3.Dot(normal, flat.normalized);
-                if (Mathf.Abs(side) < 0.5f) continue;   // the two ends face along the arc
+                if (Mathf.Abs(side) < 0.5f) continue;   // the ends and the step face along the arc
                 if (flat.magnitude > 1.12f && side < 0.9f) wrong++;
                 if (flat.magnitude < 1.08f && side > -0.9f) wrong++;
             }
@@ -235,7 +296,7 @@ public static class DemoRegressionChecks
                 }
         }
         finally { UnityEngine.Object.DestroyImmediate(mesh); }
-        Debug.Log("ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track; curved wall is 1 m high, short, and faces the right way; the sliding wall's window is open.");
+        Debug.Log("ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track; curved wall is 1.5 m high, short, stepped down on its right half, and faces the right way; the sliding wall's window is open.");
     }
 
     public static void RunPiDiscoveryCheck()

@@ -15,7 +15,7 @@ Open `Assets/Scenes/Game.unity` and **stop Play Mode** before editing. Both layo
 1. Choose **Thermal → Arena → Edit Sudden Death Arena**.
 2. Edit the direct children of `ArenaRoot → GameplayRoot → SuddenDeathLayout`.
 3. Every direct child is one drone delivery. Put all parts of an assembly underneath that child. Place it exactly where and how it should rest: height, tilt, scale and rotation are preserved.
-4. Drag in different prefab assets, duplicate or delete pieces as needed. Existing options are in `Assets/Resources/ThermalArena` and the imported sci-fi/industrial asset folders. Keep 1–31 deliveries and no more than 31 starting drone loads.
+4. Drag in different prefab assets, duplicate or delete pieces as needed. Existing options are in `Assets/Resources/ThermalArena` and the imported sci-fi/industrial asset folders. Keep 0–31 deliveries (with none, sudden death only clears the starting cover) and no more than 31 starting drone loads.
 5. Include a BoxCollider or MeshCollider for shot blocking. Put `Burning` in a delivery object's name if you want its small decorative flame after delivery.
 
 The sudden-death preview hides starting drone loads and shows the new layout plus persistent dressing. It does not run drones, ground fire, or atmospheric effects. The game always starts with the starting layout, regardless of which preview you last saved. Avoid disabling individual children to remove them; delete or move them outside these layout roots instead.

@@ -175,6 +175,21 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         return true;
     }
 
+    private float CooldownSeconds => Mathf.Max(0.55f, throwCooldownSeconds);
+
+    /// <summary>The ice meter, 0..1: full when ready, draining while the bomb charges, empty at the throw, refilling through the cooldown.</summary>
+    public float Meter => MeterAt(Time.time, poseChargeStartTime, chargeSeconds, nextThrowAllowedTime, CooldownSeconds);
+
+    /// <summary>The ice meter at a time: chargeStart &lt; 0 when not charging.</summary>
+    public static float MeterAt(float now, float chargeStart, float chargeSeconds, float cooldownEnd, float cooldownSeconds)
+    {
+        if (now < cooldownEnd && cooldownSeconds > 0f) return Mathf.Clamp01(1f - (cooldownEnd - now) / cooldownSeconds);
+        if (chargeStart >= 0f && chargeSeconds > 0f) return Mathf.Clamp01(1f - (now - chargeStart) / chargeSeconds);
+        return 1f;
+    }
+
+    public bool IsRecharging => Time.time < nextThrowAllowedTime;
+
     public void SetPalmOrigin(Transform newPalmOrigin)
     {
         palmOrigin = newPalmOrigin;
@@ -225,7 +240,7 @@ public sealed class IceGrenadeLauncher : MonoBehaviour
         ResetCharge();
         if (landingMarker != null) landingMarker.startColor = landingMarker.endColor = Color.white;
         if (landingCenter != null) landingCenter.startColor = landingCenter.endColor = Color.white;
-        nextThrowAllowedTime = Time.time + Mathf.Max(0.55f, throwCooldownSeconds);
+        nextThrowAllowedTime = Time.time + CooldownSeconds;
 
         if (logThrows)
         {

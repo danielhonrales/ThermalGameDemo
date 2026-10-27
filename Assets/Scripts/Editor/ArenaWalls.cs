@@ -6,23 +6,26 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 /// <summary>
-/// Builds the play area's fixed walls under the starting cover, where they stay in both arenas: two
-/// waist-high curved walls in opposite corners and a full-height wall with a window that slides
-/// across the middle (<see cref="SlidingWall"/>). Their meshes are shaped here and textured from the
-/// sci-fi kit's own trim sheets, so they match the rest of the arena. They are ordinary scene objects
-/// afterwards, so they can be moved, rotated or resized; running this again rebuilds them at the
-/// default places.
+/// Builds the play area's walls in the starting cover: two stepped 1.5 m curved walls in opposite corners and a
+/// full-height wall with a window that slides across the middle (<see cref="SlidingWall"/>). Named as
+/// obstacles, so drones carry them off when sudden death begins. Their meshes are shaped here and
+/// textured from the sci-fi kit's own trim sheets, so they match the rest of the arena. They are
+/// ordinary scene objects afterwards, so they can be moved, rotated or resized; running this again
+/// rebuilds them at the default places.
 /// </summary>
 public static class ArenaWalls
 {
     private const string ScenePath = "Assets/Scenes/Game.unity";
     private const string AssetFolder = "Assets/Resources/ThermalArena";
     private const string KitMaterials = "Assets/Creepy_Cat/3D Scifi Kit Starter Kit_HD/Materials/";
-    private static readonly string[] WallNames = { "Wall Curved A", "Wall Curved B", "Wall Sliding" };
+    private static readonly string[] WallNames = { "Obstacle Wall Curved A", "Obstacle Wall Curved B", "Obstacle Wall Sliding" };
+    // Earlier builds' names, removed on rebuild.
+    private static readonly string[] OldWallNames = { "Wall Curved A", "Wall Curved B", "Wall Sliding" };
 
-    // Metres. Curved walls: waist high, a 60-degree arc facing the centre from each corner.
-    private const float CurvedHeight = 1f, CurvedRadius = 1.1f, CurvedThickness = 0.18f;
-    private const float CurvedArcDegrees = 60f, CornerInset = 0.15f;
+    // Metres. Curved walls: a 45-degree arc facing the centre from each corner, 1.5 m tall over its left
+    // half (as seen from the arena) and half that over its right half.
+    private const float CurvedHeight = 1.5f, CurvedRadius = 1.1f, CurvedThickness = 0.18f;
+    private const float CurvedArcDegrees = 45f, CornerInset = 0.15f;
     // Sliding wall: full height, top corners cut off, on a vented footing, with a tall window at shooting height.
     private const float SlidingWidth = 1.3f, SlidingHeight = 2.4f, SlidingThickness = 0.18f, Chamfer = 0.3f;
     private const float WindowWidth = 0.5f, WindowHeight = 0.75f, WindowCentre = 1.3f;
@@ -56,7 +59,7 @@ public static class ArenaWalls
             throw new Exception("Open the Game scene with its play area outline (Thermal → Arena → Add Play Area Outline) first.");
         Transform cover = layouts.initialCover;
 
-        foreach (string name in WallNames)
+        foreach (string name in WallNames.Concat(OldWallNames))
         {
             Transform old = cover.Find(name);
             if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
@@ -153,43 +156,57 @@ public static class ArenaWalls
     }
 
     /// <summary>
-    /// A 60-degree wall around the origin, centred on the -x -z diagonal so it curves toward the arena
-    /// from a corner placed at the origin. Faces show the kit's banded panel; the top and ends its trim strips.
+    /// A 45-degree wall around the origin, centred on the -x -z diagonal so it curves toward the arena
+    /// from a corner placed at the origin, full height over its left half and half height over its right.
+    /// Faces show the kit's banded panel once per half-height row; the tops, ends and step show its trim strips.
     /// </summary>
     public static Mesh CurvedWallMesh()
     {
-        const int segments = 16;
+        const int segments = 12;
+        const int stepAt = segments / 2;      // the upper half runs over segments 0 .. stepAt-1 only
+        float lowTop = CurvedHeight * 0.5f;
         var mesh = new MeshBuilder(1);
         float inner = CurvedRadius - CurvedThickness * 0.5f, outer = CurvedRadius + CurvedThickness * 0.5f;
-        float half = CurvedArcDegrees * 0.5f * Mathf.Deg2Rad, mid = 1.25f * Mathf.PI;
+        float halfArc = CurvedArcDegrees * 0.5f * Mathf.Deg2Rad, mid = 1.25f * Mathf.PI;
         Vector3 At(float radius, float angle, float y) => new Vector3(radius * Mathf.Cos(angle), y, radius * Mathf.Sin(angle));
         Vector3 Out(float angle) => new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+        float Angle(int i) => mid - halfArc + 2f * halfArc * i / segments;
 
         for (int i = 0; i < segments; i++)
         {
-            float a0 = mid - half + 2f * half * i / segments, a1 = mid - half + 2f * half * (i + 1) / segments;
+            float a0 = Angle(i), a1 = Angle(i + 1);
             float s0 = (float)i / segments, s1 = (float)(i + 1) / segments;
             Vector3 n = Out((a0 + a1) * 0.5f);
+            // From the arena the lower angle is on the left: the lower half runs the whole arc and the
+            // upper half only its left half, stepping down in the middle.
+            bool tall = i < stepAt;
             // The convex face looks into the arena; the inner one into the corner. Both read left to right
             // from in front: from the arena the lower angle is on the left, from the corner on the right.
-            mesh.Face(0, n, new[] { At(outer, a0, 0f), At(outer, a1, 0f), At(outer, a1, CurvedHeight), At(outer, a0, CurvedHeight) },
-                new[] { BandPanel.At(s0, 0), BandPanel.At(s1, 0), BandPanel.At(s1, 1), BandPanel.At(s0, 1) });
-            mesh.Face(0, -n, new[] { At(inner, a0, 0f), At(inner, a1, 0f), At(inner, a1, CurvedHeight), At(inner, a0, CurvedHeight) },
-                new[] { BandPanel.At(1 - s0, 0), BandPanel.At(1 - s1, 0), BandPanel.At(1 - s1, 1), BandPanel.At(1 - s0, 1) });
-            mesh.Face(0, Vector3.up, new[] { At(inner, a0, CurvedHeight), At(inner, a1, CurvedHeight), At(outer, a1, CurvedHeight), At(outer, a0, CurvedHeight) },
+            for (int row = 0; row < (tall ? 2 : 1); row++)
+            {
+                float y0 = row * lowTop, y1 = y0 + lowTop;
+                mesh.Face(0, n, new[] { At(outer, a0, y0), At(outer, a1, y0), At(outer, a1, y1), At(outer, a0, y1) },
+                    new[] { BandPanel.At(s0, 0), BandPanel.At(s1, 0), BandPanel.At(s1, 1), BandPanel.At(s0, 1) });
+                mesh.Face(0, -n, new[] { At(inner, a0, y0), At(inner, a1, y0), At(inner, a1, y1), At(inner, a0, y1) },
+                    new[] { BandPanel.At(1 - s0, 0), BandPanel.At(1 - s1, 0), BandPanel.At(1 - s1, 1), BandPanel.At(1 - s0, 1) });
+            }
+            float top = tall ? CurvedHeight : lowTop;
+            mesh.Face(0, Vector3.up, new[] { At(inner, a0, top), At(inner, a1, top), At(outer, a1, top), At(outer, a0, top) },
                 new[] { CapStrip.At(s0, 0), CapStrip.At(s1, 0), CapStrip.At(s1, 1), CapStrip.At(s0, 1) });
         }
-        float first = mid - half, last = mid + half;
+        float first = Angle(0), step = Angle(stepAt), last = Angle(segments);
         Vector3 Tangent(float angle) => new Vector3(-Mathf.Sin(angle), 0f, Mathf.Cos(angle));
+        // Ends: full height on the left, half height on the right, and the step between the two halves.
         mesh.Quad(0, -Tangent(first), At(inner, first, 0f), At(outer, first, 0f), At(outer, first, CurvedHeight), At(inner, first, CurvedHeight), SideStrip);
-        mesh.Quad(0, Tangent(last), At(outer, last, 0f), At(inner, last, 0f), At(inner, last, CurvedHeight), At(outer, last, CurvedHeight), SideStrip);
+        mesh.Quad(0, Tangent(last), At(outer, last, 0f), At(inner, last, 0f), At(inner, last, lowTop), At(outer, last, lowTop), SideStrip);
+        mesh.Quad(0, Tangent(step), At(outer, step, lowTop), At(inner, step, lowTop), At(inner, step, CurvedHeight), At(outer, step, CurvedHeight), SideStrip);
         return mesh.Build("ArenaCurvedWall");
     }
 
     /// <summary>
     /// The sliding wall in its own frame: x across, y up, z through it. A slab with its top corners cut
     /// off and a window, on a vented footing. Submeshes: 0 the kit wall elevation on both faces, 1 kit
-    /// trim on edges and footing, 2 the glowing window reveal.
+    /// trim on edges, window reveal and footing, 2 the glowing lip around the window.
     /// </summary>
     public static Mesh SlidingWallMesh()
     {
@@ -232,12 +249,25 @@ public static class ArenaWalls
                 mesh.Quad(1, normal, corners[0], corners[1], corners[2], corners[3], CapStrip);
         }
 
-        // Window reveal: the four faces lining the opening glow.
+        // Window reveal: the four faces lining the opening carry the kit's rounded red-band trim, running
+        // along each edge, so the opening reads as a fitted frame.
+        mesh.Quad(1, Vector3.up, new Vector3(-wx, sill, -t), new Vector3(wx, sill, -t), new Vector3(wx, sill, t), new Vector3(-wx, sill, t), CapStrip);
+        mesh.Quad(1, Vector3.down, new Vector3(-wx, head, -t), new Vector3(wx, head, -t), new Vector3(wx, head, t), new Vector3(-wx, head, t), CapStrip);
+        mesh.Quad(1, Vector3.right, new Vector3(-wx, sill, -t), new Vector3(-wx, head, -t), new Vector3(-wx, head, t), new Vector3(-wx, sill, t), CapStrip);
+        mesh.Quad(1, Vector3.left, new Vector3(wx, sill, -t), new Vector3(wx, head, -t), new Vector3(wx, head, t), new Vector3(wx, sill, t), CapStrip);
+
+        // A thin glowing lip frames the opening on both faces, just proud of the surface.
         Region full = new Region(0, 0, 2048, 2048);
-        mesh.Quad(2, Vector3.up, new Vector3(-wx, sill, -t), new Vector3(wx, sill, -t), new Vector3(wx, sill, t), new Vector3(-wx, sill, t), full);
-        mesh.Quad(2, Vector3.down, new Vector3(-wx, head, -t), new Vector3(wx, head, -t), new Vector3(wx, head, t), new Vector3(-wx, head, t), full);
-        mesh.Quad(2, Vector3.right, new Vector3(-wx, sill, -t), new Vector3(-wx, head, -t), new Vector3(-wx, head, t), new Vector3(-wx, sill, t), full);
-        mesh.Quad(2, Vector3.left, new Vector3(wx, sill, -t), new Vector3(wx, head, -t), new Vector3(wx, head, t), new Vector3(wx, sill, t), full);
+        const float lip = 0.025f, proud = 0.003f;
+        foreach (float side in new[] { -1f, 1f })
+        {
+            float z = side * (t + proud);
+            Vector3 facing = side < 0 ? Vector3.back : Vector3.forward;
+            mesh.Quad(2, facing, new Vector3(-wx - lip, head, z), new Vector3(wx + lip, head, z), new Vector3(wx + lip, head + lip, z), new Vector3(-wx - lip, head + lip, z), full);
+            mesh.Quad(2, facing, new Vector3(-wx - lip, sill - lip, z), new Vector3(wx + lip, sill - lip, z), new Vector3(wx + lip, sill, z), new Vector3(-wx - lip, sill, z), full);
+            mesh.Quad(2, facing, new Vector3(-wx - lip, sill, z), new Vector3(-wx, sill, z), new Vector3(-wx, head, z), new Vector3(-wx - lip, head, z), full);
+            mesh.Quad(2, facing, new Vector3(wx, sill, z), new Vector3(wx + lip, sill, z), new Vector3(wx + lip, head, z), new Vector3(wx, head, z), full);
+        }
 
         // Footing: a vented plinth wider and deeper than the slab.
         float fx = FootWidth * 0.5f, fz = FootDepth * 0.5f, fy = FootHeight;

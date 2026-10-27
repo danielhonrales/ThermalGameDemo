@@ -79,6 +79,7 @@ public sealed class PalmBeamShooter : MonoBehaviour
     private bool hardwareLeadSent;
     private float lastBlockFxAt = -1f;
     private float nextAllowedFireTime;
+    private float cooldownFrom = 1f;    // the fire meter's level when the current cooldown began
     private ForearmShieldController shieldController;
     private bool wasAttackPoseActive;
     private HandPoseRouter poseRouter;
@@ -344,6 +345,22 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     public bool IsAttackEngaged => beamBurstStartTime >= 0f || poseChargeStartTime >= 0f;
 
+    /// <summary>The fire meter, 0..1: full when ready, draining while the beam fires, refilling through the cooldown.</summary>
+    public float Meter => MeterAt(Time.time, beamBurstStartTime, maxBeamDurationSeconds,
+        nextAllowedFireTime, beamCooldownSeconds, cooldownFrom);
+
+    /// <summary>The fire meter at a time: burstStart &lt; 0 when not firing; cooldownFrom is the level the cooldown began at.</summary>
+    public static float MeterAt(float now, float burstStart, float maxBeamSeconds, float cooldownEnd, float cooldownSeconds,
+        float cooldownFrom)
+    {
+        if (burstStart >= 0f && maxBeamSeconds > 0f) return Mathf.Clamp01(1f - (now - burstStart) / maxBeamSeconds);
+        if (now < cooldownEnd && cooldownSeconds > 0f)
+            return Mathf.Lerp(cooldownFrom, 1f, 1f - (cooldownEnd - now) / cooldownSeconds);
+        return 1f;
+    }
+
+    public bool IsRecharging => beamBurstStartTime < 0f && Time.time < nextAllowedFireTime;
+
     public void CancelForShield()
     {
         StopBeamBurst(beamBurstStartTime >= 0f);
@@ -473,6 +490,8 @@ public sealed class PalmBeamShooter : MonoBehaviour
 
     private void StopBeamBurst(bool startCooldown)
     {
+        // The meter refills from wherever the burst left it.
+        if (startCooldown) cooldownFrom = Meter;
         CombatEventOutput.State("fire_charge", false);
         CombatEventOutput.State("fire", false);
         SetBeamVisible(false);
