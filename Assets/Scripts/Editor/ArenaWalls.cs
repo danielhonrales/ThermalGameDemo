@@ -7,7 +7,7 @@ using UnityEngine;
 
 /// <summary>
 /// Builds the play area's walls in the starting cover: two stepped 1.5 m curved walls in opposite corners and a
-/// full-height wall with a window that slides across the middle (<see cref="SlidingWall"/>). Named as
+/// wall with a window that slides sideways between the other two corners (<see cref="SlidingWall"/>). Named as
 /// obstacles, so drones carry them off when sudden death begins. Their meshes are shaped here and
 /// textured from the sci-fi kit's own trim sheets, so they match the rest of the arena. They are
 /// ordinary scene objects afterwards, so they can be moved, rotated or resized; running this again
@@ -24,13 +24,14 @@ public static class ArenaWalls
 
     // Metres. Curved walls: a 45-degree arc facing the centre from each corner, 1.5 m tall over its left
     // half (as seen from the arena) and half that over its right half.
-    private const float CurvedHeight = 1.5f, CurvedRadius = 1.1f, CurvedThickness = 0.18f;
+    private const float CurvedHeight = 1.5f, CurvedRadius = 1.1f, CurvedThickness = 0.09f;
     private const float CurvedArcDegrees = 45f, CornerInset = 0.15f;
-    // Sliding wall: full height, top corners cut off, on a vented footing, with a tall window at shooting height.
-    private const float SlidingWidth = 1.3f, SlidingHeight = 2.4f, SlidingThickness = 0.18f, Chamfer = 0.3f;
-    private const float WindowWidth = 0.5f, WindowHeight = 0.75f, WindowCentre = 1.3f;
-    private const float FootWidth = 1.5f, FootHeight = 0.16f, FootDepth = 0.36f;
-    private const float SlidingPeriod = 12f;
+    // Sliding wall: a person's height with its top corners cut off, on a vented footing, with a window at shoulder height.
+    private const float SlidingWidth = 1.3f, SlidingHeight = 1.75f, SlidingThickness = 0.09f, Chamfer = 0.12f;
+    private const float WindowWidth = 0.56f, WindowHeight = 0.525f, WindowCentre = 1.32f;
+    private const float FootWidth = 1.5f, FootHeight = 0.16f, FootDepth = 0.18f;
+    // Seconds for one trip from one empty corner to the other and back.
+    private const float SlidingPeriod = 36f;
 
     /// <summary>A region of a 2048-pixel trim sheet, in pixels from its top-left corner.</summary>
     private readonly struct Region
@@ -72,20 +73,28 @@ public static class ArenaWalls
         Mesh sliding = SaveMesh(SlidingWallMesh(), "ArenaSlidingWall");
 
         float cornerX = area.Size.x * 0.5f - CornerInset, cornerZ = area.Size.y * 0.5f - CornerInset;
-        AddWall(WallNames[0], curved, new[] { panels }, area.transform, cover, new Vector3(cornerX, 0f, cornerZ), 0f);
-        AddWall(WallNames[1], curved, new[] { panels }, area.transform, cover, new Vector3(-cornerX, 0f, -cornerZ), 180f);
-        // Its x (width) runs across the arena, between the players' lines of fire.
-        GameObject wall = AddWall(WallNames[2], sliding, new[] { elevation, panels, glow }, area.transform, cover, Vector3.zero, 90f);
-        float travel = Mathf.Max(0f, Mathf.Min(area.Size.x, area.Size.y) * 0.5f - CornerInset - FootWidth * 0.5f);
+        var cornerA = new Vector3(cornerX, 0f, cornerZ);
+        AddWall(WallNames[0], curved, new[] { panels }, area.transform, cover, cornerA, 0f);
+        AddWall(WallNames[1], curved, new[] { panels }, area.transform, cover, -cornerA, 180f);
+
+        // The sliding wall crosses the empty space between the curved walls: it travels on the line through
+        // the middle perpendicular to the line joining their centres, sideways, its faces toward them.
+        Vector3 inward = new Vector3(-1f, 0f, -1f).normalized * CurvedRadius;
+        Vector3 between = ((cornerA + inward) - (-cornerA - inward)).normalized;
+        Vector3 across = Vector3.Cross(Vector3.up, between);
+        float yaw = Mathf.Atan2(between.x, between.z) * Mathf.Rad2Deg;
+        GameObject wall = AddWall(WallNames[2], sliding, new[] { elevation, panels, glow }, area.transform, cover, Vector3.zero, yaw);
+        float travel = SlidingTravel(area.Size, across, across);
         var slide = wall.AddComponent<SlidingWall>();
         var serialized = new SerializedObject(slide);
         serialized.FindProperty("travel").floatValue = travel;
         serialized.FindProperty("period").floatValue = SlidingPeriod;
+        serialized.FindProperty("axis").vector3Value = Vector3.right;
         serialized.ApplyModifiedPropertiesWithoutUndo();
 
         EditorSceneManager.MarkSceneDirty(cover.gameObject.scene);
         Selection.activeGameObject = wall;
-        string overlaps = PathOverlaps(layouts, area, wall, travel);
+        string overlaps = PathOverlaps(layouts, area, wall, Vector3.right, travel);
         Debug.Log($"Added the arena walls under {cover.name}; save the scene to keep them. The sliding wall travels {travel:0.##} m either side of the centre."
             + (overlaps.Length > 0 ? "\nThese pieces sit in the sliding wall's path; move them clear:\n" + overlaps : ""));
     }
@@ -313,13 +322,35 @@ public static class ArenaWalls
         return existing;
     }
 
-    /// <summary>Cover pieces that the sliding wall would pass through, one per line.</summary>
-    private static string PathOverlaps(ArenaLayouts layouts, PlayAreaOutline area, GameObject sliding, float travel)
+    /// <summary>
+    /// How far the sliding wall's centre can travel either way along <paramref name="across"/> (in the play
+    /// area's frame), with its width along <paramref name="width"/>, while all of its footing stays at least
+    /// the corner inset inside the play area.
+    /// </summary>
+    public static float SlidingTravel(Vector2 areaSize, Vector3 across, Vector3 width)
     {
-        Bounds wall = BoundsIn(area.transform, sliding.transform);
-        Vector3 axis = area.transform.InverseTransformDirection(sliding.transform.right);
-        Vector3 sweep = new Vector3(Mathf.Abs(axis.x), 0f, Mathf.Abs(axis.z)) * travel * 2f;
-        var path = new Bounds(wall.center, wall.size + sweep);
+        float hx = areaSize.x * 0.5f - CornerInset, hz = areaSize.y * 0.5f - CornerInset;
+        Vector3 depth = Vector3.Cross(Vector3.up, width).normalized;
+        var footprint = new List<Vector3>();
+        foreach (float s in new[] { -1f, 1f })
+            foreach (float u in new[] { -1f, 1f })
+                footprint.Add(width * (s * FootWidth * 0.5f) + depth * (u * FootDepth * 0.5f));
+        bool Inside(float d) => footprint.All(c =>
+        {
+            Vector3 p = across * d + c;
+            return Mathf.Abs(p.x) <= hx && Mathf.Abs(p.z) <= hz;
+        });
+        float travel = 0f;
+        while (Inside(travel + 0.01f) && Inside(-travel - 0.01f)) travel += 0.01f;
+        return travel;
+    }
+
+    /// <summary>Cover pieces that the sliding wall would pass through, one per line.</summary>
+    private static string PathOverlaps(ArenaLayouts layouts, PlayAreaOutline area, GameObject sliding, Vector3 axis, float travel)
+    {
+        // Measured in the wall's own frame, where it travels along an axis.
+        Bounds wall = sliding.GetComponent<MeshFilter>().sharedMesh.bounds;
+        var path = new Bounds(wall.center, wall.size + Vector3.Scale(axis, axis) * travel * 2f);
         var pieces = layouts.initialCover.Cast<Transform>().Where(t => !WallNames.Contains(t.name))
             .Concat(layouts.suddenDeathCover.Cast<Transform>())
             .SelectMany(t => t.name.StartsWith("Deck details") ? t.Cast<Transform>() : new[] { t });
@@ -329,11 +360,12 @@ public static class ArenaWalls
             // Each part separately: a group's parts may be spread around the arena with nothing in the path.
             foreach (Renderer part in piece.GetComponentsInChildren<Renderer>(true).Where(r => !(r is ParticleSystemRenderer)))
             {
-                Bounds b = BoundsIn(area.transform, part.transform);
+                Bounds b = BoundsIn(sliding.transform, part.transform);
                 bool overlap = b.min.x < path.max.x && b.max.x > path.min.x && b.min.z < path.max.z && b.max.z > path.min.z;
                 if (!overlap) continue;
                 string name = part.transform == piece ? piece.name : $"{piece.name}/{part.name}";
-                hits.Add($"  {name} at ({b.center.x:+0.00;-0.00}, {b.center.z:+0.00;-0.00}), {b.size.y:0.00} m high");
+                Bounds at = BoundsIn(area.transform, part.transform);
+                hits.Add($"  {name} at ({at.center.x:+0.00;-0.00}, {at.center.z:+0.00;-0.00}), {at.size.y:0.00} m high");
             }
         }
         return string.Join("\n", hits.Distinct());

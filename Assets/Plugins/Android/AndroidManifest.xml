@@ -27,4 +27,5 @@
   <uses-permission android:name="com.oculus.permission.USE_COLOCATION_DISCOVERY_API" />
   <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="false" />
   <uses-permission android:name="com.oculus.permission.USE_SCENE" />
+  <uses-permission android:name="horizonos.permission.HEADSET_CAMERA" />
 </manifest>

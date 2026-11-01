@@ -25,8 +25,11 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     public const float GroundFireRadius = 0.45f;
     public const int GroundFireCount = 4;
     // The zones circle the play area together, 90 degrees apart (point-symmetric, so neither side is
-    // favoured), while drifting in and out, so no spot stays safe. At most about 0.4 m/s.
-    private const float FireOrbit = 0.95f, FireOrbitSwing = 0.3f, FireSpin = 0.3f, FireSwingRate = 0.45f;
+    // favoured), while swinging from near the middle out to the edges and corners, so no spot stays safe.
+    // At most 0.5 m/s.
+    private const float FireOrbit = 1.2f, FireOrbitSwing = 0.55f, FireSpin = 0.26f, FireSwingRate = 0.45f;
+    // Half the play area's side (ArenaMechanicsChecks keeps it in step); zones are held fully inside it.
+    private const float PlayAreaHalf = 1.75f;
 
     /// <summary>Where ground fire zone `index` is, in the arena frame, at a sudden-death clock time; before sudden death, where it will erupt.</summary>
     public static Vector2 GroundFireAt(int index, float clock)
@@ -34,7 +37,11 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         float t = Mathf.Max(0f, clock);
         float radius = FireOrbit + FireOrbitSwing * Mathf.Sin(FireSwingRate * t);
         float angle = Mathf.PI * (0.25f + 0.5f * index) + FireSpin * t;
-        return PlayAreaCentre + radius * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        // Held inside the square rather than a circle, so the zones also sweep along the edges and into the corners.
+        // A few centimetres spare: PlayAreaCentre may sit up to 1 cm off the scene's outline.
+        float edge = PlayAreaHalf - GroundFireRadius - 0.03f;
+        Vector2 offset = radius * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        return PlayAreaCentre + new Vector2(Mathf.Clamp(offset.x, -edge, edge), Mathf.Clamp(offset.y, -edge, edge));
     }
 
     public static bool IsInGroundFire(Vector3 head, float clock)
@@ -191,6 +198,8 @@ public sealed class SuddenDeathDirector : MonoBehaviour
         {
             // Empty assembly roots may remain after the artist moves/removes their visuals.
             if (child.GetComponentsInChildren<MeshRenderer>(true).Length == 0) continue;
+            // The moving wall stays through sudden death.
+            if (child.GetComponent<SlidingWall>() != null) continue;
             if (child.name.StartsWith("Obstacle")) AddCluster(new List<Transform> { child });
             else if (child.name.StartsWith("Crate")) loose.Add(child);
         }

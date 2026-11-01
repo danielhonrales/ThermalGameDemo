@@ -2,9 +2,9 @@ using Mirror;
 using UnityEngine;
 
 /// <summary>
-/// Slides its object back and forth along its own x axis, either side of where it was placed. The
-/// position comes from the match clock (Mirror's shared network time once connected), so both
-/// headsets and the spectator see the wall in the same place without sending it over the network.
+/// Slides its object back and forth along a direction in its own frame, either side of where it was
+/// placed. The position comes from the match clock (Mirror's shared network time once connected), so
+/// both headsets and the spectator see the wall in the same place without sending it over the network.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class SlidingWall : MonoBehaviour
@@ -13,13 +13,16 @@ public sealed class SlidingWall : MonoBehaviour
     [SerializeField, Min(0f)] private float travel = 1f;
     [Tooltip("Seconds for one full trip there and back.")]
     [SerializeField, Min(1f)] private float period = 12f;
+    [Tooltip("Direction of travel in the wall's own frame: x slides it sideways, z moves it face first.")]
+    [SerializeField] private Vector3 axis = Vector3.right;
 
     private Vector3 home;
     private Transform homeParent;
 
     public float Travel => travel;
+    private Vector3 Axis => axis.sqrMagnitude > 0.0001f ? axis.normalized : Vector3.right;
 
-    /// <summary>Offset along the wall's x axis at a clock time: a smooth back-and-forth that starts centred.</summary>
+    /// <summary>Offset along the travel direction at a clock time: a smooth back-and-forth that starts centred.</summary>
     public static float Offset(double time, float travel, float period)
         => travel * Mathf.Sin((float)(2.0 * System.Math.PI * (time % period) / period));
 
@@ -34,14 +37,17 @@ public sealed class SlidingWall : MonoBehaviour
         // A drone carrying the wall off at sudden death moves it; it slides again once put back.
         if (transform.parent != homeParent) return;
         double time = NetworkClient.active || NetworkServer.active ? NetworkTime.time : Time.timeAsDouble;
-        transform.localPosition = home + transform.localRotation * Vector3.right * Offset(time, travel, period);
+        // In world metres, whatever the scale of the cover it sits in.
+        Vector3 origin = homeParent != null ? homeParent.TransformPoint(home) : home;
+        transform.position = origin + transform.TransformDirection(Axis) * Offset(time, travel, period);
     }
 
     private void OnDrawGizmosSelected()
     {
         // The path the wall's centre covers while playing.
         Vector3 origin = Application.isPlaying && transform.parent != null ? transform.parent.TransformPoint(home) : transform.position;
+        Vector3 direction = transform.TransformDirection(Axis);
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(origin - transform.right * travel, origin + transform.right * travel);
+        Gizmos.DrawLine(origin - direction * travel, origin + direction * travel);
     }
 }

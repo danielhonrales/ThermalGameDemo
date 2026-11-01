@@ -273,19 +273,11 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
     private void UpdateHealthBar()
     {
         if (healthView == null) return;
+        // Shown even while the opponent is behind cover; the bar draws over it.
         bool visible = !IsLocalPlayer || showLocalHealthBar;
         Camera camera = Camera.main;
         Vector3 headPosition = headTracker != null ? headTracker.HeadWorldPosition
             : headTarget != null ? headTarget.position : transform.position;
-        // A spectator renders several cameras, so it keeps every bar visible and faces it per camera.
-        if (visible && camera != null && !SpectatorSession.IsSpectator)
-        {
-            int coverLayer = CombatLayers.GameplayCoverLayer;
-            Vector3 toHead = headPosition - camera.transform.position;
-            if (coverLayer >= 0 && toHead.magnitude > 0.05f)
-                visible = !Physics.Raycast(camera.transform.position, toHead.normalized,
-                    toHead.magnitude - 0.05f, 1 << coverLayer, QueryTriggerInteraction.Ignore);
-        }
         healthBarRoot.gameObject.SetActive(visible);
         if (!visible) return;
         healthBarRoot.position = headPosition + worldOffset;
@@ -294,6 +286,8 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             Vector3 facing = healthBarRoot.position - camera.transform.position;
             if (facing.sqrMagnitude > 0.0001f)
                 healthBarRoot.rotation = Quaternion.LookRotation(facing, Vector3.up);
+            // Grows with distance past 2.5 m so it stays easy to read across the arena.
+            healthBarRoot.localScale = Vector3.one * (barWidth / 320f) * Mathf.Clamp(facing.magnitude / 2.5f, 1f, 1.6f);
         }
         healthView.SetHealth(CurrentHealth, Health01);
     }

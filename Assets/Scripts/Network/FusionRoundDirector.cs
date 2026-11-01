@@ -3,7 +3,7 @@ using System.Linq;
 using Mirror;
 using UnityEngine;
 
-/// <summary>Shared authority for practice, the 60-second duel, and the heal.</summary>
+/// <summary>Shared authority for practice, the 60-second duel, and the heals.</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NetworkIdentity))]
 public sealed class FusionRoundDirector : NetworkBehaviour
@@ -21,8 +21,11 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SerializeField, Min(1)] private int healAmount = 90;
     [SerializeField, Min(0.1f)] private float healPickupRadius = 0.6f;
     [SerializeField] private float healHeight = 1.55f;
-    [Tooltip("Arena-space point the heal floats above (centre of the 1v1 layout, over the coolant stack).")]
+    [Tooltip("Arena-space point the heal floats above when the scene has no play area outline.")]
     [SerializeField] private Vector3 healArenaPoint = new Vector3(0.275f, 0f, 0.71f);
+    [Tooltip("Play-area point the heal floats above: in one of the two open corners the moving wall crosses, just off its track. "
+        + "Each heal picks this point or its mirror through the middle at random, so neither side is favoured.")]
+    [SerializeField] private Vector3 healAreaPoint = new Vector3(1f, 0f, -0.6f);
     private const float ResetHoldSeconds = 3f;
     private const float SoloHoldSeconds = 3f;
 
@@ -34,7 +37,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int WinsA;
     [SyncVar] public int WinsB;
     [SyncVar] public bool SoloOverride;
-    /// <summary>0 = not yet spawned this round, 1 = available, 2 = taken.</summary>
+    /// <summary>0 = none spawned yet this round, 1 = one available, 2 = the last one was taken.</summary>
     [SyncVar] public int HealState;
     [SyncVar] public Vector3 HealCenter;
     [SyncVar] public int HealTakerId = -1;
@@ -106,6 +109,9 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     private bool startPoseWasLeft;
     private bool startRequested;
     private double nextResetAllowedAt;
+    private int healsSpawned;   // server only
+    // The practice guide cards are switched off for now.
+    private static readonly bool ShowPracticeGuide = false;
 
     public RoundPhase Phase => (RoundPhase)PhaseCode;
     public float PhaseRemaining => Mathf.Max(0f, (float)(phaseEndsAt - NetworkTime.time));
@@ -240,6 +246,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         for (int i = 0; i < BurnableWood.CellCount * 2; i++) WoodHeat.Add(0);
         HealState = 0;
         HealTakerId = -1;
+        healsSpawned = 0;
         DroneDownMask = 0;
     }
 
@@ -350,15 +357,23 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         if (Phase == RoundPhase.Fighting) DroneDownMask |= 1 << index;
     }
 
-    // One heal per round, spawned in the open midway between both players.
+    // Two heals per round, one at a time, each in one of the open corners: one mid-fight and one early in
+    // sudden death. If the first is still there when the second is due, it counts as both.
     private void UpdateHeal(List<NetworkPlayerHealth> players)
     {
         if (players.Count == 0) return;
-        if (HealState == 0 && FightElapsed >= HealPickupView.HealAt)
+        float nextHealAt = healsSpawned == 0 ? HealPickupView.HealAt
+            : healsSpawned == 1 ? SuddenDeathStartsAt + HealPickupView.SuddenDeathHealAt : float.MaxValue;
+        if (FightElapsed >= nextHealAt)
         {
-            // Float above the arena centre (in the shared canonical frame) so it never spawns in cover.
+            healsSpawned++;
+            if (HealState == 1) return;
+            HealTakerId = -1;
+            // Float over an open corner, left or right at random (in the shared canonical frame), clear of cover.
+            var area = FindFirstObjectByType<PlayAreaOutline>();
             Transform arena = GameObject.Find("ArenaRoot")?.transform;
-            Vector3 arenaPoint = arena != null ? arena.TransformPoint(healArenaPoint) : healArenaPoint;
+            Vector3 arenaPoint = area != null ? area.transform.TransformPoint(Random.value < 0.5f ? healAreaPoint : -healAreaPoint)
+                : arena != null ? arena.TransformPoint(healArenaPoint) : healArenaPoint;
             HealCenter = NetworkPlayerAlignment.HasCalibration
                 ? Flatten(NetworkPlayerAlignment.InverseTransformPoint(arenaPoint)) + Vector3.up * healHeight
                 : Flatten(arenaPoint) + Vector3.up * healHeight;
@@ -409,8 +424,11 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             if (hud == null) hud = new GameObject("Round HUD").AddComponent<FusionRoundHud>();
         }
         hud.Show(this);
-        if (sandboxGuide == null) sandboxGuide = new GameObject("Sandbox ability guide").AddComponent<SandboxGuideView>();
-        sandboxGuide.Show(IsSandbox);
+        if (ShowPracticeGuide)
+        {
+            if (sandboxGuide == null) sandboxGuide = new GameObject("Sandbox ability guide").AddComponent<SandboxGuideView>();
+            sandboxGuide.Show(IsSandbox);
+        }
         if (suddenDeath == null) suddenDeath = SuddenDeathDirector.Ensure();
         suddenDeath.Show(this);
         if (healView == null) healView = new GameObject("Heal Pickup").AddComponent<HealPickupView>();

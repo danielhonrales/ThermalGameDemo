@@ -41,6 +41,10 @@ Without authored cameras, the gallery places seven cameras around the cover layo
 
 Instead of the Editor, use the Windows build: **Thermal Demo > Build Windows Spectator** writes `Builds/Windows/ThermalGameDemo.exe` from the same project and scenes as the Quest APK. A Windows build is always a spectator, so it needs no command-line argument; on first launch, allow it through Windows Firewall for private networks. It opens Display 2 automatically when a second monitor is connected. The build leaves XR off on the PC.
 
+### Live player views
+
+Each Quest can send its player's real view to the spectator: the left passthrough camera's picture with the game's virtual content drawn over it from that camera's position and lens, as a rectangular 960 × 720 picture at about 15 frames per second. The spectator announces itself on UDP 7783; a headset that hears it starts its camera and sends JPEG frames to the spectator on TCP 7784, and each player's half of Display 1 switches from the rebuilt view to the live one. When frames stop for 4 seconds, the rebuilt view returns. The first time, each headset asks for permission to use the headset cameras; accept it inside the headset. The camera runs only while a spectator is on the network. Each stream uses about 8 Mbit/s of Wi-Fi. If a live view appears upside down, press F on the spectator PC.
+
 ### Mirroring the real headset view
 
 The spectator rebuilds each view from head pose. To show what a headset actually displays, mirror it with [scrcpy](https://github.com/Genymobile/scrcpy) (`winget install Genymobile.scrcpy`). This runs over the same router and is independent of the game. The PC connects to each headset by IP, so the headsets don't need the PC's address.

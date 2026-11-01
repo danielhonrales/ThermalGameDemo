@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Match HUD: eye-level local health and round clock; head-locked sudden-death cue,
-/// result, and full-view damage feedback.
+/// Match HUD: local health as a visor readout in the bottom-left of the view, an eye-level phase line,
+/// the round clock on boards around the arena (<see cref="ArenaClockBoards"/>); head-locked
+/// sudden-death cue, result, and full-view damage feedback.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class FusionRoundHud : MonoBehaviour
@@ -21,15 +22,21 @@ public sealed class FusionRoundHud : MonoBehaviour
     private const float HudDistance = 1.5f;
     private const float HudScale = 0.00095f;
 
+    // Local health sits close, low and to the left, like a readout on a helmet visor.
+    private static readonly Vector3 VisorOffset = new Vector3(-0.12f, -0.14f, 0.45f);
+    private const float VisorScale = 0.00033f;
+
     private RectTransform root;
     private RectTransform statusRoot;
+    private RectTransform visorRoot;
     private RectTransform vignetteRoot;
     private Image vignette;
     private HealthCard localCard;
-    private RectTransform clock;
-    private Image clockGlow;
+    private Material[] visorTextOverlays = new Material[0];
+    private ArenaClockBoards clockBoards;
+    private bool clockBoardsSearched;
     private Image phaseBand;
-    private TextMeshProUGUI timer, phaseLabel;
+    private TextMeshProUGUI phaseLabel;
     private Image timelineFill, timelineHead;
     private RectTransform timelineRoot;
     private RectTransform banner;
@@ -56,7 +63,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private float damageFlashUntil;
 
     // Full-view announcement: the start countdown, FIGHT and the result fill most of the view.
-    private const float TakeoverDistance = 1.2f, TakeoverScale = 0.0011f;
+    private const float TakeoverDistance = 1.2f, TakeoverScale = 0.00092f;
     private RectTransform takeoverRoot;
     private CanvasGroup takeoverGroup;
     private Image takeoverDim, takeoverEdge, takeoverFlash, takeoverRing, takeoverRingTrack;
@@ -82,9 +89,13 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (Current == this) Current = null;
         if (root != null) DestroyHudObject(root.gameObject);
         if (statusRoot != null) DestroyHudObject(statusRoot.gameObject);
+        if (visorRoot != null) DestroyHudObject(visorRoot.gameObject);
         if (vignetteRoot != null) DestroyHudObject(vignetteRoot.gameObject);
         if (takeoverRoot != null) DestroyHudObject(takeoverRoot.gameObject);
+        clockBoards?.Destroy();
         foreach (Material overlay in new[] { bannerTitleOverlay, bannerCaptionOverlay, takeoverImageOverlay, takeoverTitleOverlay, takeoverCaptionOverlay })
+            if (overlay != null) DestroyHudObject(overlay);
+        foreach (Material overlay in visorTextOverlays)
             if (overlay != null) DestroyHudObject(overlay);
     }
 
@@ -97,15 +108,16 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         if (root != null) return;
         root = HudKit.Canvas("Arena HUD", transform, new Vector2(2800f, 1700f), 20);
-        // Health and clock sit at a constant eye-level height; only urgent banners/toasts follow head pitch.
+        // The phase line sits at a constant eye-level height; only urgent banners/toasts follow head pitch.
         statusRoot = HudKit.Canvas("Arena HUD status", transform, new Vector2(2800f, 1700f), 19);
+        takeoverImageOverlay = OverlayImageMaterial();
 
-        localCard = new HealthCard(statusRoot, "YOU", HealPickupView.Green, new Vector2(-760f, 285f), true);
+        // Visor health, drawn over everything so cover the player hugs never hides it.
+        visorRoot = HudKit.Canvas("Visor health", transform, new Vector2(560f, 180f), 21);
+        localCard = new HealthCard(visorRoot, "YOU", HealPickupView.Green, Vector2.zero, true);
+        foreach (Image image in visorRoot.GetComponentsInChildren<Image>(true)) image.material = takeoverImageOverlay;
+        visorTextOverlays = System.Array.ConvertAll(visorRoot.GetComponentsInChildren<TextMeshProUGUI>(true), OverlayMaterial);
 
-        // Round clock with the three predictable events underneath.
-        clock = HudKit.Rect(statusRoot, "Clock", new Vector2(0f, 330f), new Vector2(260f, 100f));
-        clockGlow = HudKit.Image(clock, "Bloom", HudSprites.Dot(), HudKit.A(Friendly, 0.1f), Vector2.zero, new Vector2(420f, 170f));
-        timer = HudKit.Text(clock, "Time", HudKit.Heavy, 76f, Color.white, new Vector2(0f, 2f), new Vector2(260f, 100f), TextAlignmentOptions.Center);
         phaseBand = HudKit.Image(statusRoot, "Phase status band", HudSprites.Panel(4), Color.clear,
             new Vector2(0f, 262f), new Vector2(700f, 50f));
         phaseLabel = HudKit.Text(statusRoot, "Phase", HudKit.Display, 32f, Soft,
@@ -123,6 +135,7 @@ public sealed class FusionRoundHud : MonoBehaviour
 
         // Centre banner.
         banner = HudKit.Rect(root, "Banner", new Vector2(0f, 0f), new Vector2(1500f, 260f));
+        banner.localScale = Vector3.one * 0.85f;
         bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
         bannerBand = HudKit.Image(banner, "Bloom", HudSprites.Dot(), HudKit.A(Color.black, 0f), Vector2.zero, new Vector2(1500f, 420f));
         bannerFlash = HudKit.Image(banner, "Flash", HudSprites.Dot(), new Color(1f, 1f, 1f, 0f), Vector2.zero, new Vector2(1300f, 360f));
@@ -151,7 +164,6 @@ public sealed class FusionRoundHud : MonoBehaviour
         // a dimmed backdrop, a coloured edge glow, a flash, the countdown ring and one huge word or number.
         takeoverRoot = HudKit.Canvas("Full-view announcement", transform, new Vector2(3600f, 3000f), 30);
         takeoverGroup = takeoverRoot.gameObject.AddComponent<CanvasGroup>();
-        takeoverImageOverlay = OverlayImageMaterial();
         takeoverDim = OverlayImage(HudKit.Image(takeoverRoot, "Dim", null, Color.clear, Vector2.zero, new Vector2(3600f, 3000f)));
         takeoverEdge = OverlayImage(HudKit.Image(takeoverRoot, "Edge glow", HudSprites.Vignette(), Color.clear, Vector2.zero, new Vector2(3600f, 3000f)));
         takeoverFlash = OverlayImage(HudKit.Image(takeoverRoot, "Flash", HudSprites.Dot(), Color.clear, Vector2.zero, new Vector2(2600f, 2000f)));
@@ -178,6 +190,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         {
             root.gameObject.SetActive(false);
             statusRoot.gameObject.SetActive(false);
+            visorRoot.gameObject.SetActive(false);
             vignetteRoot.gameObject.SetActive(false);
         }
     }
@@ -229,6 +242,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (root.parent != head)
         {
             root.SetParent(head, false);
+            visorRoot.SetParent(head, false);
             vignetteRoot.SetParent(head, false);
             takeoverRoot.SetParent(head, false);
             statusRoot.SetParent(head.parent, false);
@@ -243,6 +257,10 @@ public sealed class FusionRoundHud : MonoBehaviour
         root.localPosition = lag * new Vector3(0f, 0f, HudDistance);
         root.localRotation = lag;
         root.localScale = Vector3.one * HudScale;
+        // Turned square to the eye, with the same slight lag as the rest of the HUD.
+        visorRoot.localPosition = lag * VisorOffset;
+        visorRoot.localRotation = lag * Quaternion.LookRotation(VisorOffset, Vector3.up);
+        visorRoot.localScale = Vector3.one * VisorScale;
         vignetteRoot.localPosition = new Vector3(0f, 0f, 0.45f);
         vignetteRoot.localRotation = Quaternion.identity;
         vignetteRoot.localScale = Vector3.one * 0.0012f;
@@ -250,7 +268,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         takeoverRoot.localRotation = Quaternion.identity;
         takeoverRoot.localScale = Vector3.one * TakeoverScale;
 
-        // Health and clock turn with the player but ignore looking up/down or tilting.
+        // The phase line turns with the player but ignores looking up/down or tilting.
         Vector3 heading = Heading(head);
         smoothedHeading = Vector3.Slerp(smoothedHeading, heading, follow).normalized;
         if (Vector3.Angle(smoothedHeading, heading) > 25f) smoothedHeading = heading;
@@ -297,16 +315,14 @@ public sealed class FusionRoundHud : MonoBehaviour
         suddenDeathAmount = Mathf.MoveTowards(suddenDeathAmount,
             round.IsFighting && sd >= 0f ? 1f : 0f, Time.deltaTime * 2f);
         Color accent = Color.Lerp(Friendly, Warn, suddenDeathAmount);
-        clockGlow.color = HudKit.A(accent, 0.08f + suddenDeathAmount * 0.12f);
-        timer.color = Color.white;
-        clock.localScale = Vector3.one;
+        string clockText = Clock(roundLength);
+        Color clockColor = Color.white;
         phaseBand.color = Color.clear;
         phaseLabel.color = Soft;
 
         switch (phase)
         {
             case FusionRoundDirector.RoundPhase.Waiting:
-                timer.text = Clock(roundLength);
                 phaseLabel.text = !NetworkPlayerAlignment.HasCalibration ? "ALIGN AT START" : "WAITING FOR OTHER PLAYER";
                 SetTimeline(0f);
                 ShowBanner("waiting", "", "", Color.white, 0f);
@@ -315,7 +331,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 break;
 
             case FusionRoundDirector.RoundPhase.Sandbox:
-                timer.text = "READY";
+                clockText = "READY";
                 phaseLabel.text = "THUMBS UP 3S TO START";
                 phaseLabel.color = Friendly;
                 phaseBand.color = HudKit.A(Friendly, 0.1f);
@@ -328,7 +344,6 @@ public sealed class FusionRoundHud : MonoBehaviour
             case FusionRoundDirector.RoundPhase.Countdown:
             {
                 int number = Mathf.Max(1, Mathf.CeilToInt(remaining));
-                timer.text = Clock(roundLength);
                 phaseLabel.text = "ROUND STARTS IN " + number;
                 SetTimeline(0f);
                 if (number != lastCountdownNumber)
@@ -345,7 +360,7 @@ public sealed class FusionRoundHud : MonoBehaviour
             case FusionRoundDirector.RoundPhase.Fighting:
             {
                 float elapsed = round.FightElapsed;
-                timer.text = Clock(remaining);
+                clockText = Clock(remaining);
                 SetTimeline(elapsed / Mathf.Max(1f, roundLength));
                 bool opening = Time.time - fightStartedAt < 1.1f;
                 if (opening) ShowTakeover("fight", "FIGHT", "", Friendly, 0.3f);
@@ -364,13 +379,13 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bool rebuilding = sd >= -5f && sd < 0f;
                 phaseLabel.text = rebuilding ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-sd)
                     : sd >= 0f ? "SUDDEN DEATH"
-                    : elapsed >= HealPickupView.HealAt ? "HEAL AVAILABLE"
+                    : round.HealState == 1 ? "HEAL AVAILABLE"
                     : round.SoloOverride ? "SURVIVE ONE MINUTE" : "LOWER OPPONENT HEALTH";
                 Color statusColor = rebuilding ? Amber : Friendly;
                 phaseLabel.color = Color.Lerp(statusColor, Color.white, 0.3f);
                 phaseBand.color = HudKit.A(statusColor, rebuilding ? 0.16f : 0.08f);
-                if (rebuilding) timer.color = Amber;
-                else if (sd >= 0f) timer.color = Color.Lerp(Color.white, Warn, 0.3f);
+                if (rebuilding) clockColor = Amber;
+                else if (sd >= 0f) clockColor = Color.Lerp(Color.white, Warn, 0.3f);
                 UpdateHealToasts(round);
                 break;
             }
@@ -380,7 +395,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 int localId = NetworkClient.localPlayer != null ? (int)NetworkClient.localPlayer.netId : -1;
                 bool won = round.WinnerPlayerId == localId;
                 bool draw = round.WinnerPlayerId < 0;
-                timer.text = "0:00";
+                clockText = "0:00";
                 phaseLabel.text = "ROUND OVER";
                 phaseLabel.color = Soft;
                 SetTimeline(1f);
@@ -393,8 +408,19 @@ public sealed class FusionRoundHud : MonoBehaviour
                 break;
             }
         }
+        ClockBoards()?.Show(clockText, clockColor, accent, 0.08f + suddenDeathAmount * 0.12f);
         AnimateBanner();
         AnimateTakeover();
+    }
+
+    private ArenaClockBoards ClockBoards()
+    {
+        if (!clockBoardsSearched)
+        {
+            clockBoardsSearched = true;
+            clockBoards = ArenaClockBoards.Create();
+        }
+        return clockBoards;
     }
 
     // ---------- Full-view announcement ----------
@@ -448,7 +474,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (previous < 0) return;
         if (round.HealState == 1)
         {
-            Toast("MED-KIT DEPLOYED · CENTER", HealPickupView.Green, 3f);
+            Toast("MED-KIT DEPLOYED", HealPickupView.Green, 3f);
             SynthAudio.Play2D(SynthAudio.HealChime(), 0.7f);
         }
         else if (round.HealState == 2)
@@ -579,7 +605,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         vignette.color = HudKit.A(color, alpha);
         vignetteRoot.gameObject.SetActive(alpha > 0.005f);
         localCard.Shake(Mathf.Max(hit, immediate));
-        if (immediate > 0f) { timer.color = Color.Lerp(timer.color, Warn, immediate); phaseLabel.color = Warn; }
+        if (immediate > 0f) phaseLabel.color = Warn;
     }
 
     /// <summary>0..1 lub-dub pulse at ~80 bpm, faster in sudden death.</summary>
@@ -603,7 +629,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     {
         Initialize();
         Position(camera);
-        timer.text = "1:12";
+        ClockBoards()?.Show("1:12", Color.white, Friendly, 0.1f);
         phaseLabel.text = "SUDDEN DEATH IN 5";
         phaseBand.color = HudKit.A(Amber, 0.16f);
         ShowBanner("count5", "5", "", Friendly, 1f);

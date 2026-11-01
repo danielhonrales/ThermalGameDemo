@@ -84,6 +84,12 @@ public sealed class SpectatorDirector : MonoBehaviour
     private float shotStartedAt, fadeStartedAt = -10f;
     private bool paused;
 
+    // Live player views streamed from the headsets (PlayerViewStream) replace the reconstructed ones.
+    private PlayerViewReceiver receiver;
+    private readonly RawImage[] liveViews = new RawImage[2];
+    private readonly AspectRatioFitter[] liveFits = new AspectRatioFitter[2];
+    private bool flipLive;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
     {
@@ -107,6 +113,7 @@ public sealed class SpectatorDirector : MonoBehaviour
         materials.Add(lineMaterial);
         CreateCameras();
         CreateOverlays();
+        receiver = gameObject.AddComponent<PlayerViewReceiver>();
         Bounds layout = CoverBounds();
         shots.AddRange(AuthoredShots());
         if (shots.Count == 0) shots.AddRange(GenerateShots(layout));
@@ -168,6 +175,7 @@ public sealed class SpectatorDirector : MonoBehaviour
             playerCameras[i].enabled = live;
             if (live) playerCameras[i].transform.SetPositionAndRotation(ordered[i].Pose.position, ordered[i].Pose.rotation);
         }
+        UpdateLiveViews();
         UpdateGallery(now);
         UpdateOverlay();
     }
@@ -311,6 +319,26 @@ public sealed class SpectatorDirector : MonoBehaviour
             if (bar != null && view.BarScale != Vector3.zero) bar.localScale = view.BarScale;
         }
         foreach (Renderer roof in ceiling) if (roof != null) roof.forceRenderingOff = false;
+    }
+
+    /// <summary>Shows a player's streamed headset view, when one is arriving, in place of the reconstructed view.</summary>
+    private void UpdateLiveViews()
+    {
+        Keyboard keys = Keyboard.current;
+        // F flips the streamed views upside down, in case a headset's graphics API delivers them inverted.
+        if (keys != null && keys.fKey.wasPressedThisFrame) flipLive = !flipLive;
+        for (int i = 0; i < liveViews.Length; i++)
+        {
+            Texture2D view = null;
+            bool streamed = i < ordered.Count && ordered[i].Head != null && receiver != null
+                && receiver.TryGetView((int)ordered[i].Head.netId, out view);
+            liveViews[i].enabled = streamed;
+            if (!streamed) continue;
+            playerCameras[i].enabled = false;
+            liveViews[i].texture = view;
+            liveFits[i].aspectRatio = (float)view.width / Mathf.Max(1, view.height);
+            liveViews[i].uvRect = flipLive ? new Rect(0f, 1f, 1f, -1f) : new Rect(0f, 0f, 1f, 1f);
+        }
     }
 
     // ---------- Gallery ----------
@@ -460,6 +488,24 @@ public sealed class SpectatorDirector : MonoBehaviour
     {
         RectTransform players = Overlay("Spectator player overlay", 0);
         RectTransform arena = Overlay("Spectator arena overlay", 1);
+
+        // Each half's live headset view, fitted to its shape, under the cards and round block.
+        for (int i = 0; i < liveViews.Length; i++)
+        {
+            var half = (RectTransform)new GameObject($"Player {i + 1} live view area", typeof(RectTransform)).transform;
+            half.SetParent(players, false);
+            half.anchorMin = new Vector2(0.5f * i, 0f);
+            half.anchorMax = new Vector2(0.5f * i + 0.5f, 1f);
+            half.offsetMin = half.offsetMax = Vector2.zero;
+            var live = new GameObject("Live view", typeof(RectTransform), typeof(RawImage), typeof(AspectRatioFitter));
+            live.transform.SetParent(half, false);
+            liveViews[i] = live.GetComponent<RawImage>();
+            liveViews[i].raycastTarget = false;
+            liveViews[i].enabled = false;
+            liveFits[i] = live.GetComponent<AspectRatioFitter>();
+            liveFits[i].aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            liveFits[i].aspectRatio = 4f / 3f;
+        }
 
         var divider = HudKit.Image(players, "Divider", null, new Color(0f, 0f, 0f, 0.9f), Vector2.zero, new Vector2(6f, 0f));
         divider.rectTransform.anchorMin = new Vector2(0.5f, 0f);

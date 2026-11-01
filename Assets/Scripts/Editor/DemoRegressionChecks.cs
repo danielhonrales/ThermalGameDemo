@@ -26,6 +26,7 @@ public static class DemoRegressionChecks
         RunArenaWallsCheck();
         RunGroundFireMotionCheck();
         RunAttackMeterCheck();
+        RunPlayerViewStreamCheck();
         CaptureHud();
         CaptureSandboxGuide();
     }
@@ -179,6 +180,27 @@ public static class DemoRegressionChecks
         Debug.Log("ARM EFFECTS PASSED: ice rings land elbow to wrist; ice fades the spiral, the shield swaps it for a fading edge-lit aura, fire keeps it.");
     }
 
+    public static void RunPlayerViewStreamCheck()
+    {
+        if (!PlayerViewStream.TryParseBeacon(PlayerViewStream.BeaconPrefix + "7784", out int port) || port != 7784
+            || PlayerViewStream.TryParseBeacon("THERMAL-PI-1:Player1", out _) || PlayerViewStream.TryParseBeacon(PlayerViewStream.BeaconPrefix + "x", out _))
+            throw new Exception("Headsets must accept only the spectator's beacon and read its port.");
+        var stream = new System.IO.MemoryStream();
+        byte[] first = { 0xFF, 0xD8, 1, 2, 3, 0xFF, 0xD9 }, second = new byte[70000];
+        second[0] = 7;
+        PlayerViewStream.WriteFrame(stream, 12, first);
+        PlayerViewStream.WriteFrame(stream, 34, second);
+        stream.Position = 0;
+        if (!PlayerViewStream.TryReadFrame(stream, out int a, out byte[] readA) || a != 12 || !readA.SequenceEqual(first)
+            || !PlayerViewStream.TryReadFrame(stream, out int b, out byte[] readB) || b != 34 || readB.Length != second.Length || readB[0] != 7
+            || PlayerViewStream.TryReadFrame(stream, out _, out _))
+            throw new Exception("Player view frames must arrive whole, in order, with their player IDs.");
+        var bad = new System.IO.MemoryStream(new byte[] { 1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x7F });
+        try { PlayerViewStream.TryReadFrame(bad, out _, out _); throw new Exception("An oversized frame length must be rejected."); }
+        catch (System.IO.InvalidDataException) { }
+        Debug.Log("PLAYER VIEW STREAM PASSED: spectator beacon parsed, frames round-trip with player IDs, oversized frames rejected.");
+    }
+
     public static void RunAttackMeterCheck()
     {
         void Expect(string what, float actual, float expected)
@@ -255,6 +277,8 @@ public static class DemoRegressionChecks
                 if (v.y > 0.76f && Mathf.Repeat(Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg, 360f) > 225.1f)
                     throw new Exception("The curved wall's upper half must cover only its left half.");
             if (!vertices.Any(v => v.y > 1.49f)) throw new Exception("The curved wall's left half must reach full height.");
+            if (vertices.Any(v => Mathf.Abs(new Vector2(v.x, v.z).magnitude - 1.1f) > 0.046f))
+                throw new Exception("The curved wall must be under 0.1 m thick.");
             int[] triangles = mesh.GetTriangles(0);
             int wrong = 0;
             for (int i = 0; i < triangles.Length; i += 3)
@@ -277,10 +301,11 @@ public static class DemoRegressionChecks
         mesh = ArenaWalls.SlidingWallMesh();
         try
         {
-            if (Mathf.Abs(mesh.bounds.size.y - 2.4f) > 0.001f) throw new Exception("The sliding wall must be full height (2.4 m).");
-            // Nothing but the glowing reveal may cover the window: shots pass through its middle and its corners.
             Vector3[] vertices = mesh.vertices;
-            foreach (Vector2 p in new[] { new Vector2(0f, 1.3f), new Vector2(-0.23f, 0.95f), new Vector2(0.23f, 1.65f) })
+            if (Mathf.Abs(mesh.bounds.size.y - 1.75f) > 0.001f || vertices.Where(v => v.y > 0.2f).Any(v => Mathf.Abs(v.z) > 0.05f))
+                throw new Exception("The sliding wall must be 1.75 m high and under 0.1 m thick above its footing.");
+            // Nothing but the glowing reveal may cover the 0.56 m x 0.525 m shoulder-height window: shots pass through its middle and its corners.
+            foreach (Vector2 p in new[] { new Vector2(0f, 1.32f), new Vector2(-0.27f, 1.065f), new Vector2(0.27f, 1.575f) })
                 for (int sub = 0; sub < 2; sub++)
                 {
                     int[] triangles = mesh.GetTriangles(sub);
@@ -296,7 +321,12 @@ public static class DemoRegressionChecks
                 }
         }
         finally { UnityEngine.Object.DestroyImmediate(mesh); }
-        Debug.Log("ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track; curved wall is 1.5 m high, short, stepped down on its right half, and faces the right way; the sliding wall's window is open.");
+        // The sliding wall crosses the whole square diagonally, sideways, with its footing kept inside.
+        Vector3 across = new Vector3(1f, 0f, -1f).normalized;
+        float reach = ArenaWalls.SlidingTravel(new Vector2(3.5f, 3.5f), across, across);
+        if (reach < 1.3f || reach > 1.45f)
+            throw new Exception($"The sliding wall should travel about 1.4 m either side of the centre, not {reach:0.00} m.");
+        Debug.Log($"ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track {reach:0.00} m each way; curved wall is 1.5 m high, thin, short, stepped down on its right half, and faces the right way; the 1.75 m sliding wall is thin and its window is open.");
     }
 
     public static void RunPiDiscoveryCheck()
@@ -485,7 +515,7 @@ public static class DemoRegressionChecks
             camera.transform.SetPositionAndRotation(new Vector3(3f, 1.6f, -2f), Quaternion.Euler(10f, 85f, 0f));
             if (Vector3.Distance(hudRoot.position, camera.transform.TransformPoint(expectedLocal)) > 0.001f)
                 throw new Exception("Head-locked banners freeze in world space between round updates/calibration.");
-            // Health and clock hold eye height in the facing direction whatever the head pitch or tilt.
+            // The phase line holds eye height in the facing direction whatever the head pitch or tilt.
             Vector3 facing = Quaternion.Euler(0f, 85f, 0f) * Vector3.forward;
             typeof(FusionRoundHud).GetField("smoothedHeading", flags).SetValue(hud, facing);
             var position = typeof(FusionRoundHud).GetMethod("Position", flags);
@@ -496,9 +526,26 @@ public static class DemoRegressionChecks
                 position.Invoke(hud, new object[] { camera });
                 if (Vector3.Distance(status.position, camera.transform.position + facing * 1.5f) > 0.001f
                     || Vector3.Dot(status.up, Vector3.up) < 0.999f)
-                    throw new Exception($"Health and clock moved with head pitch/tilt {look}.");
+                    throw new Exception($"Phase line moved with head pitch/tilt {look}.");
             }
-            Debug.Log("HUD FOLLOW PASSED: banners stay eye-relative without a network refresh; health and clock keep eye height at any head pitch.");
+            // Local health is a small visor readout, close and low-left in the view, turned to the eye.
+            var visor = (RectTransform)typeof(FusionRoundHud).GetField("visorRoot", flags).GetValue(hud);
+            camera.transform.rotation = Quaternion.Euler(20f, 40f, 0f);
+            position.Invoke(hud, new object[] { camera });
+            Vector3 seen = camera.transform.InverseTransformPoint(visor.position);
+            float width = visor.sizeDelta.x * visor.lossyScale.x;
+            if (seen.z < 0.4f || seen.z > 0.8f || seen.x > -0.1f || seen.y > -0.1f || width > 0.2f
+                || Vector3.Angle(visor.forward, visor.position - camera.transform.position) > 1f)
+                throw new Exception($"Visor health must sit 0.4-0.8 m away, low-left, under 0.2 m wide and face the eye; it is at {seen}, {width:0.00} m wide.");
+            // The opponent's bar draws over cover, so it stays visible while they hide behind it.
+            var opponent = new DemoHealthBar(root.transform, "Opponent health regression");
+            foreach (var image in opponent.Root.GetComponentsInChildren<UnityEngine.UI.Image>(true))
+                if (image.material == null || image.material.GetInt("unity_GUIZTestMode") != (int)UnityEngine.Rendering.CompareFunction.Always)
+                    throw new Exception($"Opponent health image {image.name} is depth-tested, so cover hides it.");
+            foreach (var text in opponent.Root.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true))
+                if (text.fontSharedMaterial == null || text.fontSharedMaterial.shader.name != "TextMeshPro/Distance Field Overlay")
+                    throw new Exception($"Opponent health text {text.name} is depth-tested, so cover hides it.");
+            Debug.Log("HUD FOLLOW PASSED: banners stay eye-relative without a network refresh; the phase line keeps eye height at any head pitch; local health is a small visor readout low-left in the view; the opponent's bar draws over cover.");
         }
         finally
         {

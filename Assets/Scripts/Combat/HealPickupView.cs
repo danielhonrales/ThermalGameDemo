@@ -2,14 +2,16 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 /// <summary>
-/// Client view of the one-per-round heal: a glowing green cross that drops in from above,
+/// Client view of the round's heals: a glowing green cross that drops in from above,
 /// spins and bobs over a ground marker, then bursts when a player walks through it.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class HealPickupView : MonoBehaviour
 {
-    /// <summary>Seconds into the fight when the heal appears.</summary>
-    public const float HealAt = 29f;
+    /// <summary>Seconds into the fight when the first heal appears.</summary>
+    public const float HealAt = 19f;
+    /// <summary>Seconds into sudden death when the second heal appears.</summary>
+    public const float SuddenDeathHealAt = 7f;
     internal static readonly Color Green = new Color(0.22f, 1f, 0.45f, 1f);
     internal static readonly Color GreenCore = new Color(0.8f, 1f, 0.86f, 1f);
 

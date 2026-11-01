@@ -56,29 +56,58 @@ public static class DemoHudElements
     }
 }
 
-/// <summary>Compact floating health bar shown over the opponent: chip trail, hit flash and low-health pulse.</summary>
+/// <summary>
+/// Floating health bar shown over the opponent: a thick red bar on a dark, red-framed plate with the
+/// number above it; chip trail, hit flash and low-health pulse. It is drawn over everything, so it stays
+/// visible while the opponent is behind cover.
+/// </summary>
 public sealed class DemoHealthBar
 {
     public RectTransform Root { get; }
-    private readonly UnityEngine.UI.Image fill, chip, glow;
+    private readonly UnityEngine.UI.Image fill, chip, glow, frame;
     private readonly TextMeshProUGUI number;
     private float shown = 1f, trail = 1f, droppedAt = -10f;
     private int lastHp = -1;
-    private const float Width = 300f;
+    private const float Width = 300f, BarHeight = 24f, BarY = -14f;
 
     public DemoHealthBar(Transform parent, string name)
     {
-        Root = DemoHudElements.Canvas(name, parent, new Vector2(320f, 76f));
-        glow = HudKit.Image(Root, "Bloom", HudSprites.Dot(), HudKit.A(FusionRoundHud.Enemy, 0.2f), new Vector2(0f, -8f), new Vector2(Width + 60f, 56f));
-        HudKit.Image(Root, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), new Vector2(0f, -8f), new Vector2(Width, 3f), true, 1f);
+        Root = DemoHudElements.Canvas(name, parent, new Vector2(360f, 130f));
+        Color enemy = FusionRoundHud.Enemy;
+        glow = HudKit.Image(Root, "Bloom", HudSprites.Dot(), HudKit.A(enemy, 0.3f), new Vector2(0f, BarY), new Vector2(Width + 140f, 120f));
+        frame = HudKit.Image(Root, "Frame", HudSprites.Panel(8), enemy, new Vector2(0f, BarY), new Vector2(Width + 20f, BarHeight + 20f), true, 1f);
+        HudKit.Image(Root, "Plate", HudSprites.Panel(6), new Color(0.02f, 0.03f, 0.05f, 0.88f), new Vector2(0f, BarY), new Vector2(Width + 10f, BarHeight + 10f), true, 1f);
         chip = Bar("Chip", new Color(1f, 0.93f, 0.8f, 0.9f));
-        fill = Bar("Fill", FusionRoundHud.Enemy);
-        number = HudKit.Text(Root, "Health value", HudKit.Heavy, 30f, Color.white, new Vector2(0f, 20f), new Vector2(300f, 40f), TextAlignmentOptions.Center);
+        fill = Bar("Fill", enemy);
+        for (int i = 1; i < 4; i++)
+            HudKit.Image(Root, "Tick", null, new Color(0f, 0f, 0f, 0.45f), new Vector2(-Width / 2f + Width * i / 4f, BarY), new Vector2(3f, BarHeight));
+        number = HudKit.Text(Root, "Health value", HudKit.Heavy, 46f, Color.white, new Vector2(0f, 26f), new Vector2(200f, 60f), TextAlignmentOptions.Center);
+        DrawOverEverything();
+    }
+
+    // Shared by every bar: images and the number drawn without a depth test, so cover never hides them.
+    private static Material overlayImage, overlayText;
+
+    private void DrawOverEverything()
+    {
+        // Under the HUD banners (order 20), over the arena's other transparent effects.
+        Root.GetComponent<Canvas>().sortingOrder = 18;
+        if (overlayImage == null)
+        {
+            overlayImage = new Material(Canvas.GetDefaultCanvasMaterial()) { name = "Opponent health overlay image" };
+            overlayImage.SetInt("unity_GUIZTestMode", (int)UnityEngine.Rendering.CompareFunction.Always);
+        }
+        foreach (UnityEngine.UI.Image image in Root.GetComponentsInChildren<UnityEngine.UI.Image>(true))
+            image.material = overlayImage;
+        Shader shader = Shader.Find("TextMeshPro/Distance Field Overlay");
+        if (overlayText == null && shader != null && number.fontSharedMaterial != null)
+            overlayText = new Material(number.fontSharedMaterial) { name = "Opponent health overlay text", shader = shader };
+        if (overlayText != null) number.fontSharedMaterial = overlayText;
     }
 
     private UnityEngine.UI.Image Bar(string name, Color color)
     {
-        var image = HudKit.Image(Root, name, HudSprites.Panel(6), color, new Vector2(-Width / 2f, -8f), new Vector2(Width, 10f), true, 1f);
+        var image = HudKit.Image(Root, name, HudSprites.Panel(6), color, new Vector2(-Width / 2f, BarY), new Vector2(Width, BarHeight), true, 1f);
         image.rectTransform.pivot = new Vector2(0f, 0.5f);
         return image;
     }
@@ -91,12 +120,15 @@ public sealed class DemoHealthBar
         if (Time.time - droppedAt > 0.45f) trail = Mathf.MoveTowards(trail, shown, Time.deltaTime * 0.9f);
         trail = Mathf.Max(trail, shown);
         float flash = Mathf.Exp(-(Time.time - droppedAt) * 10f);
-        number.text = Mathf.Max(0, hp).ToString();
-        number.rectTransform.localScale = Vector3.one * (1f + 0.25f * flash);
-        fill.color = Color.Lerp(FusionRoundHud.Enemy, Color.white, 0.7f * flash);
-        fill.rectTransform.sizeDelta = new Vector2(Width * shown, 10f);
-        chip.rectTransform.sizeDelta = new Vector2(Width * trail, 10f);
         float low = fraction < 0.3f ? 0.5f + 0.5f * Mathf.Sin(Time.time * 9f) : 0f;
-        glow.color = HudKit.A(FusionRoundHud.Enemy, 0.1f + 0.4f * flash + 0.15f * low);
+        Color enemy = FusionRoundHud.Enemy;
+        number.text = Mathf.Max(0, hp).ToString();
+        number.rectTransform.localScale = Vector3.one * (1f + 0.3f * flash);
+        fill.color = Color.Lerp(enemy, Color.white, 0.7f * flash);
+        fill.rectTransform.sizeDelta = new Vector2(Width * shown, BarHeight);
+        chip.rectTransform.sizeDelta = new Vector2(Width * trail, BarHeight);
+        // The frame flares on each hit and throbs when the opponent is nearly down.
+        frame.color = Color.Lerp(enemy, Color.white, Mathf.Max(0.8f * flash, 0.45f * low));
+        glow.color = HudKit.A(enemy, 0.3f + 0.45f * flash + 0.25f * low);
     }
 }

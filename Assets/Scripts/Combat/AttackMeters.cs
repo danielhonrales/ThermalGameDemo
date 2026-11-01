@@ -17,7 +17,7 @@ public sealed class AttackMeters : MonoBehaviour
     private const float BarLeft = -32f;
     // Metres from the wrist: back along the forearm, up, and to the viewer's right, so the bars sit
     // above the forearm and the hand never covers them.
-    private const float TowardElbow = 0.10f, Above = 0.09f, Right = 0.04f;
+    private const float TowardElbow = 0.06f, Above = 0.095f, Right = 0.05f;
 
     private sealed class Bar
     {

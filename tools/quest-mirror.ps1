@@ -16,12 +16,13 @@ the headset is on someone's head, or close the window and run this again.
 #>
 param(
     [string[]]$Ip = @(),
-    # Share of the eye's width shown. 1 (the default) shows the whole eye view as the headset draws it:
-    # pre-warped for its lenses and ringed in black. Below 1, a 16:9 crop around the lens centre keeps
-    # the flatter middle.
+    # Share of the left eye's width shown. 1 (the default) shows the whole left-eye view as the headset
+    # draws it: pre-warped for its lenses and ringed in black. Below 1, a 16:9 crop around the eye's
+    # centre keeps the flatter middle.
     [ValidateRange(0.3, 1.0)][double]$Zoom = 1.0,
-    # Pixels along the captured picture's long side, before the window squeezes it to shape.
-    [int]$MaxSize = 1920,
+    # Pixels along the captured picture's long side, before the window squeezes it to shape. The capture
+    # is stretched three times wide, so 4096 (the encoder's limit) keeps about 1430 of the eye's 1920 rows.
+    [int]$MaxSize = 4096,
     # Window height in pixels; the width follows from the view's shape.
     [int]$WindowHeight = 900,
     [int]$Fps = 30,
@@ -51,6 +52,7 @@ function Get-QuestIp([string]$serial) {
 }
 
 $targets = [System.Collections.Generic.List[string]]::new()
+$usbFor = @{}   # Wi-Fi target -> USB serial of the same headset, while it is plugged in
 foreach ($address in $Ip) { $targets.Add("${address}:5555") }
 
 $usb = & $adb devices | Select-String '^(\S+)\s+device$' | ForEach-Object { $_.Matches[0].Groups[1].Value } |
@@ -64,6 +66,7 @@ foreach ($serial in $usb) {
     }
     & $adb -s $serial tcpip 5555 | Out-Null
     Write-Host "$serial is at $address; network ADB is on until it reboots. You can unplug it."
+    $usbFor["${address}:5555"] = $serial
     if (-not $targets.Contains("${address}:5555")) { $targets.Add("${address}:5555") }
 }
 if ($usb) { Start-Sleep -Seconds 2 }  # adbd restarts in network mode
@@ -73,27 +76,45 @@ if ($targets.Count -eq 0) { throw 'No headset found. Plug one in by USB, or pass
 foreach ($target in $targets) {
     if ($target -match ':') {
         $result = & $adb connect $target
-        if ($result -notmatch 'connected') { Write-Warning "${target}: $result"; continue }
+        # A failure also says "connected" ("the connected party did not respond").
+        if ($result -notmatch '^(already )?connected to') {
+            Write-Warning "${target}: $result"
+            if (-not $usbFor[$target]) { continue }
+            # Plugged in but unreachable (e.g. this PC is on another network): mirror over the cable.
+            $target = $usbFor[$target]
+            Write-Warning "Mirroring $target over USB instead; keep it plugged in."
+        }
     }
-    # The mirrored display is one eye's view stretched to twice its width (on a Quest 3S, 3664 x 1920
-    # holding a 1832 x 1920 view: its round lens area shows as a 2:1 ellipse). Capture it whole, or a
-    # crop of it, and let the window squeeze it back to its true shape.
-    $size = & $adb -s $target shell wm size | Select-String 'Physical size: (\d+)x(\d+)'
-    $width = [int]$size.Matches[0].Groups[1].Value
-    $height = [int]$size.Matches[0].Groups[2].Value
+    # The panel holds both eyes side by side (on a Quest 3S, 3664 x 1920: two 1832 x 1920 views), but
+    # the headset overrides the display size (10992 x 1920), and scrcpy crops in those stretched
+    # units. Crop the left half of the override, or a part of it, and let the window squeeze it back to
+    # the eye's true shape.
+    $sizes = & $adb -s $target shell wm size
+    $physical = $sizes | Select-String 'Physical size: (\d+)x(\d+)'
+    $override = $sizes | Select-String 'Override size: (\d+)x(\d+)'
+    $width = [int]$physical.Matches[0].Groups[1].Value
+    $height = [int]$physical.Matches[0].Groups[2].Value
+    $logical = if ($override) { $override } else { $physical }
+    $logicalWidth = [int]$logical.Matches[0].Groups[1].Value
+    $logicalHeight = [int]$logical.Matches[0].Groups[2].Value
+    $sx = $logicalWidth / $width
+    $sy = $logicalHeight / $height
+    $eyeWidth = [int]($logicalWidth / 2)
     if ($Zoom -ge 1)
     {
-        $crop = "${width}:${height}:0:0"
+        $crop = "${eyeWidth}:${logicalHeight}:0:0"
         $aspect = ($width / 2) / $height
     }
     else {
-        # 16:9 once squeezed, around the lens centre, measured on a Quest 3S.
-        $w = [int]($width * $Zoom / 2) * 2
-        $h = [Math]::Min($height, [int]($w / 2 * 9 / 16 / 2) * 2)
-        $x = [Math]::Min([Math]::Max(0, [int]($width * 0.506 - $w / 2)), $width - $w)
-        $y = [Math]::Min([Math]::Max(0, [int]($height * 0.495 - $h / 2)), $height - $h)
+        # 16:9 in true pixels around the left eye's centre, converted to the stretched units.
+        $trueWidth = $width / 2 * $Zoom
+        $trueHeight = [Math]::Min($height, $trueWidth * 9 / 16)
+        $w = [int]($trueWidth * $sx / 2) * 2
+        $h = [int]($trueHeight * $sy / 2) * 2
+        $x = [int](($eyeWidth - $w) / 2)
+        $y = [int](($logicalHeight - $h) / 2)
         $crop = "${w}:${h}:${x}:${y}"
-        $aspect = ($w / 2) / $h
+        $aspect = $trueWidth / $trueHeight
     }
     Start-Process $scrcpy -ArgumentList @(
         # Start-Process joins arguments with spaces, so quote the title's.

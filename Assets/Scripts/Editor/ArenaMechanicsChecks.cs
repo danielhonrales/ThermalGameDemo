@@ -17,6 +17,16 @@ public static class ArenaMechanicsChecks
             || Mathf.Abs(centre.y) > 0.01f || Quaternion.Angle(area.transform.rotation, arena.rotation) > 0.5f)
             throw new Exception($"The play area outline sits at {centre} in the arena; SuddenDeathDirector.PlayAreaCentre says {SuddenDeathDirector.PlayAreaCentre} on the floor.");
         float r = SuddenDeathDirector.GroundFireRadius;
+        // The zones should reach out near the edges at some point, not just circle the middle.
+        float reach = 0f;
+        for (float clock = 0f; clock <= 20f; clock += 0.25f)
+            for (int i = 0; i < SuddenDeathDirector.GroundFireCount; i++)
+            {
+                Vector2 offset = SuddenDeathDirector.GroundFireAt(i, clock) - SuddenDeathDirector.PlayAreaCentre;
+                reach = Mathf.Max(reach, Mathf.Max(Mathf.Abs(offset.x), Mathf.Abs(offset.y)) + r);
+            }
+        if (reach < Mathf.Min(area.Size.x, area.Size.y) * 0.5f - 0.05f)
+            throw new Exception($"Ground fire only reaches {reach:0.00} m from the middle during sudden death; it should sweep out to the edges.");
         for (float clock = 0f; clock <= 60f; clock += 0.25f)
             for (int i = 0; i < SuddenDeathDirector.GroundFireCount; i++)
             {
