@@ -27,9 +27,9 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     // The zones circle the play area together, 90 degrees apart (point-symmetric, so neither side is
     // favoured), while swinging from near the middle out to the edges and corners, so no spot stays safe.
     // At most 0.5 m/s.
-    private const float FireOrbit = 1.2f, FireOrbitSwing = 0.55f, FireSpin = 0.26f, FireSwingRate = 0.45f;
+    private const float FireOrbit = 1.337f, FireOrbitSwing = 0.613f, FireSpin = 0.233f, FireSwingRate = 0.404f;
     // Half the play area's side (ArenaMechanicsChecks keeps it in step); zones are held fully inside it.
-    private const float PlayAreaHalf = 1.75f;
+    private const float PlayAreaHalf = 1.95f;
 
     /// <summary>Where ground fire zone `index` is, in the arena frame, at a sudden-death clock time; before sudden death, where it will erupt.</summary>
     public static Vector2 GroundFireAt(int index, float clock)

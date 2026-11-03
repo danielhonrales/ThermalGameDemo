@@ -13,7 +13,7 @@ using UnityEngine;
 public sealed class PlayAreaOutline : MonoBehaviour
 {
     [Tooltip("Metres along this transform's x and z.")]
-    [SerializeField] private Vector2 size = new Vector2(3.5f, 3.5f);
+    [SerializeField] private Vector2 size = new Vector2(3.9f, 3.9f);
     [SerializeField] private Color color = new Color(0.72f, 1f, 0.16f, 1f);
     [SerializeField, Min(0.005f)] private float lineWidth = 0.025f;
     [SerializeField, Min(0f)] private float glowWidth = 0.12f;

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e70fa6d05e5faf2de8832f9744e57857, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkHeadTracker
   syncMethod: 0
   syncDirection: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c13621034cec30e78dc0c68d96bd821, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerHealth
   syncMethod: 0
   syncDirection: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3adc3ad8399e3676b9354ac1949c986, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerBeamVisual
   syncMethod: 0
   syncDirection: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf486bee2a34b47935eee03d212e6b4, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerGrenadeVisual
   syncMethod: 0
   syncDirection: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6f8e0a2b4315d7e9f1a3c5e7b9d1f34, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerShieldVisual
   syncMethod: 0
   syncDirection: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7371342c9164c892a985f5e36d6d07bf, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FusionRoundDirector
   syncMethod: 0
   syncDirection: 0
@@ -170,14 +170,13 @@ MonoBehaviour:
   roundSeconds: 60
   countdownSeconds: 5
   resultSeconds: 7
-  laserDamage: 20
   suddenDeathSeconds: 20
   suddenDeathDamageMultiplier: 1.5
-  healSpawnSeconds: 20
   healAmount: 90
   healPickupRadius: 0.6
   healHeight: 1.55
   healArenaPoint: {x: 0.275, y: 0, z: 0.3}
+  healAreaPoint: {x: 1, y: 0, z: -0.6}
   IsDirector: 0
   IsCalibrated: 0
   PhaseCode: 0
@@ -199,7 +198,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Mirror::Mirror.NetworkIdentity
   sceneId: 0
   _assetId: 0

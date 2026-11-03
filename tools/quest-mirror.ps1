@@ -5,9 +5,11 @@ Mirrors each Quest's view to this PC with scrcpy over the LAN; no internet is ne
 .DESCRIPTION
 Plug a headset in by USB and run this once: it switches the headset to network ADB on port 5555
 (this lasts until the headset reboots), prints its Wi-Fi IP and opens its mirror window. Repeat for
-the second headset. Later, with nothing plugged in, pass the IPs to reopen the windows:
+the second headset. The addresses are remembered, so later, with nothing plugged in, just run it again
+to reconnect to the same headsets. To pick headsets yourself, pass their IPs (ip:port also works, e.g.
+for Quest wireless debugging's own port):
 
-    tools\quest-mirror.ps1 -Ip 192.168.1.21,192.168.1.22
+    tools\quest-mirror.ps1 -Ip 192.168.1.106,192.168.1.107
 
 Give each Quest a DHCP reservation on the router so its IP never changes. The PC connects to the
 headsets; the game is not involved and the headsets never need the PC's IP. A sleeping headset
@@ -16,6 +18,8 @@ the headset is on someone's head, or close the window and run this again.
 #>
 param(
     [string[]]$Ip = @(),
+    # Network ADB port set on plugged-in headsets, and used for -Ip entries given without one.
+    [int]$Port = 5555,
     # Share of the left eye's width shown. 1 (the default) shows the whole left-eye view as the headset
     # draws it: pre-warped for its lenses and ringed in black. Below 1, a 16:9 crop around the eye's
     # centre keeps the flatter middle.
@@ -53,7 +57,12 @@ function Get-QuestIp([string]$serial) {
 
 $targets = [System.Collections.Generic.List[string]]::new()
 $usbFor = @{}   # Wi-Fi target -> USB serial of the same headset, while it is plugged in
-foreach ($address in $Ip) { $targets.Add("${address}:5555") }
+# Headsets that connected last time, so a plain rerun finds them without retyping IPs.
+$savedFile = Join-Path $env:LOCALAPPDATA 'quest-mirror-targets.txt'
+foreach ($address in $Ip -split ',' | Where-Object { $_ }) {
+    $address = $address.Trim()
+    $targets.Add($(if ($address -match ':\d+$') { $address } else { "${address}:$Port" }))
+}
 
 $usb = & $adb devices | Select-String '^(\S+)\s+device$' | ForEach-Object { $_.Matches[0].Groups[1].Value } |
     Where-Object { $_ -notmatch ':' }
@@ -64,19 +73,30 @@ foreach ($serial in $usb) {
         $targets.Add($serial)
         continue
     }
-    & $adb -s $serial tcpip 5555 | Out-Null
+    & $adb -s $serial tcpip $Port | Out-Null
     Write-Host "$serial is at $address; network ADB is on until it reboots. You can unplug it."
-    $usbFor["${address}:5555"] = $serial
-    if (-not $targets.Contains("${address}:5555")) { $targets.Add("${address}:5555") }
+    $usbFor["${address}:$Port"] = $serial
+    if (-not $targets.Contains("${address}:$Port")) { $targets.Add("${address}:$Port") }
 }
 if ($usb) { Start-Sleep -Seconds 2 }  # adbd restarts in network mode
 
+if ($targets.Count -eq 0 -and (Test-Path $savedFile)) {
+    foreach ($saved in Get-Content $savedFile | Where-Object { $_ }) { $targets.Add($saved.Trim()) }
+    if ($targets.Count) { Write-Host "Reconnecting to last headsets: $($targets -join ', ')" }
+}
 if ($targets.Count -eq 0) { throw 'No headset found. Plug one in by USB, or pass -Ip with each Quest''s Wi-Fi IP.' }
 
+$connected = [System.Collections.Generic.List[string]]::new()
+$mirrored = 0
 foreach ($target in $targets) {
     if ($target -match ':') {
+        # A connection left "offline" (headset slept or changed network) blocks a fresh connect; drop it first.
+        # (Windows PowerShell turns its "no such device" reply into a terminating error under Stop.)
+        try { & $adb disconnect $target 2>&1 | Out-Null } catch { }
         $result = & $adb connect $target
         # A failure also says "connected" ("the connected party did not respond").
+        # Remember connected headsets, and plugged-in ones whose Wi-Fi IP was just read even if this PC can't reach it yet.
+        if ($result -match '^(already )?connected to' -or $usbFor[$target]) { $connected.Add($target) }
         if ($result -notmatch '^(already )?connected to') {
             Write-Warning "${target}: $result"
             if (-not $usbFor[$target]) { continue }
@@ -124,4 +144,7 @@ foreach ($target in $targets) {
         '--window-height', $WindowHeight, '--window-width', [int]($WindowHeight * $aspect),
         '--max-size', $MaxSize, '--max-fps', $Fps, '--video-bit-rate', $BitRate)
     Write-Host "Mirroring $target"
+    $mirrored++
 }
+if ($connected.Count) { Set-Content -Path $savedFile -Value $connected }
+if (-not $mirrored) { throw 'No headset could be mirrored. Is this PC on the same Wi-Fi as the headsets? Plug one in by USB and rerun.' }

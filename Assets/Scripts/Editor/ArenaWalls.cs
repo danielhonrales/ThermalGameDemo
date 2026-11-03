@@ -6,8 +6,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 /// <summary>
-/// Builds the play area's walls in the starting cover: two stepped 1.5 m curved walls in opposite corners and a
-/// wall with a window that slides sideways between the other two corners (<see cref="SlidingWall"/>). Named as
+/// Builds the play area's walls in the starting cover: two stepped 1.5 m curved walls in opposite corners, square
+/// pillars toward the other two corners, and a wall with a window that slides sideways toward those pillars,
+/// stopping short of them (<see cref="SlidingWall"/>). Named as
 /// obstacles, so drones carry them off when sudden death begins. Their meshes are shaped here and
 /// textured from the sci-fi kit's own trim sheets, so they match the rest of the arena. They are
 /// ordinary scene objects afterwards, so they can be moved, rotated or resized; running this again
@@ -18,18 +19,25 @@ public static class ArenaWalls
     private const string ScenePath = "Assets/Scenes/Game.unity";
     private const string AssetFolder = "Assets/Resources/ThermalArena";
     private const string KitMaterials = "Assets/Creepy_Cat/3D Scifi Kit Starter Kit_HD/Materials/";
-    private static readonly string[] WallNames = { "Obstacle Wall Curved A", "Obstacle Wall Curved B", "Obstacle Wall Sliding" };
+    private static readonly string[] WallNames =
+        { "Obstacle Wall Curved A", "Obstacle Wall Curved B", "Obstacle Wall Sliding", "Obstacle Pillar C", "Obstacle Pillar D" };
     // Earlier builds' names, removed on rebuild.
-    private static readonly string[] OldWallNames = { "Wall Curved A", "Wall Curved B", "Wall Sliding" };
+    private static readonly string[] OldWallNames =
+        { "Wall Curved A", "Wall Curved B", "Wall Sliding", "Obstacle Wall Curved C", "Obstacle Wall Curved D" };
 
     // Metres. Curved walls: a 45-degree arc facing the centre from each corner, 1.5 m tall over its left
     // half (as seen from the arena) and half that over its right half.
     private const float CurvedHeight = 1.5f, CurvedRadius = 1.1f, CurvedThickness = 0.09f;
     private const float CurvedArcDegrees = 45f, CornerInset = 0.15f;
+    // The other two corners: square pillars as tall as the curved walls, a face toward the centre, standing as far
+    // in from their corners as the middles of the curved walls' arcs.
+    public const float PillarWidth = 0.45f, PillarHeight = CurvedHeight;
     // Sliding wall: a person's height with its top corners cut off, on a vented footing, with a window at shoulder height.
-    private const float SlidingWidth = 1.3f, SlidingHeight = 1.75f, SlidingThickness = 0.09f, Chamfer = 0.12f;
+    private const float SlidingWidth = 0.86f, SlidingHeight = 1.75f, SlidingThickness = 0.09f, Chamfer = 0.12f;
     private const float WindowWidth = 0.56f, WindowHeight = 0.525f, WindowCentre = 1.32f;
-    private const float FootWidth = 1.5f, FootHeight = 0.16f, FootDepth = 0.18f;
+    private const float FootWidth = 1f, FootHeight = 0.16f, FootDepth = 0.18f;
+    // Gap left between the sliding wall's footing and a corner wall at the end of its travel.
+    private const float SlidingClearance = 0.05f;
     // Seconds for one trip from one empty corner to the other and back.
     private const float SlidingPeriod = 36f;
 
@@ -70,21 +78,19 @@ public static class ArenaWalls
         Material panels = KitMaterial("HD_Wall_02_Norm");
         Material glow = GlowMaterial();
         Mesh curved = SaveMesh(CurvedWallMesh(), "ArenaCurvedWall");
+        Mesh pillar = SaveMesh(PillarMesh(), "ArenaPillar");
         Mesh sliding = SaveMesh(SlidingWallMesh(), "ArenaSlidingWall");
 
-        float cornerX = area.Size.x * 0.5f - CornerInset, cornerZ = area.Size.y * 0.5f - CornerInset;
-        var cornerA = new Vector3(cornerX, 0f, cornerZ);
-        AddWall(WallNames[0], curved, new[] { panels }, area.transform, cover, cornerA, 0f);
-        AddWall(WallNames[1], curved, new[] { panels }, area.transform, cover, -cornerA, 180f);
+        var corners = new List<GameObject>();
+        foreach (var (name, at, cornerYaw, isPillar) in CornerWalls(area.Size))
+            corners.Add(AddWall(name, isPillar ? pillar : curved, new[] { panels }, area.transform, cover, at, cornerYaw));
 
-        // The sliding wall crosses the empty space between the curved walls: it travels on the line through
-        // the middle perpendicular to the line joining their centres, sideways, its faces toward them.
-        Vector3 inward = new Vector3(-1f, 0f, -1f).normalized * CurvedRadius;
-        Vector3 between = ((cornerA + inward) - (-cornerA - inward)).normalized;
-        Vector3 across = Vector3.Cross(Vector3.up, between);
-        float yaw = Mathf.Atan2(between.x, between.z) * Mathf.Rad2Deg;
+        // The sliding wall crosses the space between the tall curved walls: it travels on the line through
+        // the middle perpendicular to the line joining their centres, sideways, its faces toward them,
+        // toward the pillars.
+        Vector3 across = SlidingAcross(area.Size, out float yaw);
         GameObject wall = AddWall(WallNames[2], sliding, new[] { elevation, panels, glow }, area.transform, cover, Vector3.zero, yaw);
-        float travel = SlidingTravel(area.Size, across, across);
+        float travel = WallTravel(area.Size, across);
         var slide = wall.AddComponent<SlidingWall>();
         var serialized = new SerializedObject(slide);
         serialized.FindProperty("travel").floatValue = travel;
@@ -95,8 +101,79 @@ public static class ArenaWalls
         EditorSceneManager.MarkSceneDirty(cover.gameObject.scene);
         Selection.activeGameObject = wall;
         string overlaps = PathOverlaps(layouts, area, wall, Vector3.right, travel);
+        // Report anything the pillars stand on.
+        string underPillars = string.Join("\n", corners.Skip(2).Select(c => PathOverlaps(layouts, area, c, Vector3.right, 0f)).Where(s => s.Length > 0));
         Debug.Log($"Added the arena walls under {cover.name}; save the scene to keep them. The sliding wall travels {travel:0.##} m either side of the centre."
-            + (overlaps.Length > 0 ? "\nThese pieces sit in the sliding wall's path; move them clear:\n" + overlaps : ""));
+            + (overlaps.Length > 0 ? "\nThese pieces sit in the sliding wall's path; move them clear:\n" + overlaps : "")
+            + (underPillars.Length > 0 ? "\nThese pieces overlap the pillars:\n" + underPillars : ""));
+    }
+
+    /// <summary>
+    /// Each corner piece's position (in the play area's frame), its turn, and whether it is a pillar: a curved
+    /// wall's corner point, or a pillar's centre.
+    /// </summary>
+    public static (string name, Vector3 at, float yaw, bool pillar)[] CornerWalls(Vector2 areaSize)
+    {
+        float x = areaSize.x * 0.5f - CornerInset, z = areaSize.y * 0.5f - CornerInset;
+        float inward = CurvedRadius * Mathf.Sqrt(0.5f);
+        float px = x - inward, pz = z - inward;
+        // The mesh curves toward the arena from a corner at +x +z; turning it by 90 degrees at a time faces each other corner.
+        // The pillars are turned 45 degrees so a face looks at the centre.
+        return new[]
+        {
+            (WallNames[0], new Vector3(x, 0f, z), 0f, false),
+            (WallNames[1], new Vector3(-x, 0f, -z), 180f, false),
+            (WallNames[3], new Vector3(px, 0f, -pz), 45f, true),
+            (WallNames[4], new Vector3(-px, 0f, pz), 45f, true),
+        };
+    }
+
+    /// <summary>
+    /// Points around a corner piece's foot in the play area's frame, close enough together that nothing a
+    /// centimetre wide fits between them: a curved wall's vertices, or the edges of a pillar.
+    /// </summary>
+    public static IEnumerable<Vector3> Outline(Vector3 at, float yaw, bool pillar, Mesh curved)
+    {
+        Quaternion turn = Quaternion.Euler(0f, yaw, 0f);
+        // The arc's faces are flat between vertices and bulge toward the arena, so the vertices are its nearest points.
+        if (!pillar) return curved.vertices.Select(v => at + turn * v).ToArray();
+        float h = PillarWidth * 0.5f;
+        int steps = Mathf.CeilToInt(PillarWidth / 0.01f);
+        var corners = new[] { new Vector3(-h, 0f, -h), new Vector3(h, 0f, -h), new Vector3(h, 0f, h), new Vector3(-h, 0f, h) };
+        return Enumerable.Range(0, 4).SelectMany(side => Enumerable.Range(0, steps)
+            .Select(i => at + turn * Vector3.Lerp(corners[side], corners[(side + 1) % 4], (float)i / steps))).ToArray();
+    }
+
+    /// <summary>The sliding wall's direction of travel in the play area's frame, and its yaw (width along that direction).</summary>
+    public static Vector3 SlidingAcross(Vector2 areaSize, out float yaw)
+    {
+        Vector3 cornerA = CornerWalls(areaSize)[0].at;
+        Vector3 inward = new Vector3(-1f, 0f, -1f).normalized * CurvedRadius;
+        Vector3 between = ((cornerA + inward) - (-cornerA - inward)).normalized;
+        yaw = Mathf.Atan2(between.x, between.z) * Mathf.Rad2Deg;
+        return Vector3.Cross(Vector3.up, between);
+    }
+
+    /// <summary>
+    /// How far the sliding wall can travel either way along <paramref name="across"/>: its footing stays inside
+    /// the play area and stops <see cref="SlidingClearance"/> short of every corner piece.
+    /// </summary>
+    public static float WallTravel(Vector2 areaSize, Vector3 across)
+    {
+        float travel = SlidingTravel(areaSize, across, across);
+        Vector3 depth = Vector3.Cross(Vector3.up, across).normalized;
+        Mesh curved = CurvedWallMesh();
+        try
+        {
+            foreach (var (_, at, yaw, isPillar) in CornerWalls(areaSize))
+                foreach (Vector3 p in Outline(at, yaw, isPillar, curved))
+                {
+                    if (Mathf.Abs(Vector3.Dot(p, depth)) > FootDepth * 0.5f + SlidingClearance) continue;
+                    travel = Mathf.Min(travel, Mathf.Abs(Vector3.Dot(p, across)) - FootWidth * 0.5f - SlidingClearance);
+                }
+        }
+        finally { UnityEngine.Object.DestroyImmediate(curved); }
+        return Mathf.Max(0f, travel);
     }
 
     /// <summary>Batch: builds the walls in the Game scene and saves it.</summary>
@@ -164,19 +241,23 @@ public static class ArenaWalls
         }
     }
 
+    /// <summary>A 1.5 m, 45-degree curved wall: <see cref="CurvedWallMesh(float, float)"/> at the default size.</summary>
+    public static Mesh CurvedWallMesh() => CurvedWallMesh(CurvedHeight, CurvedArcDegrees);
+
     /// <summary>
-    /// A 45-degree wall around the origin, centred on the -x -z diagonal so it curves toward the arena
+    /// A wall of <paramref name="arcDegrees"/> around the origin, centred on the -x -z diagonal so it curves toward the arena
     /// from a corner placed at the origin, full height over its left half and half height over its right.
     /// Faces show the kit's banded panel once per half-height row; the tops, ends and step show its trim strips.
     /// </summary>
-    public static Mesh CurvedWallMesh()
+    public static Mesh CurvedWallMesh(float height, float arcDegrees)
     {
-        const int segments = 12;
-        const int stepAt = segments / 2;      // the upper half runs over segments 0 .. stepAt-1 only
-        float lowTop = CurvedHeight * 0.5f;
+        // About 3.75 degrees a segment, and an even count so the step falls between two of them.
+        int segments = Mathf.Max(2, 2 * Mathf.RoundToInt(arcDegrees / 7.5f));
+        int stepAt = segments / 2;      // the upper half runs over segments 0 .. stepAt-1 only
+        float lowTop = height * 0.5f;
         var mesh = new MeshBuilder(1);
         float inner = CurvedRadius - CurvedThickness * 0.5f, outer = CurvedRadius + CurvedThickness * 0.5f;
-        float halfArc = CurvedArcDegrees * 0.5f * Mathf.Deg2Rad, mid = 1.25f * Mathf.PI;
+        float halfArc = arcDegrees * 0.5f * Mathf.Deg2Rad, mid = 1.25f * Mathf.PI;
         Vector3 At(float radius, float angle, float y) => new Vector3(radius * Mathf.Cos(angle), y, radius * Mathf.Sin(angle));
         Vector3 Out(float angle) => new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
         float Angle(int i) => mid - halfArc + 2f * halfArc * i / segments;
@@ -199,17 +280,47 @@ public static class ArenaWalls
                 mesh.Face(0, -n, new[] { At(inner, a0, y0), At(inner, a1, y0), At(inner, a1, y1), At(inner, a0, y1) },
                     new[] { BandPanel.At(1 - s0, 0), BandPanel.At(1 - s1, 0), BandPanel.At(1 - s1, 1), BandPanel.At(1 - s0, 1) });
             }
-            float top = tall ? CurvedHeight : lowTop;
+            float top = tall ? height : lowTop;
             mesh.Face(0, Vector3.up, new[] { At(inner, a0, top), At(inner, a1, top), At(outer, a1, top), At(outer, a0, top) },
                 new[] { CapStrip.At(s0, 0), CapStrip.At(s1, 0), CapStrip.At(s1, 1), CapStrip.At(s0, 1) });
         }
         float first = Angle(0), step = Angle(stepAt), last = Angle(segments);
         Vector3 Tangent(float angle) => new Vector3(-Mathf.Sin(angle), 0f, Mathf.Cos(angle));
         // Ends: full height on the left, half height on the right, and the step between the two halves.
-        mesh.Quad(0, -Tangent(first), At(inner, first, 0f), At(outer, first, 0f), At(outer, first, CurvedHeight), At(inner, first, CurvedHeight), SideStrip);
+        mesh.Quad(0, -Tangent(first), At(inner, first, 0f), At(outer, first, 0f), At(outer, first, height), At(inner, first, height), SideStrip);
         mesh.Quad(0, Tangent(last), At(outer, last, 0f), At(inner, last, 0f), At(inner, last, lowTop), At(outer, last, lowTop), SideStrip);
-        mesh.Quad(0, Tangent(step), At(outer, step, lowTop), At(inner, step, lowTop), At(inner, step, CurvedHeight), At(outer, step, CurvedHeight), SideStrip);
+        mesh.Quad(0, Tangent(step), At(outer, step, lowTop), At(inner, step, lowTop), At(inner, step, height), At(outer, step, height), SideStrip);
         return mesh.Build("ArenaCurvedWall");
+    }
+
+    /// <summary>
+    /// A square pillar standing on the origin, <see cref="PillarWidth"/> across and <see cref="PillarHeight"/> tall.
+    /// Each side shows the kit's banded panel once per half-height row between red uprights on its corners;
+    /// a trim strip caps it.
+    /// </summary>
+    public static Mesh PillarMesh()
+    {
+        var mesh = new MeshBuilder(1);
+        float h = PillarWidth * 0.5f, half = PillarHeight * 0.5f;
+        // The corner uprights take this much of each side.
+        const float upright = 0.06f;
+        Vector3 top = Vector3.up * PillarHeight;
+        var corners = new[] { new Vector3(-h, 0f, -h), new Vector3(h, 0f, -h), new Vector3(h, 0f, h), new Vector3(-h, 0f, h) };
+        for (int side = 0; side < 4; side++)
+        {
+            Vector3 a = corners[side], b = corners[(side + 1) % 4];
+            Vector3 normal = (a + b).normalized, along = (b - a).normalized;
+            Vector3 a1 = a + along * upright, b1 = b - along * upright;
+            for (int row = 0; row < 2; row++)
+            {
+                Vector3 y0 = Vector3.up * (row * half), y1 = Vector3.up * ((row + 1) * half);
+                mesh.Quad(0, normal, a1 + y0, b1 + y0, b1 + y1, a1 + y1, BandPanel);
+            }
+            mesh.Quad(0, normal, a, a1, a1 + top, a + top, SideStrip);
+            mesh.Quad(0, normal, b1, b, b + top, b1 + top, SideStrip);
+        }
+        mesh.Quad(0, Vector3.up, corners[0] + top, corners[1] + top, corners[2] + top, corners[3] + top, CapStrip);
+        return mesh.Build("ArenaPillar");
     }
 
     /// <summary>

@@ -321,12 +321,67 @@ public static class DemoRegressionChecks
                 }
         }
         finally { UnityEngine.Object.DestroyImmediate(mesh); }
-        // The sliding wall crosses the whole square diagonally, sideways, with its footing kept inside.
-        Vector3 across = new Vector3(1f, 0f, -1f).normalized;
-        float reach = ArenaWalls.SlidingTravel(new Vector2(3.5f, 3.5f), across, across);
-        if (reach < 1.3f || reach > 1.45f)
-            throw new Exception($"The sliding wall should travel about 1.4 m either side of the centre, not {reach:0.00} m.");
-        Debug.Log($"ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track {reach:0.00} m each way; curved wall is 1.5 m high, thin, short, stepped down on its right half, and faces the right way; the 1.75 m sliding wall is thin and its window is open.");
+        // The other two corners get square pillars.
+        mesh = ArenaWalls.PillarMesh();
+        try
+        {
+            Bounds b = mesh.bounds;
+            if (Mathf.Abs(b.size.y - 1.5f) > 0.001f || Mathf.Abs(b.size.x - 0.45f) > 0.001f || Mathf.Abs(b.size.z - 0.45f) > 0.001f
+                || b.min.y < -0.001f || b.center.x * b.center.x + b.center.z * b.center.z > 1e-6f)
+                throw new Exception("The pillar must be 1.5 m high and 0.45 m square, standing on its own centre.");
+        }
+        finally { UnityEngine.Object.DestroyImmediate(mesh); }
+
+        // In the 3.9 m arena the corner pieces sit near their corners, the pillars as far in as the curved walls' middles.
+        var area = new Vector2(3.9f, 3.9f);
+        var pieces = ArenaWalls.CornerWalls(area);
+        foreach (var (name, at, _, isPillar) in pieces)
+        {
+            float distance = new Vector2(at.x, at.z).magnitude;
+            if (isPillar ? Mathf.Abs(distance - 1.45f) > 0.02f : Mathf.Abs(distance - 2.55f) > 0.02f)
+                throw new Exception($"{name} sits {distance:0.00} m from the centre; the corner pieces should spread out to the 3.9 m arena.");
+        }
+        // The sliding wall crosses the square diagonally, sideways, toward the pillars and stopping short of them,
+        // and never reaches a curved wall or pillar along its track.
+        Vector3 across = ArenaWalls.SlidingAcross(area, out _);
+        if (Vector3.Distance(across, new Vector3(1f, 0f, -1f).normalized) > 0.001f)
+            throw new Exception($"The sliding wall should travel toward the pillars, not along {across}.");
+        float reach = ArenaWalls.WallTravel(area, across);
+        if (reach < 0.6f || reach > 0.75f)
+            throw new Exception($"The sliding wall should travel about 0.67 m either side of the centre, not {reach:0.00} m.");
+        Vector3 depth = Vector3.Cross(Vector3.up, across);
+        Mesh full = ArenaWalls.CurvedWallMesh();
+        try
+        {
+            // Sweep the footing (1 m by 0.18 m) along its whole track against the curved walls' actual geometry.
+            foreach (var (name, at, yaw, isPillar) in pieces)
+            {
+                if (isPillar) continue;
+                foreach (Vector3 v in full.vertices)
+                {
+                    Vector3 p = at + Quaternion.Euler(0f, yaw, 0f) * v;
+                    if (Mathf.Abs(Vector3.Dot(p, depth)) <= 0.09f && Mathf.Abs(Vector3.Dot(p, across)) <= reach + 0.5f + 0.01f)
+                        throw new Exception($"The sliding wall runs into {name} at {p}.");
+                }
+            }
+        }
+        finally { UnityEngine.Object.DestroyImmediate(full); }
+        // The pillars' flat faces have no vertices in the footing's path: test the squares themselves.
+        foreach (var (name, at, yaw, isPillar) in pieces)
+        {
+            if (!isPillar) continue;
+            Vector3 face = Quaternion.Euler(0f, yaw, 0f) * Vector3.right, side = Quaternion.Euler(0f, yaw, 0f) * Vector3.forward;
+            // Separating axes: the track's two and the pillar's two.
+            bool apart = false;
+            foreach (Vector3 axis in new[] { across, depth, face, side })
+            {
+                float track = (reach + 0.5f + 0.01f) * Mathf.Abs(Vector3.Dot(across, axis)) + 0.09f * Mathf.Abs(Vector3.Dot(depth, axis));
+                float pillar = 0.225f * (Mathf.Abs(Vector3.Dot(face, axis)) + Mathf.Abs(Vector3.Dot(side, axis)));
+                if (Mathf.Abs(Vector3.Dot(at, axis)) > track + pillar) apart = true;
+            }
+            if (!apart) throw new Exception($"The sliding wall runs into {name}.");
+        }
+        Debug.Log($"ARENA WALLS PASSED: sliding wall follows a fixed clock-driven track {reach:0.00} m each way, clear of both curved walls and both pillars; curved wall is 1.5 m high, thin, short, stepped down on its right half, and faces the right way; the pillars are 1.5 m high and 0.45 m square; the pieces spread out to the 3.9 m arena; the 1.75 m sliding wall is thin and its window is open.");
     }
 
     public static void RunPiDiscoveryCheck()
