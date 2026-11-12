@@ -15,6 +15,9 @@ Give each Quest a DHCP reservation on the router so its IP never changes. The PC
 headsets; the game is not involved and the headsets never need the PC's IP. A sleeping headset
 (not worn) sends no frames, and its window can stay blank after it wakes: start the mirror while
 the headset is on someone's head, or close the window and run this again.
+
+After a Wi-Fi stall the window skips the late video and jumps back to live, rather than playing it
+fast to catch up (quest-mirror-relay.ps1, one hidden helper per window; -NoSkip turns it off).
 #>
 param(
     [string[]]$Ip = @(),
@@ -25,12 +28,24 @@ param(
     # centre keeps the flatter middle.
     [ValidateRange(0.3, 1.0)][double]$Zoom = 1.0,
     # Pixels along the captured picture's long side, before the window squeezes it to shape. The capture
-    # is stretched three times wide, so 4096 (the encoder's limit) keeps about 1430 of the eye's 1920 rows.
-    [int]$MaxSize = 4096,
+    # is stretched three times wide, so 2560 keeps about 900 of the eye's 1920 rows, as many as the
+    # default window shows. Raise it with -WindowHeight for a bigger window; 4096 (about 1430 rows) is
+    # the encoder's limit, and loads the headset enough to stutter while the game runs.
+    [int]$MaxSize = 2560,
     # Window height in pixels; the width follows from the view's shape.
     [int]$WindowHeight = 900,
-    [int]$Fps = 30,
-    [string]$BitRate = '8M'
+    [int]$Fps = 24,
+    [string]$BitRate = '5M',
+    # h265 looks better than h264 at the same bit rate, which matters on a crowded Wi-Fi.
+    [ValidateSet('h264', 'h265')][string]$Codec = 'h265',
+    # Milliseconds of video held back on this PC to ride out Wi-Fi hiccups: smoother, but that much
+    # later. 0 shows each frame as soon as it arrives.
+    [ValidateRange(0, 1000)][int]$Buffer = 0,
+    # After a stall, video more than this many milliseconds late is skipped (the window holds its last
+    # picture, then jumps back to live) rather than played fast to catch up. See quest-mirror-relay.ps1.
+    [ValidateRange(50, 5000)][int]$SkipLateMs = 200,
+    # Shows every frame, catching up fast after a stall, as scrcpy does on its own.
+    [switch]$NoSkip
 )
 $ErrorActionPreference = 'Stop'
 
@@ -49,6 +64,21 @@ $adb = Get-Process adb -ErrorAction SilentlyContinue | Where-Object Path | Selec
 if (-not $adb) { $adb = Join-Path (Split-Path $scrcpy) 'adb.exe' }
 # scrcpy reads ADB; a value pointing at a folder makes it fail to start adb.
 $env:ADB = $adb
+
+$relay = Join-Path $PSScriptRoot 'quest-mirror-relay.ps1'
+$shell = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
+if (-not $shell) { $shell = (Get-Command powershell.exe).Source }
+
+# The first local TCP port from $from up that nothing uses, including windows still open from an
+# earlier run, and that this run hasn't handed out yet.
+$takenPorts = [System.Collections.Generic.HashSet[int]]::new()
+function Get-FreePort([int]$from) {
+    $used = @(Get-NetTCPConnection -ErrorAction SilentlyContinue | ForEach-Object LocalPort)
+    for ($p = $from; $p -lt 65535; $p++) {
+        if ($used -notcontains $p -and $takenPorts.Add($p)) { return $p }
+    }
+    throw 'No free local port for the mirror.'
+}
 
 function Get-QuestIp([string]$serial) {
     $line = & $adb -s $serial shell 'ip -o -4 addr show wlan0' 2>$null
@@ -136,13 +166,30 @@ foreach ($target in $targets) {
         $crop = "${w}:${h}:${x}:${y}"
         $aspect = $trueWidth / $trueHeight
     }
-    Start-Process $scrcpy -ArgumentList @(
+    $arguments = @(
         # Start-Process joins arguments with spaces, so quote the title's.
         '-s', $target, "--window-title=`"Quest $target`"",
         '--no-audio', '--no-control', '--crop', $crop,
         '--render-fit=stretched', '--no-window-aspect-ratio-lock',
         '--window-height', $WindowHeight, '--window-width', [int]($WindowHeight * $aspect),
-        '--max-size', $MaxSize, '--max-fps', $Fps, '--video-bit-rate', $BitRate)
+        '--max-size', $MaxSize, '--max-fps', $Fps, '--video-bit-rate', $BitRate,
+        '--video-codec', $Codec, '--video-buffer', $Buffer)
+    if (-not $NoSkip) {
+        # scrcpy forwards its own port to the headset and reads the video from the relay's port instead;
+        # the relay passes it on, skipping late frames. A key frame every second keeps skips short.
+        $forwardPort = Get-FreePort 27183
+        $relayPort = Get-FreePort ($forwardPort + 1)
+        Start-Process $shell -WindowStyle Hidden -ArgumentList @(
+            '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$relay`"",
+            '-ListenPort', $relayPort, '-TargetPort', $forwardPort, '-LateMs', $SkipLateMs)
+        $deadline = (Get-Date).AddSeconds(15)
+        while (-not (Get-NetTCPConnection -LocalPort $relayPort -State Listen -ErrorAction SilentlyContinue)) {
+            if ((Get-Date) -gt $deadline) { throw "The frame-skipping relay didn't start; rerun with -NoSkip to mirror without it." }
+            Start-Sleep -Milliseconds 200
+        }
+        $arguments += @('--port', $forwardPort, '--tunnel-port', $relayPort, '--video-codec-options', 'i-frame-interval=1')
+    }
+    Start-Process $scrcpy -ArgumentList $arguments
     Write-Host "Mirroring $target"
     $mirrored++
 }
