@@ -14,8 +14,10 @@ using UnityEngine.UI;
 /// output off. Each Pi's receiver broadcasts "THERMAL-PI-1:&lt;name&gt;" to UDP <see cref="DiscoveryPort"/>
 /// about once a second, so no Pi IPs live in Unity. The expected names always have a button, greyed
 /// until that Pi is heard; any other Pi that announces itself is added after them. It appears once
-/// per launch, so restart the app to choose again. Keys 1-9 select and Escape closes, for editor
-/// testing.</summary>
+/// per launch, so restart the app to choose again. A row underneath picks the arena's size (see
+/// <see cref="ArenaSize"/>); choosing one leaves the menu open, and the latest choice on either headset
+/// applies to both from the next time they are between rounds. Keys 1-9 select a Pi, F1-F5 a size and
+/// Escape closes, for editor testing.</summary>
 [DisallowMultipleComponent]
 public sealed class PiSelectionMenu : MonoBehaviour
 {
@@ -34,10 +36,14 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private const float ButtonGap = 20f;
     private static readonly Vector2 ButtonSize = new Vector2(160f, 100f);
     private static readonly Vector2 CloseSize = new Vector2(70f, 34f);
+    private static readonly Vector2 SizeButtonSize = new Vector2(88f, 56f);
+    private const float SizeGap = 12f;
+    private const float BoardHeight = 420f;
     // Metres; a pointer ray farther from the board than this is ignored.
     private const float MaxRayLength = 3f;
     private static readonly Color Idle = new Color(0.045f, 0.075f, 0.11f, 0.95f);
     private static readonly Color Disabled = new Color(0.05f, 0.05f, 0.06f, 0.8f);
+    private static readonly Color Chosen = new Color(0.06f, 0.3f, 0.36f, 0.95f);
 
     private sealed class PiButton
     {
@@ -47,8 +53,10 @@ public sealed class PiSelectionMenu : MonoBehaviour
         public Image panel;
         public TextMeshProUGUI title, address;
         public bool shown, close;
-        public bool Valid => close || (host != null && Time.unscaledTime - lastSeen < StaleAfter);
-        public bool Pressable => close || shown;
+        public float side;    // arena size buttons only
+        public bool IsSize => side > 0f;
+        public bool Valid => close || IsSize || (host != null && Time.unscaledTime - lastSeen < StaleAfter);
+        public bool Pressable => close || IsSize || shown;
     }
     private sealed class Finger
     {
@@ -63,6 +71,9 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private Vector2 boardSize;
     private readonly List<PiButton> buttons = new List<PiButton>();
     private PiButton closeButton;
+    private readonly List<PiButton> sizeButtons = new List<PiButton>();
+    private TextMeshProUGUI sizeLabel;
+    private float sizeShown = -1f;
     private Material rayMaterial;
     private TextMeshProUGUI status;
     private UdpClient discovery;
@@ -124,6 +135,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private IEnumerable<PiButton> Targets()
     {
         foreach (var button in buttons) yield return button;
+        foreach (var button in sizeButtons) yield return button;
         if (closeButton != null) yield return closeButton;
     }
 
@@ -139,14 +151,16 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private void Build()
     {
         float rowWidth = buttons.Count * ButtonSize.x + Mathf.Max(0, buttons.Count - 1) * ButtonGap;
-        boardSize = new Vector2(Mathf.Max(380f, rowWidth + 40f), 270f);
+        float sizeRowWidth = ArenaSize.Options.Length * SizeButtonSize.x + (ArenaSize.Options.Length - 1) * SizeGap;
+        boardSize = new Vector2(Mathf.Max(380f, rowWidth + 40f, sizeRowWidth + 40f), BoardHeight);
+        float top = BoardHeight * 0.5f;
         board = HudKit.Canvas("Pi selection menu", transform, boardSize, 40);
         board.localScale = Vector3.one * Scale;
         HudKit.Image(board, "Board", HudSprites.Panel(18), new Color(0.015f, 0.025f, 0.04f, 0.88f),
             Vector2.zero, boardSize, true, 1f);
-        Label(board, "SELECT PI", 26f, Color.white, new Vector2(0f, 100f), boardSize.x - 20f);
-        Label(board, "PRESS WITH A FINGERTIP, OR POINT AND PINCH", 11f, FusionRoundHud.Friendly, new Vector2(0f, 70f), boardSize.x - 20f);
-        status = Label(board, "", 10f, FusionRoundHud.Soft, new Vector2(0f, -105f), boardSize.x - 20f);
+        Label(board, "SELECT PI", 26f, Color.white, new Vector2(0f, top - 35f), boardSize.x - 20f);
+        Label(board, "PRESS WITH A FINGERTIP, OR POINT AND PINCH", 11f, FusionRoundHud.Friendly, new Vector2(0f, top - 65f), boardSize.x - 20f);
+        status = Label(board, "", 10f, FusionRoundHud.Soft, new Vector2(0f, -top + 30f), boardSize.x - 20f);
 
         closeButton = new PiButton
         {
@@ -160,14 +174,57 @@ public sealed class PiSelectionMenu : MonoBehaviour
         for (int i = 0; i < buttons.Count; i++)
         {
             var button = buttons[i];
-            button.center = new Vector2(-rowWidth * 0.5f + ButtonSize.x * 0.5f + i * (ButtonSize.x + ButtonGap), -15f);
+            button.center = new Vector2(-rowWidth * 0.5f + ButtonSize.x * 0.5f + i * (ButtonSize.x + ButtonGap), top - 150f);
             var root = HudKit.Rect(board, $"Pi {i + 1} button", button.center, ButtonSize);
             button.panel = HudKit.Image(root, "Panel", HudSprites.Panel(12), Disabled, Vector2.zero, ButtonSize, true, 1f);
             button.title = Label(root, button.name, 26f, FusionRoundHud.Soft, new Vector2(0f, 14f), ButtonSize.x - 10f);
             button.address = Label(root, "", 12f, FusionRoundHud.Warn, new Vector2(0f, -26f), ButtonSize.x - 10f);
             Refresh(button);
         }
+
+        // Arena size: a row of square sizes under the Pis.
+        sizeButtons.Clear();
+        sizeLabel = Label(board, "", 13f, FusionRoundHud.Soft, new Vector2(0f, -top + 145f), boardSize.x - 20f);
+        for (int i = 0; i < ArenaSize.Options.Length; i++)
+        {
+            float side = ArenaSize.Options[i];
+            var button = new PiButton
+            {
+                name = Metres(side), side = side, size = SizeButtonSize,
+                center = new Vector2(-sizeRowWidth * 0.5f + SizeButtonSize.x * 0.5f + i * (SizeButtonSize.x + SizeGap), -top + 95f),
+            };
+            var root = HudKit.Rect(board, "Arena size " + button.name, button.center, SizeButtonSize);
+            button.panel = HudKit.Image(root, "Panel", HudSprites.Panel(10), Idle, Vector2.zero, SizeButtonSize, true, 1f);
+            button.title = Label(root, button.name, 20f, Color.white, Vector2.zero, SizeButtonSize.x - 8f);
+            sizeButtons.Add(button);
+        }
+        sizeShown = -1f;
+        RefreshSizes();
         RefreshStatus();
+    }
+
+    private static string Number(float side) => side.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture);
+    private static string Metres(float side) => Number(side) + " M";
+
+    /// <summary>The size this headset chose, or else the one the arena has now.</summary>
+    private static float ShownSide => ArenaSize.Chosen > 0f ? ArenaSize.Chosen : ArenaSize.Side;
+
+    private static Color Base(PiButton button)
+        => button.IsSize && Mathf.Abs(button.side - ShownSide) < 0.01f ? Chosen : Idle;
+
+    private void RefreshSizes()
+    {
+        float side = ShownSide;
+        if (sizeLabel == null || Mathf.Abs(side - sizeShown) < 0.001f) return;
+        sizeShown = side;
+        bool authored = ArenaSize.Chosen <= 0f && Mathf.Abs(side - ArenaSize.AuthoredSide) < 0.01f;
+        sizeLabel.text = "ARENA SIZE: " + Number(side) + " X " + Metres(side) + (authored ? " (SCENE DEFAULT)" : "");
+        foreach (var button in sizeButtons)
+        {
+            bool chosen = Base(button) == Chosen;
+            button.panel.color = Base(button);
+            button.title.color = chosen ? FusionRoundHud.Friendly : Color.white;
+        }
     }
 
     /// <summary>Rebuilds the board for a newly found Pi, keeping it where the player sees it.</summary>
@@ -216,6 +273,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
             return;
         }
         Listen();
+        RefreshSizes();
         bool changed = false;
         foreach (var button in buttons)
             if (button.Valid != button.shown) { Refresh(button); changed = true; }
@@ -225,6 +283,8 @@ public sealed class PiSelectionMenu : MonoBehaviour
         if (keys.escapeKey.wasPressedThisFrame) { Select(closeButton); return; }
         for (int i = 0; i < buttons.Count && i < 9; i++)
             if (keys[Key.Digit1 + i].wasPressedThisFrame || keys[Key.Numpad1 + i].wasPressedThisFrame) { Select(buttons[i]); return; }
+        for (int i = 0; i < sizeButtons.Count && i < 5; i++)
+            if (keys[Key.F1 + i].wasPressedThisFrame) Select(sizeButtons[i]);
     }
 
     private void Listen()
@@ -294,7 +354,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
     private void Press(Vector3?[] tips)
     {
         foreach (var button in Targets())
-            if (button.Pressable) button.panel.color = Idle;
+            if (button.Pressable) button.panel.color = Base(button);
         for (int f = 0; f < fingers.Length; f++)
         {
             var finger = fingers[f];
@@ -319,7 +379,7 @@ public sealed class PiSelectionMenu : MonoBehaviour
         if (over == null || depth > 120f || depth < -40f) { finger.armed = false; return false; }
         // A press needs an approach from the front; sliding in sideways behind the panel does nothing.
         if (depth > 12f) finger.armed = true;
-        over.panel.color = Color.Lerp(Idle, FusionRoundHud.Friendly, depth <= 12f ? 0.7f : 0.3f);
+        over.panel.color = Color.Lerp(Base(over), FusionRoundHud.Friendly, depth <= 12f ? 0.7f : 0.3f);
         if (finger.armed && depth <= 0f) Select(over);
         return true;
     }
@@ -341,13 +401,24 @@ public sealed class PiSelectionMenu : MonoBehaviour
         finger.ray.enabled = true;
         PiButton over = ButtonAt(local);
         if (over == null) return;
-        over.panel.color = Color.Lerp(Idle, FusionRoundHud.Friendly, pinching ? 0.7f : 0.3f);
+        over.panel.color = Color.Lerp(Base(over), FusionRoundHud.Friendly, pinching ? 0.7f : 0.3f);
         if (pinchStarted) Select(over);
     }
 
     private void Select(PiButton button)
     {
         if (selected || button == null || !button.Valid) return;
+        if (button.IsSize)
+        {
+            // A size choice leaves the menu open for the Pi.
+            if (Mathf.Abs(button.side - ArenaSize.Chosen) > 0.01f)
+            {
+                ArenaSize.Request(button.side);
+                Debug.Log("[PiSelectionMenu] Arena size " + button.name);
+            }
+            RefreshSizes();
+            return;
+        }
         selected = true;
         discovery?.Dispose();
         discovery = null;

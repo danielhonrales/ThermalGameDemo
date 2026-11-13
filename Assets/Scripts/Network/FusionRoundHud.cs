@@ -44,6 +44,15 @@ public sealed class FusionRoundHud : MonoBehaviour
     private CanvasGroup bannerGroup;
     private TextMeshProUGUI bannerText, bannerCaption;
     private Material bannerTitleOverlay, bannerCaptionOverlay;
+    private Image[] dangerArrows = new Image[0];    // down arrows either side of the sudden-death warning
+    // Hold-to-confirm ring: appears as soon as a start or cancel gesture is seen and fills over the hold.
+    private RectTransform holdRoot;
+    private CanvasGroup holdGroup;
+    private Image holdFill, holdSpinner;
+    private TextMeshProUGUI holdLabel;
+    private Material holdLabelOverlay;
+    private float holdSeenAt = -10f, holdProgress;
+    private Color holdColor = Color.white;
     private RectTransform toast;
     private CanvasGroup toastGroup;
     private Image toastAccent;
@@ -57,7 +66,7 @@ public sealed class FusionRoundHud : MonoBehaviour
     private Quaternion smoothedRotation = Quaternion.identity;
     private Vector3 smoothedHeading = Vector3.forward;
     private Transform statusHead;
-    private float roundLength = 60f, suddenDeathAt = 40f;
+    private float roundLength = 45f, suddenDeathAt = 25f;
     private float suddenDeathAmount;
     private float previousHit;
     private float damageFlashUntil;
@@ -93,7 +102,7 @@ public sealed class FusionRoundHud : MonoBehaviour
         if (vignetteRoot != null) DestroyHudObject(vignetteRoot.gameObject);
         if (takeoverRoot != null) DestroyHudObject(takeoverRoot.gameObject);
         clockBoards?.Destroy();
-        foreach (Material overlay in new[] { bannerTitleOverlay, bannerCaptionOverlay, takeoverImageOverlay, takeoverTitleOverlay, takeoverCaptionOverlay })
+        foreach (Material overlay in new[] { bannerTitleOverlay, bannerCaptionOverlay, takeoverImageOverlay, takeoverTitleOverlay, takeoverCaptionOverlay, holdLabelOverlay })
             if (overlay != null) DestroyHudObject(overlay);
         foreach (Material overlay in visorTextOverlays)
             if (overlay != null) DestroyHudObject(overlay);
@@ -128,8 +137,8 @@ public sealed class FusionRoundHud : MonoBehaviour
         HudKit.Image(timelineRoot, "Track", HudSprites.Panel(4), new Color(1f, 1f, 1f, 0.12f), Vector2.zero, new Vector2(440f, 6f), true, 1f);
         timelineFill = HudKit.Image(timelineRoot, "Fill", HudSprites.Panel(4), HudKit.A(Soft, 0.85f), new Vector2(-220f, 0f), new Vector2(0f, 6f), true, 1f);
         timelineFill.rectTransform.pivot = new Vector2(0f, 0.5f);
-        Marker(timelineRoot, HealPickupView.HealAt / 60f, HealPickupView.Green, "HEAL", 26f);
-        Marker(timelineRoot, 40f / 60f, Amber, "SUDDEN DEATH");
+        Marker(timelineRoot, HealPickupView.HealAt / roundLength, HealPickupView.Green, "HEAL", 26f);
+        Marker(timelineRoot, suddenDeathAt / roundLength, Amber, "DANGER");
         timelineHead = HudKit.Image(timelineRoot, "Head", HudSprites.Dot(), Color.white, new Vector2(-220f, 0f), new Vector2(26f, 26f));
         timelineRoot.gameObject.SetActive(false); // The phase band says the next action without tiny, overlapping labels.
 
@@ -147,6 +156,32 @@ public sealed class FusionRoundHud : MonoBehaviour
         bannerTitleOverlay = OverlayMaterial(bannerText);
         bannerCaptionOverlay = OverlayMaterial(bannerCaption);
         bannerGroup.alpha = 0f;
+        // Columns of down arrows either side of the sudden-death warning, lighting in turn toward the floor.
+        var arrows = new System.Collections.Generic.List<Image>();
+        foreach (float x in new[] { -690f, 690f })
+            for (int i = 0; i < 3; i++)
+                arrows.Add(OverlayImage(HudKit.Image(banner, "Down arrow", HudSprites.ChevronDown(), Color.clear,
+                    new Vector2(x, 80f - i * 66f), new Vector2(110f, 110f))));
+        dangerArrows = arrows.ToArray();
+
+        // Start/cancel hold ring, a little below the middle of the view.
+        holdRoot = HudKit.Rect(root, "Hold ring", new Vector2(0f, -70f), new Vector2(300f, 300f));
+        holdGroup = holdRoot.gameObject.AddComponent<CanvasGroup>();
+        OverlayImage(HudKit.Image(holdRoot, "Backing", HudSprites.Dot(), HudKit.A(Ink, 0.7f), Vector2.zero, new Vector2(320f, 320f)));
+        OverlayImage(HudKit.Image(holdRoot, "Track", HudSprites.Ring(0.14f), HudKit.A(Color.white, 0.18f), Vector2.zero, new Vector2(220f, 220f)));
+        holdFill = OverlayImage(HudKit.Image(holdRoot, "Fill", HudSprites.Ring(0.14f), Color.white, Vector2.zero, new Vector2(220f, 220f)));
+        holdFill.type = Image.Type.Filled;
+        holdFill.fillMethod = Image.FillMethod.Radial360;
+        holdFill.fillOrigin = (int)Image.Origin360.Top;
+        // A short arc spinning inside the ring: the gesture is seen, the game is working on it.
+        holdSpinner = OverlayImage(HudKit.Image(holdRoot, "Spinner", HudSprites.Ring(0.12f), Color.white, Vector2.zero, new Vector2(150f, 150f)));
+        holdSpinner.type = Image.Type.Filled;
+        holdSpinner.fillMethod = Image.FillMethod.Radial360;
+        holdSpinner.fillAmount = 0.25f;
+        holdLabel = HudKit.Text(holdRoot, "Label", HudKit.Display, 28f, Color.white, new Vector2(0f, -150f), new Vector2(500f, 44f), TextAlignmentOptions.Center);
+        holdLabel.characterSpacing = 10f;
+        holdLabelOverlay = OverlayMaterial(holdLabel);
+        holdGroup.alpha = 0f;
 
         // Toast under the clock.
         toast = HudKit.Rect(root, "Toast", new Vector2(0f, 150f), new Vector2(620f, 64f));
@@ -234,6 +269,29 @@ public sealed class FusionRoundHud : MonoBehaviour
         Position(eye);
         UpdateVignette();
         UpdateToast();
+        UpdateHold();
+    }
+
+    /// <summary>Shows the hold ring this frame, filled to progress (0..1); it fades once calls stop.</summary>
+    public void ShowHold(float progress, Color color, string label)
+    {
+        Initialize();
+        holdSeenAt = Time.time;
+        holdProgress = Mathf.Clamp01(progress);
+        holdColor = color;
+        holdLabel.text = label;
+    }
+
+    private void UpdateHold()
+    {
+        bool visible = Time.time - holdSeenAt < 0.15f;
+        holdGroup.alpha = Mathf.MoveTowards(holdGroup.alpha, visible ? 1f : 0f, Time.deltaTime * (visible ? 10f : 4f));
+        if (holdGroup.alpha <= 0f) return;
+        holdFill.fillAmount = holdProgress;
+        holdFill.color = holdColor;
+        holdSpinner.color = HudKit.A(Color.Lerp(holdColor, Color.white, 0.4f), 0.9f);
+        holdSpinner.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -Time.time * 360f);
+        holdLabel.color = Color.Lerp(holdColor, Color.white, 0.35f);
     }
 
     private void Position(Camera camera)
@@ -332,7 +390,7 @@ public sealed class FusionRoundHud : MonoBehaviour
 
             case FusionRoundDirector.RoundPhase.Sandbox:
                 clockText = "READY";
-                phaseLabel.text = "THUMBS UP 3S TO START";
+                phaseLabel.text = "THUMBS UP " + FusionRoundDirector.StartHoldSeconds + "S TO START";
                 phaseLabel.color = Friendly;
                 phaseBand.color = HudKit.A(Friendly, 0.1f);
                 SetTimeline(0f);
@@ -367,20 +425,15 @@ public sealed class FusionRoundHud : MonoBehaviour
                 else HideTakeover();
                 if (opening)
                     ShowBanner("fight", "", "", Friendly, 0f);
-                else if (sd >= -5f && sd < 0f)
-                {
-                    ShowBanner("suddenwarn", "SUDDEN DEATH", "", Amber, 1f);
-                    bannerCaption.text = "NEW ARENA IN " + Mathf.CeilToInt(-sd);
-                }
-                else if (sd >= 0f && sd < 2f)
-                    ShowBanner("suddendeath", "SUDDEN DEATH", "", Warn, 1f);
+                else if (sd >= -5f && sd < 2f) // held as the floor fire erupts
+                    ShowBanner("suddenwarn", "Danger!\nWatch your feet!", "", Amber, 1f);
                 else ShowBanner("none", "", "", Color.white, 0f);
 
                 bool rebuilding = sd >= -5f && sd < 0f;
-                phaseLabel.text = rebuilding ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-sd)
-                    : sd >= 0f ? "SUDDEN DEATH"
+                phaseLabel.text = rebuilding ? "WATCH YOUR FEET"
                     : round.HealState == 1 ? "HEAL AVAILABLE"
-                    : round.SoloOverride ? "SURVIVE ONE MINUTE" : "LOWER OPPONENT HEALTH";
+                    : sd >= 0f ? "WATCH YOUR FEET"
+                    : round.SoloOverride ? "SURVIVE " + Mathf.RoundToInt(roundLength) + " SECONDS" : "LOWER OPPONENT HEALTH";
                 Color statusColor = rebuilding ? Amber : Friendly;
                 phaseLabel.color = Color.Lerp(statusColor, Color.white, 0.3f);
                 phaseBand.color = HudKit.A(statusColor, rebuilding ? 0.16f : 0.08f);
@@ -531,7 +584,7 @@ public sealed class FusionRoundHud : MonoBehaviour
                 bannerText.text = title;
                 bannerCaption.text = caption;
                 bannerText.color = color;
-                bannerText.fontSize = title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
+                bannerText.fontSize = title.Contains('\n') ? 112f : title.Length <= 2 ? 220f : title.Length > 9 ? 140f : 160f;
                 bannerCaption.color = Color.white;
                 bannerCaption.fontSize = key.StartsWith("count") ? 30f : 34f;
                 bannerCaption.characterSpacing = key.StartsWith("count") ? 8f : 16f;
@@ -553,6 +606,17 @@ public sealed class FusionRoundHud : MonoBehaviour
         bannerText.rectTransform.localScale = Vector3.one * slam;
         bannerFlash.color = new Color(1f, 1f, 1f, 0.5f * Mathf.Exp(-age * 7f) * bannerGroup.alpha);
         banner.anchoredPosition = Vector2.zero;
+        // Danger warning: each column's arrows light one after another, top to bottom, pointing at the floor.
+        bool danger = bannerKey == "suddenwarn";
+        float sweep = Mathf.Repeat(Time.time * 1.4f, 1f) * 3f;
+        for (int i = 0; i < dangerArrows.Length; i++)
+        {
+            int row = i % 3;
+            float lit = Mathf.Clamp01(1f - Mathf.Abs(sweep - row - 0.5f));
+            dangerArrows[i].color = danger ? HudKit.A(Amber, 0.3f + 0.7f * lit) : Color.clear;
+            dangerArrows[i].rectTransform.anchoredPosition = new Vector2(dangerArrows[i].rectTransform.anchoredPosition.x,
+                80f - row * 66f - 10f * lit);
+        }
     }
 
     // ---------- Toast ----------
@@ -630,14 +694,14 @@ public sealed class FusionRoundHud : MonoBehaviour
         Initialize();
         Position(camera);
         ClockBoards()?.Show("1:12", Color.white, Friendly, 0.1f);
-        phaseLabel.text = "SUDDEN DEATH IN 5";
+        phaseLabel.text = "WATCH YOUR FEET";
         phaseBand.color = HudKit.A(Amber, 0.16f);
         ShowBanner("count5", "5", "", Friendly, 1f);
         bannerCaption.ForceMeshUpdate(true);
         if (bannerCaption.isTextOverflowing) throw new System.Exception("Countdown control hint overflows the HUD.");
-        ShowBanner("suddenwarn", "SUDDEN DEATH", "NEW ARENA IN 5", Amber, 1f);
-        bannerCaption.ForceMeshUpdate(true);
-        if (bannerCaption.isTextOverflowing) throw new System.Exception("Sudden-death warning overflows the HUD.");
+        ShowBanner("suddenwarn", "Danger!\nWatch your feet!", "", Amber, 1f);
+        bannerText.ForceMeshUpdate(true);
+        if (bannerText.isTextOverflowing) throw new System.Exception("Danger warning overflows the HUD.");
         bannerGroup.alpha = 1f;
         localCard.Preview(240, 0.8f);
         SetTimeline(0.2f);

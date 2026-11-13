@@ -25,6 +25,15 @@ public sealed class PlayAreaOutline : MonoBehaviour
 
     public Vector2 Size => size;
 
+    /// <summary>Resizes the outline about its centre and redraws it (for <see cref="ArenaSize"/>).</summary>
+    public void SetSize(Vector2 value)
+    {
+        size = value;
+        if (!isActiveAndEnabled) return;
+        Clear();
+        Build();
+    }
+
     /// <summary>Whether a point in this transform's space is over the play area, at any height.</summary>
     public bool Contains(Vector3 local) => Mathf.Abs(local.x) <= size.x * 0.5f && Mathf.Abs(local.z) <= size.y * 0.5f;
 

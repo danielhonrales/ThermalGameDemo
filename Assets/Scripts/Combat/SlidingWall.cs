@@ -18,9 +18,23 @@ public sealed class SlidingWall : MonoBehaviour
 
     private Vector3 home;
     private Transform homeParent;
+    private bool homed;
 
-    public float Travel => travel;
+    private float travelScale = 1f;
+
+    public float Travel => travel * travelScale;
     private Vector3 Axis => axis.sqrMagnitude > 0.0001f ? axis.normalized : Vector3.right;
+
+    /// <summary>The middle of the wall's track in world space.</summary>
+    public Vector3 HomeWorld => !homed ? transform.position : homeParent != null ? homeParent.TransformPoint(home) : home;
+
+    /// <summary>Moves the middle of the track and scales the travel (for <see cref="ArenaSize"/>).</summary>
+    public void SetHome(Vector3 world, float travelFactor)
+    {
+        travelScale = travelFactor;
+        if (!homed) { transform.position = world; return; }   // not playing: the placed position is the home
+        home = homeParent != null ? homeParent.InverseTransformPoint(world) : world;
+    }
 
     /// <summary>Offset along the travel direction at a clock time: a smooth back-and-forth that starts centred.</summary>
     public static float Offset(double time, float travel, float period)
@@ -30,6 +44,7 @@ public sealed class SlidingWall : MonoBehaviour
     {
         home = transform.localPosition;
         homeParent = transform.parent;
+        homed = true;
     }
 
     private void Update()
@@ -39,7 +54,7 @@ public sealed class SlidingWall : MonoBehaviour
         double time = NetworkClient.active || NetworkServer.active ? NetworkTime.time : Time.timeAsDouble;
         // In world metres, whatever the scale of the cover it sits in.
         Vector3 origin = homeParent != null ? homeParent.TransformPoint(home) : home;
-        transform.position = origin + transform.TransformDirection(Axis) * Offset(time, travel, period);
+        transform.position = origin + transform.TransformDirection(Axis) * Offset(time, Travel, period);
     }
 
     private void OnDrawGizmosSelected()
@@ -48,6 +63,6 @@ public sealed class SlidingWall : MonoBehaviour
         Vector3 origin = Application.isPlaying && transform.parent != null ? transform.parent.TransformPoint(home) : transform.position;
         Vector3 direction = transform.TransformDirection(Axis);
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(origin - direction * travel, origin + direction * travel);
+        Gizmos.DrawLine(origin - direction * Travel, origin + direction * Travel);
     }
 }

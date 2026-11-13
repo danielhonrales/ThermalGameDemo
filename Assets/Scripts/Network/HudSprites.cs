@@ -86,6 +86,21 @@ public static class HudSprites
         return Mathf.Clamp01(half - 1f - r) * Mathf.Clamp01(r - half * (1f - width));
     }, Vector4.zero);
 
+    /// <summary>Downward-pointing chevron (a "V" of thick strokes), for arrows.</summary>
+    public static Sprite ChevronDown() => Make("chevrondown", 128, (x, y, s) =>
+    {
+        // Distance to the V's two strokes, from the top corners down to the point at the bottom.
+        Vector2 p = new Vector2(x / s, y / s), tip = new Vector2(0.5f, 0.24f);
+        float Stroke(Vector2 from)
+        {
+            Vector2 along = tip - from;
+            float t = Mathf.Clamp01(Vector2.Dot(p - from, along) / along.sqrMagnitude);
+            return (p - (from + along * t)).magnitude;
+        }
+        float d = Mathf.Min(Stroke(new Vector2(0.1f, 0.74f)), Stroke(new Vector2(0.9f, 0.74f)));
+        return Mathf.Clamp01((0.085f - d) * s + 0.5f);
+    }, Vector4.zero);
+
     /// <summary>Horizontal fade (opaque left, transparent right) for banners.</summary>
     public static Sprite FadeBand() => Make("fadeband", 128, (x, y, s) =>
     {

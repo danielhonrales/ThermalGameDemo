@@ -205,8 +205,6 @@ public sealed class NetworkPlayerHealth : NetworkBehaviour
             RpcPracticeImpact(practiceDamage);
             return;
         }
-        if (round != null && round.IsFighting && round.FightElapsed < 20f)
-            damage = Mathf.CeilToInt(damage * 0.5f);
         if (round != null) damage = Mathf.CeilToInt(damage * round.DamageMultiplier);
         damage = Mathf.Clamp(damage, 1, maxHealth);
         damage = Mathf.Min(damage, CurrentHealth);

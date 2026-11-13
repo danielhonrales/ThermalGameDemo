@@ -615,7 +615,7 @@ public sealed class SpectatorDirector : MonoBehaviour
         {
             case FusionRoundDirector.RoundPhase.Sandbox:
                 title = "PRACTICE";
-                detail = "THUMBS UP FOR 3 SECONDS TO START";
+                detail = "THUMBS UP FOR " + FusionRoundDirector.StartHoldSeconds + " SECONDS TO START";
                 return;
             case FusionRoundDirector.RoundPhase.Countdown:
                 title = Mathf.Max(1, Mathf.CeilToInt(round.PhaseRemaining)).ToString();
@@ -626,8 +626,7 @@ public sealed class SpectatorDirector : MonoBehaviour
                 int seconds = Mathf.Max(0, Mathf.CeilToInt(round.PhaseRemaining));
                 title = $"{seconds / 60}:{seconds % 60:00}";
                 float suddenDeath = round.SuddenDeathClock;
-                detail = suddenDeath >= -5f && suddenDeath < 0f ? "SUDDEN DEATH IN " + Mathf.CeilToInt(-suddenDeath)
-                    : suddenDeath >= 0f ? "SUDDEN DEATH"
+                detail = suddenDeath >= -5f ? "DANGER! WATCH YOUR FEET"
                     : round.SoloOverride ? "SOLO ROUND" : "FIGHT";
                 if (suddenDeath >= -5f) accent = FusionRoundHud.Amber;
                 return;

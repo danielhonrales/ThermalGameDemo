@@ -24,7 +24,7 @@ public sealed class SandboxGuideView : MonoBehaviour
         Card("FIRE BEAM", "FINGER GUN, ONE OR TWO FINGERS", Fire, 180f, 0);
         Card("ICE BOMB", "OPEN PALM FACING AWAY FROM YOU", Ice, -5f, 1);
         Card("SHIELD", "FIST WITH PALM FACING YOU", Shield, -190f, 2);
-        Label(board, "EITHER PLAYER: THUMBS UP FOR 3 SECONDS TO START", 28f,
+        Label(board, "EITHER PLAYER: THUMBS UP FOR " + FusionRoundDirector.StartHoldSeconds + " SECONDS TO START", 28f,
             Color.white, new Vector2(0f, -390f), new Vector2(1180f, 65f));
         board.gameObject.SetActive(false);
     }

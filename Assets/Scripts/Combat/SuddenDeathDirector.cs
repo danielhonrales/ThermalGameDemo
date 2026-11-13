@@ -11,7 +11,8 @@ using UnityEngine.Rendering;
 [DisallowMultipleComponent]
 public sealed class SuddenDeathDirector : MonoBehaviour
 {
-    private const float WarningLead = 6f;
+    // Matches the HUD's 5-second sudden-death warning, so nothing warns before it.
+    private const float WarningLead = 5f;
     public const float PickupStart = -4f;
     public const float DeliveryStart = PickupStart;
     private const float FloorOffset = -0.045f;
@@ -28,18 +29,20 @@ public sealed class SuddenDeathDirector : MonoBehaviour
     // favoured), while swinging from near the middle out to the edges and corners, so no spot stays safe.
     // At most 0.5 m/s.
     private const float FireOrbit = 1.337f, FireOrbitSwing = 0.613f, FireSpin = 0.233f, FireSwingRate = 0.404f;
-    // Half the play area's side (ArenaMechanicsChecks keeps it in step); zones are held fully inside it.
-    private const float PlayAreaHalf = 1.95f;
+    // Half the authored play area's side (ArenaMechanicsChecks keeps it in step); zones are held fully inside it.
+    // The orbit and the square both scale with the chosen arena size (ArenaSize), so the zones sweep the
+    // whole floor at any size.
+    private const float PlayAreaHalf = ArenaSize.AuthoredSide * 0.5f;
 
     /// <summary>Where ground fire zone `index` is, in the arena frame, at a sudden-death clock time; before sudden death, where it will erupt.</summary>
     public static Vector2 GroundFireAt(int index, float clock)
     {
-        float t = Mathf.Max(0f, clock);
-        float radius = FireOrbit + FireOrbitSwing * Mathf.Sin(FireSwingRate * t);
+        float t = Mathf.Max(0f, clock), k = ArenaSize.Factor;
+        float radius = (FireOrbit + FireOrbitSwing * Mathf.Sin(FireSwingRate * t)) * k;
         float angle = Mathf.PI * (0.25f + 0.5f * index) + FireSpin * t;
         // Held inside the square rather than a circle, so the zones also sweep along the edges and into the corners.
         // A few centimetres spare: PlayAreaCentre may sit up to 1 cm off the scene's outline.
-        float edge = PlayAreaHalf - GroundFireRadius - 0.03f;
+        float edge = PlayAreaHalf * k - GroundFireRadius - 0.03f;
         Vector2 offset = radius * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         return PlayAreaCentre + new Vector2(Mathf.Clamp(offset.x, -edge, edge), Mathf.Clamp(offset.y, -edge, edge));
     }

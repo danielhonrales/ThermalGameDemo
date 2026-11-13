@@ -21,6 +21,8 @@ public sealed class ArenaClockBoards
     private readonly List<TextMeshProUGUI> times = new List<TextMeshProUGUI>();
     private readonly List<Image> accents = new List<Image>(), glows = new List<Image>();
     private string shownText;
+    private readonly PlayAreaOutline area;
+    private Vector2 placedFor;
 
     /// <summary>Builds the boards around the scene's play area, or returns null when it has none.</summary>
     public static ArenaClockBoards Create()
@@ -30,9 +32,9 @@ public sealed class ArenaClockBoards
     }
 
     /// <summary>Where each board's middle stands in the play area's frame, and the way its face looks (outward).</summary>
-    public static IEnumerable<(Vector3 position, Vector3 outward)> Placements(Vector2 areaSize)
+    public static IEnumerable<(Vector3 position, Vector3 outward)> Placements(Vector2 areaSize, float outside = Outside)
     {
-        float x = areaSize.x * 0.5f + Outside, z = areaSize.y * 0.5f + Outside;
+        float x = areaSize.x * 0.5f + outside, z = areaSize.y * 0.5f + outside;
         yield return (new Vector3(0f, Height, z), Vector3.forward);
         yield return (new Vector3(x, Height, 0f), Vector3.right);
         yield return (new Vector3(0f, Height, -z), Vector3.back);
@@ -41,14 +43,11 @@ public sealed class ArenaClockBoards
 
     private ArenaClockBoards(PlayAreaOutline area)
     {
+        this.area = area;
         string[] sides = { "North", "East", "South", "West" };
-        int i = 0;
-        foreach (var (position, outward) in Placements(area.Size))
+        for (int i = 0; i < sides.Length; i++)
         {
-            RectTransform board = HudKit.Canvas("Round clock " + sides[i++], area.transform, BoardSize, 0);
-            // A canvas reads correctly from behind its forward axis, so it looks outward to face the middle.
-            board.localPosition = position;
-            board.localRotation = Quaternion.LookRotation(outward, Vector3.up);
+            RectTransform board = HudKit.Canvas("Round clock " + sides[i], area.transform, BoardSize, 0);
             board.localScale = Vector3.one * Scale;
             glows.Add(HudKit.Image(board, "Bloom", HudSprites.Dot(), Color.clear, Vector2.zero, BoardSize + new Vector2(400f, 300f)));
             HudKit.Image(board, "Plate", HudSprites.Panel(18), HudKit.A(FusionRoundHud.Ink, 0.55f), Vector2.zero, BoardSize, true, 4f);
@@ -59,11 +58,29 @@ public sealed class ArenaClockBoards
             times.Add(time);
             boards.Add(board);
         }
+        Place();
+    }
+
+    /// <summary>Stands the boards around the outline's current size. The pillars they stand in front of
+    /// spread out with a larger arena (see ArenaSize), so the gap past the outline scales too.</summary>
+    private void Place()
+    {
+        placedFor = area.Size;
+        int i = 0;
+        foreach (var (position, outward) in Placements(area.Size, Outside * ArenaSize.Factor))
+        {
+            RectTransform board = boards[i++];
+            if (board == null) continue;
+            // A canvas reads correctly from behind its forward axis, so it looks outward to face the middle.
+            board.localPosition = position;
+            board.localRotation = Quaternion.LookRotation(outward, Vector3.up);
+        }
     }
 
     /// <summary>Shows a time (or a word) in a colour, with an accent for the glow and underline.</summary>
     public void Show(string text, Color color, Color accent, float glow)
     {
+        if (area != null && area.Size != placedFor) Place();
         bool changed = text != shownText;
         shownText = text;
         for (int i = 0; i < boards.Count; i++)

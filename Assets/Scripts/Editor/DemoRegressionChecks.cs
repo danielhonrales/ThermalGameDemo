@@ -40,14 +40,57 @@ public static class DemoRegressionChecks
         Debug.Log("LAN ELECTION PASSED: host ID tie-break preserves a full match.");
     }
 
+    /// <summary>Each Pi-menu arena size spreads the open scene's layout about the play area's centre and
+    /// back again; needs Game.unity open (it is left at the authored size, unsaved).</summary>
+    public static void RunArenaSizeCheck()
+    {
+        Transform arena = GameObject.Find("ArenaRoot").transform;
+        var outline = UnityEngine.Object.FindFirstObjectByType<PlayAreaOutline>();
+        Vector3 centre = arena.InverseTransformPoint(outline.transform.position);
+        Transform cover = arena.Find("GameplayRoot/GameplayCover");
+        Transform pillar = cover.Find("Obstacle Pillar C"), spawn = arena.Find("GameplayRoot/SpawnPoints/PlayerAStart");
+        Transform ceiling = arena.Find("Environment/VirtualCeiloingAlwaysVisible");
+        Vector3 Local(Transform t) => arena.InverseTransformPoint(t.position);
+        Vector3 pillarAt = Local(pillar), spawnAt = Local(spawn), ceilingScale = ceiling.localScale;
+        Vector2 outlineSize = outline.Size;
+        foreach (float side in ArenaSize.Options)
+        {
+            ArenaSize.Apply(side);
+            float k = side / ArenaSize.AuthoredSide;
+            if (Mathf.Abs(outline.Size.x - side) > 0.001f || Mathf.Abs(outline.Size.y - side) > 0.001f)
+                throw new Exception($"The play area outline should be {side} m square, not {outline.Size}.");
+            foreach (var (t, authored) in new[] { (pillar, pillarAt), (spawn, spawnAt) })
+            {
+                Vector3 now = Local(t), want = new Vector3(centre.x + (authored.x - centre.x) * k, authored.y, centre.z + (authored.z - centre.z) * k);
+                if (Vector3.Distance(now, want) > 0.005f)
+                    throw new Exception($"{t.name} should sit at {want} in a {side} m arena, not {now}.");
+            }
+            if (Mathf.Abs(ceiling.localScale.x - ceilingScale.x * k) > 0.001f || Mathf.Abs(ceiling.localScale.y - ceilingScale.y) > 0.001f)
+                throw new Exception("The ceiling's footprint must scale with the arena, keeping its height.");
+            float half = side * 0.5f;
+            for (float clock = 0f; clock <= 60f; clock += 0.25f)
+                for (int i = 0; i < SuddenDeathDirector.GroundFireCount; i++)
+                {
+                    Vector2 offset = SuddenDeathDirector.GroundFireAt(i, clock) - SuddenDeathDirector.PlayAreaCentre;
+                    if (Mathf.Max(Mathf.Abs(offset.x), Mathf.Abs(offset.y)) + SuddenDeathDirector.GroundFireRadius > half + 0.001f)
+                        throw new Exception($"Ground fire leaves the {side} m play area at {clock:0.00} s.");
+                }
+        }
+        ArenaSize.Apply(ArenaSize.AuthoredSide);
+        if (Vector3.Distance(Local(pillar), pillarAt) > 0.001f || Vector3.Distance(Local(spawn), spawnAt) > 0.001f
+            || outline.Size != outlineSize || ceiling.localScale != ceilingScale)
+            throw new Exception("Returning to the authored size must restore the authored layout.");
+        Debug.Log("ARENA SIZE PASSED: 3-5 m arenas spread cover, spawns, ceiling and ground fire about the centre, and restore exactly.");
+    }
+
     public static void RunArenaSequenceCheck()
     {
         float coverDeliveredAt = SuddenDeathDirector.DeliveryStart + CoverDrone.GrabMid / CoverDrone.DeliverySpeed;
         float dronesGoneAt = SuddenDeathDirector.DeliveryStart + CoverDrone.ExchangeGone / CoverDrone.DeliverySpeed;
         if (SuddenDeathDirector.PickupStart != SuddenDeathDirector.DeliveryStart
             || coverDeliveredAt >= 0f || dronesGoneAt >= 0f)
-            throw new Exception("Sudden-death cover must settle before 40 seconds.");
-        Debug.Log("ARENA SEQUENCE PASSED: drones deliver cover and leave before 40 seconds.");
+            throw new Exception("Sudden-death cover must settle before sudden death begins.");
+        Debug.Log("ARENA SEQUENCE PASSED: drones deliver cover and leave before sudden death begins.");
     }
 
     public static void RunSoloCheck()
@@ -508,6 +551,28 @@ public static class DemoRegressionChecks
             || HandPoseRouter.Classify(straight, straight, curled, curled, false, HandPoseRouter.PoseKind.Neutral, false)
             != HandPoseRouter.PoseKind.Fire)
             throw new Exception("Two-finger-only fire (the left-hand match reset) must still need both fingers.");
+        // A finger gun pointed straight along the line of sight hides its fingers, so it reads half-bent:
+        // it still fires, but a relaxed hand pointed the same way doesn't.
+        if (HandPoseRouter.Classify(0.72f, 0.30f, 0.45f, 0.45f, false, HandPoseRouter.PoseKind.Neutral, true, true)
+            != HandPoseRouter.PoseKind.Fire)
+            throw new Exception("A finger gun pointed along the line of sight must still fire.");
+        if (HandPoseRouter.Classify(0.70f, 0.65f, 0.55f, 0.55f, false, HandPoseRouter.PoseKind.Neutral, true, true)
+            != HandPoseRouter.PoseKind.Neutral
+            || HandPoseRouter.Classify(0.72f, 0.30f, 0.45f, 0.45f, false, HandPoseRouter.PoseKind.Neutral, true, false)
+            != HandPoseRouter.PoseKind.Neutral)
+            throw new Exception("Only a clear finger gun pointed along the line of sight may use the looser fire thresholds.");
+        // Thumbs down (the two-hand round cancel) is the thumbs-up fist turned over; a hand whose thumb
+        // isn't tracked must not read as either.
+        if (!HandPoseRouter.ClassifyThumbsDown(0.9f, -0.8f, 0.2f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsUp(0.9f, -0.8f, 0.2f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsDown(0.9f, 0.8f, 0.2f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsDown(0.9f, -0.8f, 0.9f, 0.2f, 0.3f, 0.3f)
+            || HandPoseRouter.ClassifyThumbsDown(-1f, -1f, 0.2f, 0.2f, 0.3f, 0.3f))
+            throw new Exception("Thumbs-down fixture failed.");
+        Vector3 eyeAt = new Vector3(0f, 1.6f, 0f);
+        if (!HandPoseRouter.IsPointingAlongView(eyeAt, new Vector3(0.2f, 1.35f, 0.35f), new Vector3(0.242f, 1.297f, 0.424f), HandPoseRouter.PointingAwayDegrees)
+            || HandPoseRouter.IsPointingAlongView(eyeAt, new Vector3(0.2f, 1.35f, 0.35f), new Vector3(0.12f, 1.36f, 0.4f), HandPoseRouter.PointingAwayDegrees))
+            throw new Exception("Pointing along the line of sight is misjudged.");
         Quaternion rotation = Quaternion.Euler(70f, 105f, 33f);
         float rotated = HandPoseRouter.MeasureExtension(rotation * Direction(0), rotation * Direction(8),
             rotation * Direction(12), rotation * Direction(15));

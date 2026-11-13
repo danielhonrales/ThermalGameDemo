@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 public sealed class HealPickupView : MonoBehaviour
 {
     /// <summary>Seconds into the fight when the first heal appears.</summary>
-    public const float HealAt = 19f;
+    public const float HealAt = 10f;
     /// <summary>Seconds into sudden death when the second heal appears.</summary>
     public const float SuddenDeathHealAt = 7f;
     internal static readonly Color Green = new Color(0.22f, 1f, 0.45f, 1f);

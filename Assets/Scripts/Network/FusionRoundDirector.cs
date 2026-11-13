@@ -10,7 +10,7 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 {
     public enum RoundPhase { Waiting, Sandbox, Countdown, Fighting, Result }
 
-    [SerializeField, Min(30f)] private float roundSeconds = 60f;
+    [SerializeField, Min(30f)] private float roundSeconds = 45f;
     [SerializeField, Min(1f)] private float countdownSeconds = 5f;
     [SerializeField, Min(1f)] private float resultSeconds = 7f;
     [Header("Sudden death")]
@@ -27,7 +27,10 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         + "Each heal picks this point or its mirror through the middle at random, so neither side is favoured.")]
     [SerializeField] private Vector3 healAreaPoint = new Vector3(1f, 0f, -0.6f);
     private const float ResetHoldSeconds = 3f;
-    private const float SoloHoldSeconds = 3f;
+    /// <summary>How long a thumbs-up starts the round after.</summary>
+    public const float StartHoldSeconds = 2f;
+    /// <summary>How long both thumbs down cancel a round after (countdown, fight or result).</summary>
+    public const float CancelHoldSeconds = 2f;
 
     [SyncVar] public bool IsDirector;
     [SyncVar] public bool IsCalibrated;
@@ -43,6 +46,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     [SyncVar] public int HealTakerId = -1;
     /// <summary>Bit per sudden-death drone that has been shot down this round.</summary>
     [SyncVar] public int DroneDownMask;
+    /// <summary>Side of the square arena in metres, chosen at a headset's Pi menu; 0 keeps the scene's authored size.</summary>
+    [SyncVar] public float ArenaSide;
 
     public readonly SyncList<byte> WoodHeat = new SyncList<byte>();
     private double nextWoodHit;
@@ -108,6 +113,8 @@ public sealed class FusionRoundDirector : NetworkBehaviour
     private float startPoseSince = -1f;
     private bool startPoseWasLeft;
     private bool startRequested;
+    private float cancelPoseSince = -1f;
+    private bool cancelRequested;
     private double nextResetAllowedAt;
     private int healsSpawned;   // server only
     // The practice guide cards are switched off for now.
@@ -287,9 +294,11 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         {
             startPoseSince = Time.time;
             startPoseWasLeft = left;
-            FusionRoundHud.Current?.Toast("HOLD THUMBS UP TO START", FusionRoundHud.Friendly, SoloHoldSeconds);
         }
-        if (startRequested || Time.time - startPoseSince < SoloHoldSeconds) return;
+        // The ring appears as soon as the thumbs-up is seen and fills over the hold.
+        float held = (Time.time - startPoseSince) / StartHoldSeconds;
+        FusionRoundHud.Current?.ShowHold(held, FusionRoundHud.Friendly, "STARTING");
+        if (startRequested || held < 1f) return;
         startRequested = true;
         if (isServer) Active()?.TryStartRound(netIdentity);
         else CmdStartRound();
@@ -297,6 +306,71 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 
     [Command]
     private void CmdStartRound() => Active()?.TryStartRound(netIdentity);
+
+    private void UpdateCancelGesture()
+    {
+        RoundPhase? phase = Active()?.Phase;
+        bool inRound = phase == RoundPhase.Countdown || phase == RoundPhase.Fighting || phase == RoundPhase.Result;
+        // Both hands at once, so neither a combat pose nor one stray hand cancels a round.
+        if (!inRound || leftResetPose == null || rightSoloPose == null
+            || !leftResetPose.IsThumbsDown || !rightSoloPose.IsThumbsDown)
+        {
+            cancelPoseSince = -1f;
+            cancelRequested = false;
+            return;
+        }
+        if (cancelPoseSince < 0f) cancelPoseSince = Time.time;
+        float held = (Time.time - cancelPoseSince) / CancelHoldSeconds;
+        FusionRoundHud.Current?.ShowHold(held, FusionRoundHud.Enemy, "CANCELLING");
+        if (cancelRequested || held < 1f) return;
+        cancelRequested = true;
+        if (isServer) Active()?.CancelRound(netIdentity);
+        else CmdCancelRound();
+    }
+
+    /// <summary>Passes a size chosen at this headset's Pi menu on to every headset; the latest choice wins.</summary>
+    private void SendArenaSize()
+    {
+        float side = ArenaSize.PendingRequest;
+        if (side <= 0f || Active() == null) return;
+        ArenaSize.ClearRequest();
+        if (isServer) SetArenaSide(side);
+        else CmdSetArenaSide(side);
+    }
+
+    [Command]
+    private void CmdSetArenaSide(float side) => SetArenaSide(side);
+
+    [Server]
+    private void SetArenaSide(float side)
+    {
+        FusionRoundDirector director = Active();
+        if (director == null || !ArenaSize.IsOption(side)) return;
+        director.ArenaSide = side;
+        Debug.Log($"[FusionRoundDirector] Arena set to {side:0.##} x {side:0.##} m.");
+    }
+
+    [Command]
+    private void CmdCancelRound() => Active()?.CancelRound(netIdentity);
+
+    /// <summary>Ends the round in progress without a result and returns everyone to practice; the score stands.</summary>
+    [Server]
+    private void CancelRound(NetworkIdentity requester)
+    {
+        List<NetworkPlayerHealth> players = Players();
+        if ((Phase != RoundPhase.Countdown && Phase != RoundPhase.Fighting && Phase != RoundPhase.Result)
+            || !players.Any(player => player.netIdentity == requester)) return;
+        PhaseCode = CanEnterSandbox(players.Count, BothCalibrated(players))
+            ? (int)RoundPhase.Sandbox : (int)RoundPhase.Waiting;
+        phaseEndsAt = 0;
+        WinnerPlayerId = -1;
+        ResetHeal();
+        ResetPlayers(players);
+        RpcRoundCancelled();
+    }
+
+    [ClientRpc]
+    private void RpcRoundCancelled() => FusionRoundHud.Current?.Toast("MATCH CANCELLED", FusionRoundHud.Enemy, 2.5f);
 
     [Server]
     private void TryStartRound(NetworkIdentity requester)
@@ -372,7 +446,9 @@ public sealed class FusionRoundDirector : NetworkBehaviour
             // Float over an open corner, left or right at random (in the shared canonical frame), clear of cover.
             var area = FindFirstObjectByType<PlayAreaOutline>();
             Transform arena = GameObject.Find("ArenaRoot")?.transform;
-            Vector3 arenaPoint = area != null ? area.transform.TransformPoint(Random.value < 0.5f ? healAreaPoint : -healAreaPoint)
+            // The corner point spreads out with the chosen arena size, like the cover around it.
+            Vector3 corner = Vector3.Scale(healAreaPoint, new Vector3(ArenaSize.Factor, 1f, ArenaSize.Factor));
+            Vector3 arenaPoint = area != null ? area.transform.TransformPoint(Random.value < 0.5f ? corner : -corner)
                 : arena != null ? arena.TransformPoint(healArenaPoint) : healArenaPoint;
             HealCenter = NetworkPlayerAlignment.HasCalibration
                 ? Flatten(NetworkPlayerAlignment.InverseTransformPoint(arenaPoint)) + Vector3.up * healHeight
@@ -415,9 +491,13 @@ public sealed class FusionRoundDirector : NetworkBehaviour
         {
             UpdateResetGesture();
             UpdateStartGesture();
+            UpdateCancelGesture();
+            SendArenaSize();
         }
         if (!isClient || !IsDirector) return;
         cachedDirector = this;
+        // The arena only changes size between rounds, on every headset at the same phase change.
+        if (Phase == RoundPhase.Waiting || Phase == RoundPhase.Sandbox) ArenaSize.Apply(ArenaSide);
         if (hud == null)
         {
             hud = FindFirstObjectByType<FusionRoundHud>();
@@ -500,6 +580,6 @@ public sealed class FusionRoundDirector : NetworkBehaviour
 
     private void OnApplicationPause(bool paused)
     {
-        if (paused) { resetPoseSince = -1f; startPoseSince = -1f; }
+        if (paused) { resetPoseSince = -1f; startPoseSince = -1f; cancelPoseSince = -1f; }
     }
 }

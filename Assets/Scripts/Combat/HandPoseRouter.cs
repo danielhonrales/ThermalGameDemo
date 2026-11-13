@@ -31,7 +31,7 @@ public sealed class HandPoseRouter : MonoBehaviour
     private float nextReferenceSearch;
     private Ray fireRay;
     private bool hasFireRay;
-    private bool thumbsUp;
+    private bool thumbsUp, thumbsDown;
     private OVRPlugin.Hand handSide = OVRPlugin.Hand.HandRight;
 
     public PoseKind Current { get { Evaluate(); return current; } }
@@ -52,6 +52,7 @@ public sealed class HandPoseRouter : MonoBehaviour
     public bool IsIcePose => Current == PoseKind.Ice;
     public bool IsShieldPose => Current == PoseKind.Shield;
     public bool IsThumbsUp { get { Evaluate(); return thumbsUp; } }
+    public bool IsThumbsDown { get { Evaluate(); return thumbsDown; } }
     /// <summary>Fire only on the two-finger gun, as for a gesture that must not be made by accident.</summary>
     public void RequireTwoFingerGun() => looseFingerGun = false;
     public float ShieldLean => shieldLean;
@@ -149,7 +150,7 @@ public sealed class HandPoseRouter : MonoBehaviour
         handAnchor = null;
         evaluatedFrame = -1;
         current = candidate = PoseKind.Neutral;
-        thumbsUp = false;
+        thumbsUp = thumbsDown = false;
         FindReferences();
     }
 
@@ -188,7 +189,7 @@ public sealed class HandPoseRouter : MonoBehaviour
             {
                 current = candidate = PoseKind.Neutral;
                 hasFireRay = false;
-                thumbsUp = false;
+                thumbsUp = thumbsDown = false;
                 departureSince = -1f;
             }
             Trace(false, -1f, -1f, -1f, -1f, false, PoseKind.Neutral);
@@ -209,9 +210,14 @@ public sealed class HandPoseRouter : MonoBehaviour
         float upward = thumbBase != null && thumbTip != null
             ? Vector3.Dot((thumbTip.position - thumbBase.position).normalized, Vector3.up) : -1f;
         thumbsUp = ClassifyThumbsUp(straightness, upward, index, middle, ring, pinky);
+        thumbsDown = ClassifyThumbsDown(straightness, upward, index, middle, ring, pinky);
         if (index >= 0f || middle >= 0f) lastValidAt = Time.unscaledTime;
         bool palmUp = handAnchor != null && Vector3.Dot(-handAnchor.up, Vector3.up) > 0.35f;
-        PoseKind observed = Classify(index, middle, ring, pinky, palmUp, current, looseFingerGun);
+        Transform wristBone = Bone(OVRSkeleton.BoneId.XRHand_Wrist, OVRSkeleton.BoneId.Hand_WristRoot);
+        Camera eye = Camera.main;
+        bool pointingAway = eye != null && wristBone != null && middleBase != Vector3.zero
+            && IsPointingAlongView(eye.transform.position, wristBone.position, middleBase, PointingAwayDegrees);
+        PoseKind observed = Classify(index, middle, ring, pinky, palmUp, current, looseFingerGun, pointingAway);
         if (observed == PoseKind.Ice && !IsPalmFacing(false, icePalmMaxAngle)) observed = PoseKind.Neutral;
         if (observed == PoseKind.Shield && !IsPalmFacing(true, shieldPalmMaxAngle)) observed = PoseKind.Neutral;
         AdvancePose(observed, Time.unscaledTime, poseExitGraceSeconds,
@@ -228,8 +234,12 @@ public sealed class HandPoseRouter : MonoBehaviour
 
     // Entry thresholds are stricter than hold thresholds so a relaxed, resting hand stays Neutral.
     // oneFingerGun lets fire take the index alone; otherwise it needs the index and middle fingers.
+    // pointingAway: the hand points along the line of sight, hiding its fingers from the headset's
+    // cameras, so the tracker only guesses their bend and a held finger gun reads as half-bent. Fire
+    // then starts at its hold thresholds, as long as the index still clearly stands out from the
+    // tucked fingers, so a relaxed hand pointed forward stays Neutral.
     public static PoseKind Classify(float index, float middle, float ring, float pinky,
-        bool palmUp, PoseKind previous, bool oneFingerGun = true)
+        bool palmUp, PoseKind previous, bool oneFingerGun = true, bool pointingAway = false)
     {
         float straight = previous == PoseKind.Fire || previous == PoseKind.Ice ? 0.67f : 0.82f;
         bool indexOut = index >= straight;
@@ -238,10 +248,14 @@ public sealed class HandPoseRouter : MonoBehaviour
         bool outerOpen = (ring >= open && (pinky >= open || pinky < 0f))
             || (pinky >= open && ring < 0f);
         if (indexOut && middleOut && outerOpen) return PoseKind.Ice;
-        float tucked = previous == PoseKind.Fire ? 0.62f : 0.42f;
+        bool hidden = pointingAway && previous != PoseKind.Fire;
+        float fireStraight = hidden ? 0.67f : straight;
+        float tucked = previous == PoseKind.Fire || hidden ? 0.62f : 0.42f;
         bool outerTucked = (ring < 0f || ring <= tucked) && (pinky < 0f || pinky <= tucked)
             && (ring >= 0f || pinky >= 0f);
-        if (indexOut && (middleOut || oneFingerGun) && outerTucked) return PoseKind.Fire;
+        bool standsOut = !hidden || index - Mathf.Max(ring, pinky) >= 0.25f;
+        if (index >= fireStraight && (middle >= fireStraight || oneFingerGun) && outerTucked && standsOut)
+            return PoseKind.Fire;
         // A shield needs a real fist: all tracked fingers curled, not just a loose resting hand.
         bool holding = previous == PoseKind.Shield;
         float curled = holding ? 0.40f : 0.26f;
@@ -249,6 +263,17 @@ public sealed class HandPoseRouter : MonoBehaviour
         if (index >= 0f && middle >= 0f && index <= curled && middle <= curled
             && ring <= outerCurled && pinky <= outerCurled) return PoseKind.Shield;
         return PoseKind.Neutral;
+    }
+
+    /// <summary>How close to the eye's line to the hand the hand must point for its fingers to count as hidden.</summary>
+    public const float PointingAwayDegrees = 35f;
+
+    /// <summary>True when the hand (wrist to middle knuckle) points within maxDegrees of the line from the eye to the hand.</summary>
+    public static bool IsPointingAlongView(Vector3 eye, Vector3 wrist, Vector3 middleKnuckle, float maxDegrees)
+    {
+        Vector3 hand = middleKnuckle - wrist, sight = middleKnuckle - eye;
+        return hand.sqrMagnitude > 0.000001f && sight.sqrMagnitude > 0.000001f
+            && Vector3.Angle(hand, sight) <= maxDegrees;
     }
 
     /// <summary>Direction the tracked palm faces; false while the hand isn't tracked.</summary>
@@ -309,6 +334,12 @@ public sealed class HandPoseRouter : MonoBehaviour
         => straightness >= 0.45f && upward >= 0.55f
             && index >= 0f && index <= 0.4f && middle >= 0f && middle <= 0.4f
             && ring >= 0f && ring <= 0.5f && pinky >= 0f && pinky <= 0.5f;
+
+    /// <summary>The same fist with a straight thumb, pointing down instead of up. A missing thumb reads
+    /// straightness -1, so it can't pass as pointing down.</summary>
+    public static bool ClassifyThumbsDown(float straightness, float upward,
+        float index, float middle, float ring, float pinky)
+        => ClassifyThumbsUp(straightness, -upward, index, middle, ring, pinky);
 
     public const float ShieldConfirmSeconds = 0.18f;
     public const float AttackConfirmSeconds = 0.28f;

@@ -167,7 +167,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  roundSeconds: 60
+  roundSeconds: 45
   countdownSeconds: 5
   resultSeconds: 7
   suddenDeathSeconds: 20
